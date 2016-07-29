@@ -1,0 +1,22 @@
+{
+  "name": "descut",
+  "homepage": "https://github.com/mgckind/descut",
+  "authors": [
+    "Matias Carrasco Kind <mgckind@gmail.com>"
+  ],
+  "description": "webpage for DES cutouts services",
+  "main": "",
+  "license": "NCSA",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-elements": "PolymerElements/iron-elements#^1.0.10",
+    "paper-elements": "PolymerElements/paper-elements#^1.0.7"
+  }
+}
