@@ -1,0 +1,170 @@
+<script src="../bower_components/page/page.js"></script>
+<script>
+  window.addEventListener('WebComponentsReady', function() {
+    var newtest = true;
+    var userin = false;
+    if (window.location.port === '') {  // if production
+      page.base(app.baseUrl.replace(/\/$/, ''));
+    }
+    // Middleware
+    function scrollToTop(ctx, next) {
+      app.scrollPageToTop();
+      next();
+    }
+    function closeDrawer(ctx, next) {
+      app.closeDrawer();
+      next();
+    }
+    // Routes
+    page('*', scrollToTop, closeDrawer, function(ctx, next) {
+      next();
+    });
+    page('/', function() {
+      app.route = 'home';
+    });
+    page(app.baseUrl, function() {
+      app.route = 'home';
+    });
+    page('/releases/sva1', function() {
+      if (newtest) {
+      app.$.sub_rel.open();
+      app.$.sub_rel_sva1.open();
+      app.$.rel_menu.select(0);
+      }
+      newtest = false;
+      app.route = 'sva1';
+    });
+    
+    page('/releases/sva1/help', function() {
+     if (newtest) {
+      app.$.sub_rel.open();
+      app.$.sub_rel_sva1.open();
+      app.$.sva1_menu.select(2);
+      }
+      newtest = false;
+      app.route = 'sva1_help';
+      //window.open('https://deslogin.wufoo.com/forms/des-sva1-gold-release-help-form/','_blank');
+    });
+    
+    page('/releases/sva1/content', function() {
+    if (newtest) {
+      app.$.sub_rel.open();
+      app.$.sub_rel_sva1.open();
+      app.$.sva1_menu.select(0);
+      }
+      newtest = false;
+      app.route = 'content';
+    });
+    
+    page('/releases/sva1/doc', function() {
+        if (newtest) {
+      app.$.sub_rel.open();
+      app.$.sub_rel_sva1.open();
+      app.$.sub_rel_sva1_doc.open();
+      app.$.sva1_menu.select(1);
+      }
+      newtest = false;
+      app.route = 'documentation';
+    });
+    
+    page('/releases/sva1/doc/gold', function() {
+            if (newtest) {
+      app.$.sub_rel.open();
+      app.$.sub_rel_sva1.open();
+      app.$.sub_rel_sva1_doc.open();
+      app.$.sva1_doc_menu.select(0);
+      }
+      newtest = false;
+      app.route = 'doc_gold';
+    });
+    
+    page('/releases/sva1/doc/photoz', function() {
+      if (newtest) {
+      app.$.sub_rel.open();
+      app.$.sub_rel_sva1.open();
+      app.$.sub_rel_sva1_doc.open();
+      app.$.sva1_doc_menu.select(2);
+      }
+      newtest = false;
+      app.route = 'doc_photoz';
+    });
+    page('/releases/sva1/doc/shear', function() {
+                 if (newtest) {
+      app.$.sub_rel.open();
+      app.$.sub_rel_sva1.open();
+      app.$.sub_rel_sva1_doc.open();
+      app.$.sva1_doc_menu.select(1);
+      }
+      newtest = false;
+      app.route = 'doc_shear';
+    });
+    page('/releases/sva1/doc/redmapper', function() {
+                   if (newtest) {
+      app.$.sub_rel.open();
+      app.$.sub_rel_sva1.open();
+      app.$.sub_rel_sva1_doc.open();
+      app.$.sva1_doc_menu.select(3);
+      }
+      newtest = false;  
+      app.route = 'doc_redmapper';
+    });
+    
+    page('/releases', function() {
+      if (newtest) {
+      app.$.sub_rel.open();
+      app.selected="releases";
+      }
+      newtest = false;
+      app.route = 'releases';
+    });
+    page('/thanks', function() {
+      app.route = 'thanks';
+    });
+    page('/internal/status', function() {
+      app.route = 'status';
+    });
+    
+    page('/internal/summary', function() {
+      app.route = 'summary';
+    });
+    
+    page('/internal/help', function() {
+      app.route = 'desdm_help';
+    });
+    
+    page('/internal', function() {
+      app.route = 'internal';
+    });
+    //page('/auth/login/', function(ctx, next) {
+      //app.route = 'login';
+      //next();
+     // var nxt = ctx.querystring.substring(5)
+    //  console.log(nxt, userin);
+     // if (userin) {
+      //  page.redirect(nxt);
+     // }
+     // else {
+     //   app.route = 'login';
+     // }
+    //});
+    
+    page('/contact/gold', function() {
+      app.route = 'gold';
+    });
+    
+    page('/contact/photoz', function() {
+      app.route = 'photoz';
+    });
+    // 404
+    page('*', function() {
+      //app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
+      //app.$.toast.show();
+      //page.redirect(app.baseUrl);
+      app.route = '404';
+    });
+    // add #! before urls
+    page({
+      hashbang: false
+    });
+  });
+</script>

@@ -19,6 +19,7 @@
     "iron-elements": "PolymerElements/iron-elements#^1.0.10",
     "paper-elements": "PolymerElements/paper-elements#^1.0.7",
     "bootstrap": "^3.3.7",
-    "components-font-awesome": "^4.6.3"
+    "components-font-awesome": "^4.6.3",
+    "page": "visionmedia/page.js#^1.7.1"
   }
 }
