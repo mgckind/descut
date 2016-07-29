@@ -1,0 +1,42 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-styles/typography.html">
+
+<!-- shared styles for all elements and index.html -->
+<dom-module id="shared-styles">
+  <template>
+    <style>
+ paper-icon-button.smallp{
+    width: 33px;
+    height: 33px;
+  }
+      .page-title {
+        @apply(--paper-font-display2);
+      }
+      paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
+        pointer-events: none;
+      }
+    .sublist paper-item {
+      padding-left: 30px;
+    }
+    .sublist2 paper-item {
+      padding-left: 60px;
+    }
+    .sublist3 paper-item {
+      padding-left: 90px;
+    }
+     .bw {
+    background-color: black;
+    color:white;
+  }
+     .wb {
+    background-color: white;
+    color:black;
+  }
+      @media (max-width: 600px) {
+        .page-title {
+          font-size: 24px!important;
+        }
+      }
+     </style>
+  </template>
+</dom-module>

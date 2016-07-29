@@ -12,7 +12,7 @@
 
 <script src="/static/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 <link rel="import" href="/static/elements/elements.html">
-
+<style is="custom-style" include="shared-styles"></style>
 </head>
 <!-- BODY -->
 <body unresolved>
@@ -32,7 +32,7 @@
         <!-- Drawer Content -->
         <paper-menu id="bigmenu" attr-for-selected="data-route" selected=[[route]]>
           <a data-route="home" href="/">
-            <paper-item>Home</paper-item>
+            <paper-item><i class="fa fa-home" aria-hidden="true"></i>&nbsp Home</paper-item>
           </a>
           
           <paper-submenu id="sub_rel"> <!-- 1 -->
@@ -101,27 +101,6 @@
           </a>
         </paper-submenu> <!-- 4 -->
 
-        {% if chichi %}
-        <hr>
-        <p disabled style="padding-left: 30px; margin-top:-10px; font-size:12px;">(Internal Pages)</p>
-        <paper-submenu> <!--  5 -->
-          <a class="menu-trigger" data-route="status" href="/internal/status">
-            <paper-item >DESDM status</paper-item>
-          </a>
-        </paper-submenu> <!-- 5 -->
-        
-        <paper-submenu> <!--  6 -->
-          <a class="menu-trigger" data-route="desdm_help" href="/internal/help">
-            <paper-item >DESDM Help</paper-item>
-          </a>
-        </paper-submenu> <!-- 6 -->
-
-        <paper-submenu> <!--  7 -->
-          <a class="menu-trigger" data-route="summary" href="/internal/summary">
-            <paper-item >Page Summary</paper-item>
-          </a>
-        </paper-submenu> <!-- 7 -->
-        {% end %}
 
         </paper-menu>
 
@@ -132,12 +111,7 @@
         <!-- Main Toolbar -->
           <paper-toolbar id="mainToolbar"  class="bw">
      <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
-<span class="title">DARK ENERGY SURVEY Data Management</span>
-     {% if chichi  %} 
-     <paper-icon-button icon="power-settings-new" onclick="window.open('/auth/logout/','_self',false);" class="smallp"></paper-icon-button>
-     {% else %}
-     <paper-icon-button icon="lock" onclick="window.open('/internal/','_self',false);" class="smallp"></paper-icon-button>
-     {% end %}
+<span class="title">DARK ENERGY SURVEY Cutouts Services</span>
      </paper-toolbar> 
 
         <!-- Main Content -->
