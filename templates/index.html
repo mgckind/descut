@@ -1,6 +1,275 @@
 <html>
-<head></head>
-<body>
-Hello!
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="author" content="Matias Carrasco Kind & Weixiang Yu">
+<title>DES Cutouts Services</title>
+
+<link rel="stylesheet" href="/static/bower_components/components-font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+<script src="/static/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import" href="/static/elements/elements.html">
+
+</head>
+<!-- BODY -->
+<body unresolved>
+<template is="dom-bind" id="app">
+
+    <paper-drawer-panel id="paperDrawerPanel">
+      <!-- Drawer Scroll Header Panel -->
+      <paper-scroll-header-panel drawer fixed>
+
+        <!-- Drawer Toolbar -->
+        <paper-toolbar id="drawerToolbar" class="wb">
+        <iron-image style="width:60px; height:60px;"
+                sizing="cover" src="/static/images/DESDM_logo.png"></iron-image>
+        </paper-toolbar>
+        
+
+        <!-- Drawer Content -->
+        <paper-menu id="bigmenu" attr-for-selected="data-route" selected=[[route]]>
+          <a data-route="home" href="/">
+            <paper-item>Home</paper-item>
+          </a>
+          
+          <paper-submenu id="sub_rel"> <!-- 1 -->
+          <a class="menu-trigger" data-route="releases" href="/releases">
+            <paper-item>Releases</paper-item>
+          </a>
+          <paper-menu class="menu-content sublist" id="rel_menu"> <!-- a -->
+          
+          <paper-submenu id="sub_rel_sva1"> <!-- 2 -->
+          <a class="menu-trigger" data-route="sva1" href="/releases/sva1">
+           <paper-item >SVA1 Gold</paper-item>
+           </a>
+           <paper-menu class="menu-content sublist2" id="sva1_menu">
+
+         <a class="menu-trigger" data-route="content" href="/releases/sva1/content">
+           <paper-item>Files</paper-item>
+           </a>
+
+
+           <paper-submenu id="sub_rel_sva1_doc" > <!-- 3 -->
+           <a class="menu-trigger" data-route="documentation" href="/releases/sva1/doc">
+           <paper-item >Documentation</paper-item>
+           </a>
+            <paper-menu id="sva1_doc_menu" class="menu-content sublist3">
+            <a data-route="doc_gold" href="/releases/sva1/doc/gold">
+            <paper-item>Gold</paper-item>
+            </a>
+            
+            <a data-route="doc_shear" href="/releases/sva1/doc/shear">
+            <paper-item>Shear</paper-item>
+            </a>
+            
+            <a data-route="doc_photoz" href="/releases/sva1/doc/photoz">
+            <paper-item >Photoz</paper-item>
+            </a>
+            
+            <a data-route="doc_redmapper" href="/releases/sva1/doc/redmapper">
+            <paper-item>RedMaPPer</paper-item>
+            </a>
+
+
+            </paper-menu>
+
+           </paper-submenu>
+          <a data-route="sva1_help" class="menu-trigger" href="/releases/sva1/help">
+           <paper-item>Help</paper-item>
+           </a>
+
+           </paper-menu>
+
+            </paper-submenu>  <!-- 2 -->
+          
+           <paper-submenu> <!-- 2 -->
+          <a class="menu-trigger">
+           <paper-item disabled >Other Releases</paper-item>
+           </a> 
+           </paper-submenu>
+    
+
+          </paper-menu> <!-- a -->
+          </paper-submenu> <!-- 1 -->
+         
+        <paper-submenu> <!--  4 -->
+          <a class="menu-trigger" data-route="contact" href="/thanks">
+            <paper-item >Acknowledgements</paper-item>
+          </a>
+        </paper-submenu> <!-- 4 -->
+
+        {% if chichi %}
+        <hr>
+        <p disabled style="padding-left: 30px; margin-top:-10px; font-size:12px;">(Internal Pages)</p>
+        <paper-submenu> <!--  5 -->
+          <a class="menu-trigger" data-route="status" href="/internal/status">
+            <paper-item >DESDM status</paper-item>
+          </a>
+        </paper-submenu> <!-- 5 -->
+        
+        <paper-submenu> <!--  6 -->
+          <a class="menu-trigger" data-route="desdm_help" href="/internal/help">
+            <paper-item >DESDM Help</paper-item>
+          </a>
+        </paper-submenu> <!-- 6 -->
+
+        <paper-submenu> <!--  7 -->
+          <a class="menu-trigger" data-route="summary" href="/internal/summary">
+            <paper-item >Page Summary</paper-item>
+          </a>
+        </paper-submenu> <!-- 7 -->
+        {% end %}
+
+        </paper-menu>
+
+      </paper-scroll-header-panel>
+
+      <!-- Main Area -->
+      <paper-scroll-header-panel main id="headerPanelMain" fixed>
+        <!-- Main Toolbar -->
+          <paper-toolbar id="mainToolbar"  class="bw">
+     <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+<span class="title">DARK ENERGY SURVEY Data Management</span>
+     {% if chichi  %} 
+     <paper-icon-button icon="power-settings-new" onclick="window.open('/auth/logout/','_self',false);" class="smallp"></paper-icon-button>
+     {% else %}
+     <paper-icon-button icon="lock" onclick="window.open('/internal/','_self',false);" class="smallp"></paper-icon-button>
+     {% end %}
+     </paper-toolbar> 
+
+        <!-- Main Content -->
+        <div  style="overflow-x:auto; height:100%">
+          <iron-pages attr-for-selected="data-route" selected=[[route]]>
+
+
+            <section data-route="home">
+            <des-home></des-home>
+            <des-thanks></des-thanks>
+            </section>
+            
+            <section data-route="releases">
+            <des-release> </des-release>
+            <des-thanks></des-thanks>
+            </section>
+            
+            <section data-route="content">
+            <des-content> </des-content>
+            <des-thanks></des-thanks>
+            </section>
+            
+            <section data-route="sva1">
+            <des-sva1></des-sva1>
+            <des-thanks></des-thanks>
+            </section>
+            
+            
+            <section data-route="documentation">
+            <des-docs> </des-docs>
+            <des-thanks></des-thanks>
+            </section>
+            
+            <section data-route="sva1_help">
+            <des-help> </des-help>
+            <des-thanks></des-thanks>
+            </section>
+            
+            <section data-route="doc_gold">
+            <des-docs-gold> </des-docs-gold>
+            <des-thanks></des-thanks>
+            </section>
+
+            <section data-route="doc_photoz">
+            <des-docs-photoz> </des-docs-photoz>
+            <des-thanks></des-thanks>
+            </section>
+
+            <section data-route="doc_shear">
+            <des-docs-shear> </des-docs-shear>
+            <des-thanks></des-thanks>
+            </section>
+            
+            <section data-route="doc_redmapper">
+            <des-docs-redmapper> </des-docs-redmapper>
+            <des-thanks></des-thanks>
+            </section>
+            
+            <section data-route="thanks">
+            <des-thanks-big></des-thanks-big>
+            <des-thanks></des-thanks>
+            </section>
+
+            <section data-route="login">
+            <des-login></des-login>
+            </section>
+
+            <section data-route="status">
+            <des-status></des-status>
+            </section>
+            
+            <section data-route="internal">
+            <des-internal></des-internal>
+            <des-thanks></des-thanks>
+            </section>
+            
+            <section data-route="desdm_help">
+            <desdm-help></desdm-help>
+            <des-thanks></des-thanks>
+            </section>
+            
+            <section data-route="summary">
+            <des-summary></des-summary>
+            <des-thanks></des-thanks>
+            </section>
+
+            
+            <section data-route="404">
+            <div class="horizontal layout center-justified" style = "padding:50px;">
+
+            <span> 404: Page not Found <br> </span>
+            </div>
+            <des-thanks></des-thanks>
+            </section>
+
+
+          </iron-pages>
+        </div>
+      </paper-scroll-header-panel>
+    </paper-drawer-panel>
+
+    <paper-toast id="toast">
+      <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
+    </paper-toast>
+
+
+  </template>
+
+  <!-- build:js scripts/app.js -->
+  <script src="/static/scripts/app.js"></script>
+  <!-- endbuild-->
+
+
+
+<script type="text/javascript">
+var sc_project=10767484;
+var sc_invisible=1;
+var sc_security="cb84a738";
+var sc_https=1;
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="web statistics"
+href="http://statcounter.com/free-web-stats/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/10767484/0/cb84a738/1/"
+alt="web statistics"></a></div></noscript>
+
+
 </body>
+
 </html>
