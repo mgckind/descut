@@ -14,20 +14,15 @@
 <link rel="import" href="/static/elements/elements.html">
 <style is="custom-style" include="shared-styles"></style>
 </head>
-<!-- BODY -->
 <body unresolved>
 <template is="dom-bind" id="app">
 
-    <paper-drawer-panel id="paperDrawerPanel">
-      <!-- Drawer Scroll Header Panel -->
-      <paper-scroll-header-panel drawer fixed>
+    <paper-drawer-panel id="paperDrawerPanel" >
+     
 
-        <!-- Drawer Toolbar -->
-        <paper-toolbar id="drawerToolbar" class="wb">
-        <iron-image style="width:60px; height:60px;"
-                sizing="cover" src="/static/images/DESDM_logo.png"></iron-image>
-        </paper-toolbar>
+ <paper-scroll-header-panel drawer fixed>
         
+        <des-menubar></des-menubar> 
 
         <!-- Drawer Content -->
         <paper-menu id="bigmenu" attr-for-selected="data-route" selected=[[route]]>
@@ -35,85 +30,20 @@
             <paper-item><i class="fa fa-home" aria-hidden="true"></i>&nbsp Home</paper-item>
           </a>
           
-          <paper-submenu id="sub_rel"> <!-- 1 -->
-          <a class="menu-trigger" data-route="releases" href="/releases">
-            <paper-item>Releases</paper-item>
-          </a>
-          <paper-menu class="menu-content sublist" id="rel_menu"> <!-- a -->
-          
-          <paper-submenu id="sub_rel_sva1"> <!-- 2 -->
-          <a class="menu-trigger" data-route="sva1" href="/releases/sva1">
-           <paper-item >SVA1 Gold</paper-item>
-           </a>
-           <paper-menu class="menu-content sublist2" id="sva1_menu">
-
-         <a class="menu-trigger" data-route="content" href="/releases/sva1/content">
-           <paper-item>Files</paper-item>
-           </a>
-
-
-           <paper-submenu id="sub_rel_sva1_doc" > <!-- 3 -->
-           <a class="menu-trigger" data-route="documentation" href="/releases/sva1/doc">
-           <paper-item >Documentation</paper-item>
-           </a>
-            <paper-menu id="sva1_doc_menu" class="menu-content sublist3">
-            <a data-route="doc_gold" href="/releases/sva1/doc/gold">
-            <paper-item>Gold</paper-item>
-            </a>
-            
-            <a data-route="doc_shear" href="/releases/sva1/doc/shear">
-            <paper-item>Shear</paper-item>
-            </a>
-            
-            <a data-route="doc_photoz" href="/releases/sva1/doc/photoz">
-            <paper-item >Photoz</paper-item>
-            </a>
-            
-            <a data-route="doc_redmapper" href="/releases/sva1/doc/redmapper">
-            <paper-item>RedMaPPer</paper-item>
-            </a>
-
-
-            </paper-menu>
-
-           </paper-submenu>
-          <a data-route="sva1_help" class="menu-trigger" href="/releases/sva1/help">
-           <paper-item>Help</paper-item>
-           </a>
-
-           </paper-menu>
-
-            </paper-submenu>  <!-- 2 -->
-          
-           <paper-submenu> <!-- 2 -->
-          <a class="menu-trigger">
-           <paper-item disabled >Other Releases</paper-item>
-           </a> 
-           </paper-submenu>
-    
-
-          </paper-menu> <!-- a -->
-          </paper-submenu> <!-- 1 -->
-         
-        <paper-submenu> <!--  4 -->
           <a class="menu-trigger" data-route="contact" href="/thanks">
             <paper-item >Acknowledgements</paper-item>
           </a>
-        </paper-submenu> <!-- 4 -->
 
 
         </paper-menu>
 
       </paper-scroll-header-panel>
 
+
       <!-- Main Area -->
       <paper-scroll-header-panel main id="headerPanelMain" fixed>
         <!-- Main Toolbar -->
-          <paper-toolbar id="mainToolbar"  class="bw">
-     <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
-<span class="title">DARK ENERGY SURVEY Cutouts Services</span>
-     </paper-toolbar> 
-
+            <des-toolbar></des-toolbar>
         <!-- Main Content -->
         <div  style="overflow-x:auto; height:100%">
           <iron-pages attr-for-selected="data-route" selected=[[route]]>

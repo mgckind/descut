@@ -1,0 +1,25 @@
+<dom-module id="des-menubar">
+<template>
+   <style>
+        paper-toolbar.black {
+        --paper-toolbar-background: black;
+        --paper-toolbar-title: {
+            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;      
+            };
+        }
+    </style>
+
+    <paper-toolbar id="drawerToolbar" class="black">
+        <iron-image style="width:60px; height:60px;"
+            sizing="cover" src="/static/images/DESDM_logo.png"></iron-image>
+    </paper-toolbar>
+</template>
+
+<script>
+      Polymer({
+      is: "des-menubar",
+    });
+
+
+</script>
+</dom-module>

@@ -1,0 +1,28 @@
+<dom-module id="des-toolbar">
+<template>
+    <style>
+        paper-toolbar.black {
+        --paper-toolbar-background: black;
+        --paper-toolbar-title: {
+            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;      
+            };
+        }
+    </style>
+   <paper-toolbar id="mainToolbar" class="black">
+        <paper-icon-button id="paperToggle" icon="menu" on-click="toggle" paper-drawer-toggle></paper-icon-button>
+        <span class="title">DARK ENERGY SURVEY Cutouts Services</span>
+        <paper-icon-button icon="power-settings-new"></paper-icon-button>
+    </paper-toolbar> 
+</template>
+
+<script>
+      Polymer({
+      is: "des-toolbar",
+      toggle: function(event){
+        app.$.paperDrawerPanel.togglePanel(); 
+      },
+    });
+
+
+</script>
+</dom-module>
