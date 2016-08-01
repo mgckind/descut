@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="author" content="Matias Carrasco Kind & Weixiang Yu">
 <title>DES Cutouts Services</title>
-
+<link rel="shortcut icon" href="{{ static_url('favicon.ico') }}">
 <link rel="stylesheet" href="/static/bower_components/components-font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
 
@@ -17,17 +17,17 @@
 <body unresolved>
 <template is="dom-bind" id="app">
 
-<paper-drawer-panel id="paperDrawerPanel" >
+<paper-drawer-panel id="paperDrawerPanel"  >
 
 <!-- Sidebar -->
 <paper-scroll-header-panel drawer fixed>
-<des-sidebar></des-sidebar>
+    <des-sidebar></des-sidebar>
 </paper-scroll-header-panel>
 <!-- Sidebar -->
 
 <!-- Main page -->
 <paper-scroll-header-panel main id="headerPanelMain" fixed>
-<des-mainpages></des-mainpages>
+    <des-mainpages></des-mainpages>
 </paper-scroll-header-panel>
 <!-- Main page -->
 

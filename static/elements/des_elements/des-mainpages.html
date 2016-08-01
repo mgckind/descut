@@ -2,31 +2,18 @@
 <template>
     <style>
     </style>
-<des-toolbar></des-toolbar>
-<iron-pages  selected="[[selection]]">
-            <section>
-            <p>
-            This is Home
-            </p>
-            </section>
-            
-            <section>
-            <p>Here are my jobs</p>
-            </section>
-            
-            <section>
-            <p>Coadd forms</p>
-            </section>
-            
-            <section>
-            <p>SE forms</p>
-            </section>
-            
-            <section>
-            <p>API Help</p>
-            </section>
-            
-</iron-pages>
+
+    <des-toolbar></des-toolbar>
+    <iron-pages  selected="[[selection]]">
+        
+        <!-- Order is important, need to match des-sidebar -->
+        <des-home></des-home>
+        <des-my-jobs></des-my-jobs> 
+        <des-coadds></des-coadds>
+        <des-single></des-single>
+        <des-api></des-api>
+
+    </iron-pages>
 
 </template>
 

@@ -3,15 +3,24 @@
     <style>
     paper-menu{
     --paper-menu-background-color: var(--primary-background-color);
+    --paper-menu-color: var(--primary-text-color);
+    --paper-menu-focused-item: {
+        background: white;
+    };
+    --paper-menu-focused-item-after: {
+        background:blue;
+    };
     }
     paper-item {
         --paper-item-focused: {
-        background: var(--paper-blue-500);
         font-weight: bold;
         };
-    --paper-item-focused-before: {
-        opacity: 0;
+        --paper-item-selected: {
+        background: var(--paper-green-100) ;
         };
+        --paper-item-focused-before: {
+            opacity:0.0;
+            };
     }
         :hover {
             cursor: pointer;
@@ -20,12 +29,23 @@
 
     <des-menubar></des-menubar> 
     <paper-menu id="bigmenu"  selected="[[selection]]">
+        <!-- Order is important, it needs to match des-mainpages -->
         <paper-item> Home              </paper-item>
         <paper-item> My Jobs           </paper-item>
         <paper-item> Coadds            </paper-item>
         <paper-item> Single Exposure   </paper-item>
         <paper-item> API               </paper-item>
     </paper-menu>
+
+<paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000">
+  <div class="card-content">
+    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
+  </div>
+  <div class="card-actions">
+    <paper-button>Share</paper-button>
+    <paper-button>Explore!</paper-button>
+  </div>
+</paper-card>
 </template>
 
 <script>
