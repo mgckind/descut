@@ -26339,15 +26339,24 @@ be used as the label of the toolbar via `aria-labelledby`.
     <style>
     paper-menu{
     --paper-menu-background-color: var(--primary-background-color);
+    --paper-menu-color: var(--primary-text-color);
+    --paper-menu-focused-item: {
+        background: white;
+    };
+    --paper-menu-focused-item-after: {
+        background:blue;
+    };
     }
     paper-item {
         --paper-item-focused: {
-        background: var(--paper-blue-500);
         font-weight: bold;
         };
-    --paper-item-focused-before: {
-        opacity: 0;
+        --paper-item-selected: {
+        background: var(--paper-green-100) ;
         };
+        --paper-item-focused-before: {
+            opacity:0.0;
+            };
     }
         :hover {
             cursor: pointer;
@@ -26356,12 +26365,23 @@ be used as the label of the toolbar via `aria-labelledby`.
 
     <des-menubar></des-menubar> 
     <paper-menu id="bigmenu" selected="[[selection]]">
+        <!-- Order is important, it needs to match des-mainpages -->
         <paper-item> Home              </paper-item>
         <paper-item> My Jobs           </paper-item>
         <paper-item> Coadds            </paper-item>
         <paper-item> Single Exposure   </paper-item>
         <paper-item> API               </paper-item>
     </paper-menu>
+
+<paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000">
+  <div class="card-content">
+    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
+  </div>
+  <div class="card-actions">
+    <paper-button>Share</paper-button>
+    <paper-button>Explore!</paper-button>
+  </div>
+</paper-card>
 </template>
 
 <script>
@@ -26374,31 +26394,18 @@ be used as the label of the toolbar via `aria-labelledby`.
 <template>
     <style>
     </style>
-<des-toolbar></des-toolbar>
-<iron-pages selected="[[selection]]">
-            <section>
-            <p>
-            This is Home
-            </p>
-            </section>
-            
-            <section>
-            <p>Here are my jobs</p>
-            </section>
-            
-            <section>
-            <p>Coadd forms</p>
-            </section>
-            
-            <section>
-            <p>SE forms</p>
-            </section>
-            
-            <section>
-            <p>API Help</p>
-            </section>
-            
-</iron-pages>
+
+    <des-toolbar></des-toolbar>
+    <iron-pages selected="[[selection]]">
+        
+        <!-- Order is important, need to match des-sidebar -->
+        <des-home></des-home>
+        <des-my-jobs></des-my-jobs> 
+        <des-coadds></des-coadds>
+        <des-single></des-single>
+        <des-api></des-api>
+
+    </iron-pages>
 
 </template>
 
@@ -26406,6 +26413,96 @@ be used as the label of the toolbar via `aria-labelledby`.
       Polymer({
       is: "des-mainpages",
     });
+</script>
+</dom-module>
+<dom-module id="des-home" assetpath="des_elements/">
+<template>
+    <style>
+    </style>
+
+    <section>
+    <p> This is my Home </p>
+    </section>
+</template>
+
+<script>
+      Polymer({
+      is: "des-home",
+    });
+
+
+</script>
+</dom-module>
+<dom-module id="des-my-jobs" assetpath="des_elements/">
+<template>
+    <style>
+    </style>
+
+    <section>
+    <p> Here is a list of my jobs </p>
+    </section>
+</template>
+
+<script>
+      Polymer({
+      is: "des-my-jobs",
+    });
+
+
+</script>
+</dom-module>
+<dom-module id="des-api" assetpath="des_elements/">
+<template>
+    <style>
+    </style>
+
+    <section>
+    <p> Api and general Help</p>
+    </section>
+</template>
+
+<script>
+      Polymer({
+      is: "des-api",
+    });
+
+
+</script>
+</dom-module>
+<dom-module id="des-single" assetpath="des_elements/">
+<template>
+    <style>
+    </style>
+
+    <section>
+    <p> Interface for single exposures </p>
+    </section>
+</template>
+
+<script>
+      Polymer({
+      is: "des-single",
+    });
+
+
+</script>
+</dom-module>
+<dom-module id="des-coadds" assetpath="des_elements/">
+<template>
+    <style>
+    </style>
+
+    <section>
+    <p> Coadds interface </p>
+    </section>
+</template>
+
+<script>
+      Polymer({
+      is: "des-coadds",
+    });
+
+
 </script>
 </dom-module>
 </div></body></html>
