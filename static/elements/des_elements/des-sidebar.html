@@ -1,0 +1,36 @@
+<dom-module id="des-sidebar">
+<template>
+    <style>
+    paper-menu{
+    --paper-menu-background-color: var(--primary-background-color);
+    }
+    paper-item {
+        --paper-item-focused: {
+        background: var(--paper-blue-500);
+        font-weight: bold;
+        };
+    --paper-item-focused-before: {
+        opacity: 0;
+        };
+    }
+        :hover {
+            cursor: pointer;
+            }
+    </style>  
+
+    <des-menubar></des-menubar> 
+    <paper-menu id="bigmenu"  selected="[[selection]]">
+        <paper-item> Home              </paper-item>
+        <paper-item> My Jobs           </paper-item>
+        <paper-item> Coadds            </paper-item>
+        <paper-item> Single Exposure   </paper-item>
+        <paper-item> API               </paper-item>
+    </paper-menu>
+</template>
+
+<script>
+      Polymer({
+      is: "des-sidebar",
+    });
+</script>
+</dom-module>

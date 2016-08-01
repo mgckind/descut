@@ -9,6 +9,12 @@
 
 
   window.addEventListener('WebComponentsReady', function() {
+    app.selection="0";
+    var menu = document.querySelector('paper-menu');
+        menu.addEventListener('iron-select', function() {
+            app.selection=menu.selected;
+           app.$.paperDrawerPanel.closeDrawer();
+        });
   });
 
   app.scrollPageToTop = function() {

@@ -17,27 +17,12 @@
 <body unresolved>
 <template is="dom-bind" id="app">
 
-    <paper-drawer-panel id="paperDrawerPanel" >
-     
+<paper-drawer-panel id="paperDrawerPanel" >
 
- <paper-scroll-header-panel drawer fixed>
-        
-        <des-menubar></des-menubar> 
+<paper-scroll-header-panel drawer fixed>
+<des-sidebar></des-sidebar>
+</paper-scroll-header-panel>
 
-        <!-- Drawer Content -->
-        <paper-menu id="bigmenu" attr-for-selected="data-route" selected=[[route]]>
-          <a data-route="home" href="/">
-            <paper-item><i class="fa fa-home" aria-hidden="true"></i>&nbsp Home</paper-item>
-          </a>
-          
-          <a class="menu-trigger" data-route="contact" href="/thanks">
-            <paper-item >Acknowledgements</paper-item>
-          </a>
-
-
-        </paper-menu>
-
-      </paper-scroll-header-panel>
 
 
       <!-- Main Area -->
@@ -45,107 +30,34 @@
         <!-- Main Toolbar -->
             <des-toolbar></des-toolbar>
         <!-- Main Content -->
-        <div  style="overflow-x:auto; height:100%">
-          <iron-pages attr-for-selected="data-route" selected=[[route]]>
+          <iron-pages  selected="[[selection]]">
 
 
-            <section data-route="home">
-            <des-home></des-home>
-            <des-thanks></des-thanks>
+            <section>
+            <p>
+            This is Home
+            </p>
             </section>
             
-            <section data-route="releases">
-            <des-release> </des-release>
-            <des-thanks></des-thanks>
+            <section>
+            <p>Here are my jobs</p>
             </section>
             
-            <section data-route="content">
-            <des-content> </des-content>
-            <des-thanks></des-thanks>
+            <section>
+            <p>Coadd forms</p>
             </section>
             
-            <section data-route="sva1">
-            <des-sva1></des-sva1>
-            <des-thanks></des-thanks>
+            <section>
+            <p>SE forms</p>
             </section>
             
-            
-            <section data-route="documentation">
-            <des-docs> </des-docs>
-            <des-thanks></des-thanks>
+            <section>
+            <p>API Help</p>
             </section>
             
-            <section data-route="sva1_help">
-            <des-help> </des-help>
-            <des-thanks></des-thanks>
-            </section>
-            
-            <section data-route="doc_gold">
-            <des-docs-gold> </des-docs-gold>
-            <des-thanks></des-thanks>
-            </section>
-
-            <section data-route="doc_photoz">
-            <des-docs-photoz> </des-docs-photoz>
-            <des-thanks></des-thanks>
-            </section>
-
-            <section data-route="doc_shear">
-            <des-docs-shear> </des-docs-shear>
-            <des-thanks></des-thanks>
-            </section>
-            
-            <section data-route="doc_redmapper">
-            <des-docs-redmapper> </des-docs-redmapper>
-            <des-thanks></des-thanks>
-            </section>
-            
-            <section data-route="thanks">
-            <des-thanks-big></des-thanks-big>
-            <des-thanks></des-thanks>
-            </section>
-
-            <section data-route="login">
-            <des-login></des-login>
-            </section>
-
-            <section data-route="status">
-            <des-status></des-status>
-            </section>
-            
-            <section data-route="internal">
-            <des-internal></des-internal>
-            <des-thanks></des-thanks>
-            </section>
-            
-            <section data-route="desdm_help">
-            <desdm-help></desdm-help>
-            <des-thanks></des-thanks>
-            </section>
-            
-            <section data-route="summary">
-            <des-summary></des-summary>
-            <des-thanks></des-thanks>
-            </section>
-
-            
-            <section data-route="404">
-            <div class="horizontal layout center-justified" style = "padding:50px;">
-
-            <span> 404: Page not Found <br> </span>
-            </div>
-            <des-thanks></des-thanks>
-            </section>
-
-
           </iron-pages>
-        </div>
       </paper-scroll-header-panel>
     </paper-drawer-panel>
-
-    <paper-toast id="toast">
-      <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
-    </paper-toast>
 
 
   </template>
