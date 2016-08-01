@@ -19,53 +19,21 @@
 
 <paper-drawer-panel id="paperDrawerPanel" >
 
+<!-- Sidebar -->
 <paper-scroll-header-panel drawer fixed>
 <des-sidebar></des-sidebar>
 </paper-scroll-header-panel>
+<!-- Sidebar -->
 
+<!-- Main page -->
+<paper-scroll-header-panel main id="headerPanelMain" fixed>
+<des-mainpages></des-mainpages>
+</paper-scroll-header-panel>
+<!-- Main page -->
 
+</paper-drawer-panel>
 
-      <!-- Main Area -->
-      <paper-scroll-header-panel main id="headerPanelMain" fixed>
-        <!-- Main Toolbar -->
-            <des-toolbar></des-toolbar>
-        <!-- Main Content -->
-          <iron-pages  selected="[[selection]]">
-
-
-            <section>
-            <p>
-            This is Home
-            </p>
-            </section>
-            
-            <section>
-            <p>Here are my jobs</p>
-            </section>
-            
-            <section>
-            <p>Coadd forms</p>
-            </section>
-            
-            <section>
-            <p>SE forms</p>
-            </section>
-            
-            <section>
-            <p>API Help</p>
-            </section>
-            
-          </iron-pages>
-      </paper-scroll-header-panel>
-    </paper-drawer-panel>
-
-
-  </template>
-
-  <!-- build:js scripts/app.js -->
+</template>
   <script src="/static/scripts/app.js"></script>
-  <!-- endbuild-->
-
 </body>
-
 </html>
