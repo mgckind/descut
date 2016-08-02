@@ -24,13 +24,13 @@
         "time": "Thu Jul 21 21:22:45 2016"
     }, 
     {
-        "status": "SUCCESS", 
+        "status": "PENDING", 
         "job": "mcarras2__8a0805e8-c213-43ec-8c58-3bbd94197a24_{Thu Jul 21 20:04:44 2016}", 
         "elapsed": "11 days and 1 hours ago", 
         "time": "Thu Jul 21 20:04:44 2016"
     }, 
     {
-        "status": "SUCCESS", 
+        "status": "PENDING", 
         "job": "mcarras2__30ad5018-9e78-4b44-92fa-76ddd89dcc67_{Mon Jul 18 19:24:30 2016}", 
         "elapsed": "14 days and 1 hours ago", 
         "time": "Mon Jul 18 19:24:30 2016"
@@ -48,7 +48,7 @@
         "time": "Fri Jul 15 18:30:50 2016"
     }, 
     {
-        "status": "SUCCESS", 
+        "status": "STOP", 
         "job": "mcarras2__485c7761-0fc2-4f31-a518-66c65c48d7eb_{Fri Jul 15 18:28:51 2016}", 
         "elapsed": "17 days and 2 hours ago", 
         "time": "Fri Jul 15 18:28:51 2016"

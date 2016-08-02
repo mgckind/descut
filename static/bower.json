@@ -21,10 +21,12 @@
     "bootstrap": "^3.3.7",
     "components-font-awesome": "^4.6.3",
     "page": "visionmedia/page.js#^1.7.1",
-    "paper-datatable": "^0.9.8"
+    "paper-datatable": "^0.9.8",
+    "paper-item": "PolymerElements/paper-item#^1.2.1"
   },
   "resolutions": {
     "polymer": "~1.2.0",
-    "paper-styles": "~1.0.12"
+    "paper-styles": "~1.0.12",
+    "paper-item": "^1.2.1"
   }
 }

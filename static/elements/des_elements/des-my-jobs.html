@@ -1,25 +1,62 @@
 <dom-module id="des-my-jobs">
 <template>
     <style>
+    paper-card {
+        width:100%;
+    }
+    paper-listbox {
+        --paper-listbox-color: var(--primary-text-color);
+        width: 100%;
+        max-width:800px;
+    }
+    .jobstatus {
+      color: var(--color, orange);
+    }
+    .avatar {
+      display: inline-block;
+      box-sizing: border-box;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--paper-amber-500);
+    }
+    .green {
+        background: var(--paper-green-500);
+    }
+    .red {
+        background: var(--paper-red-500);
+    }
     </style>
 
     <section>
-	<paper-card heading="Just a normal data table">
-    
-    <template is="dom-repeat" id="menu" items="{{data}}">
-        <div>
-        <paper-checkbox>label</paper-checkbox>
-          <span>{{item.id}}</span>
-          <span>{{item.title}}</span>
-          <span>{{item.calories}}</span>
-          <span>{{item.fat}}</span>
-          
-          <hr>
+	<paper-card heading="My Jobs">
+        <div class='card-content'>
+            <paper-listbox multi>
+                <template is="dom-repeat" id="menu" items="{{data}}">
+                    <hr>
+                    <paper-icon-item>
+                     <template is="dom-if" if="{{_completed(item.status)}}">
+                    <div class="avatar green" item-icon></div>
+                    </template>
+                     <template is="dom-if" if="{{_pending(item.status)}}">
+                    <div class="avatar" item-icon></div>
+                    </template>
+                    <template is="dom-if" if="{{_stop(item.status)}}">
+                    <div class="avatar red" item-icon></div>
+                    </template>
+                    <paper-item-body two-line>
+                        <div>{{returnName(item.job)}}</div>
+                        <div secondary>{{item.elapsed}} ({{returnDate(item.time)}})</div>
+                        <!--<span class='jobstatus'>{{_returnStatus(item.status)}}</span>-->
+                    </paper-item-body>
+                    <paper-icon-button icon="launch"></paper-icon-button>
+                    <paper-icon-button icon="assignment"></paper-icon-button>
+                    <paper-icon-button icon="cancel"></paper-icon-button>
+                    </paper-icon-item>
+            </template>
+            </paper-listbox>
         </div>
-    </template>
     </paper-card>
-
-
     </section>
 </template>
 
@@ -28,7 +65,7 @@
  function loadJSON(callback) {   
     var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'static/mydata.json', true); // Replace 'my_data' with the path to your file
+    xobj.open('GET', 'static/jobs.json', true); // Replace 'my_data' with the path to your file
     xobj.onreadystatechange = function () {
           if (xobj.readyState == 4 && xobj.status == "200") {
             // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
@@ -46,6 +83,26 @@
            _self.data = JSON.parse(response);
             });
       },
+      returnName: function(job) {
+        var n1=job.search("__");
+        var n2=job.search("{");
+        var job0 = job.substring(n1+2,n2-1);
+        return job0;
+      },
+      returnDate: function(date) {
+        var date0 = date.substring(4,19);
+        return date0;
+      },
+      _completed: function(status) {
+        if (status === "SUCCESS") {return true;}
+      },
+      _pending: function(status) {
+        if (status === "PENDING") {return true;}
+      },
+      _stop: function(status) {
+        if (status != "PENDING" && status != "SUCCESS" ) {return true;}
+      },
+
     });
 
 
