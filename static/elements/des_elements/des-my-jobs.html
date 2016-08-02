@@ -26,14 +26,25 @@
     .red {
         background: var(--paper-red-500);
     }
+    .empty{
+        background: white;
+    }
     </style>
 
     <section>
 	<paper-card heading="My Jobs">
         <div class='card-content'>
             <paper-listbox multi>
-                <template is="dom-repeat" id="menu" items="{{data}}">
+                    <paper-icon-item>
+                    <div class="avatar empty" item-icon>status</div>
+                    <paper-item-body>
+                    <div>Job id</div>
+                    </paper-item-body>
+                    <div>Action items</div>
+                    </paper-icon-item>
+
                     <hr>
+                <template is="dom-repeat" id="menu" items="{{data}}">
                     <paper-icon-item>
                      <template is="dom-if" if="{{_completed(item.status)}}">
                     <div class="avatar green" item-icon></div>
@@ -47,7 +58,6 @@
                     <paper-item-body two-line>
                         <div>{{returnName(item.job)}}</div>
                         <div secondary>{{item.elapsed}} ({{returnDate(item.time)}})</div>
-                        <!--<span class='jobstatus'>{{_returnStatus(item.status)}}</span>-->
                     </paper-item-body>
                     <paper-icon-button icon="launch"></paper-icon-button>
                     <paper-icon-button icon="assignment"></paper-icon-button>
