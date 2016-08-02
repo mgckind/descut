@@ -20,6 +20,11 @@
     "paper-elements": "PolymerElements/paper-elements#^1.0.7",
     "bootstrap": "^3.3.7",
     "components-font-awesome": "^4.6.3",
-    "page": "visionmedia/page.js#^1.7.1"
+    "page": "visionmedia/page.js#^1.7.1",
+    "paper-datatable": "^0.9.8"
+  },
+  "resolutions": {
+    "polymer": "~1.2.0",
+    "paper-styles": "~1.0.12"
   }
 }

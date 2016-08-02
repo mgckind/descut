@@ -4,13 +4,48 @@
     </style>
 
     <section>
-    <p> Here is a list of my jobs </p>
+	<paper-card heading="Just a normal data table">
+    
+    <template is="dom-repeat" id="menu" items="{{data}}">
+        <div>
+        <paper-checkbox>label</paper-checkbox>
+          <span>{{item.id}}</span>
+          <span>{{item.title}}</span>
+          <span>{{item.calories}}</span>
+          <span>{{item.fat}}</span>
+          
+          <hr>
+        </div>
+    </template>
+    </paper-card>
+
+
     </section>
 </template>
 
 <script>
+
+ function loadJSON(callback) {   
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'static/mydata.json', true); // Replace 'my_data' with the path to your file
+    xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);  
+ }
+
       Polymer({
       is: "des-my-jobs",
+      ready: function() {
+        var _self = this;
+        loadJSON(function(response) {
+           _self.data = JSON.parse(response);
+            });
+      },
     });
 
 
