@@ -44,12 +44,28 @@ def tup(entry,i, user='mcarras2'):
 
 
 class ApiHandler(tornado.web.RequestHandler):
+
+    def delete(self):
+        response = { k: self.get_argument(k) for k in self.request.arguments }
+        Nd=len(response)
+        con = lite.connect('test.db')
+        with con:
+            cur = con.cursor()
+            for j in range(Nd):
+                jid=response[str(j)]
+                q = "DELETE from Jobs where job = '%s'" % jid
+                print(q)
+                cc = cur.execute(q)
+        self.set_status(200)
+        self.flush()
+        self.finish()
+
     def get(self):
         response = { k: self.get_argument(k) for k in self.request.arguments }
         con = lite.connect('test.db')
         with con:
             cur = con.cursor()
-            cc = cur.execute("SELECT * from Jobs where time > datetime('2016-07-21')").fetchall()
+            cc = cur.execute("SELECT * from Jobs where time > datetime('2016-05-21')").fetchall()
         cc = list(cc)
         jjob=[]
         jstatus=[]

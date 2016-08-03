@@ -42,7 +42,10 @@
                 document.getElementById("ListHeader").style.display = "block";
                 };
             });
-
+        list.addEventListener('iron-items-changed', function(){
+            document.getElementById("DeleteHeader").style.display = "none";
+            document.getElementById("ListHeader").style.display = "block";
+            });
 
   });
 

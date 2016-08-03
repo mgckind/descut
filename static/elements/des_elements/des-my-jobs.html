@@ -9,6 +9,17 @@
         width: 100%;
         max-width:800px;
     }
+
+    paper-icon-item {
+        --paper-item-focused: {
+        };
+        --paper-item-selected: {
+        background: var(--paper-amber-50) ;
+        };
+        --paper-item-focused-before: {
+            opacity:0.0;
+            };
+    }
     .jobstatus {
       color: var(--color, orange);
     }
@@ -25,12 +36,20 @@
     </style>
 
 
-    <iron-ajax
+    <iron-ajax id="getData"
     auto
     url="/api"
-    params='{"part":"snippet"}'
+    params='{"part":"fff"}'
     handle-as="json"
     on-response="_handleResponse"
+    debounce-duration="300">
+    </iron-ajax>
+
+    <iron-ajax id="DeleteReq"
+    url="/api"
+    method="DELETE"
+    params='[1,2,3]'
+    on-response="_afterDelete"
     debounce-duration="300">
     </iron-ajax>
 
@@ -114,21 +133,35 @@
         var _self = this;
         _self.data = e.detail.response;
         _self.count = _self.data.length;
-
+      },
+      _afterDelete: function(e){
+        var list = document.getElementById("jobList");
+        for (i = 0; i < this.mytemp.length ; i++) {
+            list.selectIndex(this.mytemp[i]);
+        };
+        req = document.getElementById("getData");
+        req.generateRequest();
       },
       selectall: function(){
         var list = document.getElementById("jobList");
-        for (i = this.count; i >= 0; i--) { 
-            list.select(i);
+        for (i = 0; i< list.items.length ;i++) { 
+            list.selectIndex(i);
         }
         app.scrollPageToTop();
         },
       deleteall: function(){
         var list = document.getElementById("jobList");
-        var result = confirm("Do you want to delete these jobs? They will be also erased from disk storage");
+        var listAll = list.selectedValues;
+        var result = confirm("Do you want to delete these "+listAll.length+" jobs? They will be also erased from disk storage");
+        var toDel=[];
         if (result){
-            console.log('Delete these');
-            console.log(list.selectedValues);
+            this.mytemp = JSON.parse(JSON.stringify(listAll));
+            for (i = 0; i < listAll.length ; i++) {
+                toDel.push(this.returnName(this.data[listAll[i]].job));
+            };
+            req = document.getElementById("DeleteReq");
+            req.params = toDel;
+            req.generateRequest();
             }
         },
       returnName: function(job) {
