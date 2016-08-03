@@ -8,6 +8,7 @@ import tornado.web
 import tornado.log
 import Settings
 from tornado.options import define, options
+import api
 
 define("port", default=8000, help="run on the given port", type=int)
 
@@ -31,6 +32,7 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r"/", MainHandler),
+            (r"/api/?", api.ApiHandler),
             ]
         settings = {
             "template_path":Settings.TEMPLATE_PATH,

@@ -24,19 +24,37 @@
     .red {background: var(--paper-red-500);}
     </style>
 
+
+    <iron-ajax
+    auto
+    url="/api"
+    params='{"part":"snippet"}'
+    handle-as="json"
+    on-response="_handleResponse"
+    debounce-duration="300">
+    </iron-ajax>
+
     <section>
     <paper-button on-tap="selectall"> Select All</paper-button>
-    <div id="deleteSelected" style="display:none;">
-    <paper-button on-tap="deleteall"> Delete All</paper-button>
-    </div>
 	<paper-card heading="My Jobs">
         <div class='card-content'>
-                    <paper-item style="font-weight:bold; background:grey;">
+                    <div id="ListHeader" style="display:block;">
+                    <paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible;">
                     <paper-item-body>
                     <div>status &emsp; &emsp; Job id</div>
                     </paper-item-body>
                     <div>View | Log | Cancel</div>
                     </paper-item>
+                    </div>
+                    <div id="DeleteHeader" style="display:none;">
+                    <paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible;">
+                    <paper-icon-button icon="delete" on-tap="deleteall"></paper-icon-button>
+                    <paper-item-body>
+                    <div> Delete Jobs 
+                    </div>
+                    </paper-item-body>
+                    </paper-icon-item>
+                    </div>
                     <hr>
             <paper-listbox multi id="jobList">
 
@@ -73,7 +91,7 @@
  function loadJSON(callback) {   
     var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'static/jobs.json', true); // Replace 'my_data' with the path to your file
+    xobj.open('GET', '/api', true); // Replace 'my_data' with the path to your file
     xobj.onreadystatechange = function () {
           if (xobj.readyState == 4 && xobj.status == "200") {
             // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
@@ -87,10 +105,17 @@
       is: "des-my-jobs",
       ready: function() {
         var _self = this;
-        loadJSON(function(response) {
-           _self.data = JSON.parse(response);
-           _self.count = _self.data.length;
-            });
+        //loadJSON(function(response) {
+        //_self.data = JSON.parse(response);
+        //_self.count = _self.data.length;
+         //});
+      },
+      _handleResponse: function(e){
+        console.log(e);
+        var _self = this;
+        _self.data = e.detail.response;
+        _self.count = _self.data.length;
+
       },
       selectall: function(){
         var list = document.getElementById("jobList");
@@ -101,7 +126,11 @@
         },
       deleteall: function(){
         var list = document.getElementById("jobList");
-        console.log(list.selectedValues);
+        var result = confirm("Do you want to delete these jobs? They will be also erased from disk storage");
+        if (result){
+            console.log('Delete these');
+            console.log(list.selectedValues);
+            }
         },
       returnName: function(job) {
         var n1=job.search("__");

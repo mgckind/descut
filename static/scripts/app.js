@@ -27,14 +27,16 @@
             var listAll = [];
             listAll = list.selectedValues;
             if (listAll.length > 0){
-                document.getElementById("deleteSelected").style.display = "block";
+                document.getElementById("DeleteHeader").style.display = "block";
+                document.getElementById("ListHeader").style.display = "none";
                 };
             });
         list.addEventListener('iron-deselect', function(){
             var listAll = [];
             listAll = list.selectedValues;
             if (listAll.length == 0){
-                document.getElementById("deleteSelected").style.display = "none";
+                document.getElementById("DeleteHeader").style.display = "none";
+                document.getElementById("ListHeader").style.display = "block";
                 };
             });
 
