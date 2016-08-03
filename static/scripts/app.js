@@ -22,10 +22,27 @@
         menu.addEventListener('iron-activate', function() {
            app.$.paperDrawerPanel.closeDrawer();
         });
+        var list = document.getElementById("jobList");
+        list.addEventListener('iron-select', function(){
+            var listAll = [];
+            listAll = list.selectedValues;
+            if (listAll.length > 0){
+                document.getElementById("deleteSelected").style.display = "block";
+                };
+            });
+        list.addEventListener('iron-deselect', function(){
+            var listAll = [];
+            listAll = list.selectedValues;
+            if (listAll.length == 0){
+                document.getElementById("deleteSelected").style.display = "none";
+                };
+            });
+
+
   });
 
   app.scrollPageToTop = function() {
-    app.$.headerPanelMain.scrollToTop(true);
+    app.$.headerPanelMain.scrollToTop(false);
   };
 
   app.closeDrawer = function() {
