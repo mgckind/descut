@@ -9,14 +9,17 @@
 
 
   window.addEventListener('WebComponentsReady', function() {
-    var pages = document.querySelector('iron-pages');
+    var pages = document.getElementById("mainPages");
     var menu = document.querySelector('paper-menu');
+    var help = document.getElementById("helpPages");
     app.selection="0";
     pages.selected="0";
     menu.selected="0";
+    help.selected="0";
         menu.addEventListener('iron-select', function() {
             app.selection=menu.selected;
             pages.selected=menu.selected;
+            help.selected=menu.selected;
            app.$.paperDrawerPanel.closeDrawer();
         });
         menu.addEventListener('iron-activate', function() {
