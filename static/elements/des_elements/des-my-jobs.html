@@ -92,7 +92,7 @@
                         <div>{{returnName(item.job)}}</div>
                         <div secondary>{{item.elapsed}} ({{returnDate(item.time)}})</div>
                     </paper-item-body>
-                    <paper-icon-button icon="launch" disabled$="{{_viewjob(item.status)}}"></paper-icon-button>
+                    <paper-icon-button icon="launch" on-click="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
                     <paper-icon-button icon="assignment" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
                     <paper-icon-button icon="cancel" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
                     </paper-icon-item>
@@ -206,6 +206,19 @@
         else{
           return true;
         }
+      },
+      viewresults: function(e){
+        //console.log(this.returnName(e.model.item.job));
+        var pages = document.getElementById("mainPages");
+        var help = document.getElementById("helpPages");
+        var menu = document.querySelector('paper-menu');
+        var desResults = document.getElementById("desResults");
+            desResults.jobid = this.returnName(e.model.item.job);
+            app.selection="5";
+            pages.selected="5";
+            menu.selected="5";
+            help.selected="5";
+
       },
 
     });

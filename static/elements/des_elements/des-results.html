@@ -1,0 +1,44 @@
+<dom-module id="des-results">
+<template>
+    <style>
+    </style>
+
+    <div> 
+    <p>Results [[jobid]]</p>
+    </div>
+
+    <iron-ajax
+        auto
+        url=/static/{{jobid}}.json
+        handle-as="json"
+        last-response="{{jsondata}}">
+    </iron-ajax>
+
+    <template is="dom-if" if="{{jsondata}}">
+        <template is="dom-repeat" items="{{jsondata}}">
+            <div> {{item.size}}</div>
+            <div> {{item.name}}</div>
+            <div> {{item.title}}</div>
+        </template>
+    </template>
+
+    <template is="dom-if" if="{{!jsondata}}">
+        <div> Nothing to show </div>
+    </template>
+
+
+</template>
+
+<script>
+      Polymer({
+      is: "des-results",
+      properties : {
+        jobid: {
+            value : '',
+            type : String,
+            notify: true,
+        },
+      },
+    });
+</script>
+</dom-module>
