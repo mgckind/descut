@@ -9,6 +9,7 @@ import tornado.log
 import Settings
 from tornado.options import define, options
 import api
+import login
 
 define("port", default=8000, help="run on the given port", type=int)
 
@@ -16,11 +17,12 @@ class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_secure_cookie("user")
 
-class MainHandler(tornado.web.RequestHandler):
+class MainHandler(BaseHandler):
     """
     Class that handle most of the request, all the rest og the handling is done
     by page.js
     """
+    @tornado.web.authenticated
     def get(self):
         self.render('index.html')
 
@@ -32,6 +34,8 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r"/", MainHandler),
+            (r"/login/", login.AuthLoginHandler),
+            (r"/logout/", login.AuthLogoutHandler),            
             (r"/api/?", api.ApiHandler),
             ]
         settings = {
@@ -39,6 +43,7 @@ class Application(tornado.web.Application):
             "static_path":Settings.STATIC_PATH,
             "debug":Settings.DEBUG,
             "cookie_secret": Settings.COOKIE_SECRET,
+            "login_url": "/login/",            
         }
         tornado.web.Application.__init__(self, handlers, **settings)
 

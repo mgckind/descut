@@ -1,0 +1,52 @@
+<dom-module id="des-login">
+<template>
+    <style>
+    </style>
+
+    <paper-card heading="The content of these pages are restricted." elevation="3">
+      <div class="card-content">
+      <span>Use your DESDM DB credentials</span>
+
+        <form  id="userpass" method="post">
+          <paper-input name="username" label="Username"  required></paper-input><br>
+          <paper-input name="password" type="password" label="Password"  required></paper-input><br>
+          <div class="horizontal layout center-justified">
+          <paper-button raised id="LoginButton" on-tap="_clickSubmit"> 
+          <i class="fa fa-sign-in"></i> Login</paper-button></div>
+           <div class="horizontal layout center-justified">
+        <paper-spinner id="LoginSpinner" class="big"></paper-spinner> </div>
+          
+        </form>
+        <div id="divError" class="errormessage"><b>{{error}}</b></div>
+        </div>
+        </paper-card>
+
+
+</template>
+
+<script>
+      Polymer({
+      is: "des-login",
+      properties : {
+        error :{
+        type: String,
+          value: '',
+        }
+      },
+      _clickSubmit: function(e){
+      var button = document.getElementById('LoginButton');
+      console.log("Submitted!");
+      document.getElementById('LoginSpinner').active = true;
+      document.getElementById('userpass').submit();
+      button.disabled = true;
+      var errm = document.getElementById('divError');
+      errm.style.display = "none";
+      },
+    });
+
+
+</script>
+</dom-module>
+
+
+

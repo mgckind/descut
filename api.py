@@ -42,9 +42,13 @@ def dt_t(entry):
 def tup(entry,i, user='mcarras2'):
     return (i,user,job_s(entry),entry['status'],dt_t(entry))
 
+class BaseHandler(tornado.web.RequestHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("user")
 
-class ApiHandler(tornado.web.RequestHandler):
+class ApiHandler(BaseHandler):
 
+    @tornado.web.authenticated
     def delete(self):
         response = { k: self.get_argument(k) for k in self.request.arguments }
         Nd=len(response)
@@ -60,6 +64,7 @@ class ApiHandler(tornado.web.RequestHandler):
         self.flush()
         self.finish()
 
+    @tornado.web.authenticated
     def get(self):
         response = { k: self.get_argument(k) for k in self.request.arguments }
         con = lite.connect('test.db')
