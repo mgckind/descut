@@ -55,6 +55,7 @@
 
     <section>
     <paper-button on-tap="selectall"> Select All</paper-button>
+    <paper-button on-tap="unselectall"> UnSelect All</paper-button>
 	<paper-card heading="My Jobs">
         <div class='card-content'>
                     <div id="ListHeader" style="display:block;">
@@ -144,8 +145,24 @@
       },
       selectall: function(){
         var list = document.getElementById("jobList");
+        var listAll = list.selectedValues;
+        if (typeof listAll !== 'undefined') {var listAll2 = JSON.parse(JSON.stringify(listAll));}
         for (i = 0; i< list.items.length ;i++) { 
             list.selectIndex(i);
+        }
+        if (typeof listAll !== 'undefined') {
+        for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
+        };
+        app.scrollPageToTop();
+        },
+      unselectall: function(){
+        var list = document.getElementById("jobList");
+        var listAll = list.selectedValues;
+        if (typeof listAll !== 'undefined') {
+            var listAll2 = JSON.parse(JSON.stringify(listAll));
+            for (i = 0; i< listAll2.length ;i++) { 
+                list.selectIndex(listAll2[i]);
+            }
         }
         app.scrollPageToTop();
         },
