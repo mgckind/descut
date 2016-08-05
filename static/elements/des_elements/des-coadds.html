@@ -1,16 +1,121 @@
 <dom-module id="des-coadds">
 <template>
     <style>
+
+    paper-input {
+    width: 300px;
+    min-width: 200px;
+    }
+    
+   paper-slider {
+    width:100%;
+    }
+      paper-button.blue {
+        width:200px;
+        font-size: 14pt;
+      color: var(--paper-blue-500);
+      --paper-button-flat-focus-color: var(--paper-blue-50);
+    }
+    paper-button.blue:hover {
+      background: var(--paper-blue-50);
+    }
+
+.caption {
+    padding-left: 12px;
+    color: #a0a0a0;
+  }
+ .upload{
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  
     </style>
 
     <section>
-    <p> Coadds interface </p>
+
+    <paper-card heading = "Coadd Images Cutout Form">
+    <div class="card-content">
+    Upload the file with the positions or enter the positions by hand and run the desthumb generator
+    </div>
+    <div class="card-content">
+    <div class="horizontal layout around-justified" >
+    <paper-button raised  class="blue"  id="uploadFile">
+    <div id ="uploadicon" style="display: inline-block;"> <i class="fa fa-cloud-upload"></i>&nbsp;  &nbsp;</div>
+    <span>[[file_name]]</span>
+    <input type="file" class="upload" id="file" on-change="_fileChange"/>
+    </paper-button>
+    <paper-button raised  class="blue" id="enterValues">
+    <i class="fa fa-keyboard-o"></i> &nbsp;  &nbsp;Enter Values
+    </paper-button>
+    </div>
+    <hr>
+    <div>xsize (arcmin): <span id="xsizeLabel" class="caption">1.0</span></div><br>
+    <paper-slider id="xsizeSlider" pin  max="10" max-markers="10" step="0.1" value="1" expand></paper-slider>
+    <div>ysize (arcmin): <span id="ysizeLabel" class="caption">1.0</span></div><br>
+    <paper-slider id="ysizeSlider" pin  max="10" max-markers="10" step="0.1" value="1"></paper-slider>
+    <hr>
+    <paper-checkbox>Return list of file (do not produce pngs)</paper-checkbox>
+    <hr>
+    <div class=" horizontal center layout justified" >
+   <paper-checkbox style="font-size:14px;" id="sendemail" on-change="emailcheck">Send email after job completion </paper-checkbox>
+       <paper-input  id="validemail" name="email" label="Email" value="[[email]]">
+    </paper-input>
+    </div>
+    <hr> 
+    <div class="horizontal layout around-justified" >
+    <paper-button raised  class="blue"  id="submitJobButton" disabled>
+    <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Submit Job </paper-button>
+    </div>
+    </div>
+
+    </paper-card>
+
     </section>
 </template>
 
 <script>
+
+ document.addEventListener('WebComponentsReady', function() {
+    var xsize = document.querySelector('#xsizeSlider');
+    xsize.addEventListener('value-change', function() {
+      document.querySelector('#xsizeLabel').textContent = xsize.value;
+        });
+    var ysize = document.querySelector('#ysizeSlider');
+    ysize.addEventListener('value-change', function() {
+      document.querySelector('#ysizeLabel').textContent = ysize.value;
+        });
+    });
+
       Polymer({
       is: "des-coadds",
+        properties: {
+            file_name : {
+                type : String,
+                value : "Upload File"
+      }
+    },
+    get file(){
+      return this.$.file.files[0]
+    },
+    _fileChange: function(){
+      this.file_name = this.file.name;
+      console.log('File to read : ' + this.file_name );
+      var subButton = document.getElementById("submitJobButton");
+      subButton.disabled=false;
+      $('#uploadicon')[0].style.display='none';
+      //$('#seeresults')[0].disabled=true;
+      //$('#dothis')[0].checked=false;
+    },
+    clear: function(){
+      this.file_name = "Upload File";
+      $('#uploadicon')[0].style.display='inline-block';
+      //$('#dothis')[0].checked=false;
+      this.$.file.value = "";
+    },
     });
 
 
