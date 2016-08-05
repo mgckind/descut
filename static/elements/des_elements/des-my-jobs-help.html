@@ -9,8 +9,8 @@
 
  <paper-card heading="Help">
   <div class="card-content">
-    Select all!
-    Colors</div>
+    <paper-toggle-button noink id="checkAll" on-change="check"> (un)select all</paper-toggle-button>   
+  </div>
 </paper-card>
 
 </template>
@@ -18,6 +18,16 @@
 <script>
       Polymer({
       is: "des-my-jobs-help",
+      check: function(){
+        var checkList = document.getElementById("checkAll");
+        var myjobs = document.querySelector('des-my-jobs');
+        if (checkList.checked){
+            myjobs.selectall();
+        }
+        else{
+            myjobs.unselectall();
+        };
+      },
     });
 
 

@@ -26,12 +26,14 @@
            app.$.paperDrawerPanel.closeDrawer();
         });
         var list = document.getElementById("jobList");
+        var checkList = document.getElementById("checkAll");
         list.addEventListener('iron-select', function(){
             var listAll = [];
             listAll = list.selectedValues;
             if (listAll.length > 0){
                 document.getElementById("DeleteHeader").style.display = "block";
                 document.getElementById("ListHeader").style.display = "none";
+                checkList.checked = true;
                 };
             });
         list.addEventListener('iron-deselect', function(){
@@ -40,11 +42,13 @@
             if (listAll.length == 0){
                 document.getElementById("DeleteHeader").style.display = "none";
                 document.getElementById("ListHeader").style.display = "block";
+                checkList.checked = false;
                 };
             });
         list.addEventListener('iron-items-changed', function(){
             document.getElementById("DeleteHeader").style.display = "none";
             document.getElementById("ListHeader").style.display = "block";
+            checkList.checked = false;
             });
 
   });
