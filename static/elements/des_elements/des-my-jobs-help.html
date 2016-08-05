@@ -42,6 +42,12 @@
     </paper-item-body>
     <paper-toggle-button  id="checkAll" on-change="check"></paper-toggle-button>
     </paper-item>
+    <paper-item >
+    <paper-item-body>
+    Refresh
+    </paper-item-body>
+    <paper-icon-button icon="refresh" on-tap="refreshJobs"></paper-icon-button>
+    </paper-item>
     <hr>
   <paper-item disabled>
   <paper-item-body>
@@ -84,6 +90,12 @@
         else{
             myjobs.unselectall();
         };
+      },
+      refreshJobs: function(){
+        var myjobs = document.querySelector('des-my-jobs');
+        req = document.getElementById("getData");
+        req.generateRequest();
+        myjobs.unselectall();
       },
     });
 
