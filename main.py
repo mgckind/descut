@@ -10,6 +10,7 @@ import Settings
 from tornado.options import define, options
 import api
 import login
+import readfile
 
 define("port", default=8000, help="run on the given port", type=int)
 
@@ -37,6 +38,7 @@ class Application(tornado.web.Application):
             (r"/login/", login.AuthLoginHandler),
             (r"/logout/", login.AuthLogoutHandler),            
             (r"/api/?", api.ApiHandler),
+            (r"/readfile/", readfile.FileHandler),
             ]
         settings = {
             "template_path":Settings.TEMPLATE_PATH,

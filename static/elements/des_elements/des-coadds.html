@@ -105,7 +105,10 @@
                 type : String,
                 value : "Enter Values"
             },
-
+            submit_type : {
+                type: String,
+                value: "csvfile",
+                },
     },
     get file(){
       return this.$.file.files[0]
@@ -137,15 +140,22 @@
         var inputDialog = document.getElementById("inputValuesDialog");
         inputDialog.open();
         },
+    completeHandler: function(){
+        console.log('YESSSSS');
+        console.log('load complete');
+        },
     _submitJob: function(event){
         document.querySelector('#toast1').show();
         var formdata = new FormData();
         formdata.append('csvfile', this.$.file);
+        formdata.append('xsize', document.getElementById("xsizeSlider").value);
+        formdata.append('ysize', document.getElementById("ysizeSlider").value);
+        formdata.append('submit_type', this.submit_type.value);
         $.ajax({
              url: '/readfile/',  //Server script to process data
              type: 'POST',
              //beforeSend: this.beforeSendHandler,
-             //success: this.completeHandler,
+             success: this.completeHandler,
              //error: this.errorHandler,
              // Form data
              data: formdata,
