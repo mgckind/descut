@@ -119,6 +119,7 @@
       document.getElementById("submitJobButton").disabled=false;
       document.getElementById("enterValues").disabled=true;
       document.getElementById("uploadicon").style.display='none';
+      this.submit_type = 'csvfile';
     },
     clear: function(){
         document.getElementById("submitJobButton").disabled=true;
@@ -139,18 +140,22 @@
     _openPositions: function(){
         var inputDialog = document.getElementById("inputValuesDialog");
         inputDialog.open();
+        this.submit_type = 'manual';
         },
     completeHandler: function(){
         console.log('YESSSSS');
         console.log('load complete');
+        document.getElementById('desCoadds').clear();
+        document.getElementById("getData").generateRequest();
         },
     _submitJob: function(event){
         document.querySelector('#toast1').show();
         var formdata = new FormData();
-        formdata.append('csvfile', this.$.file);
+        formdata.append('csvfile', this.$.file.files[0]);
         formdata.append('xsize', document.getElementById("xsizeSlider").value);
         formdata.append('ysize', document.getElementById("ysizeSlider").value);
-        formdata.append('submit_type', this.submit_type.value);
+        formdata.append('submit_type', this.submit_type);
+        formdata.append('values',document.getElementById("enteredPositions").value);
         $.ajax({
              url: '/readfile/',  //Server script to process data
              type: 'POST',

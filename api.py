@@ -70,7 +70,7 @@ class ApiHandler(BaseHandler):
         con = lite.connect('test.db')
         with con:
             cur = con.cursor()
-            cc = cur.execute("SELECT * from Jobs where time > datetime('2016-05-21')").fetchall()
+            cc = cur.execute("SELECT * from Jobs order by datetime(time) DESC ").fetchall()
         cc = list(cc)
         jjob=[]
         jstatus=[]
@@ -78,10 +78,10 @@ class ApiHandler(BaseHandler):
         jelapsed=[]
 
         for i in range(len(cc)):
-            dd = dt.datetime.strptime(cc[i][4],'%Y-%m-%d %H:%M:%S')
+            dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
             ctime = dd.strftime('%a %b %d %H:%M:%S %Y')
-            jjob.append(cc[i][1]+'__'+cc[i][2]+'_{'+ctime+'}')
-            jstatus.append(cc[i][3])
+            jjob.append(cc[i][0]+'__'+cc[i][1]+'_{'+ctime+'}')
+            jstatus.append(cc[i][2])
             jtime.append(ctime)
             jelapsed.append(humantime((dt.datetime.now()-dd).total_seconds()))
         out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i]) for i in range(len(jjob))]

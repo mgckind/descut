@@ -29,7 +29,7 @@ def dt_t(entry):
     return t.strftime('%Y-%m-%d %H:%M:%S')
 
 def tup(entry,i, user='mcarras2'):
-    return (i,user,job_s(entry),entry['status'],dt_t(entry))
+    return (user,job_s(entry),entry['status'],dt_t(entry))
 
 with open('static/jobs.json','r') as F:
     J =json.load(F)
@@ -46,8 +46,8 @@ con = lite.connect('test.db')
 with con:
     cur = con.cursor()
     cur.execute("DROP TABLE IF EXISTS Jobs")
-    cur.execute("CREATE TABLE Jobs(id integer primary key, user text, job text, status text, time datetime)")
-    cur.executemany("INSERT INTO Jobs VALUES(?, ?, ?, ? , ?)", bigJ)
+    cur.execute("CREATE TABLE Jobs(user text, job text, status text, time datetime)")
+    cur.executemany("INSERT INTO Jobs VALUES(?,?,?,?)", bigJ)
 
 #read
     with con:
@@ -62,10 +62,10 @@ with con:
     jelapsed=[]
 
     for i in range(len(cc)):
-        dd = dt.datetime.strptime(cc[i][4],'%Y-%m-%d %H:%M:%S')
+        dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
         ctime = dd.strftime('%a %b %d %H:%M:%S %Y')
-        jjob.append(cc[i][1]+'__'+cc[i][2]+'_{'+ctime+'}')
-        jstatus.append(cc[i][3])
+        jjob.append(cc[i][0]+'__'+cc[i][1]+'_{'+ctime+'}')
+        jstatus.append(cc[i][2])
         jtime.append(ctime)
         jelapsed.append((dt.datetime.now()-dd).total_seconds())
 
