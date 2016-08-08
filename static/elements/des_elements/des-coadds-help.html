@@ -5,11 +5,33 @@
         width:100%;
     --paper-card-header-color: red;
     }
+          paper-icon-item {
+        --paper-item-disabled-color: black;
+      }
+      paper-item {
+        --paper-item-disabled-color: black;
+        color: black;
+        --paper-item-focused: {
+        };
+        --paper-item-selected: {
+        background: var(--paper-amber-50) ;
+        };
+        --paper-item-focused-before: {
+            opacity:0.0;
+            };
+
+      }
     </style>
 
  <paper-card heading="Help">
   <div class="card-content">
-    Coadd images help
+    <paper-item >
+    <paper-item-body>
+    Clear Form
+    </paper-item-body>
+     <paper-icon-button icon="clear" on-tap="_clearForm"></paper-icon-button>
+    </paper-item>
+
     </div>
 </paper-card>
 
@@ -18,6 +40,11 @@
 <script>
       Polymer({
       is: "des-coadds-help",
+      _clearForm: function(){
+        console.log('clear Form');
+        desCoadds=document.getElementById('desCoadds');
+        desCoadds.clear();
+      },
     });
 
 

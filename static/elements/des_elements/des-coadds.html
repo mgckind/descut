@@ -45,11 +45,12 @@
     <div class="horizontal layout around-justified" >
     <paper-button raised  class="blue"  id="uploadFile">
     <div id ="uploadicon" style="display: inline-block;"> <i class="fa fa-cloud-upload"></i>&nbsp;  &nbsp;</div>
-    <span>[[file_name]]</span>
+    <span style="overflow-x: auto; overflow-wrap: break-word;">[[file_name]]</span>
     <input type="file" class="upload" id="file" on-change="_fileChange"/>
     </paper-button>
-    <paper-button raised  class="blue" id="enterValues">
-    <i class="fa fa-keyboard-o"></i> &nbsp;  &nbsp;Enter Values
+    <paper-button raised  class="blue" id="enterValues" on-tap="_openPositions">
+    <div id ="keyboardicon" style="display: inline-block;"> <i class="fa fa-keyboard-o"></i> &nbsp;  &nbsp;</div>
+    <span>[[enter_values]]</span>
     </paper-button>
     </div>
     <hr>
@@ -58,7 +59,7 @@
     <div>ysize (arcmin): <span id="ysizeLabel" class="caption">1.0</span></div><br>
     <paper-slider id="ysizeSlider" pin  max="10" max-markers="10" step="0.1" value="1"></paper-slider>
     <hr>
-    <paper-checkbox>Return list of file (do not produce pngs)</paper-checkbox>
+    <paper-checkbox id="onlyreturnlist">Return list of file (do not produce pngs)</paper-checkbox>
     <hr>
     <div class=" horizontal center layout justified" >
    <paper-checkbox style="font-size:14px;" id="sendemail" on-change="emailcheck">Send email after job completion </paper-checkbox>
@@ -74,6 +75,7 @@
 
     </paper-card>
 
+    <des-positions id="desPositions"></des-positions>
     </section>
 </template>
 
@@ -96,7 +98,12 @@
             file_name : {
                 type : String,
                 value : "Upload File"
-      }
+            },
+            enter_values : {
+                type : String,
+                value : "Enter Values"
+            },
+
     },
     get file(){
       return this.$.file.files[0]
@@ -104,18 +111,30 @@
     _fileChange: function(){
       this.file_name = this.file.name;
       console.log('File to read : ' + this.file_name );
-      var subButton = document.getElementById("submitJobButton");
-      subButton.disabled=false;
-      $('#uploadicon')[0].style.display='none';
-      //$('#seeresults')[0].disabled=true;
-      //$('#dothis')[0].checked=false;
+      document.getElementById("submitJobButton").disabled=false;
+      document.getElementById("enterValues").disabled=true;
+      document.getElementById("uploadicon").style.display='none';
     },
     clear: function(){
+        document.getElementById("submitJobButton").disabled=true;
+        document.getElementById("enterValues").disabled=false;
+        document.getElementById("uploadFile").disabled=false;
+        document.getElementById("keyboardicon").style.display='inline-block';
+        document.getElementById("xsizeSlider").value="1";
+        document.getElementById("ysizeSlider").value="1";
+        document.getElementById("sendemail").checked=false;
+        document.getElementById("onlyreturnlist").checked=false;
+        document.getElementById("desPositions").clear();
       this.file_name = "Upload File";
-      $('#uploadicon')[0].style.display='inline-block';
+      var upIcon = document.getElementById("uploadicon").style.display='inline-block';
+     this.enter_values = "Enter Values";
       //$('#dothis')[0].checked=false;
       this.$.file.value = "";
     },
+    _openPositions: function(){
+        var inputDialog = document.getElementById("inputValuesDialog");
+        inputDialog.open();
+        },
     });
 
 
