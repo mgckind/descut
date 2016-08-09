@@ -124,6 +124,13 @@
       is: "des-my-jobs",
       ready: function() {
         var _self = this;
+        var ws = new WebSocket("ws://localhost:8000/websocket");
+         ws.onmessage = function(e) {
+           console.log(e.data);
+           req = document.getElementById("getData");
+           req.generateRequest();
+        };
+
         //loadJSON(function(response) {
         //_self.data = JSON.parse(response);
         //_self.count = _self.data.length;

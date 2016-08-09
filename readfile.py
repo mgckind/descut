@@ -4,6 +4,7 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
+import tornado.websocket
 import pandas as pd
 import os, uuid
 import Settings
@@ -15,6 +16,54 @@ import stat
 import sqlite3 as lite
 import sys
 import datetime as dt
+#
+import easyaccess as ea
+from multiprocessing import Pool
+import requests
+
+clients=[]
+
+class WebSocketHandler(tornado.websocket.WebSocketHandler):
+    def open(self):
+        clients.append(self)
+        print('new connection')
+ 
+    def on_message(self, message):
+        pass
+        #self.write_message(u"Your message was: " + message)
+ 
+    def on_close(self):
+        print('disconnected')
+
+
+def sendjob(folder,jobid,xs=3,ys=3):
+    global clients
+    filename = folder+jobid+'.csv'
+    df = pd.read_csv(filename,sep=',')
+    ra = df.RA.values.tolist()
+    dec = df.DEC.values.tolist()
+    C=ea.api.DesCoaddCuts(root_url='http://desdev2.cosmology.illinois.edu')
+    C.get_token()
+    C.make_cuts(ra,dec,xsize=xs,ysize=ys, wait=True)
+    folder2=folder+'results/'+jobid+'/'
+    links = C.job.json()['links']
+    for link in links:
+        temp_file = os.path.join(folder2, os.path.basename(link))
+        req = requests.get(link, stream=True)
+        if req.status_code == 200:
+            with open(temp_file, 'wb') as temp_file:
+                for chunk in req:
+                    temp_file.write(chunk)
+    con = lite.connect('test.db')
+    q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
+    print(q)
+    with con:
+        cur = con.cursor()
+        cur.execute(q)
+    print('Done!')
+    clients[0].write_message(u"Job done!:" + jobid)
+
+
 
 def dt_t(entry):
     t = dt.datetime.strptime(entry['time'], '%a %b %d %H:%M:%S %Y')
@@ -32,29 +81,52 @@ class infoP(object):
 
 class FileHandler(BaseHandler):
     @tornado.web.authenticated
+    @tornado.web.asynchronous
     def post(self):
+        user_folder = 'static/uploads/mcarras2/'
         xs = self.get_argument("xsize")
         ys = self.get_argument("ysize")
+        list_only = self.get_argument("list_only") == 'true'
+        send_email = self.get_argument("send_email") == 'true'
+        email = self.get_argument("email")
         stype = self.get_argument("submit_type")
+        print('**************')
         print(xs,ys,'sizes')
         print(stype,'type')
-        jobid=str(uuid.uuid4())
+        print(list_only,'list_only')
+        print(send_email,'send_email')
+        print(email,'email')
+        jobid = str(uuid.uuid4())
         if stype=="manual":
             values = self.get_argument("values")
             print(values)
+            filename = user_folder+jobid+'.csv'
+            F=open(filename,'w')
+            F.write("RA,DEC\n")
+            F.write(values)
+            F.close()
         if stype=="csvfile":
             fileinfo = self.request.files["csvfile"][0]
-            print(fileinfo['filename'])
             fname = fileinfo['filename']
+            extn = os.path.splitext(fname)[1]
+            print(fname)
             print(fileinfo['content_type'])
-            print(fileinfo['body'])
+            filename = user_folder+jobid+extn
+            with open(filename,'w') as F:
+                F.write(fileinfo['body'].decode('ascii'))
+        print('**************')
+        folder2=user_folder+'results/'+jobid+'/'
+        os.system('mkdir -p '+folder2)
+        pool = Pool(processes=1)
+        result = pool.apply_async(sendjob, (user_folder,jobid))
+        #sendjob(user_folder,jobid)
         #xtn = os.path.splitext(fname)[1]
         #cname = str(uuid.uuid4()) + extn
         con = lite.connect('test.db')
-        tup = tuple(['mcarras2',jobid,'SUCCESS',dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')])
+        tup = tuple(['mcarras2',jobid,'PENDING',dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')])
         with con:
             cur = con.cursor()
             cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?)", tup)
-        self.set_status(500)
+        self.set_status(200)
         self.flush()
         self.finish()

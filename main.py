@@ -38,6 +38,7 @@ class Application(tornado.web.Application):
             (r"/login/", login.AuthLoginHandler),
             (r"/logout/", login.AuthLogoutHandler),            
             (r"/api/?", api.ApiHandler),
+            (r'/websocket', readfile.WebSocketHandler),
             (r"/readfile/", readfile.FileHandler),
             ]
         settings = {

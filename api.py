@@ -50,6 +50,7 @@ class ApiHandler(BaseHandler):
 
     @tornado.web.authenticated
     def delete(self):
+        user_folder = 'static/uploads/mcarras2/'
         response = { k: self.get_argument(k) for k in self.request.arguments }
         Nd=len(response)
         con = lite.connect('test.db')
@@ -60,6 +61,9 @@ class ApiHandler(BaseHandler):
                 q = "DELETE from Jobs where job = '%s'" % jid
                 print(q)
                 cc = cur.execute(q)
+                folder = user_folder + 'results/' + jid + '/'
+                os.system('rm -rf ' + folder)
+                os.system('rm -f ' + user_folder+jid+'.csv')
         self.set_status(200)
         self.flush()
         self.finish()
