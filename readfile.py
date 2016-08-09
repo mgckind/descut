@@ -36,7 +36,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         print('disconnected')
 
 
-def sendjob(folder,jobid,xs=3,ys=3):
+def sendjob(folder,jobid,xs,ys):
     global clients
     filename = folder+jobid+'.csv'
     df = pd.read_csv(filename,sep=',')
@@ -60,8 +60,8 @@ def sendjob(folder,jobid,xs=3,ys=3):
     with con:
         cur = con.cursor()
         cur.execute(q)
-    print('Done!')
     clients[0].write_message(u"Job done!:" + jobid)
+    print('Done!')
 
 
 
@@ -84,8 +84,8 @@ class FileHandler(BaseHandler):
     @tornado.web.asynchronous
     def post(self):
         user_folder = 'static/uploads/mcarras2/'
-        xs = self.get_argument("xsize")
-        ys = self.get_argument("ysize")
+        xs = float(self.get_argument("xsize"))
+        ys = float(self.get_argument("ysize"))
         list_only = self.get_argument("list_only") == 'true'
         send_email = self.get_argument("send_email") == 'true'
         email = self.get_argument("email")
@@ -118,7 +118,7 @@ class FileHandler(BaseHandler):
         folder2=user_folder+'results/'+jobid+'/'
         os.system('mkdir -p '+folder2)
         pool = Pool(processes=1)
-        result = pool.apply_async(sendjob, (user_folder,jobid))
+        result = pool.apply_async(sendjob, (user_folder,jobid,xs,ys))
         #sendjob(user_folder,jobid)
         #xtn = os.path.splitext(fname)[1]
         #cname = str(uuid.uuid4()) + extn
