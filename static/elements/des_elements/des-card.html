@@ -1,0 +1,31 @@
+<dom-module id="des-card">
+<style>
+        paper-card {
+        margin-top: 0px;
+        width: 100%;
+    }
+ .headc {
+      --paper-card-header-color: var(--paper-red-500);
+}   
+</style>
+
+<template>
+        <paper-card  elevation="0" heading={{heading}} class="headc">
+      <content></content> 
+      </paper-card>
+
+
+</template>
+
+<script>
+      Polymer({
+      is: "des-card",
+      properties:{
+        heading:{
+        type: String,
+          value: '',
+        }
+      },
+    });
+</script>
+</dom-module>

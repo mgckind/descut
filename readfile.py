@@ -55,6 +55,6 @@ class FileHandler(BaseHandler):
         with con:
             cur = con.cursor()
             cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?)", tup)
-        self.set_status(200)
+        self.set_status(500)
         self.flush()
         self.finish()

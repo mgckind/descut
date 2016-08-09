@@ -1,7 +1,15 @@
 <dom-module id="des-coadds">
 <template>
     <style>
-    
+       paper-button.blue {
+    width:200px;
+    font-size: 14pt;
+      color: var(--paper-blue-500);
+      --paper-button-flat-focus-color: var(--paper-blue-50);
+    }
+    paper-button.blue:hover {
+      background: var(--paper-blue-50);
+    } 
     paper-card {
         margin-top: 0px;
     }
@@ -12,15 +20,6 @@
     
    paper-slider {
     width:100%;
-    }
-      paper-button.blue {
-        width:200px;
-        font-size: 14pt;
-      color: var(--paper-blue-500);
-      --paper-button-flat-focus-color: var(--paper-blue-50);
-    }
-    paper-button.blue:hover {
-      background: var(--paper-blue-50);
     }
 
 .caption {
@@ -62,7 +61,7 @@
     <div>ysize (arcmin): <span id="ysizeLabel" class="caption">1.0</span></div><br>
     <paper-slider id="ysizeSlider" pin  max="10" max-markers="10" step="0.1" value="1"></paper-slider>
     <hr>
-    <paper-checkbox id="onlyreturnlist">Return list of file (do not produce pngs)</paper-checkbox>
+    <paper-checkbox id="onlyreturnlist">Return just list of files (do not produce and display pngs, i.e. faster)</paper-checkbox>
     <hr>
     <div class=" horizontal center layout justified" >
    <paper-checkbox style="font-size:14px;" id="sendemail" on-change="emailcheck">Send email after job completion </paper-checkbox>
@@ -80,6 +79,7 @@
 
     <des-positions id="desPositions"></des-positions>
     <paper-toast class="toast-position" id="toast1" text="Job has been submitted!" duration="5000"> </paper-toast>
+    <paper-toast class="toast-position" id="toast2" text="ERROR!. There was an error. Please try again" duration="5000"> </paper-toast>
     
     </section>
 </template>
@@ -147,16 +147,23 @@
         },
     completeHandler: function(){
         console.log('YESSSSS');
-        console.log('load complete');
         document.getElementById('desCoadds').clear();
         document.getElementById("getData").generateRequest();
+        document.querySelector('#toast1').show();
+        },
+    errorHandler: function(){
+        console.log('NOOOO');
+        document.getElementById('desCoadds').clear();
+        document.querySelector('#toast2').show();
         },
     _submitJob: function(event){
-        document.querySelector('#toast1').show();
         var formdata = new FormData();
         formdata.append('csvfile', this.$.file.files[0]);
         formdata.append('xsize', document.getElementById("xsizeSlider").value);
         formdata.append('ysize', document.getElementById("ysizeSlider").value);
+        formdata.append('list_only', document.getElementById("onlyreturnlist").value);
+        formdata.append('send_email', document.getElementById("sendemail").value);
+        formdata.append('email', document.getElementById("validemail").value);
         formdata.append('submit_type', this.submit_type);
         formdata.append('values',document.getElementById("enteredPositions").value);
         $.ajax({
@@ -164,7 +171,7 @@
              type: 'POST',
              //beforeSend: this.beforeSendHandler,
              success: this.completeHandler,
-             //error: this.errorHandler,
+             error: this.errorHandler,
              // Form data
              data: formdata,
              //Options to tell jQuery not to process data or worry about content-type.
