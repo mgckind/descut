@@ -4,7 +4,7 @@
     </style>
 
     <section>
-    <des-card heading="Welcome!">
+    <des-card heading="Welcome! [[name]]">
     <div class="card-content">
     </div>
     </des-card>
@@ -14,6 +14,12 @@
 <script>
       Polymer({
       is: "des-home",
+      properties:{
+        name :{
+            type: String,
+            value:''
+        },
+        },
     });
 
 

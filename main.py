@@ -14,27 +14,13 @@ import readfile
 
 define("port", default=8000, help="run on the given port", type=int)
 
-class BaseHandler(tornado.web.RequestHandler):
-    def get_current_user(self):
-        return self.get_secure_cookie("user")
-
-class MainHandler(BaseHandler):
-    """
-    Class that handle most of the request, all the rest og the handling is done
-    by page.js
-    """
-    @tornado.web.authenticated
-    def get(self):
-        self.render('index.html')
-
-
 class Application(tornado.web.Application):
     """
     The tornado application  class
     """
     def __init__(self):
         handlers = [
-            (r"/", MainHandler),
+            (r"/", login.MainHandler),
             (r"/login/", login.AuthLoginHandler),
             (r"/logout/", login.AuthLogoutHandler),            
             (r"/api/?", api.ApiHandler),

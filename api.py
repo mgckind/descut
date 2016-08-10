@@ -39,18 +39,19 @@ def dt_t(entry):
     t = dt.datetime.strptime(entry['time'], '%a %b %d %H:%M:%S %Y')
     return t.strftime('%Y-%m-%d %H:%M:%S')
 
-def tup(entry,i, user='mcarras2'):
+def tup(entry,i, user):
     return (i,user,job_s(entry),entry['status'],dt_t(entry))
 
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
-        return self.get_secure_cookie("user")
+        return self.get_secure_cookie("usera")
 
 class ApiHandler(BaseHandler):
 
     @tornado.web.authenticated
     def delete(self):
-        user_folder = 'static/uploads/mcarras2/'
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        user_folder = os.path.join(Settings.UPLOADS,loc_user)
         response = { k: self.get_argument(k) for k in self.request.arguments }
         Nd=len(response)
         con = lite.connect('test.db')
@@ -58,23 +59,24 @@ class ApiHandler(BaseHandler):
             cur = con.cursor()
             for j in range(Nd):
                 jid=response[str(j)]
-                q = "DELETE from Jobs where job = '%s'" % jid
+                q = "DELETE from Jobs where job = '%s' and user = '%s'" % (jid, loc_user)
                 print(q)
                 cc = cur.execute(q)
-                folder = user_folder + 'results/' + jid + '/'
+                folder = os.path.join(user_folder,'results/' + jid)
                 os.system('rm -rf ' + folder)
-                os.system('rm -f ' + user_folder+jid+'.csv')
+                os.system('rm -f ' + os.path.join(user_folder,jid+'.csv'))
         self.set_status(200)
         self.flush()
         self.finish()
 
     @tornado.web.authenticated
     def get(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
         response = { k: self.get_argument(k) for k in self.request.arguments }
         con = lite.connect('test.db')
         with con:
             cur = con.cursor()
-            cc = cur.execute("SELECT * from Jobs order by datetime(time) DESC ").fetchall()
+            cc = cur.execute("SELECT * from Jobs where user = '%s' order by datetime(time) DESC " % loc_user).fetchall()
         cc = list(cc)
         jjob=[]
         jstatus=[]

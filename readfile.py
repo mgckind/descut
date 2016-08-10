@@ -21,22 +21,24 @@ import easyaccess as ea
 from multiprocessing import Pool
 import requests
 
-clients=[]
+clients={}
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
     def open(self):
-        clients.append(self)
-        print('new connection')
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        clients[loc_user]=self
+        print('%s connected' % loc_user)
  
     def on_message(self, message):
         pass
         #self.write_message(u"Your message was: " + message)
  
     def on_close(self):
-        print('disconnected')
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        print('%s disconnected' % loc_user)
 
 
-def sendjob(folder,jobid,xs,ys):
+def sendjob(user,folder,jobid,xs,ys):
     global clients
     filename = folder+jobid+'.csv'
     df = pd.read_csv(filename,sep=',')
@@ -60,7 +62,7 @@ def sendjob(folder,jobid,xs,ys):
     with con:
         cur = con.cursor()
         cur.execute(q)
-    clients[0].write_message(u"Job done!:" + jobid)
+    clients[user].write_message(u"Job done!:" + jobid)
     print('Done!')
 
 
@@ -72,7 +74,7 @@ def dt_t(entry):
 
 class BaseHandler(tornado.web.RequestHandler): 
     def get_current_user(self):
-        return self.get_secure_cookie("user")
+        return self.get_secure_cookie("usera")
 
 class infoP(object):
     def __init__(self, uu, pp):
@@ -80,10 +82,11 @@ class infoP(object):
         self._pp=pp
 
 class FileHandler(BaseHandler):
-    @tornado.web.authenticated
     @tornado.web.asynchronous
+    @tornado.web.authenticated
     def post(self):
-        user_folder = 'static/uploads/mcarras2/'
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        user_folder = os.path.join(Settings.UPLOADS,loc_user)+'/'
         xs = float(self.get_argument("xsize"))
         ys = float(self.get_argument("ysize"))
         list_only = self.get_argument("list_only") == 'true'
@@ -118,12 +121,10 @@ class FileHandler(BaseHandler):
         folder2=user_folder+'results/'+jobid+'/'
         os.system('mkdir -p '+folder2)
         pool = Pool(processes=1)
-        result = pool.apply_async(sendjob, (user_folder,jobid,xs,ys))
-        #sendjob(user_folder,jobid)
-        #xtn = os.path.splitext(fname)[1]
-        #cname = str(uuid.uuid4()) + extn
+        result = pool.apply_async(sendjob, (loc_user,user_folder,jobid,xs,ys))
+        #sendjob(loc_user,user_folder,jobid,xs,ys)
         con = lite.connect('test.db')
-        tup = tuple(['mcarras2',jobid,'PENDING',dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')])
+        tup = tuple([loc_user,jobid,'PENDING',dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')])
         with con:
             cur = con.cursor()
             cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?)", tup)

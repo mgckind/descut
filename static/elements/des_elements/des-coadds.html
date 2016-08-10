@@ -97,17 +97,6 @@
 
 <script>
 
- document.addEventListener('WebComponentsReady', function() {
-    var xsize = document.querySelector('#xsizeSlider');
-    xsize.addEventListener('value-change', function() {
-      document.querySelector('#xsizeLabel').textContent = xsize.value;
-        });
-    var ysize = document.querySelector('#ysizeSlider');
-    ysize.addEventListener('value-change', function() {
-      document.querySelector('#ysizeLabel').textContent = ysize.value;
-        });
-    });
-
       Polymer({
       is: "des-coadds",
         properties: {

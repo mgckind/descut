@@ -6,7 +6,7 @@
     <iron-pages  id="mainPages" selected="[[selection]]">
         
         <!-- Order is important, need to match des-sidebar -->
-        <des-home></des-home> <!-- 0 -->
+        <des-home name=[[name]]></des-home> <!-- 0 -->
         <des-my-jobs></des-my-jobs> <!-- 1 -->
         <des-coadds id="desCoadds"></des-coadds> <!-- 2 -->
         <des-single></des-single> <!--3 -->
@@ -21,6 +21,20 @@
 <script>
       Polymer({
       is: "des-mainpages",
+      properties: {
+        name : {
+            type: String,
+            value:''
+        },
+        email: {
+            type: String,
+            value:''
+        },
+        username:{
+            type:String,
+            value:''
+        }
+      },
     });
 </script>
 </dom-module>
