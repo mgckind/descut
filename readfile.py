@@ -63,12 +63,13 @@ def sendjob(user,folder,jobid,xs,ys):
     for i in range(Ntiles):
         title=listpngs[i].split('/')[-1][:-8]
         titles.append(title)
-        listpngs[i] = listpngs[i].split('website')[1]
+        listpngs[i] = listpngs[i][listpngs[i].find('/static'):]
     if os.path.exists(folder2+"list.json"):
         os.remove(folder2+"list.json")
-    with open(folder2+"list.json","w") as outfile:
-        json.dump([dict(name=listpngs[i],title=titles[i], size=Ntiles) for i in range(Ntiles)], outfile, indent=4)
-    print('json Done!')
+    if Ntiles > 0:
+        with open(folder2+"list.json","w") as outfile:
+            json.dump([dict(name=listpngs[i],title=titles[i], size=Ntiles) for i in range(Ntiles)], outfile, indent=4)
+        print('json Done!')
     
 
     con = lite.connect('test.db')

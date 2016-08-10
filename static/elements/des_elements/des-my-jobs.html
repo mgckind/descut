@@ -238,11 +238,12 @@
         }
       },
       viewresults: function(e){
-        //console.log(this.returnName(e.model.item.job));
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
         var desResults = document.getElementById("desResults");
+        document.getElementById("smallJobList").selected=e.model.index;
+        this.unselectall();
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.username = this.username;
             app.selection="5";

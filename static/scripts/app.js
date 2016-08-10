@@ -38,9 +38,8 @@
                 };
             });
         smallList.addEventListener('iron-select', function(){
-            console.log(smallList.selectedItem.innerText);
             document.getElementById("desResults").jobid=smallList.selectedItem.innerText.trim();
-            desResults.username = 'mcarras2';
+            desResults.username = document.getElementById("desJobs").username;
             document.getElementById("getTiles").generateRequest();
             });
 
