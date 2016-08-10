@@ -3,28 +3,26 @@
     <style>
     </style>
 
-    <div> 
-    <p>Results [[jobid]]</p>
-    </div>
 
-    <iron-ajax
+    <iron-ajax id="getTiles"
         auto
         url=/static/uploads/{{username}}/results/{{jobid}}/list.json
         handle-as="json"
         last-response="{{jsondata}}">
     </iron-ajax>
 
+    <des-card heading="Job : [[jobid]] ( [[jsondata.length]] tiles)"> 
     <template is="dom-if" if="{{jsondata}}">
         <template is="dom-repeat" items="{{jsondata}}">
-            <div> {{item.size}}</div>
-            <div> {{item.name}}</div>
-            <div> {{item.title}}</div>
+            <des-thumb imtitle={{item.title}} imdisplay={{item.name}}>
+            </des-thumb>
         </template>
     </template>
 
     <template is="dom-if" if="{{!jsondata}}">
         <div> Nothing to show </div>
     </template>
+    </des-card>
 
 
 </template>
@@ -33,6 +31,9 @@
       Polymer({
       is: "des-results",
       properties : {
+        jsondata: {
+            type: Array,
+            },
         jobid: {
             value : '',
             type : String,

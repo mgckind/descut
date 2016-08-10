@@ -5,11 +5,45 @@
         width:100%;
     --paper-card-header-color: red;
     }
+        .jobstatus {
+      color: var(--color, orange);
+    }
+    .status {
+      display: inline-block;
+      box-sizing: border-box;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--paper-yellow-500);
+    }
+    .green {background: var(--paper-green-500);}
+    .red {background: var(--paper-red-500);}
     </style>
+
+
 
  <paper-card heading="Help">
   <div class="card-content">
-    Results help</div>
+               <paper-listbox id="smallJobList">
+
+                <template is="dom-repeat" id="menu" items="[[data]]">
+                     <paper-item>
+                     <template is="dom-if" if="{{_completed(item.status)}}">
+                    <div class="status green" item-icon></div>
+                    </template>
+                     <template is="dom-if" if="{{_pending(item.status)}}">
+                    <div class="status" item-icon></div>
+                    </template>
+                    <template is="dom-if" if="{{_stop(item.status)}}">
+                    <div class="status red" item-icon></div>
+                    </template>
+
+                        <div style="font-size: 8.5px;">&nbsp; &nbsp;[[returnName(item.job)]]</div>
+                    </paper-item>
+            </template>
+            </paper-listbox>
+
+    </div>
 </paper-card>
 
 </template>
@@ -17,6 +51,32 @@
 <script>
       Polymer({
       is: "des-results-help",
+      properties: {
+        data: {
+            type: Array,
+        },
+      },
+      _print: function() {
+        console.log(this.data);
+      },
+        returnName: function(job) {
+        var n1=job.search("__");
+        var n2=job.search("{");
+        var job0 = job.substring(n1+2,n2-1);
+        return job0;
+      },
+       _completed: function(status) {
+        if (status === "SUCCESS") {return true;}
+      },
+      _pending: function(status) {
+        if (status === "PENDING") {return true;}
+      },
+      _stop: function(status) {
+        if (status != "PENDING" && status != "SUCCESS" ) {return true;}
+      },
+
+
+
     });
 
 

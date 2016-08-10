@@ -63,6 +63,7 @@ def sendjob(user,folder,jobid,xs,ys):
     for i in range(Ntiles):
         title=listpngs[i].split('/')[-1][:-8]
         titles.append(title)
+        listpngs[i] = listpngs[i].split('website')[1]
     if os.path.exists(folder2+"list.json"):
         os.remove(folder2+"list.json")
     with open(folder2+"list.json","w") as outfile:

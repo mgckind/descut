@@ -26,6 +26,7 @@
            app.$.paperDrawerPanel.closeDrawer();
         });
         var list = document.getElementById("jobList");
+        var smallList = document.getElementById("smallJobList");
         var checkList = document.getElementById("checkAll");
         list.addEventListener('iron-select', function(){
             var listAll = [];
@@ -36,6 +37,13 @@
                 checkList.checked = true;
                 };
             });
+        smallList.addEventListener('iron-select', function(){
+            console.log(smallList.selectedItem.innerText);
+            document.getElementById("desResults").jobid=smallList.selectedItem.innerText.trim();
+            desResults.username = 'mcarras2';
+            document.getElementById("getTiles").generateRequest();
+            });
+
         list.addEventListener('iron-deselect', function(){
             var listAll = [];
             listAll = list.selectedValues;

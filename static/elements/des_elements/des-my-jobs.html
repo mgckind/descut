@@ -146,6 +146,7 @@
         var _self = this;
         _self.data = e.detail.response;
         _self.count = _self.data.length;
+        document.querySelector('des-results-help').data = _self.data;
       },
       _afterDelete: function(e){
         var list = document.getElementById("jobList");
