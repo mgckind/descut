@@ -9,7 +9,7 @@
 
     <iron-ajax
         auto
-        url=/static/{{jobid}}.json
+        url=/static/uploads/{{username}}/results/{{jobid}}/list.json
         handle-as="json"
         last-response="{{jsondata}}">
     </iron-ajax>
@@ -37,6 +37,10 @@
             value : '',
             type : String,
             notify: true,
+        },
+        username:{
+            type: String,
+            value: '',
         },
       },
     });

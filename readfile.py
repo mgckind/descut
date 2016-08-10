@@ -56,6 +56,20 @@ def sendjob(user,folder,jobid,xs,ys):
             with open(temp_file, 'wb') as temp_file:
                 for chunk in req:
                     temp_file.write(chunk)
+    listpngs = glob.glob(folder2+'*.png')
+    print(listpngs)
+    titles=[]
+    Ntiles=len(listpngs)
+    for i in range(Ntiles):
+        title=listpngs[i].split('/')[-1][:-8]
+        titles.append(title)
+    if os.path.exists(folder2+"list.json"):
+        os.remove(folder2+"list.json")
+    with open(folder2+"list.json","w") as outfile:
+        json.dump([dict(name=listpngs[i],title=titles[i], size=Ntiles) for i in range(Ntiles)], outfile, indent=4)
+    print('json Done!')
+    
+
     con = lite.connect('test.db')
     q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
     print(q)

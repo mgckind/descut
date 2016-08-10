@@ -122,6 +122,12 @@
 
       Polymer({
       is: "des-my-jobs",
+      properties: {
+        username: {
+            type: String,
+            value: '',
+        },
+      },
       ready: function() {
         var _self = this;
         var ws = new WebSocket("ws://localhost:8000/websocket");
@@ -237,6 +243,7 @@
         var menu = document.querySelector('paper-menu');
         var desResults = document.getElementById("desResults");
             desResults.jobid = this.returnName(e.model.item.job);
+            desResults.username = this.username;
             app.selection="5";
             pages.selected="5";
             menu.selected="5";
