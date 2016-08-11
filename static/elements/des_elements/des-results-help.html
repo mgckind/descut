@@ -25,10 +25,10 @@
 
  <paper-card heading="Help">
   <div class="card-content">
-               <paper-listbox id="smallJobList">
+               <paper-listbox id="smallJobList" >
 
                 <template is="dom-repeat" id="menu" items="[[data]]">
-                     <paper-item>
+                     <paper-item on-focus="_focus">
                      <template is="dom-if" if="{{_completed(item.status)}}">
                     <div class="status green" item-icon></div>
                     </template>
@@ -60,7 +60,20 @@
       _print: function() {
         console.log(this.data);
       },
+      _focus: function(e){
+        console.log(this._returnName(e.model.item.job));
+        document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
+        document.getElementById("desResults").username = document.getElementById("desJobs").username;
+        document.getElementById("getTiles").generateRequest();
+
+      },
         returnName: function(job) {
+        var n1=job.search("__");
+        var n2=job.search("{");
+        var job0 = job.substring(n1+2,n2-1);
+        return job0;
+      },
+        _returnName: function(job) {
         var n1=job.search("__");
         var n2=job.search("{");
         var job0 = job.substring(n1+2,n2-1);
