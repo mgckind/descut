@@ -16,6 +16,7 @@ import stat
 import sqlite3 as lite
 import sys
 import datetime as dt
+import dtasks
 #
 import easyaccess as ea
 from multiprocessing import Pool
@@ -102,6 +103,7 @@ class FileHandler(BaseHandler):
     @tornado.web.authenticated
     def post(self):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        loc_passw = self.get_secure_cookie("userb").decode('ascii').replace('\"','')
         user_folder = os.path.join(Settings.UPLOADS,loc_user)+'/'
         xs = float(self.get_argument("xsize"))
         ys = float(self.get_argument("ysize"))
@@ -136,11 +138,15 @@ class FileHandler(BaseHandler):
         print('**************')
         folder2=user_folder+'results/'+jobid+'/'
         os.system('mkdir -p '+folder2)
-        pool = Pool(processes=1)
-        result = pool.apply_async(sendjob, (loc_user,user_folder,jobid,xs,ys))
+        infP=infoP(loc_user,loc_passw) 
+        #pool = Pool(processes=1)
+        #result = pool.apply_async(sendjob, (loc_user,user_folder,jobid,xs,ys))
         #sendjob(loc_user,user_folder,jobid,xs,ys)
+        now = datetime.datetime.now()
+        tiid = loc_user+'__'+jobid+'_{'+now.ctime()+'}'
+        run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, listonly], task_id=tiid)
         con = lite.connect(Settings.DBFILE)
-        tup = tuple([loc_user,jobid,'PENDING',dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')])
+        tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S')])
         with con:
             cur = con.cursor()
             cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?)", tup)

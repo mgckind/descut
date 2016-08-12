@@ -18,7 +18,7 @@ celery = Celery('dtasks')
 celery.config_from_object('celeryconfig')
 
 @celery.task
-def desthumb(inputs, infoP, outputs,xs,ys, sii, listonly):
+def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     com =  "makeDESthumbs  %s --user %s --password %s --MP --outdir=%s" % (inputs, infoP._uu, infoP._pp, outputs)
     if xs != "": com += ' --xsize %s ' % xs
     if ys != "": com += ' --ysize %s ' % ys
@@ -56,6 +56,11 @@ def desthumb(inputs, infoP, outputs,xs,ys, sii, listonly):
     for ff in allfiles:
         if (ff.find('all.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
     Fall.close()
+    con = lite.connect(Settings.DBFILE)
+    q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
+    with con:
+        cur = con.cursor()
+        cur.execute(q)
 
     return oo
 
