@@ -2,6 +2,7 @@ import sqlite3 as lite
 import json
 import sys
 import datetime as dt
+import Settings
 
 def humantime(s):
         if s < 60:
@@ -40,14 +41,17 @@ for i in range(len(J)):
 
 bigJ=tuple(bigJ)
 
-con = lite.connect('test.db')
 
 # write
-with con:
-    cur = con.cursor()
-    cur.execute("DROP TABLE IF EXISTS Jobs")
-    cur.execute("CREATE TABLE Jobs(user text, job text, status text, time datetime)")
-    cur.executemany("INSERT INTO Jobs VALUES(?,?,?,?)", bigJ)
+def create_db(delete=False)
+    con = lite.connect('users.db')
+    with con:
+        cur = con.cursor()
+        if delete:
+            cur.execute("DROP TABLE IF EXISTS Jobs")
+        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime)")
+
+#cur.executemany("INSERT INTO Jobs VALUES(?,?,?,?)", bigJ)
 
 #read
     with con:

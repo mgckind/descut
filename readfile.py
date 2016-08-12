@@ -72,7 +72,7 @@ def sendjob(user,folder,jobid,xs,ys):
         print('json Done!')
     
 
-    con = lite.connect('test.db')
+    con = lite.connect(Settings.DBFILE)
     q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
     print(q)
     with con:
@@ -139,7 +139,7 @@ class FileHandler(BaseHandler):
         pool = Pool(processes=1)
         result = pool.apply_async(sendjob, (loc_user,user_folder,jobid,xs,ys))
         #sendjob(loc_user,user_folder,jobid,xs,ys)
-        con = lite.connect('test.db')
+        con = lite.connect(Settings.DBFILE)
         tup = tuple([loc_user,jobid,'PENDING',dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')])
         with con:
             cur = con.cursor()

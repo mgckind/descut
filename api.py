@@ -54,7 +54,7 @@ class ApiHandler(BaseHandler):
         user_folder = os.path.join(Settings.UPLOADS,loc_user)
         response = { k: self.get_argument(k) for k in self.request.arguments }
         Nd=len(response)
-        con = lite.connect('test.db')
+        con = lite.connect(Settings.DBFILE)
         with con:
             cur = con.cursor()
             for j in range(Nd):
@@ -73,7 +73,7 @@ class ApiHandler(BaseHandler):
     def get(self):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
         response = { k: self.get_argument(k) for k in self.request.arguments }
-        con = lite.connect('test.db')
+        con = lite.connect(Settings.DBFILE)
         with con:
             cur = con.cursor()
             cc = cur.execute("SELECT * from Jobs where user = '%s' order by datetime(time) DESC " % loc_user).fetchall()

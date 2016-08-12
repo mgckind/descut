@@ -11,8 +11,19 @@ from tornado.options import define, options
 import api
 import login
 import readfile
+import sqlite3 as lite
 
-define("port", default=8000, help="run on the given port", type=int)
+define("port", default=8999, help="run on the given port", type=int)
+
+def create_db(delete=False):
+    con = lite.connect(Settings.DBFILE)
+    with con:
+        cur = con.cursor()
+        if delete:
+            cur.execute("DROP TABLE IF EXISTS Jobs")
+        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime)")
+
+
 
 class Application(tornado.web.Application):
     """
@@ -40,6 +51,7 @@ def main():
     """
     The main function
     """
+    create_db()
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())
     #http_server = tornado.httpserver.HTTPServer(Application(), ssl_options={"certfile": "/etc/httpd/ssl/des.crt", "keyfile": "/etc/httpd/ssl/des.key",})

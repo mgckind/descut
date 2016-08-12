@@ -6,6 +6,7 @@ STATIC_PATH = os.path.join(DIRNAME, 'static')
 TEMPLATE_PATH = os.path.join(DIRNAME, 'templates')
 UPLOADS = os.path.join(STATIC_PATH,"uploads/")
 COOKIE_SECRET = 'hClvdk4slveLtPze7p1g' #TO BE CHANGED
+DBFILE = 'users.db'
 import logging
 # log linked to the standard error stream
 logging.basicConfig(level=logging.DEBUG,
