@@ -9,6 +9,7 @@ import tornado.log
 import Settings
 from tornado.options import define, options
 import api
+import os
 import login
 import readfile
 import sqlite3 as lite
@@ -51,6 +52,8 @@ def main():
     """
     The main function
     """
+    if not os.path.exists(Settings.UPLOADS):
+        os.mkdir(Settings.UPLOADS)
     create_db()
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())
