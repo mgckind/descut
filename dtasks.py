@@ -66,8 +66,8 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
 
 @celery.task
 def send_note(user, jobid, toemail):
-    print 'Task was completed' 
-    print 'I will notify %s to its email address :  %s' % (user, toemail)
+    print('Task was completed')
+    print('I will notify %s to its email address :  %s' % (user, toemail))
     fromemail = 'devnull@ncsa.illinois.edu'
     s = smtplib.SMTP('smtp.ncsa.illinois.edu')
     link = "http://desdev2.cosmology.illinois.edu/results/%s" % jobid
