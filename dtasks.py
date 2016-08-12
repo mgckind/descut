@@ -26,7 +26,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     mypath = Settings.UPLOADS+infoP._uu+'/results/'+siid+'/'
     user_folder = Settings.UPLOADS+infoP._uu+"/"
 
-    if listonly == 'yes':
+    if listonly:
         if os.path.exists(mypath+"list.json"): os.remove(mypath+"list.json")
         with open(mypath+"list.json","w") as outfile:
             json.dump('', outfile, indent=4)
