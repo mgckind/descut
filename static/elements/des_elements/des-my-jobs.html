@@ -130,7 +130,8 @@
       },
       ready: function() {
         var _self = this;
-        var ws = new WebSocket("ws://localhost:8000/websocket");
+        loc = window.location.host
+        var ws = new WebSocket("ws://"+loc+"/websocket");
          ws.onmessage = function(e) {
            console.log(e.data);
            req = document.getElementById("getData");
