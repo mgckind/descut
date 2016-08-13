@@ -13,6 +13,7 @@ import os
 import login
 import readfile
 import sqlite3 as lite
+import dtasks
 
 define("port", default=8999, help="run on the given port", type=int)
 
@@ -36,7 +37,7 @@ class Application(tornado.web.Application):
             (r"/login/", login.AuthLoginHandler),
             (r"/logout/", login.AuthLogoutHandler),            
             (r"/api/?", api.ApiHandler),
-            (r'/websocket', readfile.WebSocketHandler),
+            (r'/websocket', dtasks.WebSocketHandler),
             (r"/readfile/", readfile.FileHandler),
             ]
         settings = {
