@@ -20,6 +20,9 @@ class MainHandler(BaseHandler):
     def get(self):
         loc_passw = self.get_secure_cookie("userb").decode('ascii').replace('\"','')
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        newfolder = os.path.join(Settings.UPLOADS,loc_user)
+        if not os.path.exists(newfolder):
+            os.mkdir(newfolder)
         kwargs = {'host': dbConfig0.host, 'port': dbConfig0.port, 'service_name': 'desoper'}
         dsn = cx_Oracle.makedsn(**kwargs)
         dbh = cx_Oracle.connect(loc_user, loc_passw, dsn=dsn)
