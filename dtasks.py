@@ -2,6 +2,7 @@ import subprocess
 from celery import Celery
 import time
 import tornado.web
+import tornado.websocket
 import smtplib
 import urllib
 import glob
@@ -17,8 +18,27 @@ import sqlite3 as lite
 celery = Celery('dtasks')
 celery.config_from_object('celeryconfig')
 
+clients={}
+
+class WebSocketHandler(tornado.websocket.WebSocketHandler):
+    def open(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        clients[loc_user]=self
+        print('%s connected' % loc_user)
+
+    def on_message(self, message):
+        pass
+        #self.write_message(u"Your message was: " + message)
+
+    def on_close(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        print('%s disconnected' % loc_user)
+
+
+
 @celery.task
 def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
+    global clients
     com =  "makeDESthumbs  %s --user %s --password %s --MP --outdir=%s" % (inputs, infoP._uu, infoP._pp, outputs)
     if xs != "": com += ' --xsize %s ' % xs
     if ys != "": com += ' --ysize %s ' % ys
@@ -40,7 +60,9 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
             os.system("convert %s %s.png" % (f,f))
             titles.append(title)
             pngfiles.append(mypath+title+'.tif.png')
-       
+        
+        for j in range(Ntiles):
+        pngfiles[i] = pngfiles[i][pngfiles[i].find('/static'):]       
         os.chdir(user_folder)
         os.system("tar -zcf results/"+siid+"/all.tar.gz results/"+siid+"/") 
         os.chdir(os.path.dirname(__file__))
@@ -57,11 +79,11 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
         if (ff.find('all.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
     Fall.close()
     con = lite.connect(Settings.DBFILE)
-    q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
+    q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % siid
     with con:
         cur = con.cursor()
         cur.execute(q)
-
+    clients[user].write_message(u"Job done!:" + siid)
     return oo
 
 @celery.task
@@ -90,6 +112,7 @@ def send_note(user, jobid, toemail):
     </body>
     </html>
     """ % (jobid2, link2, link2)
+
 
     MP1 = MIMEText(html, 'html')
 
