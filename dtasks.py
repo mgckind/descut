@@ -61,8 +61,8 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
             titles.append(title)
             pngfiles.append(mypath+title+'.tif.png')
         
-        for j in range(Ntiles):
-        pngfiles[i] = pngfiles[i][pngfiles[i].find('/static'):]       
+        for ij in range(Ntiles):
+            pngfiles[ij] = pngfiles[ij][pngfiles[ij].find('/static'):]       
         os.chdir(user_folder)
         os.system("tar -zcf results/"+siid+"/all.tar.gz results/"+siid+"/") 
         os.chdir(os.path.dirname(__file__))
