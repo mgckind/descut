@@ -54,6 +54,8 @@ def main():
     """
     if not os.path.exists(Settings.UPLOADS):
         os.mkdir(Settings.UPLOADS)
+    if not os.path.exists(Settings.WORKERS):
+        os.mkdir(Settings.WORKERS)
     create_db()
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())

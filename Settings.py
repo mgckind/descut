@@ -5,6 +5,7 @@ DIRNAME = os.path.dirname(__file__)
 STATIC_PATH = os.path.join(DIRNAME, 'static')
 TEMPLATE_PATH = os.path.join(DIRNAME, 'templates')
 UPLOADS = os.path.join(STATIC_PATH,"uploads/")
+WORKERS = os.path.join(DIRNAME, 'workers')
 COOKIE_SECRET = 'hClvdk4slveLtPze7p1g' #TO BE CHANGED
 DBFILE = 'users.db'
 import logging
