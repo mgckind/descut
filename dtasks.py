@@ -18,26 +18,9 @@ import sqlite3 as lite
 celery = Celery('dtasks')
 celery.config_from_object('celeryconfig')
 
-clients={}
-
-class WebSocketHandler(tornado.websocket.WebSocketHandler):
-    def open(self):
-        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
-        clients[loc_user]=self
-        print('%s connected' % loc_user)
-
-    def on_message(self, message):
-        pass
-        #self.write_message(u"Your message was: " + message)
-
-    def on_close(self):
-        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
-        print('%s disconnected' % loc_user)
-
-
 
 @celery.task
-def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
+def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly, clients):
     global clients
     com =  "makeDESthumbs  %s --user %s --password %s --MP --outdir=%s" % (inputs, infoP._uu, infoP._pp, outputs)
     if xs != "": com += ' --xsize %s ' % xs
