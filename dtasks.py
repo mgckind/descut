@@ -21,7 +21,6 @@ celery.config_from_object('celeryconfig')
 
 @celery.task
 def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly, clients):
-    global clients
     com =  "makeDESthumbs  %s --user %s --password %s --MP --outdir=%s" % (inputs, infoP._uu, infoP._pp, outputs)
     if xs != "": com += ' --xsize %s ' % xs
     if ys != "": com += ' --ysize %s ' % ys
