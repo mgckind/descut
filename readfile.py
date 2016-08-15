@@ -102,6 +102,7 @@ class FileHandler(BaseHandler):
     @tornado.web.asynchronous
     @tornado.web.authenticated
     def post(self):
+        global clients
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
         loc_passw = self.get_secure_cookie("userb").decode('ascii').replace('\"','')
         user_folder = os.path.join(Settings.UPLOADS,loc_user)+'/'
