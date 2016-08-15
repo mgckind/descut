@@ -39,6 +39,11 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         print('%s disconnected' % loc_user)
 
 
+def notify(user,jobid):
+    global clients
+    clients[user].write_message(u"Job done!:" + jobid)
+ 
+
 def sendjob(user,folder,jobid,xs,ys):
     global clients
     filename = folder+jobid+'.csv'
@@ -102,7 +107,6 @@ class FileHandler(BaseHandler):
     @tornado.web.asynchronous
     @tornado.web.authenticated
     def post(self):
-        global clients
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
         loc_passw = self.get_secure_cookie("userb").decode('ascii').replace('\"','')
         user_folder = os.path.join(Settings.UPLOADS,loc_user)+'/'
@@ -145,7 +149,7 @@ class FileHandler(BaseHandler):
         #sendjob(loc_user,user_folder,jobid,xs,ys)
         now = datetime.datetime.now()
         tiid = loc_user+'__'+jobid+'_{'+now.ctime()+'}'
-        run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, clients], task_id=tiid)
+        run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
         con = lite.connect(Settings.DBFILE)
         tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S')])
         with con:

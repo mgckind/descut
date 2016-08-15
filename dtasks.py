@@ -20,7 +20,7 @@ celery.config_from_object('celeryconfig')
 
 
 @celery.task
-def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly, clients):
+def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     com =  "makeDESthumbs  %s --user %s --password %s --MP --outdir=%s" % (inputs, infoP._uu, infoP._pp, outputs)
     if xs != "": com += ' --xsize %s ' % xs
     if ys != "": com += ' --ysize %s ' % ys
@@ -65,7 +65,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly, clients):
     with con:
         cur = con.cursor()
         cur.execute(q)
-    clients[infoP._uu].write_message(u"Job done!:" + siid)
+    #clients[infoP._uu].write_message(u"Job done!:" + siid)
     return oo
 
 @celery.task
