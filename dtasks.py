@@ -83,7 +83,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     with con:
         cur = con.cursor()
         cur.execute(q)
-    clients[user].write_message(u"Job done!:" + siid)
+    clients[infoP._uu].write_message(u"Job done!:" + siid)
     return oo
 
 @celery.task
