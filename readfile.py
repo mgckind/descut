@@ -144,12 +144,10 @@ class FileHandler(BaseHandler):
         folder2=user_folder+'results/'+jobid+'/'
         os.system('mkdir -p '+folder2)
         infP=infoP(loc_user,loc_passw) 
-        #pool = Pool(processes=1)
-        #result = pool.apply_async(sendjob, (loc_user,user_folder,jobid,xs,ys))
-        #sendjob(loc_user,user_folder,jobid,xs,ys)
         now = datetime.datetime.now()
         tiid = loc_user+'__'+jobid+'_{'+now.ctime()+'}'
-        run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
+        #run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
+        run=dtasks.sendjob.apply_async(args=[loc_user, user_folder, jobid, xs,ys], task_id=tiid)
         con = lite.connect(Settings.DBFILE)
         tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S')])
         with con:

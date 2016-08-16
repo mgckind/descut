@@ -1,4 +1,4 @@
-<dom-module id="des-results-help">
+<dom-module id="des-logs-help">
 <template>
     <style>
         paper-card {
@@ -25,31 +25,18 @@
 
  <paper-card heading="Help">
   <div class="card-content">
- <p> Download all tiles or a text file with the list of files. In the latter case
- <it>wget -i list.txt</it>. Use list below to change between jobs</p>
+ <p> Check the logfile to find more information about the job.  Use list below to change between jobs.</p>
     <hr>
 
-    <paper-item >
-    <paper-item-body>
-     See the logfile
-    </paper-item-body>
-    <paper-icon-button icon="assignment" on-tap="_seeLog"></paper-icon-button>
-    </paper-item>
  <paper-item >
     <paper-item-body>
-    Download All Tiles
+    View results
     </paper-item-body>
-    <paper-icon-button icon="file-download" ></paper-icon-button>
-    </paper-item>
-    <paper-item >
-    <paper-item-body>
-    Get list of files
-    </paper-item-body>
-    <paper-icon-button icon="assignment-returned" ></paper-icon-button>
+    <paper-icon-button icon="launch" on-tap="_seeResults"></paper-icon-button>
     </paper-item>
     <hr style="color:black; border-color:black; background-color:black;">
     <b> Job list shortcut</b>
-               <paper-listbox id="smallJobList" >
+               <paper-listbox id="smallJobListL" >
                 <template is="dom-repeat" id="menu" items="[[data]]">
                      <paper-item on-focus="_focus">
                      <template is="dom-if" if="{{_completed(item.status)}}">
@@ -74,7 +61,7 @@
 
 <script>
       Polymer({
-      is: "des-results-help",
+      is: "des-logs-help",
       properties: {
         data: {
             type: Array,
@@ -87,11 +74,11 @@
         //console.log(this._returnName(e.model.item.job));
         document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
         document.getElementById("desResults").jobidFull=e.model.item.job;
+        document.getElementById("desResults").username = document.getElementById("desJobs").username;
         document.getElementById("desLog").jobid=this._returnName(e.model.item.job);
         document.getElementById("desLog").jobidFull=e.model.item.job;
-        document.getElementById("desResults").username = document.getElementById("desJobs").username;
-        document.getElementById("smallJobListL").selected=e.model.index;
-        document.getElementById("getTiles").generateRequest();
+        document.getElementById("smallJobList").selected=e.model.index;
+        document.getElementById("getLog").generateRequest();
 
       },
         returnName: function(job) {
@@ -115,22 +102,23 @@
       _stop: function(status) {
         if (status != "PENDING" && status != "SUCCESS" ) {return true;}
       },
-      _seeLog: function(){
-        var jobid = document.getElementById("desResults").jobid;
-        var jobidFull = document.getElementById("desResults").jobidFull;
+      _seeResults: function(){
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
-        var desLog = document.getElementById("desLog");
+        var desResults = document.getElementById("desResults");
         document.getElementById("desJobs").unselectall();
-            desLog.jobidFull = jobidFull;
-            desLog.jobid = jobid;
-            app.selection="6";
-            pages.selected="6";
-            menu.selected="6";
-            help.selected="6";
+            desResults.jobid = document.getElementById("desLog").jobid
+            desResults.jobidFull = document.getElementById("desLog").jobidFull
+            desResults.username =  document.getElementById("desJobs").username;
+            app.selection="5";
+            pages.selected="5";
+            menu.selected="5";
+            help.selected="5";
+
 
       },
+
 
 
     });

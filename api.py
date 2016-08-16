@@ -12,6 +12,7 @@ import json
 import sqlite3 as lite
 import sys
 import datetime as dt
+from celery.result import AsyncResult
 
 
 def humantime(s):
@@ -97,3 +98,21 @@ class ApiHandler(BaseHandler):
             #self.set_status(200)
             #self.flush()
             #self.finish()
+
+class LogHandler(BaseHandler):
+    @tornado.web.authenticated
+
+    def get(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        jobid = self.get_argument("jobid")
+        res = AsyncResult(jobid)
+        if res is not None:
+            try:
+                temp = json.dumps(res.result.replace('\n','</br>'))
+            except:
+                temp = 'Running'
+        else:
+            temp = json.dumps('Running')
+        self.write(temp)
+
+

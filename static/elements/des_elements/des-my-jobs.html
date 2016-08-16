@@ -92,8 +92,8 @@
                         <div>{{returnName(item.job)}}</div>
                         <div secondary>{{item.elapsed}} ({{returnDate(item.time)}})</div>
                     </paper-item-body>
-                    <paper-icon-button icon="launch" on-click="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
-                    <paper-icon-button icon="assignment" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
+                    <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                    <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
                     <paper-icon-button icon="cancel" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
                     </paper-icon-item>
             </template>
@@ -148,6 +148,7 @@
         _self.data = e.detail.response;
         _self.count = _self.data.length;
         document.querySelector('des-results-help').data = _self.data;
+        document.querySelector('des-logs-help').data = _self.data;
       },
       _afterDelete: function(e){
         var list = document.getElementById("jobList");
@@ -243,15 +244,40 @@
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
         var desResults = document.getElementById("desResults");
+        var desLog = document.getElementById("desLog");
         document.getElementById("smallJobList").selected=e.model.index;
-        this.unselectall();
+        document.getElementById("smallJobListL").selected=e.model.index;
+        document.getElementById("desJobs").unselectall();
             desResults.jobid = this.returnName(e.model.item.job);
+            desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
+            desLog.jobid = this.returnName(e.model.item.job);
+            desLog.jobidFull = e.model.item.job;
             app.selection="5";
             pages.selected="5";
             menu.selected="5";
             help.selected="5";
 
+      },
+      viewlog: function(e) {
+        console.log(e.model.item.job);
+        var pages = document.getElementById("mainPages");
+        var help = document.getElementById("helpPages");
+        var menu = document.querySelector('paper-menu');
+        var desLog = document.getElementById("desLog");
+        var desResults = document.getElementById("desResults");
+        document.getElementById("desJobs").unselectall();
+        document.getElementById("smallJobList").selected=e.model.index;
+        document.getElementById("smallJobListL").selected=e.model.index;
+            desLog.jobidFull = e.model.item.job;
+            desLog.jobid= this.returnName(e.model.item.job);
+            desResults.jobid = this.returnName(e.model.item.job);
+            desResults.jobidFull = e.model.item.job;
+            desResults.username = this.username;
+            app.selection="6";
+            pages.selected="6";
+            menu.selected="6";
+            help.selected="6";
       },
 
     });

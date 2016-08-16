@@ -27,6 +27,7 @@
         });
         var list = document.getElementById("jobList");
         var smallList = document.getElementById("smallJobList");
+        var smallListL = document.getElementById("smallJobListL");
         var checkList = document.getElementById("checkAll");
         list.addEventListener('iron-select', function(){
             var listAll = [];
@@ -37,11 +38,16 @@
                 checkList.checked = true;
                 };
             });
-        smallList.addEventListener('iron-select', function(){
-            document.getElementById("desResults").jobid=smallList.selectedItem.innerText.trim();
-            desResults.username = document.getElementById("desJobs").username;
-            document.getElementById("getTiles").generateRequest();
-            });
+        //smallList.addEventListener('iron-select', function(){
+          //  console.log(smallList.selectedItem.item);
+           // document.getElementById("desResults").jobid=smallList.selectedItem.innerText.trim();
+           // desResults.username = document.getElementById("desJobs").username;
+           // document.getElementById("getTiles").generateRequest();
+            //});
+        //smallListL.addEventListener('iron-select', function(){
+          //  document.getElementById("desLog").jobid=smallList.selectedItem.innerText.trim();
+           // document.getElementById("getLog").generateRequest();
+            //});
 
         list.addEventListener('iron-deselect', function(){
             var listAll = [];
