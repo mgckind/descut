@@ -1,11 +1,6 @@
 <dom-module id="des-logs-help">
 <template>
     <style>
-        paper-card {
-        width:100%;
-    --paper-card-header-color: red;
-     --paper-card-background-color: var(--paper-grey-100) ;
-    }
         .jobstatus {
       color: var(--color, orange);
     }
@@ -23,7 +18,7 @@
 
 
 
- <paper-card heading="Help">
+ <des-card-help heading="Help">
   <div class="card-content">
  <p> Check the logfile to find more information about the job.  Use list below to change between jobs.</p>
     <hr style="color:black; border-color:black; background-color:black;">
@@ -54,7 +49,7 @@
             </paper-listbox>
 
     </div>
-</paper-card>
+</des-card-help>
 
 </template>
 

@@ -1,11 +1,6 @@
 <dom-module id="des-results-help">
 <template>
     <style>
-        paper-card {
-        width:100%;
-    --paper-card-header-color: red;
-     --paper-card-background-color: var(--paper-grey-100) ;
-    }
         .jobstatus {
       color: var(--color, orange);
     }
@@ -23,7 +18,7 @@
 
 
 
- <paper-card heading="Help">
+ <des-card-help heading="Help">
   <div class="card-content">
  <p> Download all tiles or a text file with the list of files only. In the latter case use:
  <pre>wget -i list.txt</pre>. Selectable list below to change between jobs</p>
@@ -67,7 +62,7 @@
             </paper-listbox>
 
     </div>
-</paper-card>
+</des-card-help>
 
 </template>
 
