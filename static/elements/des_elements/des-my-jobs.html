@@ -185,10 +185,10 @@
       deleteall: function(){
         var list = document.getElementById("jobList");
         var listAll = list.selectedValues;
+        this.mytemp = JSON.parse(JSON.stringify(listAll));
         var result = confirm("Do you want to delete these "+listAll.length+" jobs? They will be also erased from disk storage");
         var toDel=[];
         if (result){
-            this.mytemp = JSON.parse(JSON.stringify(listAll));
             for (i = 0; i < this.mytemp.length ; i++) {
                 toDel.push(this.returnName(this.data[this.mytemp[i]].job));
             };
