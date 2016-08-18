@@ -39,6 +39,7 @@ class Application(tornado.web.Application):
             (r"/api/?", api.ApiHandler),
             (r"/api/canceljob/?", api.CancelJobHandler),
             (r"/api/log/?", api.LogHandler),
+            (r"/api/refresh/?", readfile.RefreshHandler),
             (r'/websocket', readfile.WebSocketHandler),
             (r"/readfile/", readfile.FileHandler),
             ]

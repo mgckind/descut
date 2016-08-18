@@ -42,7 +42,10 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 def notify(user,jobid):
     global clients
     clients[user].write_message(u"Job done!:" + jobid)
- 
+
+def notify2():
+    print('chiiiiiiiiiiii')
+
 
 def sendjob(user,folder,jobid,xs,ys):
     global clients
@@ -102,6 +105,20 @@ class infoP(object):
     def __init__(self, uu, pp):
         self._uu=uu
         self._pp=pp
+
+class RefreshHandler(BaseHandler):
+    def get(self):
+        global clients
+        user = self.get_argument("user")
+        jid = self.get_argument("jid")
+        print('Refresh!')
+        clients[user].write_message(u"Job done!: %s" % jid)
+        self.set_status(200)
+        self.flush()
+        self.finish()
+
+
+
 
 class FileHandler(BaseHandler):
     @tornado.web.asynchronous

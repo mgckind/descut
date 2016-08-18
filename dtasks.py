@@ -1,5 +1,6 @@
 import subprocess
 from celery import Celery
+from celery import Task
 import time
 import tornado.web
 import tornado.websocket
@@ -103,7 +104,6 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     with con:
         cur = con.cursor()
         cur.execute(q)
-    #clients[infoP._uu].write_message(u"Job done!:" + siid)
     return oo
 
 @celery.task
@@ -190,6 +190,6 @@ def sendjob(user,folder,jobid,xs,ys):
     with con:
         cur = con.cursor()
         cur.execute(q)
-    #clients[user].write_message(u"Job done!:" + jobid)
     print('Done!')
+    a=requests.get('http://localhost:8999/api/refresh/?user=%s&jid=%s' % (user,jobid))
     return jobid + '\n' + testtext

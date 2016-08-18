@@ -258,7 +258,7 @@
         var desLog = document.getElementById("desLog");
         document.getElementById("smallJobList").selected=e.model.index;
         document.getElementById("smallJobListL").selected=e.model.index;
-        document.getElementById("desJobs").unselectall();
+        document.querySelector('des-my-jobs').unselectall();
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
@@ -277,7 +277,7 @@
         var menu = document.querySelector('paper-menu');
         var desLog = document.getElementById("desLog");
         var desResults = document.getElementById("desResults");
-        document.getElementById("desJobs").unselectall();
+        document.querySelector('des-my-jobs').unselectall();
         document.getElementById("smallJobList").selected=e.model.index;
         document.getElementById("smallJobListL").selected=e.model.index;
             desLog.jobidFull = e.model.item.job;
