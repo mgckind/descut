@@ -1,28 +1,19 @@
 <dom-module id="des-positions">
 <template>
-    <style>
-    paper-button.blue {
-    width:200px;
-    font-size: 14pt;
-      color: var(--paper-blue-500);
-      --paper-button-flat-focus-color: var(--paper-blue-50);
-    }
-    paper-button.blue:hover {
-      background: var(--paper-blue-50);
-    }
+    <style include="shared-styles">
 
     </style>
 
 
-    <paper-dialog id="inputValuesDialog"  entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
-        <paper-card heading="Enter positions below">
+    <paper-dialog id="inputValuesDialog"  entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop >
+        <paper-card heading="Enter positions below" elevation="0">
         <div class="card-content">
        <iron-autogrow-textarea id="enteredPositions" max-rows="10" rows=8 placeholder="[[place_holder]]" value=""></iron-autogrow-textarea>
 
       </div>
         <div class="card-actions">
-        <paper-button dialog-dismiss autofocus raised class="blue">Close</paper-button>
-        <paper-button on-tap="_submitPositions" raised class="blue"> Accept</paper-button>
+        <paper-button dialog-dismiss autofocus raised class="desbutton">Close</paper-button>
+        <paper-button on-tap="_submitPositions" raised class="desbutton"> Accept</paper-button>
       </div>
       </paper-card>
     </paper-dialog>

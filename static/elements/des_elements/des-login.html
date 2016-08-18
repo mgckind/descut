@@ -1,9 +1,16 @@
 <dom-module id="des-login">
 <template>
-    <style>
+    <style include="shared-styles">
+        .errormessage{
+            display: block;
+            color : red;
+            text-align: center;
+            }
+
     </style>
 
-    <paper-card heading="The content of these pages are restricted." elevation="3">
+    <div class="horizontal layout">
+    <des-card heading="The content of these pages are restricted.">
       <div class="card-content">
       <span>Use your DESDM DB credentials</span>
 
@@ -11,15 +18,16 @@
           <paper-input name="username" label="Username"  required></paper-input><br>
           <paper-input name="password" type="password" label="Password"  required></paper-input><br>
           <div class="horizontal layout center-justified">
-          <paper-button raised id="LoginButton" on-tap="_clickSubmit"> 
-          <i class="fa fa-sign-in"></i> Login</paper-button></div>
+          <paper-button raised class="desbutton" id="LoginButton" on-tap="_clickSubmit"> 
+          <i class="fa fa-sign-in"></i> &nbsp;  &nbsp; Login</paper-button></div>
            <div class="horizontal layout center-justified">
         <paper-spinner id="LoginSpinner" class="big"></paper-spinner> </div>
           
         </form>
         <div id="divError" class="errormessage"><b>{{error}}</b></div>
         </div>
-        </paper-card>
+        </des-card>
+        </div>
 
 
 </template>

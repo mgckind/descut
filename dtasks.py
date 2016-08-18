@@ -113,8 +113,8 @@ def send_note(user, jobid, toemail):
     fromemail = 'devnull@ncsa.illinois.edu'
     s = smtplib.SMTP('smtp.ncsa.illinois.edu')
     link = "http://desdev2.cosmology.illinois.edu/results/%s" % jobid
-    link2 = urllib.quote(link.encode('utf8'),safe="%/:=&?~#+!$,;'@()*[]")
-    jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
+    #link2 = urllib.quote(link.encode('utf8'),safe="%/:=&?~#+!$,;'@()*[]")
+    #jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
 
 
 
@@ -131,13 +131,13 @@ def send_note(user, jobid, toemail):
         %s </p>
     </body>
     </html>
-    """ % (jobid2, link2, link2)
+    """ % (jobid, link, link)
 
 
     MP1 = MIMEText(html, 'html')
 
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = 'Job %s is completed' % jobid2
+    msg['Subject'] = 'Job %s is completed' % jobid
     #msg['From'] = fromemail
     msg['From'] = formataddr((str(Header('DESDM Thumbs', 'utf-8')), fromemail))
     msg['To'] = toemail

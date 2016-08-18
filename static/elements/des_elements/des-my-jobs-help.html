@@ -1,6 +1,6 @@
 <dom-module id="des-my-jobs-help">
 <template>
-    <style>
+    <style include="shared-styles">
       paper-icon-item {
         --paper-item-disabled-color: black;
       }
@@ -33,7 +33,7 @@
  <des-card-help heading="Help">
   <div class="card-content">
     <p> Click on <iron-icon icon="launch"></iron-icon> or <iron-icon icon="assignment"></iron-icon> to see the results or log-file for an individual Job. Use <iron-icon icon="cancel"></iron-icon> to stop a running Job. Select one or more jobs for deletion. Color legend below. </p>
-    <hr style="color:black; border-color:black; background-color:black;">
+    <hr class="des-hr">
     <paper-item >
     <paper-item-body>
     (Un)Select All
@@ -46,7 +46,7 @@
     </paper-item-body>
     <paper-icon-button icon="refresh" on-tap="refreshJobs"></paper-icon-button>
     </paper-item>
-    <hr style="color:black; border-color:black; background-color:black;">
+    <hr class="des-hr">
   <paper-item disabled>
   <paper-item-body>
   Legend

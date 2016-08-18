@@ -1,14 +1,10 @@
 <dom-module id="des-my-jobs">
 <template>
-    <style>
-    paper-card {
-        width:100%;
-        max-width:800px;
-    }
+    <style include="shared-styles">
     paper-listbox {
         --paper-listbox-color: var(--primary-text-color);
         width: 100%;
-        max-width:800px;
+        max-width:1000px;
     }
 
     paper-icon-item {
@@ -21,19 +17,10 @@
             opacity:0.0;
             };
     }
-    .jobstatus {
-      color: var(--color, orange);
-    }
-    .status {
-      display: inline-block;
-      box-sizing: border-box;
+    .size {
       width: 40px;
       height: 40px;
-      border-radius: 50%;
-      background: var(--paper-yellow-500);
     }
-    .green {background: var(--paper-green-500);}
-    .red {background: var(--paper-red-500);}
     </style>
 
 
@@ -54,19 +41,30 @@
     debounce-duration="300">
     </iron-ajax>
 
+    <iron-ajax id="cancelJob"
+    url="/api/canceljob/"
+    method="DELETE"
+    params=''
+    on-response="_afterCancel"
+    debounce-duration="300">
+    </iron-ajax>
+
     <section>
 	<des-card>
         <div class='card-content'>
                     <div id="ListHeader" style="display:block;">
-                    <paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible; max-width:800px;">
+                    <paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible; max-width:1000px;">
                     <paper-item-body>
                     <div>status &emsp; &emsp; Job id</div>
+                    </paper-item-body>
+                    <paper-item-body>
+                    <div style="margin-left:25px;">Job type</div>
                     </paper-item-body>
                     <div>View | Log | Cancel</div>
                     </paper-item>
                     </div>
                     <div id="DeleteHeader" style="display:none;">
-                    <paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:800px;">
+                    <paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1000px;">
                     <paper-icon-button icon="delete" on-tap="deleteall"></paper-icon-button>
                     <paper-item-body>
                     <div> Delete Jobs 
@@ -74,27 +72,30 @@
                     </paper-item-body>
                     </paper-icon-item>
                     </div>
+               <paper-listbox multi id="jobList">
                     <hr>
-            <paper-listbox multi id="jobList">
 
                 <template is="dom-repeat" id="menu" items="{{data}}">
                     <paper-icon-item>
                      <template is="dom-if" if="{{_completed(item.status)}}">
-                    <div class="status green" item-icon></div>
+                    <div class="status size green" item-icon></div>
                     </template>
                      <template is="dom-if" if="{{_pending(item.status)}}">
-                    <div class="status" item-icon></div>
+                    <div class="status size" item-icon></div>
                     </template>
                     <template is="dom-if" if="{{_stop(item.status)}}">
-                    <div class="status red" item-icon></div>
+                    <div class="status size red" item-icon></div>
                     </template>
                     <paper-item-body two-line>
                         <div>{{returnName(item.job)}}</div>
                         <div secondary>{{item.elapsed}} ({{returnDate(item.time)}})</div>
+                    </paper-item-body two-line>
+                    <paper-item-body >
+                    <div style="margin-left:10px;">{{item.jtypes}}</div>
                     </paper-item-body>
                     <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
                     <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
-                    <paper-icon-button icon="cancel" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
+                    <paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
                     </paper-icon-item>
             </template>
             </paper-listbox>
@@ -188,8 +189,8 @@
         var toDel=[];
         if (result){
             this.mytemp = JSON.parse(JSON.stringify(listAll));
-            for (i = 0; i < listAll.length ; i++) {
-                toDel.push(this.returnName(this.data[listAll[i]].job));
+            for (i = 0; i < this.mytemp.length ; i++) {
+                toDel.push(this.returnName(this.data[this.mytemp[i]].job));
             };
             req = document.getElementById("DeleteReq");
             req.params = toDel;
@@ -239,6 +240,16 @@
           return true;
         }
       },
+
+      canceljob: function(e){
+        console.log(e.model.item.job);
+        var cancelJob = document.getElementById("cancelJob")
+        cancelJob.params = {jobid: e.model.item.job};
+        cancelJob.generateRequest();
+      },
+      _afterCancel: function(){
+        document.getElementById("getData").generateRequest();
+        },
       viewresults: function(e){
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");

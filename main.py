@@ -23,7 +23,7 @@ def create_db(delete=False):
         cur = con.cursor()
         if delete:
             cur.execute("DROP TABLE IF EXISTS Jobs")
-        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime)")
+        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, type text)")
 
 
 
@@ -37,6 +37,7 @@ class Application(tornado.web.Application):
             (r"/login/", login.AuthLoginHandler),
             (r"/logout/", login.AuthLogoutHandler),            
             (r"/api/?", api.ApiHandler),
+            (r"/api/canceljob/?", api.CancelJobHandler),
             (r"/api/log/?", api.LogHandler),
             (r'/websocket', readfile.WebSocketHandler),
             (r"/readfile/", readfile.FileHandler),

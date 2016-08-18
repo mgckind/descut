@@ -3,6 +3,7 @@
         paper-card {
         margin-top: 10px;
         width: 100%;
+        max-width: 2000px;
     }
  .headc {
       --paper-card-header-color: var(--paper-red-500);
@@ -10,9 +11,11 @@
 </style>
 
 <template>
-        <paper-card  elevation="2" heading={{heading}} class="headc">
+        <div class="horizontal layout center-justified" style = "padding-left:30px; padding-right:30px;">
+        <paper-card  elevation="0" heading={{heading}} class="headc">
       <content></content> 
       </paper-card>
+      </div>
 
 
 </template>

@@ -1,19 +1,13 @@
 <dom-module id="des-results-help">
 <template>
-    <style>
-        .jobstatus {
-      color: var(--color, orange);
-    }
-    .status {
-      display: inline-block;
-      box-sizing: border-box;
+    <style include="shared-styles">
+
+    .size {
       width: 15px;
       height: 15px;
-      border-radius: 50%;
-      background: var(--paper-yellow-500);
     }
-    .green {background: var(--paper-green-500);}
-    .red {background: var(--paper-red-500);}
+
+
     </style>
 
 
@@ -22,7 +16,7 @@
   <div class="card-content">
  <p> Download all tiles or a text file with the list of files only. In the latter case use:
  <pre>wget -i list.txt</pre>. Selectable list below to change between jobs</p>
-    <hr style="color:black; border-color:black; background-color:black;">
+    <hr class="des-hr">
     <paper-item >
     <paper-item-body>
      See the logfile
@@ -41,19 +35,19 @@
     </paper-item-body>
     <paper-icon-button icon="assignment-returned" ></paper-icon-button>
     </paper-item>
-    <hr style="color:black; border-color:black; background-color:black;">
+    <hr class="des-hr">
     <b> Job list shortcut</b>
                <paper-listbox id="smallJobList" >
                 <template is="dom-repeat" id="menu" items="[[data]]">
                      <paper-item on-focus="_focus">
                      <template is="dom-if" if="{{_completed(item.status)}}">
-                    <div class="status green" item-icon></div>
+                    <div class="status size green" item-icon></div>
                     </template>
                      <template is="dom-if" if="{{_pending(item.status)}}">
-                    <div class="status" item-icon></div>
+                    <div class="status size" item-icon></div>
                     </template>
                     <template is="dom-if" if="{{_stop(item.status)}}">
-                    <div class="status red" item-icon></div>
+                    <div class="status size red" item-icon></div>
                     </template>
 
                         <div style="font-size: 8.5px;">&nbsp; &nbsp;[[returnName(item.job)]]</div>

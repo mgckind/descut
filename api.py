@@ -13,6 +13,7 @@ import sqlite3 as lite
 import sys
 import datetime as dt
 from celery.result import AsyncResult
+from celery.task.control import revoke
 
 
 def humantime(s):
@@ -83,6 +84,7 @@ class ApiHandler(BaseHandler):
         jstatus=[]
         jtime=[]
         jelapsed=[]
+        jtype=[]
 
         for i in range(len(cc)):
             dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
@@ -90,8 +92,9 @@ class ApiHandler(BaseHandler):
             jjob.append(cc[i][0]+'__'+cc[i][1]+'_{'+ctime+'}')
             jstatus.append(cc[i][2])
             jtime.append(ctime)
+            jtype.append(cc[i][4])
             jelapsed.append(humantime((dt.datetime.now()-dd).total_seconds()))
-        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i]) for i in range(len(jjob))]
+        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i]) for i in range(len(jjob))]
         temp = json.dumps(out_dict, indent=4)
             #with open('static/jobs2.json',"w") as outfile:
         self.write(temp)
@@ -100,8 +103,8 @@ class ApiHandler(BaseHandler):
             #self.finish()
 
 class LogHandler(BaseHandler):
-    @tornado.web.authenticated
 
+    @tornado.web.authenticated
     def get(self):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
         jobid = self.get_argument("jobid")
@@ -115,4 +118,19 @@ class LogHandler(BaseHandler):
             temp = json.dumps('Running')
         self.write(temp)
 
+class CancelJobHandler(BaseHandler):
 
+    @tornado.web.authenticated
+    def delete(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        jobid = self.get_argument("jobid")
+        jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
+        revoke(jobid, terminate=True)
+        con = lite.connect(Settings.DBFILE)
+        with con:
+            cur = con.cursor()
+            q = "UPDATE Jobs SET status='REVOKED' where job = '%s'" % jobid2
+            cc = cur.execute(q)
+        self.set_status(200)
+        self.flush()
+        self.finish()
