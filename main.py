@@ -18,6 +18,9 @@ import dtasks
 define("port", default=8999, help="run on the given port", type=int)
 
 def create_db(delete=False):
+    dirname = os.path.dirname(Settings.DBFILE)
+    if not os.path.exists(dirname):
+        os.mkdir(dirname)
     con = lite.connect(Settings.DBFILE)
     with con:
         cur = con.cursor()

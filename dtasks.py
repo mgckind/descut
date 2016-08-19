@@ -23,13 +23,6 @@ import pandas as pd
 celery = Celery('dtasks')
 celery.config_from_object('celeryconfig')
 
-#class CallbackTask(Task):
-#    def on_success(self, retval, task_id, args, kwargs):
-#        pass
-#
-#    def on_failure(self, exc, task_id, args, kwargs, einfo):
-#        pass
-
 
 testtext="""
 # Will run:
@@ -104,6 +97,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     with con:
         cur = con.cursor()
         cur.execute(q)
+    a=requests.get('http://localhost:8999/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
     return oo
 
 @celery.task
