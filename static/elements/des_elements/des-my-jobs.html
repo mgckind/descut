@@ -162,13 +162,16 @@
       selectall: function(){
         var list = document.getElementById("jobList");
         var listAll = list.selectedValues;
-        if (typeof listAll !== 'undefined') {var listAll2 = JSON.parse(JSON.stringify(listAll));}
-        for (i = 0; i< list.items.length ;i++) { 
+        //if (typeof listAll !== 'undefined') {
+        //    var listAll2 = JSON.parse(JSON.stringify(listAll));
+          //  console.log(listAll2.length);
+           // }
+        for (i = 1; i< list.items.length ;i++) { 
             list.selectIndex(i);
         }
-        if (typeof listAll !== 'undefined') {
-        for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
-        };
+        //if (typeof listAll !== 'undefined') {
+        //for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
+        //};
         app.scrollPageToTop();
         },
       unselectall: function(){
@@ -190,7 +193,7 @@
         var toDel=[];
         if (result){
             for (i = 0; i < this.mytemp.length ; i++) {
-                toDel.push(this.returnName(this.data[this.mytemp[i]].job));
+                toDel.push(this.returnName(this.data[this.mytemp[i]-1].job));
             };
             req = document.getElementById("DeleteReq");
             req.params = toDel;
@@ -271,7 +274,6 @@
 
       },
       viewlog: function(e) {
-        console.log(e.model.item.job);
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
