@@ -97,8 +97,8 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     with con:
         cur = con.cursor()
         cur.execute(q)
-    a=requests.get('http://localhost:8999/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
-    return oo
+    a=requests.get('http://descut.cosmology.illinois.edu:8999/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+    return oo.decode('ascii')
 
 @celery.task
 def send_note(user, jobid, toemail):
