@@ -7,6 +7,7 @@ TEMPLATE_PATH = os.path.join(DIRNAME, 'templates')
 UPLOADS = os.path.join(STATIC_PATH,"uploads/")
 WORKERS = os.path.join(DIRNAME, 'workers')
 COOKIE_SECRET = 'hClvdk4slveLtPze7p1g' #TO BE CHANGED
+MAX_OBJECTS = 100 #TO BE CHANGED
 DBFILE = os.path.join(STATIC_PATH,"uploads/admin/users.db")
 import logging
 # log linked to the standard error stream

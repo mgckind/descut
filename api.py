@@ -14,6 +14,14 @@ import sys
 import datetime as dt
 from celery.result import AsyncResult
 from celery.task.control import revoke
+from expiringdict import ExpiringDict
+import binascii
+import hashlib
+
+
+
+dbConfig0 = Settings.dbConfig()
+tokens = ExpiringDict(max_len=300, max_age_seconds=3600)
 
 
 def humantime(s):
@@ -47,6 +55,85 @@ def tup(entry,i, user):
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_secure_cookie("usera")
+
+
+
+class infoP(object):
+    def __init__(self, uu, pp):
+        self._uu=uu
+        self._pp=pp
+
+def check_permission(password, username, database='desoper'):
+    kwargs = {'host': dbConfig0.host, 'port': dbConfig0.port, 'service_name': database}
+    dsn = cx_Oracle.makedsn(**kwargs)
+    try:
+        dbh = cx_Oracle.connect(username, password, dsn=dsn)
+        dbh.close()
+        return True,""
+    except Exception as e:
+        error = str(e).strip()
+        return False,error
+
+
+class TokenHandler(tornado.web.RequestHandler):
+    @tornado.web.asynchronous
+    def get(self):
+        response = { k: self.get_argument(k) for k in self.request.arguments }
+        response2 = {'status':'error', 'message':''}
+        response3={}
+        for k in response.keys():
+            response2[k.lower()]=response[k]
+        if 'token' in response2:
+            ttl = tokens.ttl(response2['token'])
+            if ttl is None:
+                response2['status']='error'
+                response2['message']='Token does not exist or it expired'
+            else:
+                response2['status'] = 'ok'
+                response2['message'] = 'Token is valid for %s seconds' % str(round(ttl))
+            self.write(response2)
+            self.set_status(200)
+            self.flush()
+            self.finish()
+            return
+                
+        if 'username' in response2:
+            if 'password' not in response2:
+                response2['message'] = 'Need password'
+            else:
+                user = response2['username']
+                passwd = response2['password']
+                check,msg = check_permission(passwd, user)
+                if check:
+                    response2['status']='ok'
+                    newfolder = os.path.join(Settings.UPLOADS,user)
+                    user_folder = newfolder + '/'
+                    if not os.path.exists(newfolder):
+                        os.mkdir(newfolder)
+                else:
+                    response2['message']=msg
+        else:
+            response2['message'] = 'Need username'
+        
+        if response2['status'] == 'ok':
+            response2['message'] = 'Token created, expiration time: 1 hour'
+            #temp = binascii.hexlify(os.urandom(64))
+            temp = hashlib.sha1(os.urandom(64)).hexdigest()
+            tokens[temp] = [user,passwd]
+            response3['token']=temp 
+        response3['status']=response2['status']
+        response3['message']=response2['message']
+        self.write(response3)
+        self.set_status(200)
+        self.flush()
+        self.finish()
+       
+
+
+
+
+
+
 
 class ApiHandler(BaseHandler):
 
