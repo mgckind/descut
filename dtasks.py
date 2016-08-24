@@ -16,9 +16,10 @@ from email.utils import formataddr
 import Settings
 import sqlite3 as lite
 #
-import easyaccess as ea
+#import easyaccess as ea
 import requests
 import pandas as pd
+import readfile
 
 celery = Celery('dtasks')
 celery.config_from_object('celeryconfig')
@@ -100,6 +101,68 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     a=requests.get('http://descut.cosmology.illinois.edu:8999/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
     return oo.decode('ascii')
 
+@celery.task
+def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid):
+
+        #different dir path
+        loc_user = infoP._uu
+        loc_passw = infoP._pp
+        user_folder = Settings.UPLOADS+loc_user+"/"  
+        archiveFolder =  os.path.join(user_folder+'results/tar/')
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        bands = bands.replace(',', ' ')
+        print (bands)
+        
+        #noBlacklist are passed as a str
+        if noBlacklist:
+            cmd = script_dir+"/cutout_cmd/mkdescut.py {} --xsize {} --ysize {} --username {} --password {} " \
+              "--bands {} --outdir {} --noBlacklist".format(filename, xs, ys, loc_user, loc_passw, bands, outdir)
+        else:
+            cmd = script_dir+"/cutout_cmd/mkdescut.py {} --xsize {} --ysize {} --username {} --password {} " \
+              "--bands {} --outdir {} ".format(filename, xs, ys, loc_user, loc_passw, bands, outdir)
+
+        oo = subprocess.check_call(cmd, shell=True)
+        
+        #generate archives for each job
+        if not os.path.exists(archiveFolder):
+            os.mkdir(archiveFolder)
+        job_tar = jobid+'.tar.gz'
+        
+        if os.path.exists(archiveFolder+job_tar):
+            pass
+        else:
+            os.chdir(user_folder+'results/')
+            try:
+                subprocess.check_call("tar -zcf {} {}".format(archiveFolder+job_tar, jobid+'/'),shell=True)
+            except:
+                print (error)
+
+        #create all file list
+        prefix = 'http://desdev3.cosmology.illinois.edu/static/uploads/'+loc_user+'/results/'+jobid+'/'
+        os.chdir(outdir)
+        all_files = glob.glob('*/*')
+
+        with open('file_list.txt', 'w') as list_output:
+            for file in all_files:
+                list_output.write(prefix+file+'\n')
+
+        os.chdir(script_dir)
+
+        # call error taks if error.log is not zero byte
+        err_file = outdir+'/error.log'
+        if os.path.getsize(err_file) > 0:
+            print ('init error task')
+            celery.send_task('dtasks.error', [err_file])
+
+        # update job status in sqlite 
+        con = lite.connect(Settings.DBFILE)
+        q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
+        with con:
+            cur = con.cursor()
+            cur.execute(q)
+        a=requests.get('http://descut.cosmology.illinois.edu:8999/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+        return oo.decode('ascii')
+        
 @celery.task
 def send_note(user, jobid, toemail):
     print('Task was completed')

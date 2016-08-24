@@ -18,7 +18,7 @@ import sys
 import datetime as dt
 import dtasks
 #
-import easyaccess as ea
+#import easyaccess as ea
 from multiprocessing import Pool
 import requests
 
@@ -175,3 +175,68 @@ class FileHandler(BaseHandler):
         self.set_status(200)
         self.flush()
         self.finish()
+class FileHandlerS(BaseHandler):
+    @tornado.web.asynchronous
+    @tornado.web.authenticated
+    def post(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        loc_passw = self.get_secure_cookie("userb").decode('ascii').replace('\"','')
+        user_folder = os.path.join(Settings.UPLOADS,loc_user)+'/'
+        xs = float(self.get_argument("xsize"))
+        ys = float(self.get_argument("ysize"))
+        list_only = self.get_argument("list_only") == 'true'
+        send_email = self.get_argument("send_email") == 'true'
+        noBlacklist = self.get_argument('noBlacklist') == 'true'
+        bands = self.get_argument('bands')
+        email = self.get_argument("email")
+        stype = self.get_argument("submit_type")
+        print('**************')
+        print(xs,ys,'sizes')
+        print(stype,'type')
+        print(list_only,'list_only')
+        print(send_email,'send_email')
+        print(email,'email')
+        print(bands, 'bands')
+        print(noBlacklist, 'noBlacklist')
+        jobid = str(uuid.uuid4())
+        if stype=="manual":
+            values = self.get_argument("values")
+            print(values)
+            filename = user_folder+jobid+'.csv'
+            F=open(filename,'w')
+            F.write("RA,DEC\n")
+            F.write(values)
+            F.close()
+        if stype=="csvfile":
+            fileinfo = self.request.files["csvfile"][0]
+            fname = fileinfo['filename']
+            extn = os.path.splitext(fname)[1]
+            print(fname)
+            print(fileinfo['content_type'])
+            filename = user_folder+jobid+extn
+            with open(filename,'w') as F:
+                F.write(fileinfo['body'].decode('ascii'))
+        print('**************')
+        job_dir=user_folder+'results/'+jobid+'/'
+        os.system('mkdir -p '+job_dir)
+        infP=infoP(loc_user,loc_passw) 
+        now = datetime.datetime.now()
+        tiid = loc_user+'__'+jobid+'_{'+now.ctime()+'}'
+        
+        if send_email:
+            print('Sending email to %s' % email)
+            run=dtasks.mkcut.apply_async(args=[filename, infP, job_dir, xs, ys, bands, jobid, noBlacklist, tiid], \
+                task_id=tiid, link=dtasks.send_note.si(loc_user, tiid, toemail))
+        else:
+            print('Not sending email')
+            run=dtasks.mkcut.apply_async(args=[filename, infP, job_dir, xs, ys, bands, jobid, noBlacklist, tiid], \
+                task_id=tiid)
+        con = lite.connect(Settings.DBFILE)
+        tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE'])
+        with con:
+            cur = con.cursor()
+            cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?, ?)", tup)
+        self.set_status(200)
+        self.flush()
+        self.finish()
+

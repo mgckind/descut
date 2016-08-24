@@ -44,7 +44,8 @@ class Application(tornado.web.Application):
             (r"/api/log/?", api.LogHandler),
             (r"/api/refresh/?", readfile.RefreshHandler),
             (r'/websocket', readfile.WebSocketHandler),
-            (r"/readfile/", readfile.FileHandler),
+            (r"/readfile/coadd/", readfile.FileHandler),
+            (r"/readfile/single/", readfile.FileHandlerS),
             ]
         settings = {
             "template_path":Settings.TEMPLATE_PATH,

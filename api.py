@@ -65,8 +65,12 @@ class ApiHandler(BaseHandler):
                 print(q)
                 cc = cur.execute(q)
                 folder = os.path.join(user_folder,'results/' + jid)
-                os.system('rm -rf ' + folder)
-                os.system('rm -f ' + os.path.join(user_folder,jid+'.csv'))
+                try:    
+                    os.system('rm -rf ' + folder)
+                    os.system('rm -f ' + os.path.join(user_folder,jid+'.csv'))
+                    os.system('rm -f '+ os.path.join(user_folder, 'results/tar',jid+'.tar.gz'))
+                except:
+                    pass
         self.set_status(200)
         self.flush()
         self.finish()

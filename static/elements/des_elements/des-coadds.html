@@ -159,7 +159,7 @@
         formdata.append('submit_type', this.submit_type);
         formdata.append('values',document.getElementById("enteredPositions").value);
         $.ajax({
-             url: '/readfile/',  
+             url: '/readfile/coadd/',  
              type: 'POST',
              //beforeSend: this.beforeSendHandler,
              success: this.completeHandler,
