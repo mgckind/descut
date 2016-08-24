@@ -17,30 +17,31 @@ from celery.task.control import revoke
 from expiringdict import ExpiringDict
 import binascii
 import hashlib
+import cx_Oracle
 
 
 
 dbConfig0 = Settings.dbConfig()
-tokens = ExpiringDict(max_len=300, max_age_seconds=3600)
+tokens = ExpiringDict(max_len=300, max_age_seconds=Settings.TOKEN_TTL)
 
 
 def humantime(s):
     if s < 60:
-        return "%d seconds ago" % s
+        return "%d seconds" % s
     else:
         mins = s/60
         secs = s % 60
         if mins < 60:
-            return "%d minutes and %d seconds ago" % (mins, secs)
+            return "%d minutes and %d seconds" % (mins, secs)
         else:
             hours = mins/60
             mins  = mins % 60
             if hours < 24:
-                return "%d hours and %d minutes ago" % (hours,mins)
+                return "%d hours and %d minutes" % (hours,mins)
             else:
                 days = hours/24
                 hours = hours % 24
-                return "%d days and %d hours ago" % (days, hours)
+                return "%d days and %d hours" % (days, hours)
 
 def job_s(entry):
     return entry['job'][entry['job'].index('__')+2:entry['job'].index('_{')]
@@ -88,11 +89,13 @@ class TokenHandler(tornado.web.RequestHandler):
             if ttl is None:
                 response2['status']='error'
                 response2['message']='Token does not exist or it expired'
+                print('sssss')
+                self.set_status(404)
             else:
                 response2['status'] = 'ok'
-                response2['message'] = 'Token is valid for %s seconds' % str(round(ttl))
+                response2['message'] = 'Token is valid for %s' % humantime(round(ttl))
+                self.set_status(200)
             self.write(response2)
-            self.set_status(200)
             self.flush()
             self.finish()
             return
@@ -116,7 +119,7 @@ class TokenHandler(tornado.web.RequestHandler):
             response2['message'] = 'Need username'
         
         if response2['status'] == 'ok':
-            response2['message'] = 'Token created, expiration time: 1 hour'
+            response2['message'] = 'Token created, expiration time: %s' % humantime(Settings.TOKEN_TTL)
             #temp = binascii.hexlify(os.urandom(64))
             temp = hashlib.sha1(os.urandom(64)).hexdigest()
             tokens[temp] = [user,passwd]
@@ -180,7 +183,7 @@ class ApiHandler(BaseHandler):
             jstatus.append(cc[i][2])
             jtime.append(ctime)
             jtype.append(cc[i][4])
-            jelapsed.append(humantime((dt.datetime.now()-dd).total_seconds()))
+            jelapsed.append(humantime((dt.datetime.now()-dd).total_seconds())+" ago")
         out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i]) for i in range(len(jjob))]
         temp = json.dumps(out_dict, indent=4)
             #with open('static/jobs2.json',"w") as outfile:
