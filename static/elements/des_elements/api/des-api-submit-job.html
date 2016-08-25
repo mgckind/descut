@@ -13,14 +13,14 @@
      <tr><th>Method:</th><td>POST</td></tr>
      <tr><th>Body:</th><td>
      { <br>
-    'token'     : tokeb generated  # REQUIRED <br>
-    'ra'        : string list of RA positions  # REQUIRED <br>
-    'dec'       : string list of DEC positions # REQUIRED <br> 
-    'job_type'  : 'coadd' or 'single' Creates cutouts from coadd images or single epoch # REQUIRED <br>   
-    'xsize'     : xsize of cutout in arcmin, can be single number or list # OPTIONAL (default : 1.0) <br> 
-    'ysize'     : ysize of cutout in arcmin, can be single number or list # OPTIONAL (default : 1.0) <br> 
-    'list_only' : if 'true' only generate list fo files, not png and no tar.gz file for all content which is much faster #OPTIONA (default : 'false')  <br> 
-    'email'     : Will send  note when job is finished to this email    # OPTIONAL (default: no email) <br>
+    'token'     : tokeb generated  <b>REQUIRED</b> <br>
+    'ra'        : string list of RA positions  <b>REQUIRED</b> <br>
+    'dec'       : string list of DEC positions <b>REQUIRED</b> <br> 
+    'job_type'  : 'coadd' or 'single' Creates cutouts from coadd images or single epoch <b>REQUIRED</b> <br>   
+    'xsize'     : xsize of cutout in arcmin, can be single number or list <b>OPTIONAL></b> (default : 1.0) <br> 
+    'ysize'     : ysize of cutout in arcmin, can be single number or list <b>OPTIONAL</b> (default : 1.0) <br> 
+    'list_only' : if 'true' only generate list fo files, not png and no tar.gz file for all content which is much faster <b>OPTIONAL</b> (default : 'false')  <br> 
+    'email'     : Will send  note when job is finished to this email  <b>OPTIONAL</b> (default: no email) <br>
      }<br>
      </td></tr>
      <tr><th>File upload:</th><td> Can upload csv files using 'csvfile' as part of file body </td></tr>
