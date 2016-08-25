@@ -134,6 +134,96 @@ class TokenHandler(tornado.web.RequestHandler):
        
 
 
+class JobHandler(tornado.web.RequestHandler):
+    @tornado.web.asynchronous
+    def post(self):
+        arguments = { k.lower(): self.get_argument(k) for k in self.request.arguments }
+        response = {'status' : 'error'}
+        if 'token' in arguments:
+            auths = tokens.get(arguments['token'])
+            if auths is None:
+                response['message'] = 'Token does not exist or it expired. Please create a new one'
+                self.set_status(403)
+            else:
+                user = auths[0]
+                passwd = auths[1]
+                response['status'] = 'ok'
+                user_folder = os.path.join(Settings.UPLOADS,user) + '/'
+        else:
+            self.set_status(400)
+            response['message'] = 'Need a token to generate a request'
+
+        if response['status'] == 'ok':
+            try:
+                ra = [float(i) for i in arguments['ra'].replace('[','').replace(']','').split(',')]
+                dec = [float(i) for i in arguments['dec'].replace('[','').replace(']','').split(',')]
+                stype = "manual"
+                if len(ra) != len(dec):
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = 'RA and DEC arrays must have same dimensions'
+            except:
+                self.set_status(400)
+                response['status']='error'
+                response['message'] = 'RA and DEC arrays must have same dimensions'
+
+        if response['status'] == 'ok':
+            try:
+                jtype = arguments['job_type'].lower()
+                if jtype not in ('coadd','single'): raise
+            except:
+                self.set_status(400)
+                response['status']='error'
+                response['message'] = "Need to specify job_type, either 'coadd' or 'single'"
+
+        if response['status'] == 'ok':
+            try:
+                fileinfo = self.request.files["csvfile"][0]
+                stype = 'csvfile'
+            except:
+                pass
+        
+        if response['status'] == 'ok':
+            xs = np.ones(len(ra))
+            ys = np.ones(len(ra))
+            if 'xsize' in arguments:
+                xs_read = [float(i) for i in arguments['xsize'].replace('[','').replace(']','').split(',')]
+                if len(xs_read) == 1 : xs=xs*xs_read
+                if len(xs) >= len(xs_read): xs[0:len(xs_read)] = xs_read
+                else: xs = xs_read[0:len(xs)]
+            if 'ysize' in arguments:
+                ys_read = [float(i) for i in arguments['ysize'].replace('[','').replace(']','').split(',')]
+                if len(ys_read) == 1 : ys=ys*ys_read
+                if len(ys) >= len(ys_read): ys[0:len(ys_read)] = ys_read
+                else: xy = xy_read[0:len(xy)]
+
+            if 'list_only' in arguments:
+                list_only = arguments["list_only"] == 'true'
+            if 'email' in arguments:
+                send_email = True
+                email = arguments['email']
+            jobid = str(uuid.uuid4())
+            if stype=="manual":
+                filename = user_folder + jobid + '.csv'
+                df = pd.DataFrame(np.array([ra,dec,xs,ys]).T,columns=['RA','DEC','XSIZE','YSIZE'])
+                df.to_csv(filename,sep=',',index=False)
+                del df
+            if stype=="csvfile":
+                fname = fileinfo['filename']
+                extn = os.path.splitext(fname)[1]
+                filename = user_folder+jobid+extn
+                with open(filename,'w') as F:
+                    F.write(fileinfo['body'].decode('ascii'))
+            #SUBMIT JOB, ADD TO SQLITE
+            response['message'] = 'Job %s submitted.' % (jobid)
+            response['job'] = jobid
+            self.set_status(200)
+        
+        self.write(response)
+        self.flush()
+        self.finish()
+
+
 class ApiHandler(BaseHandler):
 
     @tornado.web.authenticated
