@@ -1,119 +1,16 @@
 <dom-module id="des-api">
 <template>
     <style>
-    table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid #dddddd;
-}
-
-    th {
-    text-align: right;
-    padding: 8px;
-    }
-    td {
-    text-align: left;
-    padding: 8px;
-    }
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-    paper-card {
-        width: 100%;
-        margin-top: 15px;
-    }
-    .api-header {
-        color: blue;
-        font-size: 20px;
-        padding: 8px;
-            }
     </style>
 
     <section>
     <des-card heading="API Help">
+ 
+     <des-api-create-token id = "api_0" ></des-api-create-token>
+     <des-api-check-token id = "api_1" ></des-api-check-token>
+     <des-api-submit-job id = "api_2" ></des-api-submit-job>
 
-    <paper-card>
-      <div id = "api_0" class="api-header">Create Authetication Token</div>
-    <div class="card-content">
-      <table>
-     <tr><th>URL:</th><td>/api/token/<td></tr>
-     <tr><th>Method:</th><td>POST</td></tr>
-     <tr><th>Body:</th><td>{'username': 'myname' , 'password': 'mypassword'}</td></tr>
-     <tr><th>Sucess:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"}</td></tr>
-     <tr><th>Errors:</th><td> 400: username or password, 403: username or password invalid</td></tr>
-     <tr><th>Example:</th><td> curl -d "username=myname&password=mypass" http://localhost:8999/api/token/ </td></tr>
-     </table>
-     <b>Python example:</b>
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">request</span>
-<span style="color: #333333">&gt;&gt;&gt;</span> req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/token/&#39;</span>,data<span style="color: #333333">=</span>{<span style="background-color: #fff0f0">&#39;username&#39;</span>:<span style="background-color: #fff0f0">&#39;myuser&#39;</span>, <span style="background-color: #fff0f0">&#39;password&#39;</span>: <span style="background-color: #fff0f0">&#39;mypasswd&#39;</span>})
-<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req)
-<span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
-<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
-{<span style="background-color: #fff0f0">&quot;status&quot;</span>: <span style="background-color: #fff0f0">&quot;ok&quot;</span>, <span style="background-color: #fff0f0">&quot;token&quot;</span>: <span style="background-color: #fff0f0">&quot;263q...&quot;</span>, <span style="background-color: #fff0f0">&quot;message&quot;</span>: <span style="background-color: #fff0f0">&quot;Token created, expiration time: XX seconds&quot;</span>}
-<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>json()[<span style="background-color: #fff0f0">&#39;token&#39;</span>])
-<span style="color: #0000DD; font-weight: bold">263</span>q<span style="color: #333333">...</span>
-</pre></div>
-    </div>
-   </paper-card>
-   <paper-card>
-      <div id = "api_1" class="api-header">Check Token status</div>
-    <div class="card-content">
-      <table>
-     <tr><th>URL:</th><td>/api/token/?</td></tr>
-     <tr><th>Method:</th><td>GET</td></tr>
-     <tr><th>URL Params:</th><td>token=mytokenid</td></tr>
-     <tr><th>Sucess:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"} </td></tr>
-     <tr><th>Errors:</th><td> 400: Missing token parameter, 404: Token doesn't exists or expired </td></tr>
-     <tr><th>Example:</th><td> curl http://descut.cosmology.illinois.edu:8999/api/token/?token=mytokenid  </td></tr>
-     </table>
-     <b>Python example:</b>
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
-<span style="color: #333333">&gt;&gt;&gt;</span> req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/token/?token=263q...&#39;</span>)
-<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req)
-<span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
-<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
-{<span style="background-color: #fff0f0">&quot;status&quot;</span>: <span style="background-color: #fff0f0">&quot;ok&quot;</span>, <span style="background-color: #fff0f0">&quot;message&quot;</span>: <span style="background-color: #fff0f0">&quot;Token is valid for XX hours&quot;</span>}
-</pre></div>
-    </div>
-    </paper-card>
-
- <paper-card>
-      <div id = "api_2"  class="api-header">Submit Job</div>
-    <div class="card-content">
-      <table>
-     <tr><th>URL:</th><td>/api/jobs/submit/</td></tr>
-     <tr><th>Method:</th><td>POST</td></tr>
-     <tr><th>Body:</th><td>
-     { <br>
-    'token'     : tokeb generated  # REQUIRED <br>
-    'ra'        : string list of RA positions  # REQUIRED <br>
-    'dec'       : string list of DEC positions # REQUIRED <br> 
-    'job_type'  : 'coadd' or 'single' Creates cutouts from coadd images or single epoch # REQUIRED <br>   
-    'xsize'     : xsize of cutout in arcmin, can be single number or list # OPTIONAL (default : 1.0) <br> 
-    'ysize'     : ysize of cutout in arcmin, can be single number or list # OPTIONAL (default : 1.0) <br> 
-    'list_only' : if 'true' only generate list fo files, not png and no tar.gz file for all content which is much faster #OPTIONA (default : 'false')  <br> 
-    'email'     : Will send  note when job is finished to this email    # OPTIONAL (default: no email) <br>
-     </td></tr>
-     <tr><th>Sucess:</th><td> 200: content: {"status": "ok", "job": "923...", "message": "Job 923... submitted."} </td></tr>
-     <tr><th>Errors:</th><td> 400: Missing token parameter, ra,dec, job_type.  403: Token doesn't exists or expired </td></tr>
-     </table>
-     <b>Python example:</b>
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
-<span style="color: #333333">&gt;&gt;&gt;</span> req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/token/?token=263q...&#39;</span>)
-<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req)
-<span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
-<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
-{<span style="background-color: #fff0f0">&quot;status&quot;</span>: <span style="background-color: #fff0f0">&quot;ok&quot;</span>, <span style="background-color: #fff0f0">&quot;message&quot;</span>: <span style="background-color: #fff0f0">&quot;Token is valid for XX hours&quot;</span>}
-</pre></div>
-    </div>
-    </paper-card>
-
-
-
-
-    </des-card>
+</des-card>
     </section>
 </template>
 

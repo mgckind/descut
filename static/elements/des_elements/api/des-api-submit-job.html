@@ -1,0 +1,49 @@
+<dom-module id="des-api-submit-job">
+<template>
+    <style include="shared-styles">
+    </style>
+
+
+  
+ <paper-card>
+      <div class="api-header">Submit Job</div>
+    <div class="card-content">
+      <table>
+     <tr><th>URL:</th><td>/api/jobs/submit/</td></tr>
+     <tr><th>Method:</th><td>POST</td></tr>
+     <tr><th>Body:</th><td>
+     { <br>
+    'token'     : tokeb generated  # REQUIRED <br>
+    'ra'        : string list of RA positions  # REQUIRED <br>
+    'dec'       : string list of DEC positions # REQUIRED <br> 
+    'job_type'  : 'coadd' or 'single' Creates cutouts from coadd images or single epoch # REQUIRED <br>   
+    'xsize'     : xsize of cutout in arcmin, can be single number or list # OPTIONAL (default : 1.0) <br> 
+    'ysize'     : ysize of cutout in arcmin, can be single number or list # OPTIONAL (default : 1.0) <br> 
+    'list_only' : if 'true' only generate list fo files, not png and no tar.gz file for all content which is much faster #OPTIONA (default : 'false')  <br> 
+    'email'     : Will send  note when job is finished to this email    # OPTIONAL (default: no email) <br>
+     }<br>
+     </td></tr>
+     <tr><th>File upload:</th><td> Can upload csv files using 'csvfile' as part of file body </td></tr>
+     <tr><th>Sucess:</th><td> 200: content: {"status": "ok", "job": "923...", "message": "Job 923... submitted."} </td></tr>
+     <tr><th>Errors:</th><td> 400: Missing token parameter, ra,dec, job_type.  403: Token doesn't exists or expired </td></tr>
+     </table>
+     <b>Python example:</b>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
+<span style="color: #333333">&gt;&gt;&gt;</span> req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/token/?token=263q...&#39;</span>)
+<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req)
+<span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
+<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
+{<span style="background-color: #fff0f0">&quot;status&quot;</span>: <span style="background-color: #fff0f0">&quot;ok&quot;</span>, <span style="background-color: #fff0f0">&quot;message&quot;</span>: <span style="background-color: #fff0f0">&quot;Token is valid for XX hours&quot;</span>}
+</pre></div>
+    </div>
+    </paper-card>
+
+
+</template>
+
+<script>
+      Polymer({
+      is: "des-api-submit-job",
+    });
+</script>
+</dom-module>
