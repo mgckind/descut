@@ -22,10 +22,12 @@ tr:nth-child(even) {
 }
     paper-card {
         width: 100%;
+        margin-top: 15px;
     }
     .api-header {
-        color: green;
+        color: blue;
         font-size: 20px;
+        padding: 8px;
             }
     </style>
 
@@ -33,16 +35,15 @@ tr:nth-child(even) {
     <des-card heading="API Help">
 
     <paper-card>
-      <div class="api-header">Tokens</div>
+      <div id = "api_0" class="api-header">Create Authetication Token</div>
     <div class="card-content">
       <table>
-     <tr><th>Title:</th><td>create token<td></tr>
      <tr><th>URL:</th><td>/api/token/<td></tr>
-     <tr><th>Method:</th><td>POST<td></tr>
-     <tr><th>Body:</th><td>{username: myname , password: mypassword}<td></tr>
-     <tr><th>Sucess:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"}<td></tr>
-     <tr><th>Errors:</th><td> 400: Missing token parameter, 404: Token doesn't exists or expired<td></tr>
-     <tr><th>Example:</th><td> curl http://descut.cosmology.illinois.edu:8999/api/token/?token=mytokenid <td></tr>
+     <tr><th>Method:</th><td>POST</td></tr>
+     <tr><th>Body:</th><td>{username: myname , password: mypassword}</td></tr>
+     <tr><th>Sucess:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"}</td></tr>
+     <tr><th>Errors:</th><td> 400: username or password, 403: username or password invalid</td></tr>
+     <tr><th>Example:</th><td> curl -d "username=myname&password=mypass" http://localhost:8999/api/token/ </td></tr>
      </table>
      <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">request</span>
@@ -55,17 +56,19 @@ tr:nth-child(even) {
 <span style="color: #0000DD; font-weight: bold">263</span>q<span style="color: #333333">...</span>
 </pre></div>
     </div>
-    
+   </paper-card>
+   <paper-card>
+      <div id = "api_1" class="api-header">Check Token status</div>
     <div class="card-content">
-      <ul style="list-style-type:none">
-     <li>Title: Check token status</li>
-     <li>URL: /api/token/?</li>
-     <li>Method: GET</li>
-     <li>URL Params: token=mytokenid</li>
-     <li> Success: 200: content: {"status": "ok", "message": "Token is valid XX hours"} </li>
-     <li> Errors: 400: Missing token parameter, 404: Token doesn't exists or expired </li>
-     <li> Example: curl http://descut.cosmology.illinois.edu:8999/api/token/?token=mytokenid </li>
-     <li>
+      <table>
+     <tr><th>URL:</th><td>/api/token/?</td></tr>
+     <tr><th>Method:</th><td>GET</td></tr>
+     <tr><th>URL Params:</th><td>token=mytokenid</td></tr>
+     <tr><th>Sucess:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"} </td></tr>
+     <tr><th>Errors:</th><td> 400: Missing token parameter, 404: Token doesn't exists or expired </td></tr>
+     <tr><th>Example:</th><td> curl http://descut.cosmology.illinois.edu:8999/api/token/?token=mytokenid  </td></tr>
+     </table>
+     <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
 <span style="color: #333333">&gt;&gt;&gt;</span> req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/token/?token=263q...&#39;</span>)
 <span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req)
@@ -73,11 +76,32 @@ tr:nth-child(even) {
 <span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
 {<span style="background-color: #fff0f0">&quot;status&quot;</span>: <span style="background-color: #fff0f0">&quot;ok&quot;</span>, <span style="background-color: #fff0f0">&quot;message&quot;</span>: <span style="background-color: #fff0f0">&quot;Token is valid for XX hours&quot;</span>}
 </pre></div>
-     
-     </li>
-     </ul>
     </div>
     </paper-card>
+
+ <paper-card>
+      <div id = "api_2"  class="api-header">Submit Job</div>
+    <div class="card-content">
+      <table>
+     <tr><th>URL:</th><td>/api/token/?</td></tr>
+     <tr><th>Method:</th><td>GET</td></tr>
+     <tr><th>URL Params:</th><td>token=mytokenid</td></tr>
+     <tr><th>Sucess:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"} </td></tr>
+     <tr><th>Errors:</th><td> 400: Missing token parameter, 404: Token doesn't exists or expired </td></tr>
+     <tr><th>Example:</th><td> curl http://descut.cosmology.illinois.edu:8999/api/token/?token=mytokenid  </td></tr>
+     </table>
+     <b>Python example:</b>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
+<span style="color: #333333">&gt;&gt;&gt;</span> req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/token/?token=263q...&#39;</span>)
+<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req)
+<span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
+<span style="color: #333333">&gt;&gt;&gt;</span> <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
+{<span style="background-color: #fff0f0">&quot;status&quot;</span>: <span style="background-color: #fff0f0">&quot;ok&quot;</span>, <span style="background-color: #fff0f0">&quot;message&quot;</span>: <span style="background-color: #fff0f0">&quot;Token is valid for XX hours&quot;</span>}
+</pre></div>
+    </div>
+    </paper-card>
+
+
 
 
     </des-card>
@@ -87,14 +111,6 @@ tr:nth-child(even) {
 <script>
       Polymer({
       is: "des-api",
-      ready: function(){
-        hljs.initHighlightingOnLoad();    
-         $('pre2 code2').each(function(i, block) {
-         hljs.highlightBlock(block);
-  });
-      },
     });
-
-
 </script>
 </dom-module>

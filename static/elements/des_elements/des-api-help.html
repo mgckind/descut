@@ -7,6 +7,12 @@
   <div class="card-content">
     See the list of the REST API commands to interact with the cutout services from scripting tools such as curl, wget, python, etc.
     </div>
+    <paper-listbox on-iron-select="gotoapi" selected="{{selection}}">
+    <paper-item>Create Token</paper-item>
+    <paper-item>Check Token Status</paper-item>
+    <paper-item> Submit Job</paper-item>
+    </paper-listbox>
+</div>
 </des-card-help>
 
 </template>
@@ -14,6 +20,15 @@
 <script>
       Polymer({
       is: "des-api-help",
+      properties: {
+        selection: {
+            value : '',
+        },
+      },
+      gotoapi: function(){
+        var api_element = document.getElementById('api_'+this.selection);
+        api_element.scrollIntoView();
+      },
     });
 
 
