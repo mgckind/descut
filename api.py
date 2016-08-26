@@ -111,15 +111,27 @@ class LogHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
-        jobid = self.get_argument("jobid")
-        res = AsyncResult(jobid)
-        if res is not None:
-            try:
-                temp = json.dumps(res.result.replace('\n','</br>'))
-            except:
-                temp = 'Running'
+        jobidFull = self.get_argument("jobid")
+        jobid = jobidFull[jobidFull.find('__')+2:jobidFull.find('{')-1]
+        log_path=os.path.join(Settings.UPLOADS,loc_user, 'results', jobid, 'log.log')
+        res = AsyncResult(jobidFull)
+
+        log = ''
+        with open(log_path, 'r') as logFile:
+            for line in logFile:
+                log+=line+'<br>'
+        if res.ready():
+            temp = json.dumps(log)
         else:
             temp = json.dumps('Running')
+        # if res is not None:
+        #     try:
+        #         temp = json.dumps(res.result.replace('\n','</br>'))
+        #     except:
+        #         temp = 'Running'
+        # else:
+        #     temp = json.dumps('Running')
+
         self.write(temp)
 
 class CancelJobHandler(BaseHandler):

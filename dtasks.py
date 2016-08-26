@@ -148,20 +148,22 @@ def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid):
 
         os.chdir(script_dir)
 
+        # update job status in sqlite 
+        conS = lite.connect(Settings.DBFILE)
+        qS="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
+        with conS:
+            curS = conS.cursor()
+            curS.execute(qS)
+        # a=requests.get('http://descut.cosmology.illinois.edu:8888/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+        a=requests.get('http://localhost:8888/api/refresh?user=%s&jid=%s' % (infoP._uu,jobid))
+
         # call error taks if error.log is not zero byte
         err_file = outdir+'/error.log'
         if os.path.getsize(err_file) > 0:
             print ('init error task')
             celery.send_task('dtasks.error', [err_file])
-
-        # update job status in sqlite 
-        con = lite.connect(Settings.DBFILE)
-        q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
-        with con:
-            cur = con.cursor()
-            cur.execute(q)
-        a=requests.get('http://descut.cosmology.illinois.edu:8999/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
-        return oo.decode('ascii')
+        
+        return oo
         
 @celery.task
 def send_note(user, jobid, toemail):
