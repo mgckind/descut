@@ -1,0 +1,274 @@
+<!-- 'des-thumb-band' element to display the png for each individual exposure cut -->
+
+<link rel="import" href="/static/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/static/bower_components/polymer/polymer.html">
+<link rel="import" href="/static/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/static/bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="/static/bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="/static/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="/static/bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="/static/bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="/static/bower_components/iron-flex-layout/iron-flex-layout.html">
+
+
+<dom-module id="des-thumb-band">
+
+<style>
+    :host {
+      display: block;
+      height : 200px;
+      width: 200px;
+      margin: 15px;
+      float : left;
+      background-color: white;
+    }
+    paper-card {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 0px;
+    }
+    .mycard{
+      width: 200px;
+      height: 200px;
+      margin-bottom: 0px;
+      font-size: 15px;
+      color : var(--paper-pink-500);
+    }
+    .pink {
+       
+      --paper-card-header-color: var(--paper-green-500);
+    }
+    paper-material{
+      height: 100%;
+      width: 100%;
+      background-color: white;
+      border-radius: 5px;
+      padding: 10px;
+    }
+    paper-material:hover .mycolors{
+      visibility: visible;
+    }
+    .mycolors{
+      color: pink;
+      visibility: hidden;
+    }
+    
+    .mycolors:hover{
+      color:green;
+    }
+    paper-dialog {
+      position: fixed;
+      max-width: 90%;
+      top: 16px;
+    }
+
+    span.exp_info {
+      color: #F1C748;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    paper-spinner.big{width:60px;height:60px;position:absolute;top:70px;left:70px;}
+</style>
+
+<template>
+      <paper-material>
+      <div class="mycard"> <div style="position:absolute;"> 
+      <span class='exp_info'>{{expTop}}</span> </div> 
+      <paper-spinner id="{{_returnName3(pngName)}}" class="big" ></paper-spinner> 
+      <img src="{{imgPath}}" height="200px" width="200px"/>
+      <div style='position:absolute;bottom: 10px'>
+        <span class='exp_info'>{{expBottom}}</span>
+      </div> 
+      <div style="position:absolute; right:10px; bottom:10px"> 
+      <paper-icon-button id="{{_returnName2(pngName)}}" icon="file-download" class="mycolors" on-click="download">
+      </paper-icon-button>
+      </div> 
+      <!-- <div style="position:absolute; left:10px; bottom:10px"> 
+      <paper-icon-button id="infoid" icon="info" class="mycolors">
+      </paper-icon-button>
+      </div> -->
+      <!--<paper-card heading="{{imtitle}}" class="pink" image="{{imdisplay}}">
+    <paper-icon-button icon="power-settings-new" ></paper-icon-button>
+      </paper-card>-->
+      </div>
+      </paper-material>
+
+</template>
+
+<script>
+    
+     var singlepath = "";
+     var singletitle = "";
+     var archiveFolder = "";
+         (function(){
+      Polymer({
+      is: "des-thumb-band",
+      
+      properties: {
+        _elevation:{
+          type: Number,
+          value: 0,
+        },
+        pngName:{
+          type: String,
+        },
+        imBand:{
+          type: String,
+        },
+        
+        imNight:{
+          type:Number,
+        },
+
+        ccdNum:{
+          type: Number,
+          value: 0,
+        },
+
+        expNum:{
+          type: Number,
+          value: 0,
+        },
+
+        jobId:{
+          type:String,
+        },
+
+        imFolder:{
+          type:String,
+        }, 
+
+        username:{
+          type:String,
+        },
+
+        imgPath:{
+          type:String,
+          computed: "_returnImage(username, pngName,jobId,imFolder)",
+        },
+
+        expTop:{
+          type:String,
+          computed: "_exp_top_info(imBand, imNight)",
+        },
+
+        expBottom:{
+          type:String,
+          computed: "_exp_bottom_info(ccdNum, expNum)",
+        }
+
+
+      }, 
+
+      _returnImage: function(username, pngName, jobId, imFolder){
+
+        var imgPath = "/static/uploads/"+username+"/results/"+jobId+"/"+imFolder+"/"+pngName;
+        return imgPath;
+
+      },
+
+      _exp_top_info: function(imBand, imNight) {
+        return 'Band:'+imBand+'\t'+'Night:'+imNight;
+      },
+
+      _exp_bottom_info: function(ccdNum, expNum) {
+        return 'CCD#:'+ccdNum+'\t'+'EXP#:'+expNum;
+
+      },
+      
+      _returnName2: function(pngName) {
+        return pngName+"_wrap";
+      },
+      
+      _returnName3: function(pngName) {
+        return pngName+"_spin";
+      },
+      _returnName4: function(pngName) {
+        return pngName+"_diag";
+      },
+      _mouseout: function(){
+      this._elevation = 0;
+       },
+      
+      _mouseover: function(){
+      this._elevation = 5;
+      },
+      // openBig: function(event){
+      //   console.log(this.pngName);
+      //   var dialog = document.getElementById(this.pngName);
+      //   //var ww = ($(window).width())/2.-dialog_img.width/2.;
+      //   //console.log(dialog_img.width+'px');
+      //   //dialog.style.left=ww+"px";
+      //   dialog.open();
+      // },
+      completeHandler: function(){
+        console.log(singlepath);
+        var wrap = document.getElementById(singletitle+"_wrap");
+        wrap.disabled=false;
+        // var diag = document.getElementById(this.pngName+"_diag");
+        // diag.disabled=false;
+        var spin = document.getElementById(singletitle+"_spin");
+        spin.active=false;
+        //console.log(singlepath.replace('.tif.png','.tar.gz'));
+        var link = document.createElement('a');
+        var pathL = archiveFolder+singletitle.replace('.png','.tar.gz');
+        link.href = pathL; //pathL.replace(".tif.png",".tar.gz");
+        console.log(link.href);
+    
+        if (link.download !== undefined){
+            //Set HTML5 download attribute. This will prevent file from opening if supported.
+            var fileName = pathL.substring(pathL.lastIndexOf('/') + 1, pathL.length);
+            link.download = fileName;
+        }
+        if (document.createEvent) {
+          var e = document.createEvent('MouseEvents');
+          e.initEvent('click' ,true ,true);
+          link.dispatchEvent(e);
+          return true;
+        }
+        var query = '?download';
+        window.open(pathL + query);
+      //window.open(this.imdisplay,'_self');
+      },
+      errorHandler: function(){
+          console.log('Oh no!');
+        },
+      download: function(event){
+        // var n1=this.jobid.search("__");
+        // var n2=this.jobid.search("{");
+        // var siid = this.jobid.substring(n1+2,n2-1);
+        event.stopPropagation();
+        var wrap = document.getElementById(this.pngName+"_wrap");
+        wrap.disabled=true;
+        // var diag = document.getElementById(this.pngName+"_diag");
+        // diag.disabled=true;
+        var spin = document.getElementById(this.pngName+"_spin");
+        spin.active=true;
+        // var dialog = document.getElementById(this.pngName);
+        // dialog.close();
+        var data = new FormData();
+        singlepath = this.imgPath;
+        singletitle = this.pngName;
+        archiveFolder = "/static/uploads/"+this.username+"/results/tar/";
+        data.append('pngName', this.pngName);
+        data.append('path', this.imgPath);
+        console.log(this.pngName);
+        $.ajax({
+             url: '/single/',  //Server script to process data
+             type: 'POST',
+             data: data,
+             success: this.completeHandler,
+             error: this.errorHandler,
+             //Options to tell jQuery not to process data or worry about content-type.
+             cache: false,
+             contentType: false,
+             processData: false
+           });
+       },
+    
+    });
+    })();
+</script>
+
+</dom>
