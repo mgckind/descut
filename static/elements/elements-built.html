@@ -30241,10 +30241,10 @@ background-color:black;
     </paper-button>
     </div>
     <hr>
-    <div>xsize (arcmin): <span id="xsizeLabel" class="caption">1</span></div><br>
-    <paper-slider id="xsizeSlider" pin="" max="10" max-markers="10" step="0.1" value="1" expand=""></paper-slider>
-    <div>ysize (arcmin): <span id="ysizeLabel" class="caption">1</span></div><br>
-    <paper-slider id="ysizeSlider" pin="" max="10" max-markers="10" step="0.1" value="1"></paper-slider>
+    <div>xsize (arcmin, if not selected default is from file or 1.0): <span id="xsizeLabel" class="caption">0</span></div><br>
+    <paper-slider id="xsizeSlider" pin="" max="10" max-markers="10" step="0.1" value="0" expand=""></paper-slider>
+    <div>ysize (arcmin, if not selected default is from file or 1.0): <span id="ysizeLabel" class="caption">0</span></div><br>
+    <paper-slider id="ysizeSlider" pin="" max="10" max-markers="10" step="0.1" value="0" expand=""></paper-slider>
     <hr>
     <paper-checkbox id="onlyreturnlist">Return just list of files (do not produce and display pngs, i.e. faster)</paper-checkbox>
     <hr>
@@ -30322,8 +30322,8 @@ background-color:black;
         document.getElementById("enterValues").disabled=false;
         document.getElementById("uploadFile").disabled=false;
         document.getElementById("keyboardicon").style.display='inline-block';
-        document.getElementById("xsizeSlider").value="1.0";
-        document.getElementById("ysizeSlider").value="1.0";
+        document.getElementById("xsizeSlider").value="0.0";
+        document.getElementById("ysizeSlider").value="0.0";
         document.getElementById("sendemail").checked=false;
         document.getElementById("onlyreturnlist").checked=false;
         document.getElementById("desPositions").clear();
@@ -30399,7 +30399,7 @@ background-color:black;
 
  <des-card-help heading="Help">
   <div class="card-content">
-  You can upload a csv file with positions or enter a list manually. The jobs is submitted asynchronously. <br>Check <b>My Jobs</b> tab to see the status of your jobs.
+  You can upload a csv file with positions or enter a list manually. The jobs is submitted asynchronously.  <br>Check <b>My Jobs</b> tab to see the status of your jobs.
     <hr class="des-hr">
     <paper-item>
     <paper-item-body>
@@ -30929,11 +30929,11 @@ background-color:black;
      <tr><th>Body:</th><td>{'username': 'myname' , 'password': 'mypassword'}</td></tr>
      <tr><th>Success:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"}</td></tr>
      <tr><th>Errors:</th><td> 400: username or password, 403: username or password invalid</td></tr>
-     <tr><th>Example:</th><td> curl -d "username=myname&amp;password=mypass" http://localhost:8999/api/token/ </td></tr>
+     <tr><th>Example:</th><td> curl -d "username=myname&amp;password=mypass" https://descut.cosmology.illinois.edu/api/token/ </td></tr>
      </tbody></table>
      <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">request</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'http://localhost:8999/api/token/'</span>,data<span style="color: #333333">=</span>{<span style="background-color: #fff0f0">'username'</span>:<span style="background-color: #fff0f0">'myuser'</span>, <span style="background-color: #fff0f0">'password'</span>: <span style="background-color: #fff0f0">'mypasswd'</span>})
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu//api/token/'</span>,data<span style="color: #333333">=</span>{<span style="background-color: #fff0f0">'username'</span>:<span style="background-color: #fff0f0">'myuser'</span>, <span style="background-color: #fff0f0">'password'</span>: <span style="background-color: #fff0f0">'mypasswd'</span>})
 <span style="color: #008800; font-weight: bold">print</span>(req)
 <span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
@@ -30966,11 +30966,11 @@ req <span style="color: #333333">=</span> requests<span style="color: #333333">.
      <tr><th>URL Params:</th><td>token=mytokenid</td></tr>
      <tr><th>Success:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"} </td></tr>
      <tr><th>Errors:</th><td> 400: Missing token parameter, 404: Token doesn't exists or expired </td></tr>
-     <tr><th>Example:</th><td> curl http://descut.cosmology.illinois.edu:8999/api/token/?token=mytokenid  </td></tr>
+     <tr><th>Example:</th><td> curl https://descut.cosmology.illinois.edu/api/token/?token=mytokenid  </td></tr>
      </tbody></table>
      <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'http://localhost:8999/api/token/?token=263q...'</span>)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/token/?token=263q...'</span>)
 <span style="color: #008800; font-weight: bold">print</span>(req)
 <span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
@@ -31037,9 +31037,9 @@ body <span style="color: #333333">=</span> {
 }
 <span style="color: #888888"># create body for files if needed</span>
 body_files <span style="color: #333333">=</span> {<span style="background-color: #fff0f0">'csvfile'</span>: <span style="color: #007020">open</span>(<span style="background-color: #fff0f0">'mydata.csv'</span>,<span style="background-color: #fff0f0">'rb'</span>)}  <span style="color: #888888"># To load csv file as part of request</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'http://localhost:8999/api/jobs/'</span>,data<span style="color: #333333">=</span>body)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/'</span>,data<span style="color: #333333">=</span>body)
 <span style="color: #888888"># To include files</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'http://localhost:8999/api/jobs/'</span>,data<span style="color: #333333">=</span>body, files<span style="color: #333333">=</span>body_files)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/'</span>,data<span style="color: #333333">=</span>body, files<span style="color: #333333">=</span>body_files)
 <span style="color: #008800; font-weight: bold">print</span>(req)
 <span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
@@ -31081,11 +31081,11 @@ req <span style="color: #333333">=</span> requests<span style="color: #333333">.
      "links" : ["file1.fits", "file2.fits", ...]<br>
      }</td></tr>
      <tr><th>Errors:</th><td> 400: no token OR Job does not exist, 403: Token doesn't exists or expired </td></tr>
-     <tr><th>Example:</th><td> curl http://localhost:8999/api/jobs/?token=mytoken&amp;jobid=abc... </td></tr>
+     <tr><th>Example:</th><td> curl https://descut.cosmology.illinois.edu/api/jobs/?token=mytoken&amp;jobid=abc... </td></tr>
      </tbody></table>
      <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'http://localhost:8999/api/jobs/?token=1222...&amp;jobid=abc...'</span>)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;jobid=abc...'</span>)
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
 {<span style="background-color: #fff0f0">"job_status"</span>: <span style="background-color: #fff0f0">"SUCCESS"</span>, <span style="background-color: #fff0f0">"message"</span>: <span style="background-color: #fff0f0">"Job abc... is SUCCESS"</span>, <span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>, <span style="background-color: #fff0f0">"links"</span>: [<span style="background-color: #fff0f0">"file1.fits"</span><span style="color: #333333">....</span>]}
 </pre></div>
@@ -31115,11 +31115,11 @@ req <span style="color: #333333">=</span> requests<span style="color: #333333">.
      <tr><th>URL Params:</th><td>token=mytoken&amp;jobid=abc...</td></tr>
      <tr><th>Success:</th><td> 200: content: {"message": "Job abc... was deleted", "status": "ok"}</td></tr>
      <tr><th>Errors:</th><td> 400: no token, 403: Token does not exists or it expired</td></tr>
-     <tr><th>Example:</th><td> curl -X DELETE -G http://localhost:8999/api/jobs/ -d "token=c17...&amp;jobid=9839...."</td></tr>
+     <tr><th>Example:</th><td> curl -X DELETE -G https://descut.cosmology.illinois.edu/api/jobs/ -d "token=c17...&amp;jobid=9839...."</td></tr>
      </tbody></table>
      <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'http://localhost:8999/api/jobs/?token=1222...&amp;jobid=abc...'</span>)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;jobid=abc...'</span>)
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
 {<span style="background-color: #fff0f0">"message"</span>: <span style="background-color: #fff0f0">"Job abc... was deleted"</span>, <span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>}
 </pre></div>
@@ -31153,11 +31153,11 @@ req <span style="color: #333333">=</span> requests<span style="color: #333333">.
      "list_jobs" : ["job1", "job2", ...]<br>
      }</td></tr>
      <tr><th>Errors:</th><td> 400: no token, 403: Token doesn't exists or expired </td></tr>
-     <tr><th>Example:</th><td> curl http://localhost:8999/api/jobs/token=mytoken&amp;list_jobs </td></tr>
+     <tr><th>Example:</th><td> curl https://descut.cosmology.illinois.edu/api/jobs/token=mytoken&amp;list_jobs </td></tr>
      </tbody></table>
      <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'http://localhost:8999/api/jobs/?token=1222...&amp;list_jobs'</span>)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;list_jobs'</span>)
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
 {<span style="background-color: #fff0f0">"list_jobs"</span>: [<span style="background-color: #fff0f0">"16b..."</span>, <span style="background-color: #fff0f0">"0100..."</span>, <span style="background-color: #fff0f0">"b056..."</span>], <span style="background-color: #fff0f0">"message"</span>: <span style="background-color: #fff0f0">"List of jobs returned"</span>, <span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>}
 </pre></div>

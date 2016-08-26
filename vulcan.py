@@ -21,6 +21,17 @@ def replaceout(inputfile):
         for line in file:
             print(line.replace('app.min.js', 'app.js'), end='')
 
+def changeports(mode):
+    if mode == 'build':
+        with fileinput.FileInput('main.py', inplace=True) as file:
+            for line in file:
+                print(line.replace('default=8999', 'default=443'), end='')
+    if mode == 'dev':
+        with fileinput.FileInput('main.py', inplace=True) as file:
+            for line in file:
+                print(line.replace('default=443', 'default=8999'), end='')
+
+
 
 def vulcanize():
     os.system('rm -f static/elements/elements-built.html')
@@ -48,11 +59,13 @@ if __name__ == "__main__":
         minimize()
         replacein('templates/index.html')
         replacein('templates/login.html')
+        changeports('build')
         
 
     if args.dev:
         replaceout('templates/index.html')
         replaceout('templates/login.html')
+        changeports('dev')
 
 
 
