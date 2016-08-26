@@ -88,7 +88,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     # writing files for wget
     allfiles = glob.glob(mypath+'*.*')
     Fall = open(mypath+'list_all.txt','w')
-    prefix='http://descut.cosmology.illinois.edu:8999/static'
+    prefix='https://descut.cosmology.illinois.edu/static'
     for ff in allfiles:
         if (ff.find('all.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
     Fall.close()
@@ -97,7 +97,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     with con:
         cur = con.cursor()
         cur.execute(q)
-    a=requests.get('http://descut.cosmology.illinois.edu:8999/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+    a=requests.get('https://descut.cosmology.illinois.edu/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
     return oo.decode('ascii')
 
 @celery.task
