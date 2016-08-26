@@ -27,21 +27,13 @@
     <paper-item-body>
     Download All Tiles
     </paper-item-body>
-<<<<<<< HEAD
-    <paper-icon-button icon="file-download" on-tap="_getall"></paper-icon-button>
-=======
     <paper-icon-button id="getAllIcon" icon="file-download" on-tap="_getall" ></paper-icon-button>
->>>>>>> master
     </paper-item>
     <paper-item >
     <paper-item-body>
     Get list of files
     </paper-item-body>
-<<<<<<< HEAD
-    <paper-icon-button icon="assignment-returned" on-tap="_getlist"></paper-icon-button>
-=======
     <paper-icon-button icon="assignment-returned" on-tap="_getlist" ></paper-icon-button>
->>>>>>> master
     </paper-item>
     <hr class="des-hr">
     <b> Job list shortcut</b>
@@ -132,7 +124,6 @@
             help.selected="6";
 
       },
-<<<<<<< HEAD
       _getall: function(){
           var SE = document.getElementById('mainPages').selected=="7";
           var link = document.createElement('a');
@@ -164,34 +155,7 @@
          var link = document.createElement('a');
         var siid = document.getElementById("desResults").jobid;
         var user = document.getElementById("desResults").username;
-        link.href = "/static/uploads/"+user+"/results/"+siid+"/file_list.txt";
-=======
-    _getall: function(){
-	console.log('download all');
-        var link = document.createElement('a');
-        var siid = document.getElementById("desResults").jobid;
-        var user = document.getElementById("desResults").username;
-        link.href = "/static/uploads/"+user+"/results/"+siid+"/all.tar.gz";
-        if (link.download !== undefined){
-            //Set HTML5 download attribute. This will prevent file from opening if supported.
-            var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
-            link.download = fileName;
-          }
-          if (document.createEvent) {
-            var e = document.createEvent('MouseEvents');
-            e.initEvent('click' ,true ,true);
-            link.dispatchEvent(e);
-            return true;
-          }
-            var query = '?download';
-            window.open(link.href + query);
-	},
-    _getlist: function(){
-         var link = document.createElement('a');
-        var siid = document.getElementById("desResults").jobid;
-        var user = document.getElementById("desResults").username;
         link.href = "/static/uploads/"+user+"/results/"+siid+"/list_all.txt";
->>>>>>> master
         if (link.download !== undefined){
             var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
             link.download = fileName;
@@ -204,18 +168,11 @@
           }
             var query = '?download';
             window.open(link.href + query);
-<<<<<<< HEAD
       },
 
 
 
     });
-=======
-	},
-
-
-      });
->>>>>>> master
 
 
 </script>
