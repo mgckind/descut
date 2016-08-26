@@ -20208,6 +20208,7 @@ Configuration:
     })(window);
 </script>
 <!-- DESCUT -->
+<!-- DES API -->
 </head><body><div hidden="" by-vulcanize=""><dom-module id="iron-icon" assetpath="../bower_components/iron-icon/">
   <template>
     <style>
@@ -28903,6 +28904,42 @@ Configuration:
   <template>
     <style>
 
+   table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #dddddd;
+}
+
+    th {
+    text-align: right;
+    padding: 8px;
+    }
+    td {
+    text-align: left;
+    padding: 8px;
+    }
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+    paper-card.apicard {
+        width: 100%;
+        margin-top: 30px;
+    }
+    .api-header {
+        color: var(--paper-blue-500);
+        font-size: 20px;
+        font-weight: bold;
+        padding: 8px;
+            }
+
+   .api-subheader {
+    color: var(--paper-green-400);
+    font-size: 18px;
+        font-weight: normal;
+   }
+
  paper-button.desbutton {
     width:200px;
     font-size: 14pt;
@@ -29168,7 +29205,7 @@ background-color:black;
  <des-card-help heading="Help">
   <div class="card-content">
  <p> Download all tiles or a text file with the list of files only. In the latter case use:
- </p><pre>wget -i list.txt</pre>. Selectable list below to change between jobs<p></p>
+ </p><pre>wget -i list.txt</pre> Selectable list below to change between jobs<p></p>
     <hr class="des-hr">
     <paper-item>
     <paper-item-body>
@@ -29180,7 +29217,7 @@ background-color:black;
     <paper-item-body>
     Download All Tiles
     </paper-item-body>
-    <paper-icon-button icon="file-download" on-tap="_getall"></paper-icon-button>
+    <paper-icon-button id="getAllIcon" icon="file-download" on-tap="_getall"></paper-icon-button>
     </paper-item>
     <paper-item>
     <paper-item-body>
@@ -29585,7 +29622,7 @@ background-color:black;
       ready: function() {
         var _self = this;
         loc = window.location.host
-        var ws = new WebSocket("ws://"+loc+"/websocket");
+        var ws = new WebSocket("wss://"+loc+"/websocket");
          ws.onmessage = function(e) {
            console.log(e.data);
            req = document.getElementById("getData");
@@ -29860,7 +29897,15 @@ background-color:black;
 
     <section>
     <des-card heading="API Help">
-    </des-card>
+ 
+     <des-api-create-token id="api_0"></des-api-create-token>
+     <des-api-check-token id="api_1"></des-api-check-token>
+     <des-api-submit-job id="api_2"></des-api-submit-job>
+     <des-api-get-job id="api_3"></des-api-get-job>
+     <des-api-get-joblist id="api_4"></des-api-get-joblist>
+     <des-api-delete-job id="api_5"></des-api-delete-job>
+
+</des-card>
     </section>
 </template>
 
@@ -29868,19 +29913,26 @@ background-color:black;
       Polymer({
       is: "des-api",
     });
-
-
 </script>
 </dom-module>
 <dom-module id="des-api-help" assetpath="des_elements/">
 <template>
-    <style>
+    <style include="shared-styles">
     </style>
 
  <des-card-help heading="Help">
   <div class="card-content">
     See the list of the REST API commands to interact with the cutout services from scripting tools such as curl, wget, python, etc.
-    </div>
+    <hr class="des-hr">
+    <paper-listbox on-iron-select="gotoapi" selected="{{selection}}">
+    <paper-item>Create Authetication Token</paper-item>
+    <paper-item>Check Token Status</paper-item>
+    <paper-item> Submit Job</paper-item>
+    <paper-item> Get Job Results</paper-item>
+    <paper-item> Get Jobs List</paper-item>
+    <paper-item> Delete Jobs</paper-item>
+    </paper-listbox>
+</div>
 </des-card-help>
 
 </template>
@@ -29888,6 +29940,15 @@ background-color:black;
 <script>
       Polymer({
       is: "des-api-help",
+      properties: {
+        selection: {
+            value : '',
+        },
+      },
+      gotoapi: function(){
+        var api_element = document.getElementById('api_'+this.selection);
+        api_element.scrollIntoView();
+      },
     });
 
 
@@ -30180,10 +30241,10 @@ background-color:black;
     </paper-button>
     </div>
     <hr>
-    <div>xsize (arcmin): <span id="xsizeLabel" class="caption">1</span></div><br>
-    <paper-slider id="xsizeSlider" pin="" max="10" max-markers="10" step="0.1" value="1" expand=""></paper-slider>
-    <div>ysize (arcmin): <span id="ysizeLabel" class="caption">1</span></div><br>
-    <paper-slider id="ysizeSlider" pin="" max="10" max-markers="10" step="0.1" value="1"></paper-slider>
+    <div>xsize (arcmin, if not selected default is from file or 1.0): <span id="xsizeLabel" class="caption">0</span></div><br>
+    <paper-slider id="xsizeSlider" pin="" max="10" max-markers="10" step="0.1" value="0" expand=""></paper-slider>
+    <div>ysize (arcmin, if not selected default is from file or 1.0): <span id="ysizeLabel" class="caption">0</span></div><br>
+    <paper-slider id="ysizeSlider" pin="" max="10" max-markers="10" step="0.1" value="0" expand=""></paper-slider>
     <hr>
     <paper-checkbox id="onlyreturnlist">Return just list of files (do not produce and display pngs, i.e. faster)</paper-checkbox>
     <hr>
@@ -30261,8 +30322,8 @@ background-color:black;
         document.getElementById("enterValues").disabled=false;
         document.getElementById("uploadFile").disabled=false;
         document.getElementById("keyboardicon").style.display='inline-block';
-        document.getElementById("xsizeSlider").value="1.0";
-        document.getElementById("ysizeSlider").value="1.0";
+        document.getElementById("xsizeSlider").value="0.0";
+        document.getElementById("ysizeSlider").value="0.0";
         document.getElementById("sendemail").checked=false;
         document.getElementById("onlyreturnlist").checked=false;
         document.getElementById("desPositions").clear();
@@ -30338,7 +30399,7 @@ background-color:black;
 
  <des-card-help heading="Help">
   <div class="card-content">
-  You can upload a csv file with positions or enter a list manually. The jobs is submitted asynchronously. <br>Check <b>My Jobs</b> tab to see the status of your jobs.
+  You can upload a csv file with positions or enter a list manually. The jobs is submitted asynchronously.  <br>Check <b>My Jobs</b> tab to see the status of your jobs.
     <hr class="des-hr">
     <paper-item>
     <paper-item-body>
@@ -30371,7 +30432,7 @@ background-color:black;
     </style>
 
 
-    <iron-ajax id="getTiles" auto="" url="/static/uploads/{{username}}/results/{{jobid}}/list.json" handle-as="json" last-response="{{jsondata}}">
+    <iron-ajax id="getTiles" auto="" url="/static/uploads/{{username}}/results/{{jobid}}/list.json" handle-as="json" last-response="{{jsondata}}" on-response="_getTilesResponse">
     </iron-ajax>
 
     <des-card heading="Job : [[jobid]] ( [[jsondata.length]] tiles)"> 
@@ -30412,6 +30473,14 @@ background-color:black;
             value: '',
         },
       },
+     _getTilesResponse: function() {
+        if (this.jsondata.length == 0 ) {
+          document.getElementById('getAllIcon').disabled=true;
+           }
+        else {
+          document.getElementById('getAllIcon').disabled=false;
+          }
+	},
     });
 </script>
 </dom-module>
@@ -30843,6 +30912,263 @@ background-color:black;
     });
 
 
+</script>
+</dom-module>
+<dom-module id="des-api-create-token" assetpath="des_elements/api/">
+<template>
+    <style include="shared-styles">
+    </style>
+
+
+    <paper-card elevation="4" class="apicard">
+      <div class="api-header">Create Authetication Token: <span class="api-subheader">Returns a token to create other requests</span></div>
+    <div class="card-content">
+      <table>
+     <tbody><tr><th>URL:</th><td>/api/token/</td><td></td></tr>
+     <tr><th>Method:</th><td>POST</td></tr>
+     <tr><th>Body:</th><td>{'username': 'myname' , 'password': 'mypassword'}</td></tr>
+     <tr><th>Success:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"}</td></tr>
+     <tr><th>Errors:</th><td> 400: username or password, 403: username or password invalid</td></tr>
+     <tr><th>Example:</th><td> curl -d "username=myname&amp;password=mypass" https://descut.cosmology.illinois.edu/api/token/ </td></tr>
+     </tbody></table>
+     <b>Python example:</b>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">request</span>
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu//api/token/'</span>,data<span style="color: #333333">=</span>{<span style="background-color: #fff0f0">'username'</span>:<span style="background-color: #fff0f0">'myuser'</span>, <span style="background-color: #fff0f0">'password'</span>: <span style="background-color: #fff0f0">'mypasswd'</span>})
+<span style="color: #008800; font-weight: bold">print</span>(req)
+<span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
+<span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
+{<span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>, <span style="background-color: #fff0f0">"token"</span>: <span style="background-color: #fff0f0">"263q..."</span>, <span style="background-color: #fff0f0">"message"</span>: <span style="background-color: #fff0f0">"Token created, expiration time: XX seconds"</span>}
+<span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>json()[<span style="background-color: #fff0f0">'token'</span>])
+<span style="color: #0000DD; font-weight: bold">263</span>q<span style="color: #333333">...</span>
+</pre></div>
+
+    </div>
+   </paper-card>
+</template>
+
+<script>
+      Polymer({
+      is: "des-api-create-token",
+    });
+</script>
+</dom-module>
+<dom-module id="des-api-check-token" assetpath="des_elements/api/">
+<template>
+    <style include="shared-styles">
+    </style>
+
+ <paper-card elevation="4" class="apicard">
+      <div class="api-header">Check Token status: <span class="api-subheader">Check the expiration time for a token</span></div>
+    <div class="card-content">
+      <table>
+     <tbody><tr><th>URL:</th><td>/api/token/?</td></tr>
+     <tr><th>Method:</th><td>GET</td></tr>
+     <tr><th>URL Params:</th><td>token=mytokenid</td></tr>
+     <tr><th>Success:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"} </td></tr>
+     <tr><th>Errors:</th><td> 400: Missing token parameter, 404: Token doesn't exists or expired </td></tr>
+     <tr><th>Example:</th><td> curl https://descut.cosmology.illinois.edu/api/token/?token=mytokenid  </td></tr>
+     </tbody></table>
+     <b>Python example:</b>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/token/?token=263q...'</span>)
+<span style="color: #008800; font-weight: bold">print</span>(req)
+<span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
+<span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
+{<span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>, <span style="background-color: #fff0f0">"message"</span>: <span style="background-color: #fff0f0">"Token is valid for XX hours"</span>}
+</pre></div>
+
+    </div>
+    </paper-card>
+
+
+
+</template>
+
+<script>
+      Polymer({
+      is: "des-api-check-token",
+    });
+</script>
+</dom-module>
+<dom-module id="des-api-submit-job" assetpath="des_elements/api/">
+<template>
+    <style include="shared-styles">
+    </style>
+
+
+  
+ <paper-card elevation="4" class="apicard">
+      <div class="api-header">Submit Job: <span class="api-subheader">Submit Job to the server and return Job Id</span></div>
+    <div class="card-content">
+      <table>
+     <tbody><tr><th>URL:</th><td>/api/jobs/</td></tr>
+     <tr><th>Method:</th><td>POST</td></tr>
+     <tr><th>Body:</th><td>
+     { <br>
+    'token'     : tokeb generated  <b>REQUIRED</b> <br>
+    'ra'        : string list of RA positions  <b>REQUIRED</b> <br>
+    'dec'       : string list of DEC positions <b>REQUIRED</b> <br> 
+    'job_type'  : 'coadd' or 'single' Creates cutouts from coadd images or single epoch <b>REQUIRED</b> <br>   
+    'xsize'     : xsize of cutout in arcmin, can be single number or list <b>OPTIONAL&gt;</b> (default : 1.0) <br> 
+    'ysize'     : ysize of cutout in arcmin, can be single number or list <b>OPTIONAL</b> (default : 1.0) <br> 
+    'list_only' : if 'true' only generate list fo files, not png and no tar.gz file for all content which is much faster <b>OPTIONAL</b> (default : 'false')  <br> 
+    'email'     : Will send  note when job is finished to this email  <b>OPTIONAL</b> (default: no email) <br>
+     }<br>
+     </td></tr>
+     <tr><th>File upload:</th><td> Can upload csv files using 'csvfile' as part of file body </td></tr>
+     <tr><th>Success:</th><td> 200: content: {"status": "ok", "job": "923...", "message": "Job 923... submitted."} </td></tr>
+     <tr><th>Errors:</th><td> 400: Missing token parameter, ra,dec, job_type.  403: Token doesn't exists or expired </td></tr>
+     </tbody></table>
+     <b>Python example:</b>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">ra <span style="color: #333333">=</span> [<span style="color: #6600EE; font-weight: bold">10.0</span>, <span style="color: #6600EE; font-weight: bold">20.0</span>, <span style="color: #6600EE; font-weight: bold">30.0</span>]
+dec<span style="color: #333333">=</span> [<span style="color: #6600EE; font-weight: bold">40.0</span>, <span style="color: #6600EE; font-weight: bold">50.0</span>, <span style="color: #6600EE; font-weight: bold">60.0</span>]
+xs <span style="color: #333333">=</span> [<span style="color: #6600EE; font-weight: bold">1.0</span>, <span style="color: #6600EE; font-weight: bold">2.0</span>, <span style="color: #6600EE; font-weight: bold">3.0</span>, <span style="color: #6600EE; font-weight: bold">4.0</span>]
+ys <span style="color: #333333">=</span> [<span style="color: #6600EE; font-weight: bold">2.0</span>]
+<span style="color: #888888"># create body of request</span>
+body <span style="color: #333333">=</span> {
+    <span style="background-color: #fff0f0">'token'</span>     :  <span style="background-color: #fff0f0">'aaa...'</span>,          <span style="color: #888888"># required</span>
+    <span style="background-color: #fff0f0">'ra'</span>        : <span style="color: #007020">str</span>(ra),              <span style="color: #888888"># required</span>
+    <span style="background-color: #fff0f0">'dec'</span>       : <span style="color: #007020">str</span>(dec),          <span style="color: #888888"># required</span>
+    <span style="background-color: #fff0f0">'job_type'</span>  : <span style="background-color: #fff0f0">'coadd'</span>,        <span style="color: #888888"># required 'coadd' or 'single'   </span>
+    <span style="background-color: #fff0f0">'xsize'</span>     : <span style="color: #007020">str</span>(xs),            <span style="color: #888888"># optional (default : 1.0)</span>
+    <span style="background-color: #fff0f0">'ysize'</span>     : <span style="color: #007020">str</span>(ys),            <span style="color: #888888"># optional (default : 1.0)</span>
+    <span style="background-color: #fff0f0">'list_only'</span> : <span style="background-color: #fff0f0">'false'</span>,           <span style="color: #888888"># optional (default : 'false') 'true': will not generate pngs (faster)</span>
+    <span style="background-color: #fff0f0">'email'</span>     : <span style="background-color: #fff0f0">'myemail@mmm.com'</span>     <span style="color: #888888"># optional will send email when job is finished</span>
+}
+<span style="color: #888888"># create body for files if needed</span>
+body_files <span style="color: #333333">=</span> {<span style="background-color: #fff0f0">'csvfile'</span>: <span style="color: #007020">open</span>(<span style="background-color: #fff0f0">'mydata.csv'</span>,<span style="background-color: #fff0f0">'rb'</span>)}  <span style="color: #888888"># To load csv file as part of request</span>
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/'</span>,data<span style="color: #333333">=</span>body)
+<span style="color: #888888"># To include files</span>
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/'</span>,data<span style="color: #333333">=</span>body, files<span style="color: #333333">=</span>body_files)
+<span style="color: #008800; font-weight: bold">print</span>(req)
+<span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
+<span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
+{<span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>, <span style="background-color: #fff0f0">"job"</span>: <span style="background-color: #fff0f0">"923..."</span>, <span style="background-color: #fff0f0">"message"</span>: <span style="background-color: #fff0f0">"Job 923... submitted."</span>}
+<span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>json()[<span style="background-color: #fff0f0">'job'</span>])
+<span style="color: #6600EE; font-weight: bold">923.</span><span style="color: #333333">..</span>
+</pre></div>
+
+    </div>
+    </paper-card>
+
+
+</template>
+
+<script>
+      Polymer({
+      is: "des-api-submit-job",
+    });
+</script>
+</dom-module>
+<dom-module id="des-api-get-job" assetpath="des_elements/api/">
+<template>
+    <style include="shared-styles">
+    </style>
+
+
+    <paper-card elevation="4" class="apicard">
+      <div class="api-header">Get Job Results :<span class="api-subheader"> Mainly returns a list of links to files</span></div>
+    <div class="card-content">
+      <table>
+     <tbody><tr><th>URL:</th><td>/api/jobs/?</td><td></td></tr>
+     <tr><th>Method:</th><td>GET</td></tr>
+     <tr><th>URL Params:</th><td>token=mytoken&amp;jobid=abc...</td></tr>
+     <tr><th>Success:</th><td> 200: content: <br> 
+     { <br>
+     "status": "ok",<br>
+     "message": "Job abc... is SUCCESS",<br>
+     "job_status" : "SUCCESS",<br>
+     "links" : ["file1.fits", "file2.fits", ...]<br>
+     }</td></tr>
+     <tr><th>Errors:</th><td> 400: no token OR Job does not exist, 403: Token doesn't exists or expired </td></tr>
+     <tr><th>Example:</th><td> curl https://descut.cosmology.illinois.edu/api/jobs/?token=mytoken&amp;jobid=abc... </td></tr>
+     </tbody></table>
+     <b>Python example:</b>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;jobid=abc...'</span>)
+<span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
+{<span style="background-color: #fff0f0">"job_status"</span>: <span style="background-color: #fff0f0">"SUCCESS"</span>, <span style="background-color: #fff0f0">"message"</span>: <span style="background-color: #fff0f0">"Job abc... is SUCCESS"</span>, <span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>, <span style="background-color: #fff0f0">"links"</span>: [<span style="background-color: #fff0f0">"file1.fits"</span><span style="color: #333333">....</span>]}
+</pre></div>
+     
+    </div>
+   </paper-card>
+</template>
+
+<script>
+      Polymer({
+      is: "des-api-get-job",
+    });
+</script>
+</dom-module>
+<dom-module id="des-api-delete-job" assetpath="des_elements/api/">
+<template>
+    <style include="shared-styles">
+    </style>
+
+
+    <paper-card elevation="4" class="apicard">
+      <div class="api-header">Delete Jobs: <span class="api-subheader">Delete Job by its Id </span></div>
+    <div class="card-content">
+      <table>
+     <tbody><tr><th>URL:</th><td>/api/jobs/?</td><td></td></tr>
+     <tr><th>Method:</th><td>DELETE</td></tr>
+     <tr><th>URL Params:</th><td>token=mytoken&amp;jobid=abc...</td></tr>
+     <tr><th>Success:</th><td> 200: content: {"message": "Job abc... was deleted", "status": "ok"}</td></tr>
+     <tr><th>Errors:</th><td> 400: no token, 403: Token does not exists or it expired</td></tr>
+     <tr><th>Example:</th><td> curl -X DELETE -G https://descut.cosmology.illinois.edu/api/jobs/ -d "token=c17...&amp;jobid=9839...."</td></tr>
+     </tbody></table>
+     <b>Python example:</b>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;jobid=abc...'</span>)
+<span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
+{<span style="background-color: #fff0f0">"message"</span>: <span style="background-color: #fff0f0">"Job abc... was deleted"</span>, <span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>}
+</pre></div>
+    </div>
+   </paper-card>
+</template>
+
+<script>
+      Polymer({
+      is: "des-api-delete-job",
+    });
+</script>
+</dom-module>
+<dom-module id="des-api-get-joblist" assetpath="des_elements/api/">
+<template>
+    <style include="shared-styles">
+    </style>
+
+
+    <paper-card elevation="4" class="apicard">
+      <div class="api-header">Get Job List:<span class="api-subheader"> Return a list of all my jobs</span></div>
+    <div class="card-content">
+      <table>
+     <tbody><tr><th>URL:</th><td>/api/jobs/?</td><td></td></tr>
+     <tr><th>Method:</th><td>GET</td></tr>
+     <tr><th>URL Params:</th><td>token=mytoken&amp;list_jobs</td></tr>
+     <tr><th>Success:</th><td> 200: content: <br> 
+     { <br>
+     "status": "ok",<br>
+     "message": "List of jobs returned",<br>
+     "list_jobs" : ["job1", "job2", ...]<br>
+     }</td></tr>
+     <tr><th>Errors:</th><td> 400: no token, 403: Token doesn't exists or expired </td></tr>
+     <tr><th>Example:</th><td> curl https://descut.cosmology.illinois.edu/api/jobs/token=mytoken&amp;list_jobs </td></tr>
+     </tbody></table>
+     <b>Python example:</b>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;list_jobs'</span>)
+<span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
+{<span style="background-color: #fff0f0">"list_jobs"</span>: [<span style="background-color: #fff0f0">"16b..."</span>, <span style="background-color: #fff0f0">"0100..."</span>, <span style="background-color: #fff0f0">"b056..."</span>], <span style="background-color: #fff0f0">"message"</span>: <span style="background-color: #fff0f0">"List of jobs returned"</span>, <span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>}
+</pre></div>
+    </div>
+   </paper-card>
+</template>
+
+<script>
+      Polymer({
+      is: "des-api-get-joblist",
+    });
 </script>
 </dom-module>
 </div></body></html>

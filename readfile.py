@@ -137,6 +137,8 @@ class FileHandler(BaseHandler):
         print(send_email,'send_email')
         print(email,'email')
         jobid = str(uuid.uuid4())
+        if xs == 0.0 : xs=''
+        if ys == 0.0 : ys=''
         if stype=="manual":
             values = self.get_argument("values")
             print(values)
