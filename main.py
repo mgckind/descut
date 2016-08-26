@@ -15,7 +15,7 @@ import readfile
 import sqlite3 as lite
 import dtasks
 
-define("port", default=8999, help="run on the given port", type=int)
+define("port", default=443, help="run on the given port", type=int)
 
 def create_db(delete=False):
     dirname = os.path.dirname(Settings.DBFILE)
@@ -67,8 +67,8 @@ def main():
         os.mkdir(Settings.WORKERS)
     create_db()
     tornado.options.parse_command_line()
-    http_server = tornado.httpserver.HTTPServer(Application())
-    #http_server = tornado.httpserver.HTTPServer(Application(), ssl_options={"certfile": "/etc/httpd/ssl/des.crt", "keyfile": "/etc/httpd/ssl/des.key",})
+    #http_server = tornado.httpserver.HTTPServer(Application())
+    http_server = tornado.httpserver.HTTPServer(Application(), ssl_options={"certfile": "/des/etc/cks/descut_cert.cer", "keyfile": "/des/etc/cks/descut.key",})
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
 
