@@ -1,12 +1,21 @@
 <dom-module id="des-api-help">
 <template>
-    <style>
+    <style include="shared-styles">
     </style>
 
  <des-card-help heading="Help">
   <div class="card-content">
     See the list of the REST API commands to interact with the cutout services from scripting tools such as curl, wget, python, etc.
-    </div>
+    <hr class="des-hr">
+    <paper-listbox on-iron-select="gotoapi" selected="{{selection}}">
+    <paper-item>Create Authetication Token</paper-item>
+    <paper-item>Check Token Status</paper-item>
+    <paper-item> Submit Job</paper-item>
+    <paper-item> Get Job Results</paper-item>
+    <paper-item> Get Jobs List</paper-item>
+    <paper-item> Delete Jobs</paper-item>
+    </paper-listbox>
+</div>
 </des-card-help>
 
 </template>
@@ -14,6 +23,15 @@
 <script>
       Polymer({
       is: "des-api-help",
+      properties: {
+        selection: {
+            value : '',
+        },
+      },
+      gotoapi: function(){
+        var api_element = document.getElementById('api_'+this.selection);
+        api_element.scrollIntoView();
+      },
     });
 
 

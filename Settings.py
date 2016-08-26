@@ -6,7 +6,11 @@ STATIC_PATH = os.path.join(DIRNAME, 'static')
 TEMPLATE_PATH = os.path.join(DIRNAME, 'templates')
 UPLOADS = os.path.join(STATIC_PATH,"uploads/")
 WORKERS = os.path.join(DIRNAME, 'workers')
-COOKIE_SECRET = 'hClvdk4slveLtPze7p1g' #TO BE CHANGED
+FF=open('ranC.tck','r')
+COOKIE_SECRET = FF.readlines()[0]
+FF.close()
+MAX_OBJECTS = 100 #TO BE CHANGED
+TOKEN_TTL = 3600
 DBFILE = os.path.join(STATIC_PATH,"uploads/admin/users.db")
 import logging
 # log linked to the standard error stream

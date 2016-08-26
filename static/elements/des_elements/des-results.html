@@ -8,7 +8,8 @@
         auto
         url=/static/uploads/{{username}}/results/{{jobid}}/list.json
         handle-as="json"
-        last-response="{{jsondata}}">
+        last-response="{{jsondata}}"
+        on-response="_getTilesResponse">
     </iron-ajax>
 
     <des-card heading="Job : [[jobid]] ( [[jsondata.length]] tiles)"> 
@@ -49,6 +50,14 @@
             value: '',
         },
       },
+     _getTilesResponse: function() {
+        if (this.jsondata.length == 0 ) {
+          document.getElementById('getAllIcon').disabled=true;
+           }
+        else {
+          document.getElementById('getAllIcon').disabled=false;
+          }
+	},
     });
 </script>
 </dom-module>
