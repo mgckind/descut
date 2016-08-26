@@ -222,10 +222,10 @@ class JobHandler(tornado.web.RequestHandler):
                 with open(filename,'w') as F:
                     F.write(fileinfo['body'].decode('ascii'))
                 xs = ''
-            	if 'xsize' in arguments:
+                if 'xsize' in arguments:
                     xs = xs_read[0]
                 ys = ''
-            	if 'ysize' in arguments:
+                if 'ysize' in arguments:
                     ys = ys_read[0]
             folder2 = user_folder+'results/'+jobid+'/'
             os.system('mkdir -p '+folder2)
