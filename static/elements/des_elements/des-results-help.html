@@ -73,13 +73,19 @@
       },
       _focus: function(e){
         //console.log(this._returnName(e.model.item.job));
+        var tile_ajax = "getTiles";
+        if (e.model.item.jtypes == "SE"){
+          tile_ajax = "getTilesS";
+        }
         document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
         document.getElementById("desResults").jobidFull=e.model.item.job;
+        document.getElementById("desResultsSingle").jobid=this._returnName(e.model.item.job);
+        document.getElementById("desResultsSingle").username = document.getElementById("desJobs").username;
+        document.getElementById("desResults").username = document.getElementById("desJobs").username;
         document.getElementById("desLog").jobid=this._returnName(e.model.item.job);
         document.getElementById("desLog").jobidFull=e.model.item.job;
-        document.getElementById("desResults").username = document.getElementById("desJobs").username;
         document.getElementById("smallJobListL").selected=e.model.index;
-        document.getElementById("getTiles").generateRequest();
+        document.getElementById(tile_ajax).generateRequest();
 
       },
         returnName: function(job) {
@@ -103,14 +109,14 @@
       _stop: function(status) {
         if (status != "PENDING" && status != "SUCCESS" ) {return true;}
       },
-      _seeLog: function(){
+      _seeLog: function(e){
+        e.stopPropagation();
         var jobid = document.getElementById("desResults").jobid;
         var jobidFull = document.getElementById("desResults").jobidFull;
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
         var desLog = document.getElementById("desLog");
-        document.getElementById("desJobs").unselectall();
             desLog.jobidFull = jobidFull;
             desLog.jobid = jobid;
             app.selection="6";
