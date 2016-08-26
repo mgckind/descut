@@ -110,8 +110,10 @@ def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid):
         user_folder = Settings.UPLOADS+loc_user+"/"  
         archiveFolder =  os.path.join(user_folder+'results/tar/')
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        bands = bands.replace(',', ' ')
-        print (bands)
+        if bands == "all":
+            bands = "g r i z Y"
+        else:
+            bands = bands.replace(',', ' ')
         
         #noBlacklist are passed as a str
         if noBlacklist:
