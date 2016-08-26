@@ -112,7 +112,7 @@
 
       <paper-dialog-scrollable>
       
-      <template  is="dom-repeat" items="{{SE_list}}" as="obj">
+      <template  is="dom-repeat" items="{{SE_list}}" as="obj" initial-count='20'>
       <des-thumb-band png-name="{{obj.png_name}}" im-band = "{{obj.BAND}}" im-night="{{obj.NITE}}" job-id = "{{jobid}}" im-folder = "[[imtitle]]" username = "{{username}}" ccd-Num = "{{obj.CCDNUM}}" exp-Num = "{{obj.EXPNUM}}"></des-thumb-band>
       </template>
 
