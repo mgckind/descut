@@ -227,15 +227,15 @@ class JobHandler(tornado.web.RequestHandler):
             tiid = user+'__'+jobid+'_{'+now.ctime()+'}'
             #SUBMIT JOB, ADD TO SQLITE
             if send_email:
-                xs=1.0
-                ys=1.0
-                run=dtasks.sendjob.apply_async(args=[user, user_folder, jobid, xs,ys], task_id=tiid,  link=dtasks.send_note.si(user, jobid, email))
-                #run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid, link=dtasks.send_note.si(loc_user, jobid, email))
+                #xs=1.0
+                #ys=1.0
+                #run=dtasks.sendjob.apply_async(args=[user, user_folder, jobid, xs,ys], task_id=tiid,  link=dtasks.send_note.si(user, jobid, email))
+                run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid, link=dtasks.send_note.si(loc_user, jobid, email))
             else:
-                xs=1.0
-                ys=1.0
-                run=dtasks.sendjob.apply_async(args=[user, user_folder, jobid, xs,ys], task_id=tiid)
-                #run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
+                #xs=1.0
+                #ys=1.0
+                #run=dtasks.sendjob.apply_async(args=[user, user_folder, jobid, xs,ys], task_id=tiid)
+                run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
             con = lite.connect(Settings.DBFILE)
             tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
             with con:
