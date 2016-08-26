@@ -6,10 +6,10 @@
 
   
  <paper-card elevation="4"  class="apicard">
-      <div class="api-header">Submit Job</div>
+      <div class="api-header">Submit Job: <span class="api-subheader">Submit Job to the server and return Job Id</span></div>
     <div class="card-content">
       <table>
-     <tr><th>URL:</th><td>/api/jobs/submit/</td></tr>
+     <tr><th>URL:</th><td>/api/jobs/</td></tr>
      <tr><th>Method:</th><td>POST</td></tr>
      <tr><th>Body:</th><td>
      { <br>
@@ -24,7 +24,7 @@
      }<br>
      </td></tr>
      <tr><th>File upload:</th><td> Can upload csv files using 'csvfile' as part of file body </td></tr>
-     <tr><th>Sucess:</th><td> 200: content: {"status": "ok", "job": "923...", "message": "Job 923... submitted."} </td></tr>
+     <tr><th>Success:</th><td> 200: content: {"status": "ok", "job": "923...", "message": "Job 923... submitted."} </td></tr>
      <tr><th>Errors:</th><td> 400: Missing token parameter, ra,dec, job_type.  403: Token doesn't exists or expired </td></tr>
      </table>
      <b>Python example:</b>
@@ -45,9 +45,9 @@ body <span style="color: #333333">=</span> {
 }
 <span style="color: #888888"># create body for files if needed</span>
 body_files <span style="color: #333333">=</span> {<span style="background-color: #fff0f0">&#39;csvfile&#39;</span>: <span style="color: #007020">open</span>(<span style="background-color: #fff0f0">&#39;mydata.csv&#39;</span>,<span style="background-color: #fff0f0">&#39;rb&#39;</span>)}  <span style="color: #888888"># To load csv file as part of request</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/jobs/submit/&#39;</span>,data<span style="color: #333333">=</span>body)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/jobs/&#39;</span>,data<span style="color: #333333">=</span>body)
 <span style="color: #888888"># To include files</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/jobs/submit/&#39;</span>,data<span style="color: #333333">=</span>body, files<span style="color: #333333">=</span>body_files)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/jobs/&#39;</span>,data<span style="color: #333333">=</span>body, files<span style="color: #333333">=</span>body_files)
 <span style="color: #008800; font-weight: bold">print</span>(req)
 <span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)

@@ -18,6 +18,10 @@ from expiringdict import ExpiringDict
 import binascii
 import hashlib
 import cx_Oracle
+import dtasks
+import datetime
+import requests
+import readfile
 
 
 
@@ -202,6 +206,8 @@ class JobHandler(tornado.web.RequestHandler):
             if 'email' in arguments:
                 send_email = True
                 email = arguments['email']
+            else:
+                send_email = False
             jobid = str(uuid.uuid4())
             if stype=="manual":
                 filename = user_folder + jobid + '.csv'
@@ -214,9 +220,30 @@ class JobHandler(tornado.web.RequestHandler):
                 filename = user_folder+jobid+extn
                 with open(filename,'w') as F:
                     F.write(fileinfo['body'].decode('ascii'))
+            folder2 = user_folder+'results/'+jobid+'/'
+            os.system('mkdir -p '+folder2)
+            infP = infoP(user,passwd) 
+            now = datetime.datetime.now()
+            tiid = user+'__'+jobid+'_{'+now.ctime()+'}'
             #SUBMIT JOB, ADD TO SQLITE
+            if send_email:
+                xs=1.0
+                ys=1.0
+                run=dtasks.sendjob.apply_async(args=[user, user_folder, jobid, xs,ys], task_id=tiid,  link=dtasks.send_note.si(user, jobid, email))
+                #run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid, link=dtasks.send_note.si(loc_user, jobid, email))
+            else:
+                xs=1.0
+                ys=1.0
+                run=dtasks.sendjob.apply_async(args=[user, user_folder, jobid, xs,ys], task_id=tiid)
+                #run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
+            con = lite.connect(Settings.DBFILE)
+            tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
+            with con:
+                cur = con.cursor()
+                cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?, ?)", tup)
             response['message'] = 'Job %s submitted.' % (jobid)
             response['job'] = jobid
+            readfile.notify(user,jobid)
             self.set_status(200)
         
         self.write(response)
@@ -224,8 +251,127 @@ class JobHandler(tornado.web.RequestHandler):
         self.finish()
 
 
-class ApiHandler(BaseHandler):
+    @tornado.web.asynchronous
+    def get(self):
+        arguments = { k.lower(): self.get_argument(k) for k in self.request.arguments }
+        response = {'status' : 'error'}
+        if 'token' in arguments:
+            auths = tokens.get(arguments['token'])
+            if auths is None:
+                response['message'] = 'Token does not exist or it expired. Please create a new one'
+                self.set_status(403)
+            else:
+                user = auths[0]
+                passwd = auths[1]
+                response['status'] = 'ok'
+                user_folder = os.path.join(Settings.UPLOADS,user) + '/'
+        else:
+            self.set_status(400)
+            response['message'] = 'Need a token to generate a request'
 
+        if response['status'] == 'ok':
+            if 'list_jobs' in arguments:
+                con = lite.connect(Settings.DBFILE)
+                with con:
+                    cur = con.cursor()
+                    cc = cur.execute("SELECT job from Jobs where user = '%s' order by datetime(time) DESC  " % user).fetchall()
+                response['message'] = 'List of jobs returned'
+                response['list_jobs'] = [j[0] for j in cc]
+                self.set_status(200)
+                self.write(response)
+                self.flush()
+                self.finish()
+
+
+
+
+        if response['status'] == 'ok':
+            if 'jobid' in arguments:
+                jobid = arguments['jobid']
+            else:
+                response['status'] = 'error'
+                self.set_status(400)
+                response['message'] = 'No jobid argument in request'
+
+        if response['status'] == 'ok':
+            con = lite.connect(Settings.DBFILE)
+            with con:
+                cur = con.cursor()
+                cc = cur.execute("SELECT status from Jobs where user = '%s' and job = '%s'" % (user, jobid)).fetchall()
+            try:
+                status = cc[0][0]
+                response['message'] = 'Job %s is %s' % (jobid, status)
+                response['job_status'] = status
+                if status  == 'SUCCESS':
+                    list_file = user_folder + 'results/'+jobid+'/list_all.txt'
+                    with open(list_file) as f:
+                        links = f.read().splitlines()
+                    response['links'] = links
+                self.set_status(200)
+            except:
+                response['status'] = 'error'
+                self.set_status(400)
+                respose['message'] = 'Job Id does not exists'
+        self.write(response)
+        self.flush()
+        self.finish()
+
+
+    @tornado.web.asynchronous
+    def delete(self):
+        arguments = { k.lower(): self.get_argument(k) for k in self.request.arguments }
+        response = {'status' : 'error'}
+        if 'token' in arguments:
+            auths = tokens.get(arguments['token'])
+            if auths is None:
+                response['message'] = 'Token does not exist or it expired. Please create a new one'
+                self.set_status(403)
+            else:
+                user = auths[0]
+                passwd = auths[1]
+                response['status'] = 'ok'
+                user_folder = os.path.join(Settings.UPLOADS,user) + '/'
+        else:
+            response['status'] = 'error'
+            self.set_status(400)
+            response['message'] = 'Need a token to generate a request'
+
+        if response['status'] == 'ok':
+            if 'jobid' in arguments:
+                jobid = arguments['jobid']
+            else:
+                self.set_status(400)
+                response['message'] = 'No jobid argument in request'
+
+        if response['status'] == 'ok':
+            con = lite.connect(Settings.DBFILE)
+            with con:
+                cur = con.cursor()
+                cc = cur.execute("SELECT status from Jobs where user = '%s' and job = '%s'" % (user, jobid)).fetchall()
+            try:
+                status = cc[0][0]
+                with con:
+                    cur = con.cursor()
+                    cc = cur.execute("DELETE from Jobs where user = '%s' and job = '%s'" % (user, jobid))
+                response['message'] = 'Job %s was deleted' % (jobid)
+                folder = os.path.join(user_folder,'results/' + jobid)
+                os.system('rm -rf ' + folder)
+                os.system('rm -f ' + os.path.join(user_folder,jobid+'.csv'))
+                self.set_status(200)
+                readfile.notify(user,jobid)
+            except:
+                response['status'] = 'error'
+                self.set_status(400)
+                response['message'] = 'Job Id does not exists'
+        
+        self.write(response)
+        self.flush()
+        self.finish()
+
+
+
+
+class ApiHandler(BaseHandler):
     @tornado.web.authenticated
     def delete(self):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
@@ -238,7 +384,6 @@ class ApiHandler(BaseHandler):
             for j in range(Nd):
                 jid=response[str(j)]
                 q = "DELETE from Jobs where job = '%s' and user = '%s'" % (jid, loc_user)
-                print(q)
                 cc = cur.execute(q)
                 folder = os.path.join(user_folder,'results/' + jid)
                 os.system('rm -rf ' + folder)

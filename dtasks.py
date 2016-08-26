@@ -177,6 +177,13 @@ def sendjob(user,folder,jobid,xs,ys):
             json.dump([dict(name=listpngs[i],title=titles[i], size=Ntiles) for i in range(Ntiles)], outfile, indent=4)
         print('json Done!')
     
+    allfiles = glob.glob(folder2+'*.*')
+    Fall = open(folder2+'list_all.txt','w')
+    prefix='http://desdev2.cosmology.illinois.edu/static'
+    for ff in allfiles:
+        if (ff.find('all.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
+    Fall.close()
+    
 
     con = lite.connect(Settings.DBFILE)
     q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
