@@ -299,7 +299,9 @@
         var dialog = document.getElementById(this.imtitle);
         dialog.open();
       },
-
+      errorHandler: function(){
+          console.log('Oh no!');
+      },
       completeHandler:function(){
         var jobid = document.getElementById('desResultsSingle').jobid;
         var obj_tar = jobid.substring(0,6)+"_"+imgTitle+'.tar.gz';
@@ -337,7 +339,7 @@
              type: 'POST',
              data: data,
              success: this.completeHandler,
-             // error: this.errorHandler,
+             error: this.errorHandler,
              //Options to tell jQuery not to process data or worry about content-type.
              cache: false,
              contentType: false,

@@ -68,7 +68,7 @@
       font-weight: 900;
     }
 
-    paper-spinner.big{width:60px;height:60px;position:absolute;top:70px;left:70px;}
+    paper-spinner.big{width:60px;height:60px;position:absolute;top:80px;left:80px;}
 </style>
 
 <template>
@@ -81,7 +81,7 @@
         <span class='exp_info'>{{expBottom}}</span>
       </div> 
       <div style="position:absolute; right:10px; bottom:10px"> 
-      <paper-icon-button id="{{_returnName2(pngName)}}" icon="file-download" class="mycolors" on-click="download">
+      <paper-icon-button id="{{_returnNameDwn(pngName)}}" icon="file-download" class="mycolors" on-click="download">
       </paper-icon-button>
       </div> 
       <!-- <div style="position:absolute; left:10px; bottom:10px"> 
@@ -97,11 +97,9 @@
 </template>
 
 <script>
-    
-     var singlepath = "";
-     var singletitle = "";
-     var archiveFolder = "";
-         (function(){
+  var username = "";
+  var expo_png = "";
+  (function(){
       Polymer({
       is: "des-thumb-band",
       
@@ -177,15 +175,12 @@
 
       },
       
-      _returnName2: function(pngName) {
-        return pngName+"_wrap";
+      _returnNameDwn: function(pngName) {
+        return pngName+"_down";
       },
       
       _returnName3: function(pngName) {
         return pngName+"_spin";
-      },
-      _returnName4: function(pngName) {
-        return pngName+"_diag";
       },
       _mouseout: function(){
       this._elevation = 0;
@@ -194,31 +189,15 @@
       _mouseover: function(){
       this._elevation = 5;
       },
-      // openBig: function(event){
-      //   console.log(this.pngName);
-      //   var dialog = document.getElementById(this.pngName);
-      //   //var ww = ($(window).width())/2.-dialog_img.width/2.;
-      //   //console.log(dialog_img.width+'px');
-      //   //dialog.style.left=ww+"px";
-      //   dialog.open();
-      // },
       completeHandler: function(){
-        console.log(singlepath);
-        var wrap = document.getElementById(singletitle+"_wrap");
-        wrap.disabled=false;
-        // var diag = document.getElementById(this.pngName+"_diag");
-        // diag.disabled=false;
-        var spin = document.getElementById(singletitle+"_spin");
-        spin.active=false;
-        //console.log(singlepath.replace('.tif.png','.tar.gz'));
+        document.getElementById(expo_png+"_down").disabled = false;
+        document.getElementById(expo_png+"_spin").active = false;
         var link = document.createElement('a');
-        var pathL = archiveFolder+singletitle.replace('.png','.tar.gz');
-        link.href = pathL; //pathL.replace(".tif.png",".tar.gz");
-        console.log(link.href);
+        link.href = "/static/uploads/"+username+"/results/tar/"+expo_png.replace('.png','.tar.gz');
     
         if (link.download !== undefined){
             //Set HTML5 download attribute. This will prevent file from opening if supported.
-            var fileName = pathL.substring(pathL.lastIndexOf('/') + 1, pathL.length);
+            var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
             link.download = fileName;
         }
         if (document.createEvent) {
@@ -228,34 +207,24 @@
           return true;
         }
         var query = '?download';
-        window.open(pathL + query);
-      //window.open(this.imdisplay,'_self');
+        window.open(link.href + query);
       },
       errorHandler: function(){
           console.log('Oh no!');
-        },
+      },
       download: function(event){
-        // var n1=this.jobid.search("__");
-        // var n2=this.jobid.search("{");
-        // var siid = this.jobid.substring(n1+2,n2-1);
         event.stopPropagation();
-        var wrap = document.getElementById(this.pngName+"_wrap");
-        wrap.disabled=true;
-        // var diag = document.getElementById(this.pngName+"_diag");
-        // diag.disabled=true;
-        var spin = document.getElementById(this.pngName+"_spin");
-        spin.active=true;
-        // var dialog = document.getElementById(this.pngName);
-        // dialog.close();
+        document.getElementById(this.pngName+"_down").disabled = true;
+        document.getElementById(this.pngName+"_spin").active = true;
+
         var data = new FormData();
-        singlepath = this.imgPath;
-        singletitle = this.pngName;
-        archiveFolder = "/static/uploads/"+this.username+"/results/tar/";
+        expo_png = this.pngName;
+        username = this.username;
         data.append('pngName', this.pngName);
         data.append('path', this.imgPath);
-        console.log(this.pngName);
+        
         $.ajax({
-             url: '/single/',  //Server script to process data
+             url: '/download/single/',  //Server script to process data
              type: 'POST',
              data: data,
              success: this.completeHandler,

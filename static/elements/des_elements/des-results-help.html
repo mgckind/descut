@@ -33,7 +33,7 @@
     <paper-item-body>
     Get list of files
     </paper-item-body>
-    <paper-icon-button icon="assignment-returned" ></paper-icon-button>
+    <paper-icon-button icon="assignment-returned" on-tap="_getlist"></paper-icon-button>
     </paper-item>
     <hr class="des-hr">
     <b> Job list shortcut</b>
@@ -73,21 +73,19 @@
       },
       _focus: function(e){
         //console.log(this._returnName(e.model.item.job));
-        var tile_ajax = "getTiles";
-        if (e.model.item.jtypes == "SE"){
-          tile_ajax = "getTilesS";
-        }
-        console.log(this.SE);
+        // var tile_ajax = "getTiles";
+        // if (e.model.item.jtypes == "SE"){
+        //   tile_ajax = "getTilesS";
+        // }
         document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
         document.getElementById("desResults").jobidFull=e.model.item.job;
         document.getElementById("desResultsSingle").jobid=this._returnName(e.model.item.job);
-        document.getElementById("desResultsSingle").username = document.getElementById("desJobs").username;
-        document.getElementById("desResults").username = document.getElementById("desJobs").username;
+        // document.getElementById("desResultsSingle").username = document.getElementById("desJobs").username;
+        // document.getElementById("desResults").username = document.getElementById("desJobs").username;
         document.getElementById("desLog").jobid=this._returnName(e.model.item.job);
         document.getElementById("desLog").jobidFull=e.model.item.job;
         document.getElementById("smallJobListL").selected=e.model.index;
-        document.getElementById(tile_ajax).generateRequest();
-
+        
       },
         returnName: function(job) {
         var n1=job.search("__");
@@ -152,6 +150,26 @@
               var query = '?download';
               window.open(link.href + query);
       },
+
+      _getlist: function(){
+         var link = document.createElement('a');
+        var siid = document.getElementById("desResults").jobid;
+        var user = document.getElementById("desResults").username;
+        link.href = "/static/uploads/"+user+"/results/"+siid+"/file_list.txt";
+        if (link.download !== undefined){
+            var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
+            link.download = fileName;
+          }
+          if (document.createEvent) {
+            var e = document.createEvent('MouseEvents');
+            e.initEvent('click' ,true ,true);
+            link.dispatchEvent(e);
+            return true;
+          }
+            var query = '?download';
+            window.open(link.href + query);
+      },
+
 
 
     });

@@ -21,8 +21,8 @@ class DownloadHandler(BaseHandler):
     def post(self):
         pngName = self.get_argument("pngName")
         path = self.get_argument("path")
-        print('+-+-+-+-',pngName)
-        print('+-+-+-+-',path)
+        # print('+-+-+-+-',pngName)
+        # print('+-+-+-+-',path)
         fits_name = pngName.replace('.png','.fits')
         # user_folder=os.path.join(Settings.UPLOADS,self.current_user.replace('\"','')) + '/'
         username = self.current_user.replace('\"', '')
@@ -62,6 +62,6 @@ class DownloadObjectHandler(BaseHandler):
             subprocess.check_call("tar -zcf {} {}".format(archiveFolder+tarName, os.path.split(path)[1]+'/'), shell=True) 
             os.chdir(os.path.dirname(__file__))
             
-        self.set_status(200)
-        self.flush()
+            self.set_status(200)
+            self.flush()
         self.finish()
