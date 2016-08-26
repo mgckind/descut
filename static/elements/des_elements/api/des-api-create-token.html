@@ -13,11 +13,11 @@
      <tr><th>Body:</th><td>{'username': 'myname' , 'password': 'mypassword'}</td></tr>
      <tr><th>Success:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"}</td></tr>
      <tr><th>Errors:</th><td> 400: username or password, 403: username or password invalid</td></tr>
-     <tr><th>Example:</th><td> curl -d "username=myname&password=mypass" http://localhost:8999/api/token/ </td></tr>
+     <tr><th>Example:</th><td> curl -d "username=myname&password=mypass" https://descut.cosmology.illinois.edu/api/token/ </td></tr>
      </table>
      <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">request</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/token/&#39;</span>,data<span style="color: #333333">=</span>{<span style="background-color: #fff0f0">&#39;username&#39;</span>:<span style="background-color: #fff0f0">&#39;myuser&#39;</span>, <span style="background-color: #fff0f0">&#39;password&#39;</span>: <span style="background-color: #fff0f0">&#39;mypasswd&#39;</span>})
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">&#39;https://descut.cosmology.illinois.edu//api/token/&#39;</span>,data<span style="color: #333333">=</span>{<span style="background-color: #fff0f0">&#39;username&#39;</span>:<span style="background-color: #fff0f0">&#39;myuser&#39;</span>, <span style="background-color: #fff0f0">&#39;password&#39;</span>: <span style="background-color: #fff0f0">&#39;mypasswd&#39;</span>})
 <span style="color: #008800; font-weight: bold">print</span>(req)
 <span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)

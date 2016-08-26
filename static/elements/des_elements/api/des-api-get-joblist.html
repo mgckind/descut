@@ -18,11 +18,11 @@
      "list_jobs" : ["job1", "job2", ...]<br>
      }</td></tr>
      <tr><th>Errors:</th><td> 400: no token, 403: Token doesn't exists or expired </td></tr>
-     <tr><th>Example:</th><td> curl http://localhost:8999/api/jobs/token=mytoken&list_jobs </td></tr>
+     <tr><th>Example:</th><td> curl https://descut.cosmology.illinois.edu/api/jobs/token=mytoken&list_jobs </td></tr>
      </table>
      <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&#39;http://localhost:8999/api/jobs/?token=1222...&amp;list_jobs&#39;</span>)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&#39;https://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;list_jobs&#39;</span>)
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
 {<span style="background-color: #fff0f0">&quot;list_jobs&quot;</span>: [<span style="background-color: #fff0f0">&quot;16b...&quot;</span>, <span style="background-color: #fff0f0">&quot;0100...&quot;</span>, <span style="background-color: #fff0f0">&quot;b056...&quot;</span>], <span style="background-color: #fff0f0">&quot;message&quot;</span>: <span style="background-color: #fff0f0">&quot;List of jobs returned&quot;</span>, <span style="background-color: #fff0f0">&quot;status&quot;</span>: <span style="background-color: #fff0f0">&quot;ok&quot;</span>}
 </pre></div>
