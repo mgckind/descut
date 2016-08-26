@@ -99,6 +99,7 @@
 <script>
   var username = "";
   var expo_png = "";
+  var jobid = "";
   (function(){
       Polymer({
       is: "des-thumb-band",
@@ -193,7 +194,7 @@
         document.getElementById(expo_png+"_down").disabled = false;
         document.getElementById(expo_png+"_spin").active = false;
         var link = document.createElement('a');
-        link.href = "/static/uploads/"+username+"/results/tar/"+expo_png.replace('.png','.tar.gz');
+        link.href = "/static/uploads/"+username+"/results/"+jobid+"/"+expo_png.replace('.png','.tar.gz');
     
         if (link.download !== undefined){
             //Set HTML5 download attribute. This will prevent file from opening if supported.
@@ -220,8 +221,10 @@
         var data = new FormData();
         expo_png = this.pngName;
         username = this.username;
+        jobid = this.jobId;
         data.append('pngName', this.pngName);
         data.append('path', this.imgPath);
+        data.append('jobid', this.jobId);
         
         $.ajax({
              url: '/download/single/',  //Server script to process data

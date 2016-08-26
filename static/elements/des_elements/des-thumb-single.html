@@ -306,7 +306,7 @@
         var jobid = document.getElementById('desResultsSingle').jobid;
         var obj_tar = jobid.substring(0,6)+"_"+imgTitle+'.tar.gz';
         var link = document.createElement('a');
-        link.href = "/static/uploads/"+username+"/results/tar/"+obj_tar;
+        link.href = "/static/uploads/"+username+"/results/"+jobid+"/"+obj_tar;
         document.getElementById(imgTitle+"_spin").active = false;
         if (link.download !== undefined){
             //Set HTML5 download attribute. This will prevent file from opening if supported.
