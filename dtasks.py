@@ -106,7 +106,7 @@ def send_note(user, jobid, toemail):
     print('I will notify %s to its email address :  %s' % (user, toemail))
     fromemail = 'devnull@ncsa.illinois.edu'
     s = smtplib.SMTP('smtp.ncsa.illinois.edu')
-    link = "http://desdev2.cosmology.illinois.edu/results/%s" % jobid
+    link = "https://descut.cosmology.illinois.edu/" 
     #link2 = urllib.quote(link.encode('utf8'),safe="%/:=&?~#+!$,;'@()*[]")
     #jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
 
@@ -118,7 +118,7 @@ def send_note(user, jobid, toemail):
     <body>
          <b> Please do not reply to this email</b> <br><br>
         <p>The job %s was completed, <br> 
-        the results can be retrieved from this <a href="%s">link</a> .
+        the results can be retrieved from this <a href="%s">link</a> under My Jobs Tab.
         </p><br>
         <p> DESDM Thumbs generator</p><br>
         <p> PS: This is the full link to the results: <br>

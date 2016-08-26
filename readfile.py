@@ -109,11 +109,11 @@ class RefreshHandler(BaseHandler):
         user = self.get_argument("user")
         jid = self.get_argument("jid")
         print('Refresh!')
-        clients[user].write_message(u"Job done!: %s" % jid)
+        message = {'user': user, 'jid' : jid, 'type': 'refresh'}
+        clients[user].write_message(json.dumps(message))
         self.set_status(200)
         self.flush()
         self.finish()
-
 
 
 
