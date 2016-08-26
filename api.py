@@ -199,8 +199,7 @@ class JobHandler(tornado.web.RequestHandler):
                 ys_read = [float(i) for i in arguments['ysize'].replace('[','').replace(']','').split(',')]
                 if len(ys_read) == 1 : ys=ys*ys_read
                 if len(ys) >= len(ys_read): ys[0:len(ys_read)] = ys_read
-                else: xy = xy_read[0:len(xy)]
-
+                else: ys = ys_read[0:len(ys)]
             if 'list_only' in arguments:
                 list_only = arguments["list_only"] == 'true'
             if 'email' in arguments:
@@ -214,12 +213,20 @@ class JobHandler(tornado.web.RequestHandler):
                 df = pd.DataFrame(np.array([ra,dec,xs,ys]).T,columns=['RA','DEC','XSIZE','YSIZE'])
                 df.to_csv(filename,sep=',',index=False)
                 del df
+                xs = ""
+                ys = ""
             if stype=="csvfile":
                 fname = fileinfo['filename']
                 extn = os.path.splitext(fname)[1]
                 filename = user_folder+jobid+extn
                 with open(filename,'w') as F:
                     F.write(fileinfo['body'].decode('ascii'))
+                xs = ''
+            	if 'xsize' in arguments:
+                    xs = xs_read[0]
+                ys = ''
+            	if 'ysize' in arguments:
+                    ys = ys_read[0]
             folder2 = user_folder+'results/'+jobid+'/'
             os.system('mkdir -p '+folder2)
             infP = infoP(user,passwd) 
