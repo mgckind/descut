@@ -16,7 +16,7 @@ import sqlite3 as lite
 import dtasks
 import download
 
-define("port", default=443, help="run on the given port", type=int)
+define("port", default=8999, help="run on the given port", type=int)
 
 
 
