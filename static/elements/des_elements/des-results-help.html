@@ -27,7 +27,7 @@
     <paper-item-body>
     Download All Tiles
     </paper-item-body>
-    <paper-icon-button icon="file-download" ></paper-icon-button>
+    <paper-icon-button icon="file-download" on-tap="_getall"></paper-icon-button>
     </paper-item>
     <paper-item >
     <paper-item-body>
@@ -77,6 +77,7 @@
         if (e.model.item.jtypes == "SE"){
           tile_ajax = "getTilesS";
         }
+        console.log(this.SE);
         document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
         document.getElementById("desResults").jobidFull=e.model.item.job;
         document.getElementById("desResultsSingle").jobid=this._returnName(e.model.item.job);
@@ -124,6 +125,32 @@
             menu.selected="6";
             help.selected="6";
 
+      },
+      _getall: function(){
+          var SE = document.getElementById('mainPages').selected=="7";
+          var link = document.createElement('a');
+          var siid = document.getElementById("desResults").jobid;
+          var user = document.getElementById("desResults").username;
+          if (SE){
+            link.href = "/static/uploads/"+user+"/results/tar/"+siid+".tar.gz";
+          }
+          else{
+            link.href = "/static/uploads/"+user+"/results/"+siid+"/all.tar.gz";
+          }
+          
+          if (link.download !== undefined){
+              //Set HTML5 download attribute. This will prevent file from opening if supported.
+              var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
+              link.download = fileName;
+            }
+            if (document.createEvent) {
+              var e = document.createEvent('MouseEvents');
+              e.initEvent('click' ,true ,true);
+              link.dispatchEvent(e);
+              return true;
+            }
+              var query = '?download';
+              window.open(link.href + query);
       },
 
 
