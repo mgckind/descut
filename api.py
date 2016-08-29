@@ -281,9 +281,12 @@ class JobHandler(tornado.web.RequestHandler):
                 con = lite.connect(Settings.DBFILE)
                 with con:
                     cur = con.cursor()
-                    cc = cur.execute("SELECT job from Jobs where user = '%s' order by datetime(time) DESC  " % user).fetchall()
+                    cc = cur.execute("SELECT job, datetime(time), status, type  from Jobs where user = '%s' order by datetime(time) DESC  " % user).fetchall()
                 response['message'] = 'List of jobs returned'
                 response['list_jobs'] = [j[0] for j in cc]
+                response['creation_time'] = [j[1] for j in cc]
+                response['job_status'] = [j[2] for j in cc]
+                response['job_type'] = [j[3] for j in cc]
                 self.set_status(200)
                 self.write(response)
                 self.flush()

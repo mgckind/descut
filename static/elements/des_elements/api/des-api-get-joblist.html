@@ -16,6 +16,9 @@
      "status": "ok",<br>
      "message": "List of jobs returned",<br>
      "list_jobs" : ["job1", "job2", ...]<br>
+     "creation_time" : ["time1", "time2", ...]<br>
+     "job_status" : ["SUCCESS", "PENDING", ...]<br>
+     "job_type" : ["coadd", "single", ...]<br>
      }</td></tr>
      <tr><th>Errors:</th><td> 400: no token, 403: Token doesn't exists or expired </td></tr>
      <tr><th>Example:</th><td> curl https://descut.cosmology.illinois.edu/api/jobs/token=mytoken&list_jobs </td></tr>
