@@ -202,6 +202,8 @@ class JobHandler(tornado.web.RequestHandler):
                 else: ys = ys_read[0:len(ys)]
             if 'list_only' in arguments:
                 list_only = arguments["list_only"] == 'true'
+            else:
+                list_only = False
             if 'email' in arguments:
                 send_email = True
                 email = arguments['email']
@@ -250,7 +252,10 @@ class JobHandler(tornado.web.RequestHandler):
                 cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?, ?)", tup)
             response['message'] = 'Job %s submitted.' % (jobid)
             response['job'] = jobid
-            readfile.notify(user,jobid)
+            try:
+                readfile.notify(user,jobid)
+            except:
+                pass
             self.set_status(200)
         
         self.write(response)
@@ -368,7 +373,10 @@ class JobHandler(tornado.web.RequestHandler):
                 os.system('rm -rf ' + folder)
                 os.system('rm -f ' + os.path.join(user_folder,jobid+'.csv'))
                 self.set_status(200)
-                readfile.notify(user,jobid)
+                try:
+                    readfile.notify(user,jobid)
+                except:
+                    pass
             except:
                 response['status'] = 'error'
                 self.set_status(400)

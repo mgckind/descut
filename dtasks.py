@@ -89,7 +89,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     # writing files for wget
     allfiles = glob.glob(mypath+'*.*')
     Fall = open(mypath+'list_all.txt','w')
-    prefix='http://descut.cosmology.illinois.edu:8999/static'
+    prefix=Setting.ROOT_URL+'/static'
     for ff in allfiles:
         if (ff.find('all.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
     Fall.close()
@@ -99,7 +99,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
         cur = con.cursor()
         cur.execute(q)
     try:
-        a=requests.get('http://descut.cosmology.illinois.edu:8999/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
         #readfile.notify(infoP._uu,siid)
     except:
         pass
@@ -111,7 +111,7 @@ def send_note(user, jobid, toemail):
     print('I will notify %s to its email address :  %s' % (user, toemail))
     fromemail = 'devnull@ncsa.illinois.edu'
     s = smtplib.SMTP('smtp.ncsa.illinois.edu')
-    link = "http://descut.cosmology.illinois.edu:8999/" 
+    link = Settings.ROOT_URL 
     #link2 = urllib.quote(link.encode('utf8'),safe="%/:=&?~#+!$,;'@()*[]")
     #jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
 
