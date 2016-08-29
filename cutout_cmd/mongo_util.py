@@ -4,8 +4,8 @@ import pymongo as pmg
 import os, json
 from bson.json_util import dumps
 
-#database host path can be specified in the parentheses
-client = MongoClient(port=27017)
+
+client = MongoClient(port=27017, host="mongodb")
 db = client.descut
 coll = db.Y3A1_FINALCUT
 
