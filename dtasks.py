@@ -99,7 +99,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
         cur = con.cursor()
         cur.execute(q)
     try:
-        a=requests.get('https://descut.cosmology.illinois.edu/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+        a=requests.get('http://descut.cosmology.illinois.edu:8999/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
         #readfile.notify(infoP._uu,siid)
     except:
         pass
