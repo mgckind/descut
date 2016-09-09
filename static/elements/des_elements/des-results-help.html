@@ -129,12 +129,8 @@
           var link = document.createElement('a');
           var siid = document.getElementById("desResults").jobid;
           var user = document.getElementById("desResults").username;
-          if (SE){
-            link.href = "/static/uploads/"+user+"/results/tar/"+siid+".tar.gz";
-          }
-          else{
-            link.href = "/static/uploads/"+user+"/results/"+siid+"/all.tar.gz";
-          }
+          
+          link.href = "/static/uploads/"+user+"/results/"+siid+"/"+siid+".tar.gz";
           
           if (link.download !== undefined){
               //Set HTML5 download attribute. This will prevent file from opening if supported.

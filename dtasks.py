@@ -108,7 +108,7 @@ def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid):
         loc_user = infoP._uu
         loc_passw = infoP._pp
         user_folder = Settings.UPLOADS+loc_user+"/"  
-        archiveFolder =  os.path.join(user_folder+'results/tar/')
+        outdir =  os.path.join(user_folder+'results', jobid)
         script_dir = os.path.dirname(os.path.abspath(__file__))
         if bands == "all":
             bands = "g r i z Y"
@@ -126,25 +126,20 @@ def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid):
         oo = subprocess.check_call(cmd, shell=True)
         
         #generate archives for each job
-        if not os.path.exists(archiveFolder):
-            os.mkdir(archiveFolder)
         job_tar = jobid+'.tar.gz'
-        
-        if os.path.exists(archiveFolder+job_tar):
-            pass
-        else:
-            os.chdir(user_folder+'results/')
-            try:
-                subprocess.check_call("tar -zcf {} {}".format(archiveFolder+job_tar, jobid+'/'),shell=True)
-            except:
-                print (error)
+        os.chdir(user_folder+'results/')
+        print (os.path.join(outdir+job_tar))
+        try:
+            subprocess.check_call("tar -zcf {} {}".format(os.path.join(outdir,job_tar), jobid+'/'),shell=True)
+        except:
+            print ('not making the tars')
 
         #create all file list
-        prefix = 'http://desdev3.cosmology.illinois.edu/static/uploads/'+loc_user+'/results/'+jobid+'/'
+        prefix = 'http://descut.cosmology.illinois.edu/static/uploads/'+loc_user+'/results/'+jobid+'/'
         os.chdir(outdir)
-        all_files = glob.glob('*/*')
+        all_files = glob.glob('thumbs*/DESJ*')
 
-        with open('file_list.txt', 'w') as list_output:
+        with open('list_all.txt', 'w') as list_output:
             for file in all_files:
                 list_output.write(prefix+file+'\n')
 

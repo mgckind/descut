@@ -131,7 +131,7 @@
       },
       ready: function() {
         var _self = this;
-        loc = window.location.host
+        loc = window.location.host;
         var ws = new WebSocket("wss://"+loc+"/websocket");
          ws.onmessage = function(e) {
            console.log(e.data);

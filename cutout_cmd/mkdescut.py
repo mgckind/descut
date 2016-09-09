@@ -50,6 +50,7 @@ def cmdline():
 	parser.add_argument('--username', type=str, default = 'demo_user', help='DES Credential: username')
 	parser.add_argument('--password', type=str, default = '07spihc', help='DES Credential: password')
 	parser.add_argument('--noBlacklist', default=False, action='store_true', help='Check to exclue exposures from the des_admin.blacklist')
+	parser.add_argument('--listOnly', default=False, action='store_true', help='Only make the cuts, no png for web')
 	parser.add_argument("--log", type=str, action='store', default=None, help="Output logfile")
 	args=parser.parse_args()
 
@@ -169,7 +170,7 @@ def run_mongo(args):
 	# generate list of objects file
 	df_list = df_list.assign(demo_png = demo_list, image_title = folder_names)
 	df_list = df_list.dropna(axis=0)
-	df_list.to_json(args.outdir+'/object_list.json', orient='records')	
+	df_list.to_json(args.outdir+'/list.json', orient='records')	
 
 
 	# write the summary at the end 
