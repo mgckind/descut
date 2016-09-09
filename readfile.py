@@ -223,7 +223,7 @@ class FileHandlerS(BaseHandler):
         os.system('mkdir -p '+job_dir)
         infP=infoP(loc_user,loc_passw) 
         now = datetime.datetime.now()
-        tiid = loc_user+'__'+jobid+'_{'+now.ctime()+'}'
+        tiid = loc_user+'__'+jobid+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
         
         if send_email:
             print('Sending email to %s' % email)
