@@ -89,7 +89,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     # writing files for wget
     allfiles = glob.glob(mypath+'*.*')
     Fall = open(mypath+'list_all.txt','w')
-    prefix='https://descut.cosmology.illinois.edu/static'
+    prefix=Settings.ROOT_URL+'/static'
     for ff in allfiles:
         if (ff.find('all.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
     Fall.close()
@@ -98,7 +98,11 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     with con:
         cur = con.cursor()
         cur.execute(q)
-    a=requests.get('https://descut.cosmology.illinois.edu/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+    try:
+        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+        #readfile.notify(infoP._uu,siid)
+    except:
+        pass
     return oo.decode('ascii')
 
 @celery.task
@@ -168,7 +172,7 @@ def send_note(user, jobid, toemail):
     print('I will notify %s to its email address :  %s' % (user, toemail))
     fromemail = 'devnull@ncsa.illinois.edu'
     s = smtplib.SMTP('smtp.ncsa.illinois.edu')
-    link = "http://desdev2.cosmology.illinois.edu/results/%s" % jobid
+    link = Settings.ROOT_URL 
     #link2 = urllib.quote(link.encode('utf8'),safe="%/:=&?~#+!$,;'@()*[]")
     #jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
 
@@ -180,7 +184,7 @@ def send_note(user, jobid, toemail):
     <body>
          <b> Please do not reply to this email</b> <br><br>
         <p>The job %s was completed, <br> 
-        the results can be retrieved from this <a href="%s">link</a> .
+        the results can be retrieved from this <a href="%s">link</a> under My Jobs Tab.
         </p><br>
         <p> DESDM Thumbs generator</p><br>
         <p> PS: This is the full link to the results: <br>

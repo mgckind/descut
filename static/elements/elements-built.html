@@ -29622,7 +29622,7 @@ background-color:black;
       ready: function() {
         var _self = this;
         loc = window.location.host
-        var ws = new WebSocket("wss://"+loc+"/websocket");
+        var ws = new WebSocket("ws://"+loc+"/websocket");
          ws.onmessage = function(e) {
            console.log(e.data);
            req = document.getElementById("getData");
@@ -31119,7 +31119,7 @@ req <span style="color: #333333">=</span> requests<span style="color: #333333">.
      </tbody></table>
      <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;jobid=abc...'</span>)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>delete(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;jobid=abc...'</span>)
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
 {<span style="background-color: #fff0f0">"message"</span>: <span style="background-color: #fff0f0">"Job abc... was deleted"</span>, <span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>}
 </pre></div>
@@ -31151,6 +31151,9 @@ req <span style="color: #333333">=</span> requests<span style="color: #333333">.
      "status": "ok",<br>
      "message": "List of jobs returned",<br>
      "list_jobs" : ["job1", "job2", ...]<br>
+     "creation_time" : ["time1", "time2", ...]<br>
+     "job_status" : ["SUCCESS", "PENDING", ...]<br>
+     "job_type" : ["coadd", "single", ...]<br>
      }</td></tr>
      <tr><th>Errors:</th><td> 400: no token, 403: Token doesn't exists or expired </td></tr>
      <tr><th>Example:</th><td> curl https://descut.cosmology.illinois.edu/api/jobs/token=mytoken&amp;list_jobs </td></tr>
