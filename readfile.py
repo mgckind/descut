@@ -227,11 +227,11 @@ class FileHandlerS(BaseHandler):
         
         if send_email:
             print('Sending email to %s' % email)
-            run=dtasks.mkcut.apply_async(args=[filename, infP, job_dir, xs, ys, bands, jobid, noBlacklist, tiid], \
+            run=dtasks.mkcut.apply_async(args=[filename, infP, job_dir, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                 task_id=tiid, link=dtasks.send_note.si(loc_user, tiid, toemail))
         else:
             print('Not sending email')
-            run=dtasks.mkcut.apply_async(args=[filename, infP, job_dir, xs, ys, bands, jobid, noBlacklist, tiid], \
+            run=dtasks.mkcut.apply_async(args=[filename, infP, job_dir, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                 task_id=tiid)
         con = lite.connect(Settings.DBFILE)
         tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE'])

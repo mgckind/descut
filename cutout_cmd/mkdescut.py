@@ -24,7 +24,6 @@ from multiprocessing import Pool
 FITS_OUTNAME  = "{outdir}/thumbs_DESJ_{ra}{dec}/{prefix}J{ra}{dec}_{band}_{nite}.{ext}"
 PNG_OUTNAME  = "{outdir}/thumbs_DESJ_{ra}{dec}/{prefix}J{ra}{dec}_{band}_{nite}.png"
 des_root = '/archive_data/desarchive/'
-personal = False
 
 # SOUT = sys.stdout
 
@@ -49,15 +48,13 @@ def cmdline():
 		help="Output directory location [default='./']")
 	parser.add_argument('--username', type=str, default = 'demo_user', help='DES Credential: username')
 	parser.add_argument('--password', type=str, default = '07spihc', help='DES Credential: password')
-	parser.add_argument('--noBlacklist', default=False, action='store_true', help='Check to exclue exposures from the des_admin.blacklist')
-	parser.add_argument('--listOnly', default=False, action='store_true', help='Only make the cuts, no png for web')
+	parser.add_argument('--noBlacklist', type=str, help='Check to exclue exposures from the des_admin.blacklist')
+	parser.add_argument('--listOnly', type=str, help='Only make the cuts, no png for web')
 	parser.add_argument("--log", type=str, action='store', default=None, help="Output logfile")
 	args=parser.parse_args()
 
-	# if args.log:
-	# 	args.sout = open(args.log,'w')
-	# else:
-	# 	args.sout = sys.stdout
+	args.noBlacklist = args.noBlacklist == 'True'
+	args.listOnly = args.listOnly == 'True'
 
 	if not os.path.exists(args.outdir):
 		os.makedirs(args.outdir)
@@ -65,9 +62,14 @@ def cmdline():
 	# logs in case of failure
 	logPath = '{}/log.log'.format(args.outdir)
 	args.log = open(logPath, 'w')
-	#assign the output stream
+
+	#some global vars
 	global SOUT
 	SOUT = args.log
+
+	global listOnly
+	listOnly = args.listOnly
+
 	#change collection to match blacklist option
 	mu.select_collection(args.noBlacklist)
 	
@@ -75,7 +77,8 @@ def cmdline():
 	SOUT.write('xsize: {} \n'.format(args.xsize))
 	SOUT.write('ysize: {} \n '.format(args.ysize))
 	SOUT.write('bands: {} \n'.format(args.bands))
-	SOUT.write('noBlacklist: {} \n \n'.format(args.noBlacklist))
+	SOUT.write('noBlacklist: {} \n'.format(args.noBlacklist))
+	SOUT.write('listOnly: {} \n'.format(args.listOnly))
 	# print ('log', args.log)
 
 	return args
@@ -136,6 +139,7 @@ def run_mongo(args):
 		SOUT.write("# Querying for object ({},{}) \n".format(df_list.RA[i],df_list.DEC[i]))
 
 		df_w_path = mu.query_to_pandas(df_list.RA[i],df_list.DEC[i],bands)
+		df_w_path = df_w_path.drop(['loc'], axis=1)
 		total_exposures += len(df_w_path)
 	
 		if len(df_w_path)==0:
@@ -168,9 +172,10 @@ def run_mongo(args):
 
 
 	# generate list of objects file
-	df_list = df_list.assign(demo_png = demo_list, image_title = folder_names)
-	df_list = df_list.dropna(axis=0)
-	df_list.to_json(args.outdir+'/list.json', orient='records')	
+	if not listOnly:
+		df_list = df_list.assign(demo_png = demo_list, image_title = folder_names)
+		df_list = df_list.dropna(axis=0)
+		df_list.to_json(args.outdir+'/list.json', orient='records')	
 
 
 	# write the summary at the end 
@@ -290,9 +295,10 @@ def fitscutter(df_w_path, ra, dec, xsize, ysize, prefix='DES',outdir=os.getcwd()
 		print ('dataframe size error')
 		return 
 	
-	df_w_path = df_w_path.assign(png_name=png_list)
-	front_record = df_w_path[['BAND','NITE', 'png_name', 'CCDNUM', 'EXPNUM']]
-	front_record.to_json(thumbs_folder+'/png_list.json', orient = 'records')
+	if not listOnly:
+		df_w_path = df_w_path.assign(png_name=png_list)
+		front_record = df_w_path[['BAND','NITE', 'png_name', 'CCDNUM', 'EXPNUM']]
+		front_record.to_json(thumbs_folder+'/png_list.json', orient = 'records')
 
 	# end log for each position
 	SOUT.write('# Object ({},{}) is finished\n'.format(ra, dec))
@@ -308,20 +314,24 @@ def to_table(df_w_path, ra, dec, thumbs_folder):
 	'''
 	Write pandas df to a txt table
 	'''
-
+	pTable =  pt.PrettyTable()
 	table_df = df_w_path.copy()
 	table_df.insert(0, 'DEC', dec)
 	table_df.insert(0, 'RA', ra)
 	output = io.StringIO()
-	table_df.to_csv(output, index=False)
-	output.seek(0)
-	pTable = pt.from_csv(output)
-	p_str = pTable.get_string(fields=['RA', 'DEC', 'BAND', 'NITE', 'CCDNUM', 'EXPNUM', 'PFW_ATTEMPT_ID'])
+	table_df = table_df[['RA', 'DEC', 'BAND', 'NITE', 'CCDNUM', 'EXPNUM', 'PFW_ATTEMPT_ID']]
+	
+	pTable.field_names= ['RA', 'DEC', 'BAND', 'NITE', 'CCDNUM', 'EXPNUM', 'PFW_ATTEMPT_ID']
+	
+	for i in range(len(table_df)):
+		pTable.add_row(table_df.ix[i].tolist())
+	
+	p_str = pTable.get_string()
 
 	with open(thumbs_folder+'/table.txt', 'w') as oStream:
 		oStream.write(p_str)
 
-	
+	output.close()
 def task_try (series):
 	data = series[1]
 	ra = data.loc['ra']
@@ -439,7 +449,7 @@ def cut_save(ra, dec, xs, ys, exp_filename, exp_path, raw_image_dir, outname, pn
 
 	#create pngs
 	# SOUT.write('# making the pngs \n')
-	fits_to_pngs(outname, pngName)
+	if not listOnly: fits_to_pngs(outname, pngName)
 
 
 def fits_to_pngs(source_name, outname, zscale='lin'):

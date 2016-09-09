@@ -102,7 +102,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     return oo.decode('ascii')
 
 @celery.task
-def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid):
+def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid, listOnly):
 
         #different dir path
         loc_user = infoP._uu
@@ -114,21 +114,21 @@ def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid):
             bands = "g r i z Y"
         else:
             bands = bands.replace(',', ' ')
+       
+        print (listOnly)
         
-        #noBlacklist are passed as a str
-        if noBlacklist:
-            cmd = script_dir+"/cutout_cmd/mkdescut.py {} --xsize {} --ysize {} --username {} --password {} " \
-              "--bands {} --outdir {} --noBlacklist".format(filename, xs, ys, loc_user, loc_passw, bands, outdir)
-        else:
-            cmd = script_dir+"/cutout_cmd/mkdescut.py {} --xsize {} --ysize {} --username {} --password {} " \
-              "--bands {} --outdir {} ".format(filename, xs, ys, loc_user, loc_passw, bands, outdir)
+        cmd = script_dir+"/cutout_cmd/mkdescut.py {} --xsize {} --ysize {} --username {} --password {} " \
+          "--bands {} --outdir {} --listOnly {} --noBlacklist {}".format(filename, xs, ys, loc_user, loc_passw, \
+            bands, outdir, listOnly, noBlacklist)
+        # else:
+        #     cmd = script_dir+"/cutout_cmd/mkdescut.py {} --xsize {} --ysize {} --username {} --password {} " \
+        #       "--bands {} --outdir {} ".format(filename, xs, ys, loc_user, loc_passw, bands, outdir)
 
         oo = subprocess.check_call(cmd, shell=True)
         
         #generate archives for each job
         job_tar = jobid+'.tar.gz'
         os.chdir(user_folder+'results/')
-        print (os.path.join(outdir+job_tar))
         try:
             subprocess.check_call("tar -zcf {} {}".format(os.path.join(outdir,job_tar), jobid+'/'),shell=True)
         except:
@@ -152,7 +152,7 @@ def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid):
             curS = conS.cursor()
             curS.execute(qS)
         # a=requests.get('http://descut.cosmology.illinois.edu:8888/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
-        a=requests.get('http://localhost:8888/api/refresh?user=%s&jid=%s' % (infoP._uu,jobid))
+        # a=requests.get('http://localhost:8888/api/refresh?user=%s&jid=%s' % (infoP._uu,jobid))
 
         # call error taks if error.log is not zero byte
         err_file = outdir+'/error.log'
