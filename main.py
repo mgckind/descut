@@ -14,8 +14,11 @@ import login
 import readfile
 import sqlite3 as lite
 import dtasks
+import download
 
 define("port", default=8999, help="run on the given port", type=int)
+
+
 
 def create_db(delete=False):
     dirname = os.path.dirname(Settings.DBFILE)
@@ -46,7 +49,10 @@ class Application(tornado.web.Application):
             (r"/api/jobs/?", api.JobHandler),            
             (r"/api/refresh/?", readfile.RefreshHandler),
             (r'/websocket', readfile.WebSocketHandler),
-            (r"/readfile/", readfile.FileHandler),
+            (r"/readfile/coadd/", readfile.FileHandler),
+            (r"/readfile/single/", readfile.FileHandlerS),
+            (r"/download/object/", download.DownloadObjectHandler),
+            (r"/download/single/", download.DownloadHandler),
             ]
         settings = {
             "template_path":Settings.TEMPLATE_PATH,
