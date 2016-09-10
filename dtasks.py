@@ -31,7 +31,7 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     com =  "makeDESthumbs  %s --user %s --password %s --MP --outdir=%s" % (inputs, infoP._uu, infoP._pp, outputs)
     if xs != "": com += ' --xsize %s ' % xs
     if ys != "": com += ' --ysize %s ' % ys
-    com += "--logfile %s" % outputs + 'log.log'
+    com += " --logfile %s" % (outputs + 'log.log')
     oo = subprocess.check_output([com],shell=True)
     mypath = Settings.UPLOADS+infoP._uu+'/results/'+siid+'/'
     user_folder = Settings.UPLOADS+infoP._uu+"/"
