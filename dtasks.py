@@ -16,7 +16,7 @@ from email.utils import formataddr
 import Settings
 import sqlite3 as lite
 #
-import easyaccess as ea
+#import easyaccess as ea
 import requests
 import pandas as pd
 import readfile
@@ -25,38 +25,13 @@ celery = Celery('dtasks')
 celery.config_from_object('celeryconfig')
 
 
-testtext="""
-# Will run:
-# makeDESthumbs 
-# --verb False
-# --password antares8533
-# --bands all
-# --user mcarras2
-# --ysize None
-# --inputList /root/DES/desth/app/static/uploads/mcarras2/016fdfc0-d0b3-4b91-82f9-caf6b3bb2a0f.csv
-# --prefix DES
-# --tag Y1A1_COADD
-# --MP True
-# --xsize None
-# --colorset ['i', 'r', 'g']
-# --coaddtable	None
-# --outdir /root/DES/desth/app/static/uploads/mcarras2/results/016fdfc0-d0b3-4b91-82f9-caf6b3bb2a0f/
-# ----------------------------------------------------
-# Doing: DES0144-4831 [1/2]
-# -----------------------------------------------------
-# ----------------------------------------------------
-# Doing: DES0002+0001 [2/2]
-# -----------------------------------------------------
-
-*** Grand Total time:0m 3.31s ***
-"""
-
 
 @celery.task
 def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
     com =  "makeDESthumbs  %s --user %s --password %s --MP --outdir=%s" % (inputs, infoP._uu, infoP._pp, outputs)
     if xs != "": com += ' --xsize %s ' % xs
     if ys != "": com += ' --ysize %s ' % ys
+    com += " --logfile %s" % (outputs + 'log.log')
     oo = subprocess.check_output([com],shell=True)
     mypath = Settings.UPLOADS+infoP._uu+'/results/'+siid+'/'
     user_folder = Settings.UPLOADS+infoP._uu+"/"
@@ -79,19 +54,18 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
         for ij in range(Ntiles):
             pngfiles[ij] = pngfiles[ij][pngfiles[ij].find('/static'):]       
         os.chdir(user_folder)
-        os.system("tar -zcf results/"+siid+"/all.tar.gz results/"+siid+"/") 
+        os.system("tar -zcf results/"+siid+"/"+siid+".tar.gz results/"+siid+"/") 
         os.chdir(os.path.dirname(__file__))
         if os.path.exists(mypath+"list.json"): os.remove(mypath+"list.json")
         with open(mypath+"list.json","w") as outfile:
             json.dump([dict(name=pngfiles[i],title=titles[i], size=Ntiles) for i in range(len(pngfiles))], outfile, indent=4)
-
 
     # writing files for wget
     allfiles = glob.glob(mypath+'*.*')
     Fall = open(mypath+'list_all.txt','w')
     prefix=Settings.ROOT_URL+'/static'
     for ff in allfiles:
-        if (ff.find('all.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
+        if (ff.find(siid+'.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
     Fall.close()
     con = lite.connect(Settings.DBFILE)
     q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % siid
@@ -105,6 +79,71 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly):
         pass
     return oo.decode('ascii')
 
+@celery.task
+def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid, listOnly):
+    #different dir path
+    loc_user = infoP._uu
+    loc_passw = infoP._pp
+    user_folder = Settings.UPLOADS+loc_user+"/"  
+    outdir =  os.path.join(user_folder+'results', jobid)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    if bands == "all":
+        bands = "g r i z Y"
+    else:
+        bands = bands.replace(',', ' ')
+    
+    print (listOnly)
+    
+    cmd = script_dir+"/cutout_cmd/mkdescut.py {} --xsize {} --ysize {} --username {} --password {} " \
+      "--bands {} --outdir {} --listOnly {} --noBlacklist {}".format(filename, xs, ys, loc_user, loc_passw, \
+        bands, outdir, listOnly, noBlacklist)
+    # else:
+    #     cmd = script_dir+"/cutout_cmd/mkdescut.py {} --xsize {} --ysize {} --username {} --password {} " \
+    #       "--bands {} --outdir {} ".format(filename, xs, ys, loc_user, loc_passw, bands, outdir)
+    
+    oo = subprocess.check_call(cmd, shell=True)
+    
+    #generate archives for each job
+    job_tar = jobid+'.tar.gz'
+    os.chdir(user_folder+'results/')
+    try:
+        subprocess.check_call("tar -zcf {} {}".format(os.path.join(outdir,job_tar), jobid+'/'),shell=True)
+    except:
+        print ('not making the tars')
+    
+    #create all file list
+    prefix = Settings.ROOT_URL+'/static/uploads/'+loc_user+'/results/'+jobid+'/'
+    os.chdir(outdir)
+    all_files = glob.glob('thumbs*/DESJ*')
+    
+    with open('list_all.txt', 'w') as list_output:
+        for file in all_files:
+            list_output.write(prefix+file+'\n')
+    
+    os.chdir(script_dir)
+    
+    # update job status in sqlite 
+    conS = lite.connect(Settings.DBFILE)
+    qS="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
+    with conS:
+        curS = conS.cursor()
+        curS.execute(qS)
+    # a=requests.get('http://descut.cosmology.illinois.edu:8888/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+    # a=requests.get('http://localhost:8888/api/refresh?user=%s&jid=%s' % (infoP._uu,jobid))
+    
+    # call error taks if error.log is not zero byte
+    err_file = outdir+'/error.log'
+    if os.path.getsize(err_file) > 0:
+        print ('init error task')
+        celery.send_task('dtasks.error', [err_file])
+    
+    
+    try:
+        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (loc_user,jobid))
+    except:
+        pass
+    return oo
+        
 @celery.task
 def send_note(user, jobid, toemail):
     print('Task was completed')
@@ -186,7 +225,7 @@ def sendjob(user,folder,jobid,xs,ys):
     Fall = open(folder2+'list_all.txt','w')
     prefix='http://desdev2.cosmology.illinois.edu/static'
     for ff in allfiles:
-        if (ff.find('all.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
+        if (ff.find(siid+'.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
     Fall.close()
     
 

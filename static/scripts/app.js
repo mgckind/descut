@@ -73,6 +73,14 @@
         document.getElementById("ysizeLabel").textContent = ysize.value;
         });
 
+        var xsizeS = document.getElementById("xsizeSliderS");
+        xsizeS.addEventListener('value-change', function() {
+        document.getElementById("xsizeLabelS").textContent = xsizeS.value;
+        });
+        var ysizeS = document.getElementById("ysizeSliderS");
+        ysizeS.addEventListener('value-change', function() {
+        document.getElementById("ysizeLabelS").textContent = ysizeS.value;
+        });
 
   });
 

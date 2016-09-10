@@ -155,7 +155,7 @@
         var list = document.getElementById("jobList");
         for (i = 0; i < this.mytemp.length ; i++) {
             list.selectIndex(this.mytemp[i]);
-        };
+        }
         req = document.getElementById("getData");
         req.generateRequest();
       },
@@ -177,6 +177,7 @@
       unselectall: function(){
         var list = document.getElementById("jobList");
         var listAll = list.selectedValues;
+        console.log(listAll);
         if (typeof listAll !== 'undefined') {
             var listAll2 = JSON.parse(JSON.stringify(listAll));
             for (i = 0; i< listAll2.length ;i++) { 
@@ -194,7 +195,7 @@
         if (result){
             for (i = 0; i < this.mytemp.length ; i++) {
                 toDel.push(this.returnName(this.data[this.mytemp[i]-1].job));
-            };
+            }
             req = document.getElementById("DeleteReq");
             req.params = toDel;
             req.generateRequest();
@@ -246,7 +247,7 @@
 
       canceljob: function(e){
         console.log(e.model.item.job);
-        var cancelJob = document.getElementById("cancelJob")
+        var cancelJob = document.getElementById("cancelJob");
         cancelJob.params = {jobid: e.model.item.job};
         cancelJob.generateRequest();
       },
@@ -254,32 +255,42 @@
         document.getElementById("getData").generateRequest();
         },
       viewresults: function(e){
+        e.stopPropagation();
+        var result_num = "5";
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
         var desResults = document.getElementById("desResults");
         var desLog = document.getElementById("desLog");
+        var desResultsSingle = document.getElementById('desResultsSingle');
         document.getElementById("smallJobList").selected=e.model.index;
         document.getElementById("smallJobListL").selected=e.model.index;
-        document.querySelector('des-my-jobs').unselectall();
+        // document.querySelector('des-my-jobs').unselectall();
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
             desLog.jobid = this.returnName(e.model.item.job);
             desLog.jobidFull = e.model.item.job;
-            app.selection="5";
-            pages.selected="5";
-            menu.selected="5";
+            desResultsSingle.jobid = this.returnName(e.model.item.job);
+            desResultsSingle.username = this.username;
+            if (e.model.item.jtypes == "SE"){
+              result_num = "7";
+            }
+            app.selection=result_num;
+            pages.selected=result_num;
+            menu.selected=result_num;
             help.selected="5";
 
       },
       viewlog: function(e) {
+        e.stopPropagation();
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
         var desLog = document.getElementById("desLog");
         var desResults = document.getElementById("desResults");
-        document.querySelector('des-my-jobs').unselectall();
+        var desResultsSingle = document.getElementById('desResultsSingle');
+        // document.querySelector('des-my-jobs').unselectall();
         document.getElementById("smallJobList").selected=e.model.index;
         document.getElementById("smallJobListL").selected=e.model.index;
             desLog.jobidFull = e.model.item.job;
@@ -287,6 +298,8 @@
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
+            desResultsSingle.jobid = this.returnName(e.model.item.job);
+            desResultsSingle.username = this.username;
             app.selection="6";
             pages.selected="6";
             menu.selected="6";

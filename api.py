@@ -404,8 +404,12 @@ class ApiHandler(BaseHandler):
                 q = "DELETE from Jobs where job = '%s' and user = '%s'" % (jid, loc_user)
                 cc = cur.execute(q)
                 folder = os.path.join(user_folder,'results/' + jid)
-                os.system('rm -rf ' + folder)
-                os.system('rm -f ' + os.path.join(user_folder,jid+'.csv'))
+                try:    
+                    os.system('rm -rf ' + folder)
+                    os.system('rm -f ' + os.path.join(user_folder,jid+'.csv'))
+                    os.system('rm -f '+ os.path.join(user_folder, 'results/tar',jid+'.tar.gz'))
+                except:
+                    pass
         self.set_status(200)
         self.flush()
         self.finish()
@@ -446,15 +450,27 @@ class LogHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
-        jobid = self.get_argument("jobid")
-        res = AsyncResult(jobid)
-        if res is not None:
-            try:
-                temp = json.dumps(res.result.replace('\n','</br>'))
-            except:
-                temp = 'Running'
+        jobidFull = self.get_argument("jobid")
+        jobid = jobidFull[jobidFull.find('__')+2:jobidFull.find('{')-1]
+        log_path=os.path.join(Settings.UPLOADS,loc_user, 'results', jobid, 'log.log')
+        res = AsyncResult(jobidFull)
+
+        log = ''
+        with open(log_path, 'r') as logFile:
+            for line in logFile:
+                log+=line+'<br>'
+        if res.ready():
+            temp = json.dumps(log)
         else:
             temp = json.dumps('Running')
+        # if res is not None:
+        #     try:
+        #         temp = json.dumps(res.result.replace('\n','</br>'))
+        #     except:
+        #         temp = 'Running'
+        # else:
+        #     temp = json.dumps('Running')
+
         self.write(temp)
 
 class CancelJobHandler(BaseHandler):

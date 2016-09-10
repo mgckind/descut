@@ -73,14 +73,19 @@
       },
       _focus: function(e){
         //console.log(this._returnName(e.model.item.job));
+        // var tile_ajax = "getTiles";
+        // if (e.model.item.jtypes == "SE"){
+        //   tile_ajax = "getTilesS";
+        // }
         document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
         document.getElementById("desResults").jobidFull=e.model.item.job;
+        document.getElementById("desResultsSingle").jobid=this._returnName(e.model.item.job);
+        // document.getElementById("desResultsSingle").username = document.getElementById("desJobs").username;
+        // document.getElementById("desResults").username = document.getElementById("desJobs").username;
         document.getElementById("desLog").jobid=this._returnName(e.model.item.job);
         document.getElementById("desLog").jobidFull=e.model.item.job;
-        document.getElementById("desResults").username = document.getElementById("desJobs").username;
         document.getElementById("smallJobListL").selected=e.model.index;
-        document.getElementById("getTiles").generateRequest();
-
+        
       },
         returnName: function(job) {
         var n1=job.search("__");
@@ -103,14 +108,14 @@
       _stop: function(status) {
         if (status != "PENDING" && status != "SUCCESS" ) {return true;}
       },
-      _seeLog: function(){
+      _seeLog: function(e){
+        e.stopPropagation();
         var jobid = document.getElementById("desResults").jobid;
         var jobidFull = document.getElementById("desResults").jobidFull;
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
         var desLog = document.getElementById("desLog");
-        document.getElementById("desJobs").unselectall();
             desLog.jobidFull = jobidFull;
             desLog.jobid = jobid;
             app.selection="6";
@@ -119,27 +124,30 @@
             help.selected="6";
 
       },
-    _getall: function(){
-	console.log('download all');
-        var link = document.createElement('a');
-        var siid = document.getElementById("desResults").jobid;
-        var user = document.getElementById("desResults").username;
-        link.href = "/static/uploads/"+user+"/results/"+siid+"/all.tar.gz";
-        if (link.download !== undefined){
-            //Set HTML5 download attribute. This will prevent file from opening if supported.
-            var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
-            link.download = fileName;
-          }
-          if (document.createEvent) {
-            var e = document.createEvent('MouseEvents');
-            e.initEvent('click' ,true ,true);
-            link.dispatchEvent(e);
-            return true;
-          }
-            var query = '?download';
-            window.open(link.href + query);
-	},
-    _getlist: function(){
+      _getall: function(){
+          var SE = document.getElementById('mainPages').selected=="7";
+          var link = document.createElement('a');
+          var siid = document.getElementById("desResults").jobid;
+          var user = document.getElementById("desResults").username;
+          
+          link.href = "/static/uploads/"+user+"/results/"+siid+"/"+siid+".tar.gz";
+          
+          if (link.download !== undefined){
+              //Set HTML5 download attribute. This will prevent file from opening if supported.
+              var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
+              link.download = fileName;
+            }
+            if (document.createEvent) {
+              var e = document.createEvent('MouseEvents');
+              e.initEvent('click' ,true ,true);
+              link.dispatchEvent(e);
+              return true;
+            }
+              var query = '?download';
+              window.open(link.href + query);
+      },
+
+      _getlist: function(){
          var link = document.createElement('a');
         var siid = document.getElementById("desResults").jobid;
         var user = document.getElementById("desResults").username;
@@ -156,10 +164,11 @@
           }
             var query = '?download';
             window.open(link.href + query);
-	},
+      },
 
 
-      });
+
+    });
 
 
 </script>

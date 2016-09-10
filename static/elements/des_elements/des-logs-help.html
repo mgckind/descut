@@ -61,6 +61,8 @@
         document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
         document.getElementById("desResults").jobidFull=e.model.item.job;
         document.getElementById("desResults").username = document.getElementById("desJobs").username;
+        document.getElementById("desResultsSingle").jobid=this._returnName(e.model.item.job);
+        document.getElementById("desResultsSingle").username = document.getElementById("desJobs").username;
         document.getElementById("desLog").jobid=this._returnName(e.model.item.job);
         document.getElementById("desLog").jobidFull=e.model.item.job;
         document.getElementById("smallJobList").selected=e.model.index;
@@ -88,18 +90,23 @@
       _stop: function(status) {
         if (status != "PENDING" && status != "SUCCESS" ) {return true;}
       },
-      _seeResults: function(){
+      _seeResults: function(e){
+        e.stopPropagation();
+        var select_index = document.getElementById('smallJobListL').selected;
+        var result_page = "5";
+        if (this.data[select_index].jtypes == "SE"){
+          result_page = "7";
+        }
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
-        var desResults = document.getElementById("desResults");
-        document.getElementById("desJobs").unselectall();
-            desResults.jobid = document.getElementById("desLog").jobid
-            desResults.jobidFull = document.getElementById("desLog").jobidFull
+        var desResults = document.getElementById("desResults");        
+            desResults.jobid = document.getElementById("desLog").jobid;
+            desResults.jobidFull = document.getElementById("desLog").jobidFull;
             desResults.username =  document.getElementById("desJobs").username;
-            app.selection="5";
-            pages.selected="5";
-            menu.selected="5";
+            app.selection=result_page;
+            pages.selected=result_page;
+            menu.selected=result_page;
             help.selected="5";
 
 
