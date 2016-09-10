@@ -139,7 +139,7 @@ def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
     
     
     try:
-        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (loc_user,jobid))
     except:
         pass
     return oo
