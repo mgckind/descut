@@ -456,10 +456,11 @@ class LogHandler(BaseHandler):
         res = AsyncResult(jobidFull)
 
         log = ''
-        with open(log_path, 'r') as logFile:
-            for line in logFile:
-                log+=line+'<br>'
+        
         if res.ready():
+            with open(log_path, 'r') as logFile:
+                for line in logFile:
+                    log+=line+'<br>'
             temp = json.dumps(log)
         else:
             temp = json.dumps('Running')
