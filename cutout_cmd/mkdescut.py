@@ -24,6 +24,7 @@ from multiprocessing import Pool
 FITS_OUTNAME  = "{outdir}/thumbs_DESJ_{ra}{dec}/{prefix}J{ra}{dec}_{band}_{nite}.{ext}"
 PNG_OUTNAME  = "{outdir}/thumbs_DESJ_{ra}{dec}/{prefix}J{ra}{dec}_{band}_{nite}.png"
 des_root = '/archive_data/desarchive/'
+personal = False
 
 # SOUT = sys.stdout
 
