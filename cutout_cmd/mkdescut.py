@@ -139,7 +139,6 @@ def run_mongo(args):
 		SOUT.write("# Querying for object ({},{}) \n".format(df_list.RA[i],df_list.DEC[i]))
 
 		df_w_path = mu.query_to_pandas(df_list.RA[i],df_list.DEC[i],bands)
-		df_w_path = df_w_path.drop(['loc'], axis=1)
 		total_exposures += len(df_w_path)
 	
 		if len(df_w_path)==0:
