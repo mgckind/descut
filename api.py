@@ -489,3 +489,4 @@ class CancelJobHandler(BaseHandler):
         self.set_status(200)
         self.flush()
         self.finish()
+

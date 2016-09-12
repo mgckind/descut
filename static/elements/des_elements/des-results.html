@@ -12,13 +12,28 @@
         on-response="_getTilesResponse">
     </iron-ajax>
 
-    <des-card heading="Job : [[jobid]] ( [[jsondata.length]] tiles)"> 
+    
+
+    <des-card heading="Job : [[jobid]] ( [[jsondata.length]] objects)">
+
+
+    <template is="dom-if" if="{{_actionIsCoadd(jtypes)}}">
     <template is="dom-if" if="{{jsondata}}">
         <template is="dom-repeat" items="{{jsondata}}">
             <des-thumb imtitle={{item.title}} imdisplay={{item.name}}>
             </des-thumb>
         </template>
     </template>
+    </template>
+
+    <template is="dom-if" if="{{_actionIsSE(jtypes)}}">
+    <template is="dom-if" if="{{jsondata}}">
+        <template is="dom-repeat" items="{{jsondata}}">
+            <des-thumb-single imdisplay="[[item.demo_png]]" imtitle="[[item.image_title]]" jobid="{{jobid}}" username="{{username}}" ra="[[item.RA]]" dec="[[item.DEC]]"></des-thumb-single>
+        </template>
+    </template>
+    </template>
+
 
     <template is="dom-if" if="{{!jsondata}}">
          <h3> There are no outputs for this job. Check logfile for details.</h3>
@@ -45,10 +60,21 @@
             type : String,
             notify: true,
         },
+        jtypes: {
+            value : '',
+            type : String,
+            notify: true,
+        },
         username:{
             type: String,
             value: '',
         },
+      },
+      _actionIsCoadd: function(job_type) {
+        if (job_type == "Coadd") return true;
+      },
+      _actionIsSE: function(job_type) {
+        if (job_type == "SE") return true;
       },
      _getTilesResponse: function() {
         if (this.jsondata.length == 0 ) {

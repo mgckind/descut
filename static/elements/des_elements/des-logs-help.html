@@ -94,14 +94,15 @@
         e.stopPropagation();
         var select_index = document.getElementById('smallJobListL').selected;
         var result_page = "5";
-        if (this.data[select_index].jtypes == "SE"){
-          result_page = "7";
-        }
+        //if (this.data[select_index].jtypes == "SE"){
+        //  result_page = "7";
+       //}
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
         var desResults = document.getElementById("desResults");        
             desResults.jobid = document.getElementById("desLog").jobid;
+            desResults.jtypes = this.data[select_index].jtypes;
             desResults.jobidFull = document.getElementById("desLog").jobidFull;
             desResults.username =  document.getElementById("desJobs").username;
             app.selection=result_page;
