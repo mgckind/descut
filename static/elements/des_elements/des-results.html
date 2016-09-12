@@ -14,11 +14,10 @@
 
     
 
-    <des-card heading="Job : [[jobid]] ( [[jsondata.length]] tiles)">
+    <des-card heading="Job : [[jobid]] ( [[jsondata.length]] objects)">
 
 
     <template is="dom-if" if="{{_actionIsCoadd(jtypes)}}">
-    <p> Coadd!!</p>
     <template is="dom-if" if="{{jsondata}}">
         <template is="dom-repeat" items="{{jsondata}}">
             <des-thumb imtitle={{item.title}} imdisplay={{item.name}}>
@@ -28,7 +27,6 @@
     </template>
 
     <template is="dom-if" if="{{_actionIsSE(jtypes)}}">
-    <p> SE!!</p>
     <template is="dom-if" if="{{jsondata}}">
         <template is="dom-repeat" items="{{jsondata}}">
             <des-thumb-single imdisplay="[[item.demo_png]]" imtitle="[[item.image_title]]" jobid="{{jobid}}" username="{{username}}" ra="[[item.RA]]" dec="[[item.DEC]]"></des-thumb-single>
