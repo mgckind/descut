@@ -269,13 +269,14 @@
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
+            desResults.jtype = e.model.item.jtypes;
             desLog.jobid = this.returnName(e.model.item.job);
             desLog.jobidFull = e.model.item.job;
             desResultsSingle.jobid = this.returnName(e.model.item.job);
             desResultsSingle.username = this.username;
-            if (e.model.item.jtypes == "SE"){
-              result_num = "7";
-            }
+            //if (e.model.item.jtypes == "SE"){
+            //  result_num = "7";
+            //}
             app.selection=result_num;
             pages.selected=result_num;
             menu.selected=result_num;

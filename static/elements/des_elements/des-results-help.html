@@ -72,13 +72,14 @@
         console.log(this.data);
       },
       _focus: function(e){
-        //console.log(this._returnName(e.model.item.job));
+        console.log(e.model.item.jtypes);
         // var tile_ajax = "getTiles";
         // if (e.model.item.jtypes == "SE"){
         //   tile_ajax = "getTilesS";
         // }
         document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
         document.getElementById("desResults").jobidFull=e.model.item.job;
+        document.getElementById("desResults").jtypes=e.model.item.jtypes;
         document.getElementById("desResultsSingle").jobid=this._returnName(e.model.item.job);
         // document.getElementById("desResultsSingle").username = document.getElementById("desJobs").username;
         // document.getElementById("desResults").username = document.getElementById("desJobs").username;
