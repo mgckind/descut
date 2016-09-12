@@ -25,17 +25,17 @@ def changeports(mode):
     if mode == 'build':
         with fileinput.FileInput('main.py', inplace=True) as file:
             for line in file:
-                print(line.replace('default=8999', 'default=443'), end='')
+                print(line.replace('default=8999', 'default=8999'), end='')
         with fileinput.FileInput('Settings.py', inplace=True) as file:
             for line in file:
-                print(line.replace('http://descut.cosmology.illinois.edu:8999', 'https://descut.cosmology.illinois.edu'), end='')
+                print(line.replace('http://descut.cosmology.illinois.edu:8999', 'http://descut.cosmology.illinois.edu'), end='')
     if mode == 'dev':
         with fileinput.FileInput('main.py', inplace=True) as file:
             for line in file:
-                print(line.replace('default=443', 'default=8999'), end='')
+                print(line.replace('default=8999', 'default=8999'), end='')
         with fileinput.FileInput('Settings.py', inplace=True) as file:
             for line in file:
-                print(line.replace('https://descut.cosmology.illinois.edu', 'http://descut.cosmology.illinois.edu:8999'), end='')
+                print(line.replace('http://descut.cosmology.illinois.edu', 'http://descut.cosmology.illinois.edu:8999'), end='')
 
 
 
