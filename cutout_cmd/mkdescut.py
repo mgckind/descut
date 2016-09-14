@@ -40,8 +40,8 @@ def cmdline():
 	# parser.add_argument('password', type=str, help='DES Credential: password')
 
 	#optional arguments
-	parser.add_argument("--xsize", type=float, action="store", default=1.0, help="Length of x-side in arcmins of image [default = 1.0]")
-	parser.add_argument("--ysize", type=float, action="store", default=1.0, help="Length of y-side of in arcmins image [default = 1.0]")
+	parser.add_argument("--xsize", type=float, action="store", help="Length of x-side in arcmins of image [default = 1.0]")
+	parser.add_argument("--ysize", type=float, action="store", help="Length of y-side of in arcmins image [default = 1.0]")
 	parser.add_argument("--tag", type=str, action="store", default = 'Y2A1_FINALCUT',
 		help="Tag used for retrieving files [default=Y2A1_FINALCUT]")
 	parser.add_argument("--bands", type=str, action='store', nargs = '+', default=['g','i','z','r','Y'], help="Bands used for images. Can either be 'all' (uses all bands, and is the default), or a list of individual bands")
@@ -56,6 +56,7 @@ def cmdline():
 
 	args.noBlacklist = args.noBlacklist == 'True'
 	args.listOnly = args.listOnly == 'True'
+	args.override = not (args.xsize is None and args.ysize is None)
 
 	if not os.path.exists(args.outdir):
 		os.makedirs(args.outdir)
@@ -101,7 +102,7 @@ def run_mongo(args):
 	df_list['DEC']=df_list['DEC'].astype(float)
 
 	bands = args.bands
-	tag = args.tag
+	# tag = args.tag
 
 	#used to check whether program running on personal machine 
 	global personal
@@ -171,13 +172,6 @@ def run_mongo(args):
 			total_fail += fail_num
 
 
-	# generate list of objects file
-	if not listOnly:
-		df_list = df_list.assign(demo_png = demo_list, image_title = folder_names)
-		df_list = df_list.dropna(axis=0)
-		df_list.to_json(args.outdir+'/list.json', orient='records')	
-
-
 	# write the summary at the end 
 	SOUT.write('------------------------------------------------------------------------------------ \n')
 	SOUT.write('# A little summary!!! \n')
@@ -197,6 +191,12 @@ def run_mongo(args):
 			SOUT.write('{}  {} \n'.format(exp_fail[m], exp_fail[m+1]))
 
 	SOUT.write('# Job finished, total time used {}s'.format(time.time()-t0))
+	
+	# generate list of objects file
+	if not listOnly:
+		df_list = df_list.assign(demo_png = demo_list, image_title = folder_names)
+		df_list = df_list.dropna(axis=0)
+		df_list.to_json(args.outdir+'/list.json', orient='records')	
 	
 	# close output streams 
 	SOUT.close()
