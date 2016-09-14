@@ -95,11 +95,20 @@ def run_mongo(args):
 	SOUT.write('# Starting Job! \n')
 	SOUT.write('# Read object positions \n')
 
-	df_list = pd.read_csv(args.inputFile)
+	df_list = pd.read_csv(args.inputFile, na_values=[''])
+	df_list.columns = [x.upper() for x in df_list.columns]
 
-	#change int to float
-	df_list['RA']=df_list['RA'].astype(float)
-	df_list['DEC']=df_list['DEC'].astype(float)
+	# if use size from input then change the value from file
+	if args.override:
+		df_list['XSIZE'] = args.xsize
+		df_list['YSIZE'] = args.ysize
+
+	if not validate_ra_dec(df_list):
+		SOUT.write("!!!Warning!!! \n Cutout service terminated! \n")
+		SOUT.write("ERROR!!! Missing ra and dec values! \n")
+		return 
+
+	df_list = format_data(df_list)
 
 	bands = args.bands
 	# tag = args.tag
@@ -164,7 +173,8 @@ def run_mongo(args):
 
 			SOUT.write('# Start cutting the fits images and generate pngs \n')
 
-			demo_png, fail_num = fitscutter(df_w_path, df_list['RA'][i],df_list['DEC'][i], xsize=args.xsize, ysize= args.ysize, outdir=args.outdir)
+			demo_png, fail_num = fitscutter(df_w_path, df_list['RA'][i],df_list['DEC'][i], xsize=df_list['XSIZE'][i], \
+				ysize= df_list['YSIZE'][i], outdir=args.outdir)
 			demo_list.append(demo_png)
 			folder_names.append(demo_png.split('/')[0])
 			exp_fail.append((df_list.RA[i],df_list.DEC[i]))
@@ -202,7 +212,33 @@ def run_mongo(args):
 	SOUT.close()
 	error_stream.close()	
 
+def validate_ra_dec(df):
+	'''validate ra and dec column in input file
 
+	'''
+	if not ("RA" in df.columns and "DEC" in df.columns):
+		return False
+	elif df[['RA', 'DEC']].isnull().any().any():
+		return False
+	else:
+		return True
+
+def format_data(df):
+	'''fillin missing size with 1 and convert all data to float type
+
+	'''
+	df_mod = df.copy()
+
+	if "XSIZE" in df_mod.columns and 'YSIZE' in df_mod.columns:
+		df_mod[['XSIZE', 'YSIZE']]=df_mod[['XSIZE', 'YSIZE']].fillna(1)
+	else:
+		df_mod['XSIZE']=1
+		df_mod['YSIZE']=1
+
+	for x in df_mod.columns:
+		df_mod[x]=df_mod[x].astype(float)
+
+	return df_mod
 def save_images(args, df_w_path, ra, dec):
 	user = args.username
 	password = args.password

@@ -192,6 +192,8 @@ class FileHandlerS(BaseHandler):
         bands = self.get_argument('bands')
         email = self.get_argument("email")
         stype = self.get_argument("submit_type")
+        if xs == 0.0 : xs=''
+        if ys == 0.0 : ys=''
         print('**************')
         print(xs,ys,'sizes')
         print(stype,'type')

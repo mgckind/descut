@@ -92,14 +92,11 @@ def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
     else:
         bands = bands.replace(',', ' ')
     
-    print (listOnly)
-    
-    cmd = script_dir+"/cutout_cmd/mkdescut.py {} --xsize {} --ysize {} --username {} --password {} " \
-      "--bands {} --outdir {} --listOnly {} --noBlacklist {}".format(filename, xs, ys, loc_user, loc_passw, \
+    cmd = script_dir+"/cutout_cmd/mkdescut.py {} --username {} --password {} " \
+      "--bands {} --outdir {} --listOnly {} --noBlacklist {}".format(filename, loc_user, loc_passw, \
         bands, outdir, listOnly, noBlacklist)
-    # else:
-    #     cmd = script_dir+"/cutout_cmd/mkdescut.py {} --xsize {} --ysize {} --username {} --password {} " \
-    #       "--bands {} --outdir {} ".format(filename, xs, ys, loc_user, loc_passw, bands, outdir)
+    if xs != "": cmd += ' --xsize %s ' % xs
+    if ys != "": cmd += ' --ysize %s ' % ys
     
     oo = subprocess.check_call(cmd, shell=True)
     
@@ -133,10 +130,12 @@ def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
     
     # call error taks if error.log is not zero byte
     err_file = outdir+'/error.log'
-    if os.path.getsize(err_file) > 0:
-        print ('init error task')
-        celery.send_task('dtasks.error', [err_file])
-    
+    try: 
+        if os.path.getsize(err_file) > 0:
+            print ('init error task')
+            celery.send_task('dtasks.error', [err_file])
+    except:
+        pass
     
     try:
         a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (loc_user,jobid))
