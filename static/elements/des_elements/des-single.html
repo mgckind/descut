@@ -163,13 +163,21 @@
       this.$.enterValuesS.disabled=false;
       this.$.uploadFileS.disabled=false;
       this.$.keyboardiconS.style.display='inline-block';
-      this.$.xsizeSliderS.value="1.0";
-      this.$.ysizeSliderS.value="1.0";
+      this.$.xsizeSliderS.value="0";
+      this.$.ysizeSliderS.value="0";
       this.$.sendemailS.checked=false;
       this.$.onlyreturnlistS.checked=false;
       this.$.desPositionsS.clear();
       this.$.blacklist.checked=false;
       this.file_name = "Upload File";
+      this.$.all_toggle.checked = true;
+
+      var band_rads = document.querySelectorAll('.myradio');
+      for (var j=0; j < 5 ; j++){
+          band_rads[j].checked = false;
+          band_rads[j].disabled=true;
+      } 
+
       var upIcon = this.$.uploadiconS.style.display='inline-block';
       this.enter_values = "Enter Values";
       //$('#dothis')[0].checked=false;
