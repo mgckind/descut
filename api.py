@@ -407,7 +407,6 @@ class ApiHandler(BaseHandler):
                 try:    
                     os.system('rm -rf ' + folder)
                     os.system('rm -f ' + os.path.join(user_folder,jid+'.csv'))
-                    os.system('rm -f '+ os.path.join(user_folder, 'results/tar',jid+'.tar.gz'))
                 except:
                     pass
         self.set_status(200)
