@@ -20,6 +20,7 @@ import sqlite3 as lite
 import requests
 import pandas as pd
 import readfile
+import api
 
 celery = Celery('dtasks')
 celery.config_from_object('celeryconfig')
