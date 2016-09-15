@@ -204,11 +204,22 @@ class JobHandler(tornado.web.RequestHandler):
                 list_only = arguments["list_only"] == 'true'
             else:
                 list_only = False
+            # include blacklist or not
+            if 'no_blacklist' in arguments:
+                noBlacklist = arguments["no_blacklist"] == 'true'
+            else:
+                noBlacklist = False
+
             if 'email' in arguments:
                 send_email = True
                 email = arguments['email']
             else:
                 send_email = False
+            # check optional bands
+            if 'band' in arguments:
+                bands = arguments['band'].replace('[','').replace(']','')
+            else:
+                bands = 'all'
             jobid = str(uuid.uuid4())
             if stype=="manual":
                 filename = user_folder + jobid + '.csv'
@@ -233,20 +244,25 @@ class JobHandler(tornado.web.RequestHandler):
             os.system('mkdir -p '+folder2)
             infP = infoP(user,passwd) 
             now = datetime.datetime.now()
-            tiid = user+'__'+jobid+'_{'+now.ctime()+'}'
+            tiid = user+'__'+jobid+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
+            
             #SUBMIT JOB, ADD TO SQLITE
-            if send_email:
-                #xs=1.0
-                #ys=1.0
-                #run=dtasks.sendjob.apply_async(args=[user, user_folder, jobid, xs,ys], task_id=tiid,  link=dtasks.send_note.si(user, jobid, email))
-                run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
+            if jtype == 'coadd':
+                tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
+                if send_email:
+                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
+                else:
+                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
             else:
-                #xs=1.0
-                #ys=1.0
-                #run=dtasks.sendjob.apply_async(args=[user, user_folder, jobid, xs,ys], task_id=tiid)
-                run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
+                tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE'])
+                if send_email:
+                    run=dtasks.mkcut.apply_async(args=[filename, infP, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
+                        task_id=tiid, link=dtasks.send_note.si(loc_user, tiid, toemail)) 
+                else:
+                    run=dtasks.mkcut.apply_async(args=[filename, infP, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
+                        task_id=tiid)                  
+
             con = lite.connect(Settings.DBFILE)
-            tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
             with con:
                 cur = con.cursor()
                 cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?, ?)", tup)
@@ -326,7 +342,8 @@ class JobHandler(tornado.web.RequestHandler):
             except:
                 response['status'] = 'error'
                 self.set_status(400)
-                respose['message'] = 'Job Id does not exists'
+                response['message'] = 'Job Id does not exists'
+        
         self.write(response)
         self.flush()
         self.finish()
@@ -407,7 +424,6 @@ class ApiHandler(BaseHandler):
                 try:    
                     os.system('rm -rf ' + folder)
                     os.system('rm -f ' + os.path.join(user_folder,jid+'.csv'))
-                    os.system('rm -f '+ os.path.join(user_folder, 'results/tar',jid+'.tar.gz'))
                 except:
                     pass
         self.set_status(200)
@@ -456,10 +472,11 @@ class LogHandler(BaseHandler):
         res = AsyncResult(jobidFull)
 
         log = ''
-        with open(log_path, 'r') as logFile:
-            for line in logFile:
-                log+=line+'<br>'
+        
         if res.ready():
+            with open(log_path, 'r') as logFile:
+                for line in logFile:
+                    log+=line+'<br>'
             temp = json.dumps(log)
         else:
             temp = json.dumps('Running')
