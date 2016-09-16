@@ -28,7 +28,7 @@ def changeports(mode):
                 print(line.replace('default=8999', 'default=8999'), end='')
         with fileinput.FileInput('Settings.py', inplace=True) as file:
             for line in file:
-                print(line.replace('http://descut.cosmology.illinois.edu:8999', 'http://descut.cosmology.illinois.edu'), end='')
+                print(line.replace('http://descut.cosmology.illinois.edu:8080', 'http://descut.cosmology.illinois.edu'), end='')
     if mode == 'dev':
         with fileinput.FileInput('main.py', inplace=True) as file:
             for line in file:
