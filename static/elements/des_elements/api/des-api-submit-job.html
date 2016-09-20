@@ -19,6 +19,8 @@
     'job_type'  : 'coadd' or 'single' Creates cutouts from coadd images or single epoch <b>REQUIRED</b> <br>   
     'xsize'     : xsize of cutout in arcmin, can be single number or list <b>OPTIONAL></b> (default : 1.0) <br> 
     'ysize'     : ysize of cutout in arcmin, can be single number or list <b>OPTIONAL</b> (default : 1.0) <br> 
+    'band'      : only for 'single' job_type. List of bands for single epoch exposures 'g,r,i,z,Y' <b>OPTIONAL</b> (default : All bands) <br> 
+    'no_blacklist'     : only for 'single' job_type. 'true' or 'false' <b>OPTIONAL</b> (default : blacklist is on) <br> 
     'list_only' : if 'true' only generate list fo files, not png and no tar.gz file for all content which is much faster <b>OPTIONAL</b> (default : 'false')  <br> 
     'email'     : Will send  note when job is finished to this email  <b>OPTIONAL</b> (default: no email) <br>
      }<br>
@@ -34,14 +36,16 @@ xs <span style="color: #333333">=</span> [<span style="color: #6600EE; font-weig
 ys <span style="color: #333333">=</span> [<span style="color: #6600EE; font-weight: bold">2.0</span>]
 <span style="color: #888888"># create body of request</span>
 body <span style="color: #333333">=</span> {
-    <span style="background-color: #fff0f0">&#39;token&#39;</span>     :  <span style="background-color: #fff0f0">&#39;aaa...&#39;</span>,          <span style="color: #888888"># required</span>
-    <span style="background-color: #fff0f0">&#39;ra&#39;</span>        : <span style="color: #007020">str</span>(ra),              <span style="color: #888888"># required</span>
-    <span style="background-color: #fff0f0">&#39;dec&#39;</span>       : <span style="color: #007020">str</span>(dec),          <span style="color: #888888"># required</span>
-    <span style="background-color: #fff0f0">&#39;job_type&#39;</span>  : <span style="background-color: #fff0f0">&#39;coadd&#39;</span>,        <span style="color: #888888"># required &#39;coadd&#39; or &#39;single&#39;   </span>
-    <span style="background-color: #fff0f0">&#39;xsize&#39;</span>     : <span style="color: #007020">str</span>(xs),            <span style="color: #888888"># optional (default : 1.0)</span>
-    <span style="background-color: #fff0f0">&#39;ysize&#39;</span>     : <span style="color: #007020">str</span>(ys),            <span style="color: #888888"># optional (default : 1.0)</span>
-    <span style="background-color: #fff0f0">&#39;list_only&#39;</span> : <span style="background-color: #fff0f0">&#39;false&#39;</span>,           <span style="color: #888888"># optional (default : &#39;false&#39;) &#39;true&#39;: will not generate pngs (faster)</span>
-    <span style="background-color: #fff0f0">&#39;email&#39;</span>     : <span style="background-color: #fff0f0">&#39;myemail@mmm.com&#39;</span>     <span style="color: #888888"># optional will send email when job is finished</span>
+    <span style="background-color: #fff0f0">&#39;token&#39;</span>        :  <span style="background-color: #fff0f0">&#39;aaa...&#39;</span>,          <span style="color: #888888"># required</span>
+    <span style="background-color: #fff0f0">&#39;ra&#39;</span>           : <span style="color: #007020">str</span>(ra),              <span style="color: #888888"># required</span>
+    <span style="background-color: #fff0f0">&#39;dec&#39;</span>          : <span style="color: #007020">str</span>(dec),          <span style="color: #888888"># required</span>
+    <span style="background-color: #fff0f0">&#39;job_type&#39;</span>     : <span style="background-color: #fff0f0">&#39;coadd&#39;</span>,        <span style="color: #888888"># required &#39;coadd&#39; or &#39;single&#39;   </span>
+    <span style="background-color: #fff0f0">&#39;xsize&#39;</span>        : <span style="color: #007020">str</span>(xs),            <span style="color: #888888"># optional (default : 1.0)</span>
+    <span style="background-color: #fff0f0">&#39;ysize&#39;</span>        : <span style="color: #007020">str</span>(ys),            <span style="color: #888888"># optional (default : 1.0)</span>
+    <span style="background-color: #fff0f0">&#39;band&#39;</span>         : <span style="background-color: #fff0f0">&#39;g,r,i&#39;</span>,              <span style="color: #888888"># optional for &#39;single&#39; epochs jobs (default: all bands)</span>
+    <span style="background-color: #fff0f0">&#39;no_blacklist&#39;</span> : <span style="background-color: #fff0f0">&#39;false&#39;</span>,     <span style="color: #888888">#optional for &#39;single&#39; epochs jobs (default: &#39;false&#39;). return or not blacklisted exposures</span>
+    <span style="background-color: #fff0f0">&#39;list_only&#39;</span>    : <span style="background-color: #fff0f0">&#39;false&#39;</span>,           <span style="color: #888888"># optional (default : &#39;false&#39;) &#39;true&#39;: will not generate pngs (faster)</span>
+    <span style="background-color: #fff0f0">&#39;email&#39;</span>        : <span style="background-color: #fff0f0">&#39;myemail@mmm.com&#39;</span>     <span style="color: #888888"># optional will send email when job is finished</span>
 }
 <span style="color: #888888"># create body for files if needed</span>
 body_files <span style="color: #333333">=</span> {<span style="background-color: #fff0f0">&#39;csvfile&#39;</span>: <span style="color: #007020">open</span>(<span style="background-color: #fff0f0">&#39;mydata.csv&#39;</span>,<span style="background-color: #fff0f0">&#39;rb&#39;</span>)}  <span style="color: #888888"># To load csv file as part of request</span>
