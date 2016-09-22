@@ -80,9 +80,9 @@
       },
       _afterChange: function(e){
         this.async(function(){
-          this.jobid2 = this.jobid;
-          // console.log(e.target.id);
-          // console.log(this.$$("#seRepeat").items);
+          if (e.target.id == "inside"){
+            this.jobid2 = this.jobid;
+          }
         });
         
       },
