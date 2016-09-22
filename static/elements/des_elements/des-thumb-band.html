@@ -64,9 +64,7 @@
       <div class="mycard"> <div style="position:absolute;"> 
       <span class='exp_info'>{{expTop}}</span> </div> 
       <paper-spinner id="{{_returnName3(pngName)}}" class="big" ></paper-spinner> 
-      <!-- <template is="dom-if" if="{{_dia_open(imFolder)}}"> -->
       <img src="{{imgPath}}" height="200px" width="200px"/>
-      <!-- </template> -->
       <div style='position:absolute;bottom: 10px'>
         <span class='exp_info'>{{expBottom}}</span>
       </div> 
@@ -157,12 +155,6 @@
       _exp_bottom_info: function(ccdNum, expNum) {
         return 'CCD#:'+ccdNum+'\t'+'EXP#:'+expNum;
 
-      },
-
-      _dia_open: function(imFolder){
-        dialog = document.getElementById(imFolder);
-        console.log(dialog.opened);
-        if (dialog.opened) return true;
       },
       
       _returnNameDwn: function(pngName) {

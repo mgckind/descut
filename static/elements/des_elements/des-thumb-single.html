@@ -108,11 +108,9 @@
       <h2 class='header' align="center">{{dialog_title}}</h2>
 
       <paper-dialog-scrollable>
-      <!-- <template is="dom-if" if="{{opened}}"> -->
-      <template  is="dom-repeat" items="{{SE_list}}" as="obj" initial-count='20'>
+      <template  id="bandRepeat" is="dom-repeat" items="{{SE_list}}" as="obj" initial-count='20'>
       <des-thumb-band png-name="{{obj.png_name}}" im-band = "{{obj.BAND}}" im-night="{{obj.NITE}}" job-id = "{{jobid}}" im-folder = "[[imtitle]]" username = "{{username}}" ccd-Num = "{{obj.CCDNUM}}" exp-Num = "{{obj.EXPNUM}}"></des-thumb-band>
       </template>
-      <!-- </template> -->
       </paper-dialog-scrollable>
       
       <div id='buttons'>
@@ -133,12 +131,9 @@
           
     Polymer({
       is: "des-thumb-single",
-
-      ready: function(){
-          var desResults = document.getElementById("desResults");
-          this.jobid = desResults.jobid;
+      listeners:{
+        "iron-overlay-closed":"_overlayClose",
       },
-
       properties: {
         _elevation:{
           type: Number,
@@ -155,13 +150,6 @@
          type: String,
          value: "",
         },
-
-        jobidFull: {
-          type: String,
-          value: "",
-          observer: "_fullIdChanged"
-        },
-
         username: {
           type: String,
         },
@@ -194,10 +182,10 @@
         }
 
       }, 
-
-      _fullIdChanged: function(){
-          var desResults = document.getElementById("desResults");
-          this.jobid = desResults.jobid;
+      _overlayClose:function(){
+        console.log("close");
+        this.SE_list = [];
+        // console.log(Polymer.dom(this.root).querySelectorAll('des-thumb-band'));
       },
       _returnPath: function(imdisplay,jobid,username) {
           return "/static/uploads/"+username+"/results/"+jobid+"/"+imdisplay;
