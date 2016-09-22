@@ -256,30 +256,22 @@
         },
       viewresults: function(e){
         e.stopPropagation();
-        var result_num = "5";
         var pages = document.getElementById("mainPages");
         var help = document.getElementById("helpPages");
         var menu = document.querySelector('paper-menu');
         var desResults = document.getElementById("desResults");
         var desLog = document.getElementById("desLog");
-        var desResultsSingle = document.getElementById('desResultsSingle');
         document.getElementById("smallJobList").selected=e.model.index;
         document.getElementById("smallJobListL").selected=e.model.index;
-        // document.querySelector('des-my-jobs').unselectall();
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
             desResults.jtypes = e.model.item.jtypes;
             desLog.jobid = this.returnName(e.model.item.job);
             desLog.jobidFull = e.model.item.job;
-            desResultsSingle.jobid = this.returnName(e.model.item.job);
-            desResultsSingle.username = this.username;
-            //if (e.model.item.jtypes == "SE"){
-            //  result_num = "7";
-            //}
-            app.selection=result_num;
-            pages.selected=result_num;
-            menu.selected=result_num;
+            app.selection="5";
+            pages.selected="5";
+            menu.selected="5";
             help.selected="5";
 
       },
@@ -290,8 +282,6 @@
         var menu = document.querySelector('paper-menu');
         var desLog = document.getElementById("desLog");
         var desResults = document.getElementById("desResults");
-        var desResultsSingle = document.getElementById('desResultsSingle');
-        // document.querySelector('des-my-jobs').unselectall();
         document.getElementById("smallJobList").selected=e.model.index;
         document.getElementById("smallJobListL").selected=e.model.index;
             desLog.jobidFull = e.model.item.job;
@@ -299,8 +289,7 @@
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
-            desResultsSingle.jobid = this.returnName(e.model.item.job);
-            desResultsSingle.username = this.username;
+            desResults.jtypes = e.model.item.jtypes;
             app.selection="6";
             pages.selected="6";
             menu.selected="6";

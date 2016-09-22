@@ -29,7 +29,7 @@
     <template is="dom-if" if="{{_actionIsSE(jtypes)}}">
     <template is="dom-if" if="{{jsondata}}">
         <template is="dom-repeat" items="{{jsondata}}">
-            <des-thumb-single imdisplay="[[item.demo_png]]" imtitle="[[item.image_title]]" jobid="{{jobid}}" username="{{username}}" ra="[[item.RA]]" dec="[[item.DEC]]"></des-thumb-single>
+            <des-thumb-single imdisplay="[[item.demo_png]]" imtitle="[[item.image_title]]" username="{{username}}" ra="[[item.RA]]" dec="[[item.DEC]]" jobid-full="[[jobidFull]]"></des-thumb-single>
         </template>
     </template>
     </template>

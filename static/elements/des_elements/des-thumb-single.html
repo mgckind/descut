@@ -81,7 +81,6 @@
 <template>
 
       <iron-ajax id="getSE"
-        auto
         url=/static/uploads/{{username}}/results/{{jobid}}/{{imtitle}}/png_list.json
         handle-as="json"
         last-response="{{SE_list}}">
@@ -105,17 +104,15 @@
       </div>
       </paper-material>
       
-
-    <!-- <div class="horizontal layout center-justified" > -->
       <paper-dialog  class="centered" id="{{imtitle}}" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2 class='header' align="center">{{dialog_title}}</h2>
 
       <paper-dialog-scrollable>
-      
+      <!-- <template is="dom-if" if="{{opened}}"> -->
       <template  is="dom-repeat" items="{{SE_list}}" as="obj" initial-count='20'>
       <des-thumb-band png-name="{{obj.png_name}}" im-band = "{{obj.BAND}}" im-night="{{obj.NITE}}" job-id = "{{jobid}}" im-folder = "[[imtitle]]" username = "{{username}}" ccd-Num = "{{obj.CCDNUM}}" exp-Num = "{{obj.EXPNUM}}"></des-thumb-band>
       </template>
-
+      <!-- </template> -->
       </paper-dialog-scrollable>
       
       <div id='buttons'>
@@ -127,7 +124,6 @@
         <!-- <paper-tooltip id = 'table_tip' for='show_table' >Exposure details in an ascii table</paper-tooltip> -->
       </div>
     </paper-dialog>
-    <!-- </div> -->
 
 </template>
 
@@ -137,6 +133,12 @@
           
     Polymer({
       is: "des-thumb-single",
+
+      ready: function(){
+          var desResults = document.getElementById("desResults");
+          this.jobid = desResults.jobid;
+      },
+
       properties: {
         _elevation:{
           type: Number,
@@ -151,8 +153,15 @@
         },
         jobid : {
          type: String,
-         
+         value: "",
         },
+
+        jobidFull: {
+          type: String,
+          value: "",
+          observer: "_fullIdChanged"
+        },
+
         username: {
           type: String,
         },
@@ -164,7 +173,6 @@
         dec:{
           type: Number,
         },
-
         dialog_title:{
           type:String,
           computed:"_returnDiaTitle(imtitle, ra, dec)",
@@ -187,10 +195,12 @@
 
       }, 
 
+      _fullIdChanged: function(){
+          var desResults = document.getElementById("desResults");
+          this.jobid = desResults.jobid;
+      },
       _returnPath: function(imdisplay,jobid,username) {
-          // console.log(this.$.xgif.getAttribute('src'));
           return "/static/uploads/"+username+"/results/"+jobid+"/"+imdisplay;
-
       },
 
       _getGif: function(username,jobid,imdisplay){
@@ -229,17 +239,10 @@
 
       _mouseout: function(){
         this._elevation = 0;
-        //change back to static
-        // var img = document.getElementById('thumb_demo');
-        // img.src = this.demoPath;
        },
       
       _mouseover: function(){
         this._elevation = 5;
-        //show gif
-        // var img = document.getElementById('thumb_demo');
-        // img.src = this.gifPath;
-        
       },
 
       blink: function(e){
@@ -291,11 +294,7 @@
       },
 
       showAll: function(event){
-        var username = this.username;
-        var jobid = this.jobid;
-        var imtitle = this.imtitle;
-        var xmlhttp = new XMLHttpRequest();
-        var _self = this;
+        this.$.getSE.generateRequest();
         var dialog = document.getElementById(this.imtitle);
         dialog.open();
       },
@@ -303,7 +302,7 @@
           console.log('Oh no!');
       },
       completeHandler:function(){
-        var jobid = document.getElementById('desResultsSingle').jobid;
+        var jobid = document.getElementById('desResults').jobid;
         var obj_tar = jobid.substring(0,6)+"_"+imgTitle+'.tar.gz';
         var link = document.createElement('a');
         link.href = "/static/uploads/"+username+"/results/"+jobid+"/"+obj_tar;
