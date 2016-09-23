@@ -1,4 +1,5 @@
 """ Main application for public release"""
+from version import __version__
 import tornado.auth
 import tornado.escape
 import tornado.httpserver
