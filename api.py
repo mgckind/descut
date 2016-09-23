@@ -186,7 +186,21 @@ class JobHandler(tornado.web.RequestHandler):
                 stype = 'csvfile'
             except:
                 pass
-        
+        # validate bands and convert the correct format
+        if response['status'] == 'ok':
+            if 'band' in arguments:
+                bands = arguments['band'].replace('[','').replace(']','')
+                bands_set = set(bands.lower().replace(',',' ').split())
+                default_set = set(['g', 'r', 'i', 'z', 'y'])
+                if bands_set.issubset(default_set):
+                    bands = bands.lower().replace('y', 'Y')
+                else:
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = "Optional band must be one of g, r, i, z, Y"                    
+            else:
+                bands = 'all'
+
         if response['status'] == 'ok':
             xs = np.ones(len(ra))
             ys = np.ones(len(ra))
@@ -215,11 +229,6 @@ class JobHandler(tornado.web.RequestHandler):
                 email = arguments['email']
             else:
                 send_email = False
-            # check optional bands
-            if 'band' in arguments:
-                bands = arguments['band'].replace('[','').replace(']','')
-            else:
-                bands = 'all'
             jobid = str(uuid.uuid4())
             if stype=="manual":
                 filename = user_folder + jobid + '.csv'
