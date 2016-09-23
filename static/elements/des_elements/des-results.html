@@ -27,9 +27,9 @@
     </template>
 
     <template is="dom-if" if="{{_actionIsSE(jtypes)}}">
-    <template is="dom-if" if="{{jsondata}}">
-        <template is="dom-repeat" items="{{jsondata}}">
-            <des-thumb-single imdisplay="[[item.demo_png]]" imtitle="[[item.image_title]]" jobid="{{jobid}}" username="{{username}}" ra="[[item.RA]]" dec="[[item.DEC]]"></des-thumb-single>
+    <template id="inside" is="dom-if" if="{{jsondata}}">
+        <template id="seRepeat" is="dom-repeat" items="{{jsondata}}">
+            <des-thumb-single imdisplay="[[item.demo_png]]" imtitle="[[item.image_title]]" username="{{username}}" ra="[[item.RA]]" dec="[[item.DEC]]" jobid="[[jobid2]]"></des-thumb-single>
         </template>
     </template>
     </template>
@@ -46,6 +46,9 @@
 <script>
       Polymer({
       is: "des-results",
+      listeners:{
+        "dom-change": "_afterChange",
+      },
       properties : {
         jsondata: {
             type: Array,
@@ -53,6 +56,11 @@
         jobid: {
             value : '',
             type : String,
+            notify: true,
+        },
+        jobid2:{
+            value: '',
+            type: String,
             notify: true,
         },
         jobidFull: {
@@ -70,13 +78,21 @@
             value: '',
         },
       },
+      _afterChange: function(e){
+        this.async(function(){
+          if (e.target.id == "inside" && this.jtypes == "SE"){
+            this.jobid2 = this.jobid;
+          }
+        });
+        
+      },
       _actionIsCoadd: function(job_type) {
         if (job_type == "Coadd") return true;
       },
       _actionIsSE: function(job_type) {
         if (job_type == "SE") return true;
       },
-     _getTilesResponse: function() {
+      _getTilesResponse: function() {
         if (this.jsondata.length == 0 ) {
           document.getElementById('getAllIcon').disabled=true;
            }
