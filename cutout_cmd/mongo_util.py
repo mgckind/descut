@@ -5,7 +5,7 @@ import os, json
 from bson.json_util import dumps
 
 
-client = MongoClient(port=27017, host="mongodb")
+client = MongoClient(port=27017, host="mongodb", connect=False)
 db = client.descut
 coll = db.Y3A1_FINALCUT
 

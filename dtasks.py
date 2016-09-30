@@ -7,7 +7,7 @@ import tornado.websocket
 import smtplib
 import urllib
 import glob
-import os
+import os, io
 import json
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -21,6 +21,7 @@ import requests
 import pandas as pd
 import readfile
 import api
+from cutout_cmd import mongo_util as mu
 
 celery = Celery('dtasks')
 celery.config_from_object('celeryconfig')
@@ -187,6 +188,39 @@ def send_note(user, jobid, toemail):
     s.quit()
     return "Email Sent to %s" % toemail
 
+@celery.task
+def getList(df_pos, options, bands, noBlacklist):
+
+    frames = []
+    mu.select_collection(noBlacklist)
+    final_out = io.StringIO()
+
+    if bands == "all":
+        bands = ['g', 'r', 'i', 'z', 'Y']
+    else:
+        bands = bands.split(',')
+
+    for i in range(len(df_pos)):
+        frame = mu.query_to_pandas(df_pos['RA'][i],df_pos['DEC'][i], bands)
+        frames.append(frame)
+    
+    df_result = pd.concat(frames)
+
+    #check for options
+    if 'ccdnum' in options:
+        ccdnum = options['ccdnum']
+        print (ccdnum)
+        df_result = df_result[df_result['CCDNUM'].isin(ccdnum)]
+
+    if 'nite' in options:
+        nite = options['nite']
+        df_result = df_result[df_result['NITE'].isin(nite)]
+    
+    df_result.to_csv(final_out, index=False)
+    return_value = final_out.getvalue()
+    final_out.close()
+
+    return return_value
 
 @celery.task
 def sendjob(user,folder,jobid,xs,ys):

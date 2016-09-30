@@ -7,7 +7,7 @@ import tornado.web
 import Settings
 import pandas as pd
 import numpy as np
-import os, uuid
+import os, uuid, io
 import json
 import sqlite3 as lite
 import sys
@@ -412,7 +412,116 @@ class JobHandler(tornado.web.RequestHandler):
         self.flush()
         self.finish()
 
+class MongoHandler(tornado.web.RequestHandler):
 
+    @tornado.web.asynchronous
+    def get(self):
+
+        import ast
+
+        arguments = { k.lower(): self.get_argument(k) for k in self.request.arguments }
+        response = {'status' : 'error'}
+        options = {}
+
+        if 'token' in arguments:
+            auths = tokens.get(arguments['token'])
+            if auths is None:
+                response['message'] = 'Token does not exist or it expired. Please create a new one'
+                self.set_status(403)
+            else:
+                user = auths[0]
+                passwd = auths[1]
+                response['status'] = 'ok'
+                user_folder = os.path.join(Settings.UPLOADS,user) + '/'
+        else:
+            self.set_status(400)
+            response['message'] = 'Need a token to generate a request'
+
+        if response['status'] == 'ok':
+            try:
+                ra = [float(i) for i in arguments['ra'].replace('[','').replace(']','').split(',')]
+                dec = [float(i) for i in arguments['dec'].replace('[','').replace(']','').split(',')]
+                # stype = "manual"
+                if len(ra) != len(dec):
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = 'RA and DEC arrays must have same dimensions'
+            except:
+                self.set_status(400)
+                response['status']='error'
+                response['message'] = 'RA and DEC arrays must have same dimensions'
+
+        if response['status'] == 'ok':
+            if 'band' in arguments:
+                bands = arguments['band'].replace('[','').replace(']','').replace("'",'').replace(' ','')
+                bands_set = set(bands.lower().split(','))
+                default_set = set(['g', 'r', 'i', 'z', 'y'])
+                if bands_set.issubset(default_set):
+                    bands = bands.lower().replace('y', 'Y')
+                else:
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = "Optional band must be one of g, r, i, z, Y"                    
+            else:
+                bands = 'all' 
+
+        #options
+        if response['status'] == 'ok':
+
+            if 'no_blacklist' in arguments:
+                noBlacklist = arguments["no_blacklist"] == 'true'
+            else:
+                noBlacklist = False
+
+            if 'ccdnum' in arguments:
+                try:
+                    ccdnum = [int(i) for i in arguments['ccdnum'].replace('[','').replace(']','').split(',')]
+                    options['ccdnum'] = ccdnum
+                except:
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = "Invalid ccdnum!"  
+
+            if 'nite' in arguments:
+                try:
+                    nite = [int(i) for i in arguments['nite'].replace('[','').replace(']','').split(',')] 
+                    options['nite'] = nite
+                except:
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = "Invalid nite!" 
+        
+        if response['status'] == 'ok':
+
+            #init jobid
+            qTaskId = str(uuid.uuid4())
+            # put ra, dec into a datafram
+            df_pos = pd.DataFrame(np.array([ra,dec]).T,columns=['RA','DEC'])
+            now = datetime.datetime.now()
+            qTiid = user+'_mongo_'+qTaskId+'_{'+now.ctime()+'}'
+            print (options)
+            try:
+                dtasks.getList.apply_async(args=[df_pos, options, bands, noBlacklist], task_id=qTiid)
+            except Exception as e:
+                response['status']='error'
+                response['message']=str(e)
+            else:
+                res = AsyncResult(qTiid)
+                result = res.wait()
+                rt_str = io.StringIO(result)
+                df_rt = pd.read_csv(rt_str, usecols=['RA_CENT', 'DEC_CENT', 'FILENAME', 'BAND','EXPNUM', 'NITE','PFW_ATTEMPT_ID', 'CCDNUM', 'FULL_PATH'])
+                rt_str.close()
+
+                finalIO = io.StringIO()
+                df_rt.to_json(finalIO, orient='records')
+                list_of_exp = ast.literal_eval(finalIO.getvalue().replace('\/', '/'))
+                response['list']= list_of_exp
+                finalIO.close()
+        
+
+        self.write(response)
+        self.flush()
+        self.finish()
 
 
 class ApiHandler(BaseHandler):
