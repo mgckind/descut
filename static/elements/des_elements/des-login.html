@@ -37,12 +37,22 @@
 <script>
       Polymer({
       is: "des-login",
+
+      behaviors: [
+        Polymer.IronA11yKeysBehavior
+      ],
+
       properties : {
         error :{
         type: String,
           value: '',
         }
       },
+
+      keyBindings:{
+        'enter:keydown':'_clickSubmit',
+      },
+
       _clickSubmit: function(e){
       var button = document.getElementById('LoginButton');
       console.log("Submitted!");
