@@ -189,7 +189,7 @@ class JobHandler(tornado.web.RequestHandler):
         # validate bands and convert the correct format
         if response['status'] == 'ok':
             if 'band' in arguments:
-                bands = arguments['band'].replace('[','').replace(']','')
+                bands = arguments['band'].replace('[','').replace(']','').replace("'",'').replace(' ','')
                 bands_set = set(bands.lower().replace(',',' ').split())
                 default_set = set(['g', 'r', 'i', 'z', 'y'])
                 if bands_set.issubset(default_set):
