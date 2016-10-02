@@ -22,7 +22,7 @@ import dtasks
 import datetime
 import requests
 import readfile
-
+import ast
 
 
 dbConfig0 = Settings.dbConfig()
@@ -417,8 +417,6 @@ class MongoHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def get(self):
 
-        import ast
-
         arguments = { k.lower(): self.get_argument(k) for k in self.request.arguments }
         response = {'status' : 'error'}
         options = {}
@@ -498,7 +496,7 @@ class MongoHandler(tornado.web.RequestHandler):
             # put ra, dec into a datafram
             df_pos = pd.DataFrame(np.array([ra,dec]).T,columns=['RA','DEC'])
             now = datetime.datetime.now()
-            qTiid = user+'_mongo_'+qTaskId+'_{'+now.ctime()+'}'
+            qTiid = user+'_mongo_'+qTaskId+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
             print (options)
             try:
                 dtasks.getList.apply_async(args=[df_pos, options, bands, noBlacklist], task_id=qTiid)
@@ -507,7 +505,7 @@ class MongoHandler(tornado.web.RequestHandler):
                 response['message']=str(e)
             else:
                 res = AsyncResult(qTiid)
-                result = res.wait()
+                result = res.wait(5)
                 rt_str = io.StringIO(result)
                 df_rt = pd.read_csv(rt_str, usecols=['RA_CENT', 'DEC_CENT', 'FILENAME', 'BAND','EXPNUM', 'NITE','PFW_ATTEMPT_ID', 'CCDNUM', 'FULL_PATH'])
                 rt_str.close()
@@ -516,8 +514,8 @@ class MongoHandler(tornado.web.RequestHandler):
                 df_rt.to_json(finalIO, orient='records')
                 list_of_exp = ast.literal_eval(finalIO.getvalue().replace('\/', '/'))
                 response['list']= list_of_exp
+                self.set_status(200)
                 finalIO.close()
-        
 
         self.write(response)
         self.flush()
