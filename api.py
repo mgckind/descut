@@ -480,6 +480,16 @@ class MongoHandler(tornado.web.RequestHandler):
                     response['status']='error'
                     response['message'] = "Invalid ccdnum!"  
 
+            if 'expnum' in arguments:
+                try:
+                    expnum = [int(i) for i in arguments['expnum'].replace('[','').replace(']','').split(',')]
+                    options['expnum'] = expnum
+                except:
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = "Invalid expnum!"  
+
+
             if 'nite' in arguments:
                 try:
                     nite = [int(i) for i in arguments['nite'].replace('[','').replace(']','').split(',')] 

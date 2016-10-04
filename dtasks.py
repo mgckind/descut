@@ -209,8 +209,11 @@ def getList(df_pos, options, bands, noBlacklist):
     #check for options
     if 'ccdnum' in options:
         ccdnum = options['ccdnum']
-        print (ccdnum)
         df_result = df_result[df_result['CCDNUM'].isin(ccdnum)]
+
+    if 'expnum' in options:
+            expnum = options['expnum']
+            df_result = df_result[df_result['EXPNUM'].isin(expnum)]
 
     if 'nite' in options:
         nite = options['nite']
