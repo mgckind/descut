@@ -219,7 +219,7 @@ def getList(df_pos, options, bands, noBlacklist):
         nite = options['nite']
         df_result = df_result[df_result['NITE'].isin(nite)]
     
-    df_result.to_csv(final_out, index=False)
+    df_result.to_json(final_out, orient='records')
     return_value = final_out.getvalue()
     final_out.close()
 

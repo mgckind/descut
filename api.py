@@ -415,7 +415,7 @@ class JobHandler(tornado.web.RequestHandler):
 class MongoHandler(tornado.web.RequestHandler):
 
     @tornado.web.asynchronous
-    def get(self):
+    def post(self):
 
         arguments = { k.lower(): self.get_argument(k) for k in self.request.arguments }
         response = {'status' : 'error'}
@@ -516,9 +516,12 @@ class MongoHandler(tornado.web.RequestHandler):
             else:
                 res = AsyncResult(qTiid)
                 result = res.wait(5)
-                rt_str = io.StringIO(result)
-                df_rt = pd.read_csv(rt_str, usecols=['RA_CENT', 'DEC_CENT', 'FILENAME', 'BAND','EXPNUM', 'NITE','PFW_ATTEMPT_ID', 'CCDNUM', 'FULL_PATH'])
-                rt_str.close()
+                # rt_str = io.StringIO(result)
+                # df_rt = pd.read_csv(rt_str, usecols=['RA_CENT', 'DEC_CENT', 'FILENAME', 'BAND','EXPNUM', 'NITE','PFW_ATTEMPT_ID', 'CCDNUM', 'FULL_PATH'])
+                # rt_str.close()
+
+                df_rt = pd.read_json(result)
+                df_rt = df_rt[['RA_CENT', 'DEC_CENT', 'FILENAME', 'BAND','EXPNUM', 'NITE','PFW_ATTEMPT_ID', 'CCDNUM', 'FULL_PATH']]
 
                 finalIO = io.StringIO()
                 df_rt.to_json(finalIO, orient='records')
