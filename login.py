@@ -8,6 +8,7 @@ import Settings
 import cx_Oracle
 import os
 import time
+from version import __version__
 
 dbConfig0 = Settings.dbConfig()
 
@@ -39,7 +40,7 @@ class AuthLoginHandler(BaseHandler):
             print(errormessage)
         except:
             errormessage = ""
-        self.render("login.html", errormessage = errormessage)
+        self.render("login.html", errormessage = errormessage, version=__version__)
 
     def check_permission(self, password, username):
         kwargs = {'host': dbConfig0.host, 'port': dbConfig0.port, 'service_name': 'desoper'}
