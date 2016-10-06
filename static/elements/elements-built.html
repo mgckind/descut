@@ -20323,6 +20323,7 @@ Configuration:
 <!-- DESCUT -->
 <!-- <link rel="import" href="../elements/des_elements/des-results-single.html"> -->
 <!-- DES API -->
+<!-- credit and version -->
 </head><body><div hidden="" by-vulcanize=""><dom-module id="iron-icon" assetpath="../bower_components/iron-icon/">
   <template>
     <style>
@@ -32152,4 +32153,37 @@ req <span style="color: #333333">=</span> requests<span style="color: #333333">.
     });
 </script>
 </dom-module>
-</div></body></html>
+<dom-module id="credit-line" assetpath="/">
+
+<style is="custom-style" include="shared-style">
+footer {
+position: absolute;
+left: 0px;
+bottom: 20px;
+margin-top: 0px; /* negative value of footer height */
+height: 10px;
+clear:both;
+color:grey;
+padding-top:20px;
+font-size: 8px;
+}
+</style>
+
+
+<template>
+<footer> © 2016; Matias Carrasco Kind &amp; Weixiang Yu (NCSA) version : {{version}}  </footer>
+</template>
+
+<script>
+      Polymer({
+      is: "credit-line",
+      properties: {
+        version:{
+            value: '1.0.a',
+        }
+      },
+    });
+</script>
+
+
+</dom-module></div></body></html>
