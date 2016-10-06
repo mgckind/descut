@@ -30160,6 +30160,7 @@ background-color:black;
      <des-api-get-job id="api_3"></des-api-get-job>
      <des-api-get-joblist id="api_4"></des-api-get-joblist>
      <des-api-delete-job id="api_5"></des-api-delete-job>
+     <des-api-mongo id="api_6"></des-api-mongo>
 
 </des-card>
     </section>
@@ -30187,6 +30188,7 @@ background-color:black;
     <paper-item> Get Job Results</paper-item>
     <paper-item> Get Jobs List</paper-item>
     <paper-item> Delete Jobs</paper-item>
+    <paper-item> Single Epoch Info</paper-item>
     </paper-listbox>
 </div>
 </des-card-help>
@@ -32015,9 +32017,9 @@ body <span style="color: #333333">=</span> {
 }
 <span style="color: #888888"># create body for files if needed</span>
 body_files <span style="color: #333333">=</span> {<span style="background-color: #fff0f0">'csvfile'</span>: <span style="color: #007020">open</span>(<span style="background-color: #fff0f0">'mydata.csv'</span>,<span style="background-color: #fff0f0">'rb'</span>)}  <span style="color: #888888"># To load csv file as part of request</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/'</span>,data<span style="color: #333333">=</span>body)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'http://descut.cosmology.illinois.edu/api/jobs/'</span>,data<span style="color: #333333">=</span>body)
 <span style="color: #888888"># To include files</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'https://descut.cosmology.illinois.edu/api/jobs/'</span>,data<span style="color: #333333">=</span>body, files<span style="color: #333333">=</span>body_files)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'http://descut.cosmology.illinois.edu/api/jobs/'</span>,data<span style="color: #333333">=</span>body, files<span style="color: #333333">=</span>body_files)
 <span style="color: #008800; font-weight: bold">print</span>(req)
 <span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
@@ -32149,6 +32151,69 @@ req <span style="color: #333333">=</span> requests<span style="color: #333333">.
 <script>
       Polymer({
       is: "des-api-get-joblist",
+    });
+</script>
+</dom-module>
+<dom-module id="des-api-mongo" assetpath="des_elements/api/">
+<template>
+    <style include="shared-styles">
+    </style>
+
+
+  
+ <paper-card elevation="4" class="apicard">
+      <div class="api-header">Single Epoch API: <span class="api-subheader">Access to path information stored in MongoDB regarding all Single Exposures. </span></div>
+    <div class="card-content">
+      <div>
+      To get the path to a Single Exposure you have to specify <b>at least</b> one of the following (in order of relevance in query): A position (ra,dec),  a Night, or a Exposure number. Further filters include band and ccd number. <br>
+      </div>
+      <br>
+      <table>
+     <tbody><tr><th>URL:</th><td>/api/mongo/</td></tr>
+     <tr><th>Method:</th><td>POST</td></tr>
+     <tr><th>Body:</th><td>
+     { <br>
+    'token'     : token generated  <b>REQUIRED</b> <br>
+    'ra'        : string list of RA positions  <b>OPTIONAL</b> <br>
+    'dec'       : string list of DEC positions <b>OPTIONAL</b> <br> 
+    'band'      : List of bands for single epoch exposures 'g,r,i,z,Y' <b>OPTIONAL</b> (default : All bands) <br> 
+    'nite'      : List of nites for a given set of exposures (will return all exposures for a given night)' <b>OPTIONAL</b> <br> 
+    'expnum'    : List of exposure numbers  <b>OPTIONAL</b> <br> 
+    'ccdnum'    : List of ccd numbers (out of the 70 chips) to be returned <b>OPTIONAL</b> (default : All ccds) <br> 
+     }<br>
+     </td></tr>
+     <tr><th>Success:</th><td> 200: content: {"status": "ok", Information about all CCD returned} </td></tr>
+     <tr><th>Errors:</th><td> 400: Missing token parameter.  403: Token doesn't exists or expired </td></tr>
+     </tbody></table>
+     <b>Python example:</b>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">ra <span style="color: #333333">=</span> [<span style="color: #6600EE; font-weight: bold">10.0</span>, <span style="color: #6600EE; font-weight: bold">20.0</span>, <span style="color: #6600EE; font-weight: bold">30.0</span>]
+dec<span style="color: #333333">=</span> [<span style="color: #6600EE; font-weight: bold">40.0</span>, <span style="color: #6600EE; font-weight: bold">50.0</span>, <span style="color: #6600EE; font-weight: bold">60.0</span>]
+<span style="color: #888888"># create body of request</span>
+<span style="color: #888888"># Either a position, a nite or a exposure number is required in that order of relevance</span>
+body <span style="color: #333333">=</span> {
+    <span style="background-color: #fff0f0">'token'</span>        :  <span style="background-color: #fff0f0">'aaa...'</span>,          <span style="color: #888888"># required</span>
+    <span style="background-color: #fff0f0">'ra'</span>           : <span style="color: #007020">str</span>(ra),              <span style="color: #888888"># optional</span>
+    <span style="background-color: #fff0f0">'dec'</span>          : <span style="color: #007020">str</span>(dec),          <span style="color: #888888"># optional</span>
+    <span style="background-color: #fff0f0">'band'</span>         : <span style="background-color: #fff0f0">'g,r,i'</span>,              <span style="color: #888888"># optional (default: all bands)</span>
+    <span style="background-color: #fff0f0">'nite'</span>         :   <span style="background-color: #fff0f0">'12345'</span>,         <span style="color: #888888"># optional</span>
+    <span style="background-color: #fff0f0">'expnum'</span>       : <span style="background-color: #fff0f0">'2353324'</span>,    <span style="color: #888888"># optional</span>
+    <span style="background-color: #fff0f0">'ccdnum'</span>       : <span style="background-color: #fff0f0">'3,4,5'</span>          <span style="color: #888888"># optional (default: all)</span>
+}
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>post(<span style="background-color: #fff0f0">'http://descut.cosmology.illinois.edu/api/mongo/'</span>,data<span style="color: #333333">=</span>body)
+<span style="color: #008800; font-weight: bold">print</span>(req)
+<span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
+<span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
+{<span style="background-color: #fff0f0">"status"</span>: <span style="background-color: #fff0f0">"ok"</span>}
+</pre></div>
+    </div>
+    </paper-card>
+
+
+</template>
+
+<script>
+      Polymer({
+      is: "des-api-mongo",
     });
 </script>
 </dom-module>
