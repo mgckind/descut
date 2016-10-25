@@ -1,0 +1,92 @@
+<dom-module id="des-footprint">
+<template>
+    <style>
+    </style>
+
+    <iron-ajax id="getTiles"
+    url="/static/tiles/grid.json"
+    handle-as="json"
+    last-response="{{tiledata}}"
+    debounce-duration="300">
+    </iron-ajax>
+
+
+    <section>
+    <des-card heading="Welcome [[name]]!">
+    <div class="card-content">
+<canvas id="GlobWebCanvas" style="border: none; margin: 0; padding: 0;" width="600px" height="600"></canvas> 
+    </div>
+    </des-card>
+    </section>
+</template>
+
+
+
+<script>
+
+ function loadTiles(callback) {   
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', '/static/tiles/grid.json', true); 
+    xobj.onreadystatechange = function () {
+    if (xobj.readyState == 4 && xobj.status == "200") {
+    callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);  
+ }
+
+      Polymer({
+      is: "des-footprint",
+      properties:{
+        name :{
+            type: String,
+            value:''
+        },
+        tiledata:{
+            value: {},
+        },
+        },
+       ready: function(){
+        var _self = this;
+require.config({
+  baseUrl: '/static/scripts/src/'});
+require(['GlobWeb'], function (GlobWeb) 
+{	
+	var cvs = document.getElementById("GlobWebCanvas");
+	//cvs.width = window.innerWidth;
+	//cvs.height = window.innerHeight;
+	var globe = new GlobWeb.Globe( { canvas: cvs, 
+			lighting: false,
+			tileErrorTreshold: 3,
+            backgroundColor : "#000",
+			continuousRendering: false } );
+	var navigation = new GlobWeb.Navigation(globe, { inertia: true, minDistance: 100000 });
+	var vectorLayer = new GlobWeb.VectorLayer({
+		style : new GlobWeb.FeatureStyle({
+			fillColor: [1.,1.,0.,1.],
+            strokeColor : [0.0,0.0,1.0,1.0],
+			fill: false,
+			})
+		});
+        //req = document.getElementById("getTiles");
+        //req.generateRequest();
+        loadTiles(function(response){
+        _self.data = JSON.parse(response);
+        console.log('READDDDD');
+		vectorLayer.addFeatureCollection(_self.data);
+		vectorLayer.visible(true);
+		vectorLayer.opacity(0.5);
+        globe.addLayer(vectorLayer);
+        });
+
+
+	
+			
+});
+       },
+    });
+
+
+</script>
+</dom-module>
