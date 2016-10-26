@@ -54,6 +54,13 @@
        };
      return ra;
  }
+ 
+ function restoreRA(ra) {
+     if (ra < 0) {
+        ra = ra + 360.;
+       };
+     return ra;
+ }
 
  function clearSelection() {
     if(document.selection && document.selection.empty) {
@@ -258,7 +265,7 @@ require(['GlobWeb'], function (GlobWeb)
                 var dec_t = all_tiles.features[tile].properties.DEC_C;
 				navigation.zoomTo([ra_t,dec_t],500000,1000);
                 var title =document.getElementById("tiletitle");
-                title.innerHTML = "Tile: " + tilename + "( "+ra_t+", "+dec_t+" )";
+                title.innerHTML = "Tile: " + tilename + "( " +restoreRA(ra_t)+", "+dec_t+" )";
                 title.style.visibility = 'visible';
 
 				if (window.tempLayer === undefined){
