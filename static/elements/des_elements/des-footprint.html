@@ -1,6 +1,11 @@
 <dom-module id="des-footprint">
 <template>
     <style include="shared-styles">
+  
+
+.tiletitle {
+  visibility: hidden;
+}
 
 .box {
     background-color: white;
@@ -20,8 +25,8 @@
     <section>
     <des-card heading=[[header]]>
     <div class="card-content">
-    <span id="tiletitle"></span>
-<canvas id="GlobWebCanvas" class="box" width="800px" height="800px"></canvas> 
+    <div id="tiletitle" class="tiletitle"> Tile: </div>
+<canvas id="GlobWebCanvas" class="box" width="600px" height="600px"></canvas> 
     </div>
     </des-card>
     </section>
@@ -50,6 +55,15 @@
      return ra;
  }
 
+ function clearSelection() {
+    if(document.selection && document.selection.empty) {
+        document.selection.empty();
+    } else if(window.getSelection) {
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+    }
+}
+
       Polymer({
       is: "des-footprint",
       properties:{
@@ -77,25 +91,11 @@ require(['GlobWeb'], function (GlobWeb)
 			lighting: false,
 			tileErrorTreshold: 3,
             backgroundColor : "#000",
-			continuousRendering: false } );
+			continuousRendering: false,
+            defaultColor: [220.,220.,220.,255.]} );
 	    var navigation = new GlobWeb.Navigation(globe, { inertia: false, minDistance: 100000 });
         var canvas = navigation.renderContext.canvas; 
-        var files = [
-        '/static/tiles/tiles_sv.json',
-        '/static/tiles/tiles_y2.json',
-        '/static/tiles/tiles_y1.json',
-        '/static/tiles/grid.json',
-        '/static/tiles/plane.json',
-        ];
-        var colors = [
-        [1.0,0.0,1.0,1.0],
-        [0.0,1.0,1.0,1.0],
-        [0.0,0.0,1.0,1.0],
-        [0.0,0.0,0.0,1.0],
-        [1.0,0.0,0.0,1.0],
-        ];
-        for (k=0; k<files.length; k++) {
-          loadTiles(files[k],colors[k],function(mycolor,response){
+          loadTiles('/static/tiles/grid.json',[0.0,0.0,0.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
               strokeColor : mycolor,
@@ -107,14 +107,15 @@ require(['GlobWeb'], function (GlobWeb)
 		vectorLayer.opacity(0.5);
         globe.addLayer(vectorLayer);
         });
-          };
-
-    loadTiles('/static/tiles/footprint.json',[0.0,0.0,0.0,1.0],function(mycolor,response){
+    
+    loadTiles('/static/tiles/plane.json',[1.0,0.0,0.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
               strokeColor : mycolor,
-              strokeWidth: 5.0,
+              strokeWidth: 2.0,
 			  fill: false,
+              label: 'footprint',
+              zIndex: 1000,
 			  })
 		  });
 		vectorLayer.addFeatureCollection(JSON.parse(response));
@@ -122,7 +123,22 @@ require(['GlobWeb'], function (GlobWeb)
         globe.addLayer(vectorLayer);
         });
 
-    loadTiles('/static/tiles/tiles_y2.json',[0.0,0.0,0.0,1.0],function(mycolor,response){
+    loadTiles('/static/tiles/footprint.json',[0.0,0.0,0.0,1.0],function(mycolor,response){
+	      var vectorLayer = new GlobWeb.VectorLayer({
+		  style : new GlobWeb.FeatureStyle({
+              strokeColor : mycolor,
+              strokeWidth: 5.0,
+			  fill: false,
+              label: 'footprint',
+              zIndex: 100,
+			  })
+		  });
+		vectorLayer.addFeatureCollection(JSON.parse(response));
+		vectorLayer.visible(true);
+        globe.addLayer(vectorLayer);
+        });
+
+    loadTiles('/static/tiles/all_tiles.json',[0.0,0.0,0.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
               strokeColor : mycolor,
@@ -133,13 +149,93 @@ require(['GlobWeb'], function (GlobWeb)
 		vectorLayer.addFeatureCollection(JSON.parse(response));
 		vectorLayer.visible(false);
         globe.addLayer(vectorLayer);
-        window.y2 = vectorLayer;
+        window.all_tiles = vectorLayer;
+        });
+
+        loadTiles('/static/tiles/y1a1_tiles.json',[0.0,0.0,1.0,1.0],function(mycolor,response){
+	      var vectorLayer = new GlobWeb.VectorLayer({
+		  style : new GlobWeb.FeatureStyle({
+              strokeColor : [0.3333333333333333, 0.6588235294117647, 0.40784313725490196,1.],
+              strokeWidth: 1.0,
+			  fill: false,
+              zIndex: 10,
+			  })
+		  });
+		vectorLayer.addFeatureCollection(JSON.parse(response));
+		vectorLayer.visible(true);
+        globe.addLayer(vectorLayer);
+        window.y1_tiles = vectorLayer;
+        });
+        
+        loadTiles('/static/tiles/sva1_tiles.json',[1.0,0.0,1.0,1.0],function(mycolor,response){
+	      var vectorLayer = new GlobWeb.VectorLayer({
+		  style : new GlobWeb.FeatureStyle({
+              strokeColor : [0.7686274509803922, 0.3058823529411765, 0.3215686274509804,1.],
+              strokeWidth: 1.0,
+			  fill: false,
+              zIndex: 50,
+			  })
+		  });
+		vectorLayer.addFeatureCollection(JSON.parse(response));
+		vectorLayer.visible(true);
+		vectorLayer.opacity(1.0);
+        globe.addLayer(vectorLayer);
+        window.sv_tiles = vectorLayer;
+        });
+        
+        loadTiles('/static/tiles/y3a1_tiles.json',[0.0,1.0,1.0,1.0],function(mycolor,response){
+	      var vectorLayer = new GlobWeb.VectorLayer({
+		  style : new GlobWeb.FeatureStyle({
+              strokeColor : [0.2980392156862745, 0.4470588235294118, 0.6901960784313725,1.0],
+              strokeWidth: 1.0,
+			  fill: false,
+              zIndex: 0,
+			  })
+		  });
+		vectorLayer.addFeatureCollection(JSON.parse(response));
+		vectorLayer.visible(true);
+        globe.addLayer(vectorLayer);
+        window.y3_tiles = vectorLayer;
         });
 
 
+        var PositionZoom = function(ra,dec) {
+            var geojsonFeature = {
+            "type": "Feature",
+        "properties": {},
+        "geometry": {
+            "type": "Point",
+            "coordinates": [ra,dec]
+            }
+            };
+         navigation.zoomTo([ra,dec],500000,1000);
+		if (window.tempLayer === undefined){
+            var ju = 0;
+            }
+        else{
+            globe.removeLayer( window.tempLayer );
+            }
+            var tempLayer = new GlobWeb.VectorLayer({
+			style : new GlobWeb.FeatureStyle({
+					fillColor: [0.,0.,0.,1.],
+                    pointMaxSize : 1000
+					})
+				});
+				tempLayer.addFeature(geojsonFeature);
+				tempLayer.visible(true);
+				globe.addLayer( tempLayer );
+                window.tempLayer = tempLayer;
+                var title =document.getElementById("tiletitle");
+                title.style.visibility = 'hidden';
+
+        };
+        window.PositionZoom = PositionZoom;
+
         var _handleMouseDblClick = function(event)
 	    {
-        event.stopPropagation();
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        clearSelection();
 		if (event.button == 0)
 		{
 			var pos = navigation.globe.renderContext.getXYRelativeToCanvas(event);
@@ -148,27 +244,28 @@ require(['GlobWeb'], function (GlobWeb)
             var tile = -1
 			if (geo)
 			{   
-                for (i=0; i < y2.features.length-1; i++){
-                    var ra = checkRA(y2.features[i].properties.RA_C);
-                    var dec = y2.features[i].properties.DEC_C;
+                for (i=0; i < all_tiles.features.length-1; i++){
+                    var ra = checkRA(all_tiles.features[i].properties.RA_C);
+                    var dec = all_tiles.features[i].properties.DEC_C;
                     var dist = Math.pow(( ra - geo[0]),2) + Math.pow((dec - geo[1]),2);
                     if (dist < max_d){
                         max_d = dist;
                         var tile = i;
                         };
                     }
-                var tilename = y2.features[tile].properties.tilename;
-                var ra_t = checkRA(y2.features[tile].properties.RA_C);
-                var dec_t = y2.features[tile].properties.DEC_C;
+                var tilename = all_tiles.features[tile].properties.tilename;
+                var ra_t = checkRA(all_tiles.features[tile].properties.RA_C);
+                var dec_t = all_tiles.features[tile].properties.DEC_C;
 				navigation.zoomTo([ra_t,dec_t],500000,1000);
-                document.getElementById("tiletitle").innerHTML = "Tile: " + tilename + " ( "+ra_t+", "+dec_t+" )";                
-                //this.header = "Tile: " + tilename + "( "+ra_t+","+dec_t+" )";
+                var title =document.getElementById("tiletitle");
+                title.innerHTML = "Tile: " + tilename + "( "+ra_t+", "+dec_t+" )";
+                title.style.visibility = 'visible';
+
 				if (window.tempLayer === undefined){
                     var ju = 0;
                 }
                 else{
                     globe.removeLayer( window.tempLayer );
-				    //tempLayer.visible(false);
                 }
                 var tempLayer = new GlobWeb.VectorLayer({
 				style : new GlobWeb.FeatureStyle({
@@ -176,21 +273,20 @@ require(['GlobWeb'], function (GlobWeb)
                         strokeColor : [0.0,0.0,0.0,1.0],
                         strokeWidth: 3.5,
 						fill: false,
+                        zIndex: 90,
 					})
 				});
-				tempLayer.addFeature(y2.features[tile]);
+				tempLayer.addFeature(all_tiles.features[tile]);
 				tempLayer.visible(true);
 				globe.addLayer( tempLayer );
                 window.tempLayer = tempLayer;
-
 			}
 		}
 	};
 
     canvas.addEventListener("dblclick", _handleMouseDblClick);
-
-
-	
+    window.globe = globe;
+    window.navigation = navigation;
 			
 });
        },

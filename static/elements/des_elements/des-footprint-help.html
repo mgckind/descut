@@ -1,12 +1,86 @@
 <dom-module id="des-footprint-help">
 <template>
-    <style>
+    <style include="shared-styles">
+
+    paper-checkbox.y3a1 {
+
+    --paper-checkbox-checked-color: #4C72B0;
+    --paper-checkbox-checked-ink-color: #4C72B0;
+    --paper-checkbox-unchecked-color: #4C72B0;
+    --paper-checkbox-unchecked-ink-color: #4C72B0;
+    --paper-checkbox-label-color: #4C72B0;
+
+    }
+    
+    paper-checkbox.y1a1 {
+
+    --paper-checkbox-checked-color: #55A868;
+    --paper-checkbox-checked-ink-color: #55A868;
+    --paper-checkbox-unchecked-color: #55A868;
+    --paper-checkbox-unchecked-ink-color: #55A868;
+    --paper-checkbox-label-color: #55A868;
+
+    }
+    
+    paper-checkbox.sva1 {
+
+    --paper-checkbox-checked-color: #C44E52;
+    --paper-checkbox-checked-ink-color: #C44E52;
+    --paper-checkbox-unchecked-color: #C44E52;
+    --paper-checkbox-unchecked-ink-color: #C44E52;
+    --paper-checkbox-label-color: #C44E52;
+
+    }
+
+  .input_position{
+    max-width: 30px;
+  }
+      paper-icon-item {
+        --paper-item-disabled-color: black;
+      }
+      paper-item {
+        --paper-item-disabled-color: black;
+        color: black;
+        --paper-item-focused: {
+        };
+        --paper-item-selected: {
+        background: var(--paper-amber-50) ;
+        };
+        --paper-item-focused-before: {
+            opacity:0.0;
+            };
+      }
     </style>
 
 <des-card-help heading="Help">
   <div class="card-content">
-  This help box contains tips and basic information on each page as well as some actionable items.
-  <b>Legend</b>
+  DES Tiles based on Coadd Releases. (Un)Check the boxes to (un)display a particular release. Drag and rotate sphere, double click to zoom into a tile. Enter a position to zoom to it.
+  <hr class="des-hr">
+    <paper-item >
+    <paper-item-body>
+     <span style="color:  #4C72B0;">Y3A1 Coadd</span>
+    </paper-item-body>
+    <paper-checkbox class = "y3a1" id="check_y3" checked on-change="display_y3"></paper-checkbox>  
+    </paper-item>
+    <paper-item >
+    <paper-item-body>
+    <span style="color: #55A868;">Y1A1 Coadd</span>
+    </paper-item-body>
+    <paper-checkbox class="y1a1" id="check_y1" checked on-change="display_y1"></paper-checkbox>  
+    </paper-item>
+    <paper-item >
+    <paper-item-body>
+     <span style="color:  #C44E52;">SVA1 Coadd</span>
+    </paper-item-body>
+    <paper-checkbox class="sva1" id="check_sv" checked on-change="display_sv"></paper-checkbox>  
+    </paper-item>
+  <hr class="des-hr">
+    <paper-item >
+    <paper-item-body>
+   <paper-input  class="input_position" id="zoomto" label="Position (ra,dec)"></paper-input>    
+    </paper-item-body>
+    <paper-icon-button icon="search" on-tap="gotoposition"></paper-icon-button>
+    </paper-item>
   </div>
 </des-card-help>
 
@@ -16,6 +90,46 @@
 <script>
       Polymer({
       is: "des-footprint-help",
+      gotoposition: function(){
+      var position = document.getElementById("zoomto").value.split(","); 
+      var ra1 = parseFloat(position[0]);
+      var dec1 = parseFloat(position[1]);
+      if (ra1 > 180.) {
+         ra1 = ra1 - 360.;
+         };
+      //navigation.zoomTo([ra1,dec1],500000,1000);
+      PositionZoom(ra1,dec1);
+      },
+      display_y1: function(){
+      var checky1 = document.getElementById("check_y1");
+        if (checky1.checked) {
+         y1_tiles._visible = true;
+         }
+         else{
+          y1_tiles._visible = false;
+         }
+        globe.refresh();
+      },
+      display_y3: function(){
+      var checky3 = document.getElementById("check_y3");
+        if (checky3.checked) {
+         y3_tiles._visible = true;
+         }
+         else{
+          y3_tiles._visible = false;
+         }
+        globe.refresh();
+      },
+      display_sv: function(){
+      var checksv = document.getElementById("check_sv");
+        if (checksv.checked) {
+         sv_tiles._visible = true;
+         }
+         else{
+          sv_tiles._visible = false;
+         }
+        globe.refresh();
+      },
     });
 
 
