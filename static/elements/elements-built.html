@@ -30568,6 +30568,14 @@ background-color:black;
     <div>ysize (arcmin, if not selected default is from file or 1.0): <span id="ysizeLabel" class="caption">0</span></div><br>
     <paper-slider id="ysizeSlider" pin="" max="10" max-markers="10" step="0.1" value="0" expand=""></paper-slider>
     <hr>
+    <paper-dropdown-menu label="Release TAG">
+    <paper-listbox id="coaddTag" selected="0" class="dropdown-content">
+    <paper-item value="Y3A1_COADD">Y3A1_COADD</paper-item>
+    <paper-item value="Y1A1_COADD">Y1A1_COADD</paper-item>
+    <paper-item value="SVA1_COADD">SVA1_COADD</paper-item>
+  </paper-listbox>
+</paper-dropdown-menu>
+    <hr>
     <paper-checkbox id="onlyreturnlist">Return just list of files (do not produce and display pngs, i.e. faster)</paper-checkbox>
     <hr>
     <div class=" horizontal center layout justified">
@@ -30639,6 +30647,11 @@ background-color:black;
       document.getElementById("uploadicon").style.display='none';
       this.submit_type = 'csvfile';
     },
+    _test2: function(){
+     console.log('sssssssssssssssssss');
+     var temo = document.getElementById("coaddTag");
+     console.log(temo.selected);
+    },
     clear: function(){
         document.getElementById("submitJobButton").disabled=true;
         document.getElementById("enterValues").disabled=false;
@@ -30649,6 +30662,7 @@ background-color:black;
         document.getElementById("sendemail").checked=false;
         document.getElementById("onlyreturnlist").checked=false;
         document.getElementById("desPositions").clear();
+        document.getElementById("coaddTag").selected="0";
       this.file_name = "Upload File";
       var upIcon = document.getElementById("uploadicon").style.display='inline-block';
      this.enter_values = "Enter Values";
@@ -30681,6 +30695,7 @@ background-color:black;
         formdata.append('email', document.getElementById("validemail").value);
         formdata.append('submit_type', this.submit_type);
         formdata.append('values',document.getElementById("enteredPositions").value);
+        formdata.append('tag',document.getElementById("coaddTag").selectedItem.getAttribute("value"));
         $.ajax({
              url: '/readfile/coadd/',  
              type: 'POST',
