@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
 
 <script src="/static/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<script src="/static/scripts/require.js"></script>
 <link rel="import" href="/static/elements/elements.html">
 <style is="custom-style" include="shared-styles"></style>
 </head>
@@ -19,11 +20,12 @@
 <paper-drawer-panel >
 <paper-scroll-header-panel drawer fixed> 
     <des-menubar class="paper-header"></des-menubar>
+    <des-footprint-help></des-footprint-help>
 </paper-scroll-header-panel>
 </paper-scroll-header-panel>
 <paper-scroll-header-panel main fixed>
     <des-toolbar class="paper-header"></des-toolbar>
-    <des-login error="{{errormessage}}"></des-login>
+        <des-footprint></des-footprint> <!-- 5 -->
     <credit-line version="{{version}}"></credit-line>
 </paper-scroll-header-panel>
 </paper-drawer-panel>

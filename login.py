@@ -33,6 +33,12 @@ class MainHandler(BaseHandler):
         dbh.close()
         self.render("index.html", name=cc[0], email=cc[1], username=loc_user)
 
+
+
+class FootHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("footprint.html" , version=__version__)
+
 class AuthLoginHandler(BaseHandler):
     def get(self):
         try:
