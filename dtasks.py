@@ -190,43 +190,6 @@ def send_note(user, jobid, toemail):
     return "Email Sent to %s" % toemail
 
 @celery.task
-def getList(df_pos, options, bands, noBlacklist):
-
-    frames = []
-    mu.select_collection(noBlacklist)
-    final_out = io.StringIO()
-
-    if bands == "all":
-        bands = ['g', 'r', 'i', 'z', 'Y']
-    else:
-        bands = bands.split(',')
-
-    for i in range(len(df_pos)):
-        frame = mu.query_to_pandas(df_pos['RA'][i],df_pos['DEC'][i], bands)
-        frames.append(frame)
-    
-    df_result = pd.concat(frames)
-
-    #check for options
-    if 'ccdnum' in options:
-        ccdnum = options['ccdnum']
-        df_result = df_result[df_result['CCDNUM'].isin(ccdnum)]
-
-    if 'expnum' in options:
-            expnum = options['expnum']
-            df_result = df_result[df_result['EXPNUM'].isin(expnum)]
-
-    if 'nite' in options:
-        nite = options['nite']
-        df_result = df_result[df_result['NITE'].isin(nite)]
-    
-    df_result.to_json(final_out, orient='records')
-    return_value = final_out.getvalue()
-    final_out.close()
-
-    return return_value
-
-@celery.task
 def getList2(noBlacklist, args_dict):
 
     frames = []
@@ -272,9 +235,7 @@ def getList2(noBlacklist, args_dict):
     df_result.to_json(final_out, orient='records')
     return_value = final_out.getvalue()
     final_out.close()
-    # result_dict = df_result.to_dict(orient='records')
-
-    # return json.dumps(result_dict)
+   
     return return_value
 
 @celery.task
