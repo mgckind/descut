@@ -226,6 +226,7 @@ def getList(df_pos, options, bands, noBlacklist):
 
     return return_value
 
+
 @celery.task
 def sendjob(user,folder,jobid,xs,ys):
     filename = folder+jobid+'.csv'

@@ -13,6 +13,7 @@ import sqlite3 as lite
 import sys
 import datetime as dt
 from celery.result import AsyncResult
+from celery.result import EagerResult
 from celery.task.control import revoke
 from expiringdict import ExpiringDict
 import binascii
@@ -439,6 +440,7 @@ class MongoHandler(tornado.web.RequestHandler):
             try:
                 ra = [float(i) for i in arguments['ra'].replace('[','').replace(']','').split(',')]
                 dec = [float(i) for i in arguments['dec'].replace('[','').replace(']','').split(',')]
+                print (ra, dec)
                 # stype = "manual"
                 if len(ra) != len(dec):
                     self.set_status(400)
