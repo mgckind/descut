@@ -11,6 +11,7 @@
    <paper-toolbar id="mainToolbar" class="black">
         <paper-icon-button id="paperToggle" icon="menu" on-tap="toggle" paper-drawer-toggle></paper-icon-button>
         <span class="title">DARK ENERGY SURVEY Cutouts Services</span>
+        <paper-icon-button icon="home" on-tap="home"></paper-icon-button>
         <paper-icon-button icon="power-settings-new" on-tap="logout"></paper-icon-button>
     </paper-toolbar> 
 </template>
@@ -23,6 +24,9 @@
       },
       logout: function(event){
         window.open('/logout/','_self',false);
+      },
+      home: function(event){
+        window.open('/','_self',false);
       },
     });
 

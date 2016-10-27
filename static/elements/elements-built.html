@@ -29400,6 +29400,7 @@ background-color:black;
    <paper-toolbar id="mainToolbar" class="black">
         <paper-icon-button id="paperToggle" icon="menu" on-tap="toggle" paper-drawer-toggle=""></paper-icon-button>
         <span class="title">DARK ENERGY SURVEY Cutouts Services</span>
+        <paper-icon-button icon="home" on-tap="home"></paper-icon-button>
         <paper-icon-button icon="power-settings-new" on-tap="logout"></paper-icon-button>
     </paper-toolbar> 
 </template>
@@ -29412,6 +29413,9 @@ background-color:black;
       },
       logout: function(event){
         window.open('/logout/','_self',false);
+      },
+      home: function(event){
+        window.open('/','_self',false);
       },
     });
 
@@ -32249,7 +32253,8 @@ require(['GlobWeb'], function (GlobWeb)
     }
 
   .input_position{
-    max-width: 30px;
+    max-width: 20px;
+    width: 20px;
   }
       paper-icon-item {
         --paper-item-disabled-color: black;
@@ -32291,12 +32296,10 @@ require(['GlobWeb'], function (GlobWeb)
     <paper-checkbox class="sva1" id="check_sv" checked="" on-change="display_sv"></paper-checkbox>  
     </paper-item>
   <hr class="des-hr">
-    <paper-item>
-    <paper-item-body>
-   <paper-input class="input_position" id="zoomto" label="Position (ra,dec)"></paper-input>    
-    </paper-item-body>
-    <paper-icon-button icon="search" on-tap="gotoposition"></paper-icon-button>
-    </paper-item>
+   <paper-input on-keydown="checkForEnter" class="input_position" id="zoomto" label="Position (ra,dec)">
+   
+    <paper-icon-button suffix="" icon="search" on-tap="gotoposition"></paper-icon-button>
+   </paper-input>    
   </div>
 </des-card-help>
 
@@ -32306,6 +32309,11 @@ require(['GlobWeb'], function (GlobWeb)
 <script>
       Polymer({
       is: "des-footprint-help",
+      checkForEnter: function (e) {
+                if (e.keyCode === 13) {
+                    this.gotoposition();
+                }
+            },
       gotoposition: function(){
       var position = document.getElementById("zoomto").value.split(","); 
       var ra1 = parseFloat(position[0]);

@@ -33,7 +33,8 @@
     }
 
   .input_position{
-    max-width: 30px;
+    max-width: 20px;
+    width: 20px;
   }
       paper-icon-item {
         --paper-item-disabled-color: black;
@@ -75,12 +76,10 @@
     <paper-checkbox class="sva1" id="check_sv" checked on-change="display_sv"></paper-checkbox>  
     </paper-item>
   <hr class="des-hr">
-    <paper-item >
-    <paper-item-body>
-   <paper-input  class="input_position" id="zoomto" label="Position (ra,dec)"></paper-input>    
-    </paper-item-body>
-    <paper-icon-button icon="search" on-tap="gotoposition"></paper-icon-button>
-    </paper-item>
+   <paper-input  on-keydown="checkForEnter" class="input_position" id="zoomto" label="Position (ra,dec)">
+   
+    <paper-icon-button suffix icon="search" on-tap="gotoposition"></paper-icon-button>
+   </paper-input>    
   </div>
 </des-card-help>
 
@@ -90,6 +89,11 @@
 <script>
       Polymer({
       is: "des-footprint-help",
+      checkForEnter: function (e) {
+                if (e.keyCode === 13) {
+                    this.gotoposition();
+                }
+            },
       gotoposition: function(){
       var position = document.getElementById("zoomto").value.split(","); 
       var ra1 = parseFloat(position[0]);
