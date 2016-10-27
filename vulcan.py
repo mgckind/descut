@@ -65,12 +65,14 @@ if __name__ == "__main__":
         minimize()
         replacein('templates/index.html')
         replacein('templates/login.html')
+        replacein('templates/footprint.html')
         changeports('build')
         
 
     if args.dev:
         replaceout('templates/index.html')
         replaceout('templates/login.html')
+        replaceout('templates/footprint.html')
         changeports('dev')
 
 
