@@ -226,6 +226,56 @@ def getList(df_pos, options, bands, noBlacklist):
 
     return return_value
 
+@celery.task
+def getList2(noBlacklist, args_dict):
+
+    frames = []
+    mu.select_collection(noBlacklist)
+    final_out = io.StringIO()
+
+    if 'bands' in args_dict:
+        bands = args_dict['bands'].split(',')
+    else:
+        bands = ['g', 'r', 'i', 'z', 'Y']
+
+    if 'df_pos' in args_dict:
+        df_pos = args_dict['df_pos']
+        for i in range(len(df_pos)):
+            frame = mu.query_to_pandas(df_pos['RA'][i],df_pos['DEC'][i], bands)
+            frames.append(frame)
+            df_result = pd.concat(frames)
+        bands = None
+    elif 'expnum' in args_dict:
+        df_result = mu.query_by_exps(args_dict['expnum'])
+        args_dict.pop('expnum')
+    elif 'night' in args_dict:
+        df_result = mu.query_by_night(args_dict['night'])
+        args_dict.pop('night')
+    else:
+        return 'Error'
+    #check for options
+    if 'ccdnum' in args_dict:
+        ccdnum = args_dict['ccdnum']
+        df_result = df_result[df_result['CCDNUM'].isin(ccdnum)]
+
+    if 'expnum' in args_dict:
+            expnum = args_dict['expnum']
+            df_result = df_result[df_result['EXPNUM'].isin(expnum)]
+
+    if 'night' in args_dict:
+        nite = args_dict['night']
+        df_result = df_result[df_result['NITE'].isin(nite)]
+    
+    if bands is not None:
+        df_result = df_result[df_result['BAND'].isin(bands)]
+
+    df_result.to_json(final_out, orient='records')
+    return_value = final_out.getvalue()
+    final_out.close()
+    # result_dict = df_result.to_dict(orient='records')
+
+    # return json.dumps(result_dict)
+    return return_value
 
 @celery.task
 def sendjob(user,folder,jobid,xs,ys):
