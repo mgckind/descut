@@ -1,6 +1,6 @@
 """descut version"""
 
-version_tag = (1, 1, 2, 'dev-a566bd4')
+version_tag = (1, 1, 2, 'dev-cf018e2')
 __version__ = '.'.join(map(str, version_tag[:3]))
 
 if len(version_tag) > 3:
