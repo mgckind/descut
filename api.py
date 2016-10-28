@@ -13,7 +13,6 @@ import sqlite3 as lite
 import sys
 import datetime as dt
 from celery.result import AsyncResult
-from celery.result import EagerResult
 from celery.task.control import revoke
 from expiringdict import ExpiringDict
 import binascii
@@ -532,7 +531,7 @@ class MongoHandler(tornado.web.RequestHandler):
             qTiid = user+'_mongo_'+qTaskId+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
             print (qParam)
             try:
-                dtasks.getList2.apply_async(args=[noBlacklist, qParam], task_id=qTiid)
+                dtasks.getList.apply_async(args=[noBlacklist, qParam], task_id=qTiid)
             except Exception as e:
                 response['status']='error'
                 response['message']=str(e)

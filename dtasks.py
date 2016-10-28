@@ -190,7 +190,7 @@ def send_note(user, jobid, toemail):
     return "Email Sent to %s" % toemail
 
 @celery.task
-def getList2(noBlacklist, args_dict):
+def getList(noBlacklist, args_dict):
 
     frames = []
     mu.select_collection(noBlacklist)
