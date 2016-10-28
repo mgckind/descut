@@ -55,6 +55,7 @@ def query_to_pandas(ra, dec, bands):
 	#if no exposures left after mask, then return
 	if (len(query_df)<1):
 		return query_df
+
 	#mask out images with bands not needed 
 	band_mask = query_df['BAND'].isin(bands)
 	query_df = query_df[band_mask]
@@ -69,7 +70,30 @@ def query_to_pandas(ra, dec, bands):
 
 	return query_df
 
+def query_by_night(nights):
+	print(nights)
+	df_list = []
+	nights = [int(nite) for nite in nights]
+	for nite in nights:
+		q_cur = coll.find({'NITE':nite},{'_id': 0, 'loc': 0, 'loc_360': 0})
+		cur_json = dumps(q_cur)
+		q_df = pd.read_json(cur_json, orient='records')
+		df_list.append(q_df)
+	df_final = pd.concat(df_list)
+	
+	return df_final
 
+def query_by_exps(exps):
+	df_list = []
+	expnums = [int(exp) for exp in exps]
+	for expnum in expnums:
+		q_cur = coll.find({'EXPNUM':expnum},{'_id': 0, 'loc': 0, 'loc_360': 0})
+		cur_json = dumps(q_cur)
+		q_df = pd.read_json(cur_json, orient='records')
+		df_list.append(q_df)
+
+	df_final = pd.concat(df_list)
+	return df_final
 
 def setup():
 

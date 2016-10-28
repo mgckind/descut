@@ -419,7 +419,7 @@ class MongoHandler(tornado.web.RequestHandler):
 
         arguments = { k.lower(): self.get_argument(k) for k in self.request.arguments }
         response = {'status' : 'error'}
-        options = {}
+        qParam = {}
 
         if 'token' in arguments:
             auths = tokens.get(arguments['token'])
@@ -436,34 +436,56 @@ class MongoHandler(tornado.web.RequestHandler):
             response['message'] = 'Need a token to generate a request'
 
         if response['status'] == 'ok':
-            try:
-                ra = [float(i) for i in arguments['ra'].replace('[','').replace(']','').split(',')]
-                dec = [float(i) for i in arguments['dec'].replace('[','').replace(']','').split(',')]
-                # stype = "manual"
-                if len(ra) != len(dec):
-                    self.set_status(400)
-                    response['status']='error'
-                    response['message'] = 'RA and DEC arrays must have same dimensions'
-            except:
-                self.set_status(400)
-                response['status']='error'
-                response['message'] = 'RA and DEC arrays must have same dimensions'
-
-        if response['status'] == 'ok':
             if 'band' in arguments:
                 bands = arguments['band'].replace('[','').replace(']','').replace("'",'').replace(' ','')
                 bands_set = set(bands.lower().split(','))
                 default_set = set(['g', 'r', 'i', 'z', 'y'])
                 if bands_set.issubset(default_set):
                     bands = bands.lower().replace('y', 'Y')
+                    qParam['bands'] = bands
                 else:
                     self.set_status(400)
                     response['status']='error'
-                    response['message'] = "Optional band must be one of g, r, i, z, Y"                    
-            else:
-                bands = 'all' 
 
-        #options
+        if response['status'] == 'ok':
+            if 'ra' in arguments and 'dec' in arguments:
+                try:
+                    ra = [float(i) for i in arguments['ra'].replace('[','').replace(']','').split(',')]
+                    dec = [float(i) for i in arguments['dec'].replace('[','').replace(']','').split(',')]
+                    df_pos = pd.DataFrame(np.array([ra,dec]).T,columns=['RA','DEC'])
+                    qParam['df_pos'] = df_pos
+                    # stype = "manual"
+                    if len(ra) != len(dec):
+                        self.set_status(400)
+                        response['status']='error'
+                        response['message'] = 'RA and DEC arrays must have same dimensions'
+                except:
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = 'RA and DEC arrays must have same dimensions'
+            elif 'expnum' in arguments:
+                try:
+                    expnum = [int(i) for i in arguments['expnum'].replace('[','').replace(']','').split(',')]
+                    qParam['expnum'] = expnum
+                    arguments.pop('expnum')
+                except:
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = "Invalid expnum!"  
+            elif 'nite' in arguments:
+                try:
+                    night = [int(i) for i in arguments['nite'].replace('[','').replace(']','').split(',')] 
+                    qParam['night'] = night
+                    arguments.pop('nite')
+                except:
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = "Invalid nite!" 
+            else:
+                response['status'] = 'error'
+                response['message'] = 'Missing input: at least one of expnum, nite or (ra, dec) has to be specified for the query!'
+
+        #extra options
         if response['status'] == 'ok':
 
             if 'no_blacklist' in arguments:
@@ -474,61 +496,52 @@ class MongoHandler(tornado.web.RequestHandler):
             if 'ccdnum' in arguments:
                 try:
                     ccdnum = [int(i) for i in arguments['ccdnum'].replace('[','').replace(']','').split(',')]
-                    options['ccdnum'] = ccdnum
+                    qParam['ccdnum'] = ccdnum
                 except:
                     self.set_status(400)
                     response['status']='error'
                     response['message'] = "Invalid ccdnum!"  
 
+            if 'nite' in arguments:
+                try:
+                    night = [int(i) for i in arguments['nite'].replace('[','').replace(']','').split(',')] 
+                    qParam['night'] = night
+                except:
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = "Invalid nite!" 
+            
             if 'expnum' in arguments:
                 try:
                     expnum = [int(i) for i in arguments['expnum'].replace('[','').replace(']','').split(',')]
-                    options['expnum'] = expnum
+                    qParam['expnum'] = expnum
                 except:
                     self.set_status(400)
                     response['status']='error'
                     response['message'] = "Invalid expnum!"  
 
-
-            if 'nite' in arguments:
-                try:
-                    nite = [int(i) for i in arguments['nite'].replace('[','').replace(']','').split(',')] 
-                    options['nite'] = nite
-                except:
-                    self.set_status(400)
-                    response['status']='error'
-                    response['message'] = "Invalid nite!" 
+            
         
         if response['status'] == 'ok':
 
             #init jobid
             qTaskId = str(uuid.uuid4())
             # put ra, dec into a datafram
-            df_pos = pd.DataFrame(np.array([ra,dec]).T,columns=['RA','DEC'])
             now = datetime.datetime.now()
             qTiid = user+'_mongo_'+qTaskId+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
-            print (options)
+            print (qParam)
             try:
-                dtasks.getList.apply_async(args=[df_pos, options, bands, noBlacklist], task_id=qTiid)
+                dtasks.getList.apply_async(args=[noBlacklist, qParam], task_id=qTiid)
             except Exception as e:
                 response['status']='error'
                 response['message']=str(e)
             else:
                 res = AsyncResult(qTiid)
-                result = res.wait(5)
-                # rt_str = io.StringIO(result)
-                # df_rt = pd.read_csv(rt_str, usecols=['RA_CENT', 'DEC_CENT', 'FILENAME', 'BAND','EXPNUM', 'NITE','PFW_ATTEMPT_ID', 'CCDNUM', 'FULL_PATH'])
-                # rt_str.close()
-
+                result = res.wait(10)
                 df_rt = pd.read_json(result)
                 df_rt = df_rt[['RA_CENT', 'DEC_CENT', 'FILENAME', 'BAND','EXPNUM', 'NITE','PFW_ATTEMPT_ID', 'CCDNUM', 'FULL_PATH']]
-
-                finalIO = io.StringIO()
-                df_rt.to_json(finalIO, orient='records')
-                list_of_exp = ast.literal_eval(finalIO.getvalue().replace('\/', '/'))
-                response['list']= list_of_exp
+                response['list']= df_rt.to_dict(orient='records')
                 self.set_status(200)
-                finalIO.close()
 
         self.write(response)
         self.flush()

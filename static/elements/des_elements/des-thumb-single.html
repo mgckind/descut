@@ -48,7 +48,8 @@
     paper-dialog {
       position: fixed;
       max-width: 100%;
-      top: 16px;
+      top: 45px;
+      left: 220px;
     }
 
     paper-dialog #buttons{
@@ -92,10 +93,10 @@
       <paper-spinner id="{{_returnNameSpin(imtitle)}}" class='big'></paper-spinner> 
       <img id='thumb_demo' src="{{demoPath}}" height="200px" width="200px" /> 
       <!-- <x-gif id = 'xgif' src="" fill n-times='0.000001'></x-gif> -->
-      <div style="position:absolute; right:10px; bottom:10px"> 
+      <!-- <div style="position:absolute; right:10px; bottom:10px"> 
       <paper-icon-button id="gif_control" icon="star-half" class="mycolors" on-click="blink">
       </paper-icon-button>
-      </div> 
+      </div>  -->
       <div style="position:absolute; left:10px; bottom:10px"> 
       <paper-icon-button id="thumb_down" icon="file-download" class="mycolors" on-click='downloadObj'>
       </paper-icon-button>
@@ -104,7 +105,7 @@
       </div>
       </paper-material>
       
-      <paper-dialog  class="centered" id="{{imtitle}}" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <paper-dialog id="{{imtitle}}" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2 class='header' align="center">{{dialog_title}}</h2>
 
       <paper-dialog-scrollable>
