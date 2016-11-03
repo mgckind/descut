@@ -71,7 +71,6 @@ def query_to_pandas(ra, dec, bands):
 	return query_df
 
 def query_by_night(nights):
-	print(nights)
 	df_list = []
 	nights = [int(nite) for nite in nights]
 	for nite in nights:

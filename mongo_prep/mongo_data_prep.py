@@ -51,3 +51,5 @@ for doc in big_cur:
 #create the index and set the min and max bounds 
 coll.create_index([('loc', pmg.GEO2D)], name = 'image_cent', min = -90, max = 360)
 coll.create_index([('loc_360', pmg.GEO2D)], name = 'image_cent_360', min = -90, max = 400)
+coll.create_index([('EXPNUM', pmg.ASCENDING)], name = 'expnum')
+coll.create_index([('NITE', pmg.ASCENDING)], name = 'nite')
