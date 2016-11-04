@@ -529,7 +529,7 @@ class MongoHandler(tornado.web.RequestHandler):
             # put ra, dec into a datafram
             now = datetime.datetime.now()
             qTiid = user+'_mongo_'+qTaskId+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
-            print (qParam)
+            # print (qParam)
             try:
                 dtasks.getList.apply_async(args=[noBlacklist, qParam], task_id=qTiid)
             except Exception as e:
