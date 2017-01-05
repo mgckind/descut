@@ -18,7 +18,7 @@
   .temp {
     border: 1px solid grey;
   }
-  
+
     </style>
 
     <section>
@@ -49,6 +49,9 @@
     <paper-listbox id="coaddTag" selected = "0" class="dropdown-content">
     <paper-item value="Y3A1_COADD">Y3A1_COADD</paper-item>
     <paper-item value="Y1A1_COADD">Y1A1_COADD</paper-item>
+    <paper-item value="Y1A1_COADD_D04">Y1A1_COADD_D04</paper-item>
+    <paper-item value="Y1A1_COADD_D10">Y1A1_COADD_D10</paper-item>
+    <paper-item value="Y1A1_COADD_DFULL">Y1A1_COADD_DFULL</paper-item>
     <paper-item value="SVA1_COADD">SVA1_COADD</paper-item>
   </paper-listbox>
 </paper-dropdown-menu>
@@ -60,7 +63,7 @@
        <paper-input  id="validemail" name="email" label="Email" value="[[email]]">
     </paper-input>
     </div>
-    <hr> 
+    <hr>
     <div class="horizontal layout around-justified" >
     <paper-button raised  class="desbutton"  id="submitJobButton" disabled on-tap="_submitJob">
     <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Submit Job </paper-button>
@@ -80,7 +83,7 @@
       </div>
       <paper-card>
     </paper-dialog>
-    
+
     </section>
 </template>
 
@@ -174,7 +177,7 @@
         formdata.append('values',document.getElementById("enteredPositions").value);
         formdata.append('tag',document.getElementById("coaddTag").selectedItem.getAttribute("value"));
         $.ajax({
-             url: '/readfile/coadd/',  
+             url: '/readfile/coadd/',
              type: 'POST',
              //beforeSend: this.beforeSendHandler,
              success: this.completeHandler,
