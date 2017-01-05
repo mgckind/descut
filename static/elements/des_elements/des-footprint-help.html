@@ -11,7 +11,7 @@
     --paper-checkbox-label-color: #4C72B0;
 
     }
-    
+
     paper-checkbox.y1a1 {
 
     --paper-checkbox-checked-color: #55A868;
@@ -21,7 +21,7 @@
     --paper-checkbox-label-color: #55A868;
 
     }
-    
+
     paper-checkbox.sva1 {
 
     --paper-checkbox-checked-color: #C44E52;
@@ -29,6 +29,16 @@
     --paper-checkbox-unchecked-color: #C44E52;
     --paper-checkbox-unchecked-ink-color: #C44E52;
     --paper-checkbox-label-color: #C44E52;
+
+    }
+
+    paper-checkbox.y1a1d {
+
+    --paper-checkbox-checked-color: #ff8800;
+    --paper-checkbox-checked-ink-color: #ff8800;
+    --paper-checkbox-unchecked-color: #ff8800;
+    --paper-checkbox-unchecked-ink-color: #ff8800;
+    --paper-checkbox-label-color: #ff8800;
 
     }
 
@@ -61,25 +71,31 @@
     <paper-item-body>
      <span style="color:  #4C72B0;">Y3A1 Coadd</span>
     </paper-item-body>
-    <paper-checkbox class = "y3a1" id="check_y3" checked on-change="display_y3"></paper-checkbox>  
+    <paper-checkbox class = "y3a1" id="check_y3" checked on-change="display_y3"></paper-checkbox>
     </paper-item>
     <paper-item >
     <paper-item-body>
     <span style="color: #55A868;">Y1A1 Coadd</span>
     </paper-item-body>
-    <paper-checkbox class="y1a1" id="check_y1" checked on-change="display_y1"></paper-checkbox>  
+    <paper-checkbox class="y1a1" id="check_y1" checked on-change="display_y1"></paper-checkbox>
+    </paper-item>
+    <paper-item >
+    <paper-item-body>
+    <span style="color: #ff8800;">Y1A1_D Coadd</span>
+    </paper-item-body>
+    <paper-checkbox class="y1a1d" id="check_y1d" checked on-change="display_y1d"></paper-checkbox>
     </paper-item>
     <paper-item >
     <paper-item-body>
      <span style="color:  #C44E52;">SVA1 Coadd</span>
     </paper-item-body>
-    <paper-checkbox class="sva1" id="check_sv" checked on-change="display_sv"></paper-checkbox>  
+    <paper-checkbox class="sva1" id="check_sv" checked on-change="display_sv"></paper-checkbox>
     </paper-item>
   <hr class="des-hr">
    <paper-input  on-keydown="checkForEnter" class="input_position" id="zoomto" label="Position (ra,dec)">
-   
+
     <paper-icon-button suffix icon="search" on-tap="gotoposition"></paper-icon-button>
-   </paper-input>    
+   </paper-input>
   </div>
 </des-card-help>
 
@@ -95,7 +111,7 @@
                 }
             },
       gotoposition: function(){
-      var position = document.getElementById("zoomto").value.split(","); 
+      var position = document.getElementById("zoomto").value.split(",");
       var ra1 = parseFloat(position[0]);
       var dec1 = parseFloat(position[1]);
       if (ra1 > 180.) {
@@ -111,6 +127,16 @@
          }
          else{
           y1_tiles._visible = false;
+         }
+        globe.refresh();
+      },
+      display_y1d: function(){
+      var checky1d = document.getElementById("check_y1d");
+        if (checky1d.checked) {
+         y1d_tiles._visible = true;
+         }
+         else{
+          y1d_tiles._visible = false;
          }
         globe.refresh();
       },

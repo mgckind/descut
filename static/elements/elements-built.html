@@ -30545,7 +30545,7 @@ background-color:black;
   .temp {
     border: 1px solid grey;
   }
-  
+
     </style>
 
     <section>
@@ -30576,6 +30576,9 @@ background-color:black;
     <paper-listbox id="coaddTag" selected="0" class="dropdown-content">
     <paper-item value="Y3A1_COADD">Y3A1_COADD</paper-item>
     <paper-item value="Y1A1_COADD">Y1A1_COADD</paper-item>
+    <paper-item value="Y1A1_COADD_D04">Y1A1_COADD_D04</paper-item>
+    <paper-item value="Y1A1_COADD_D10">Y1A1_COADD_D10</paper-item>
+    <paper-item value="Y1A1_COADD_DFULL">Y1A1_COADD_DFULL</paper-item>
     <paper-item value="SVA1_COADD">SVA1_COADD</paper-item>
   </paper-listbox>
 </paper-dropdown-menu>
@@ -30587,7 +30590,7 @@ background-color:black;
        <paper-input id="validemail" name="email" label="Email" value="[[email]]">
     </paper-input>
     </div>
-    <hr> 
+    <hr>
     <div class="horizontal layout around-justified">
     <paper-button raised="" class="desbutton" id="submitJobButton" disabled="" on-tap="_submitJob">
     <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Submit Job </paper-button>
@@ -30607,7 +30610,7 @@ background-color:black;
       </div>
       <paper-card>
     </paper-card></paper-card></paper-dialog>
-    
+
     </section>
 </template>
 
@@ -30701,7 +30704,7 @@ background-color:black;
         formdata.append('values',document.getElementById("enteredPositions").value);
         formdata.append('tag',document.getElementById("coaddTag").selectedItem.getAttribute("value"));
         $.ajax({
-             url: '/readfile/coadd/',  
+             url: '/readfile/coadd/',
              type: 'POST',
              //beforeSend: this.beforeSendHandler,
              success: this.completeHandler,
@@ -31918,7 +31921,7 @@ background-color:black;
 <dom-module id="des-footprint" assetpath="des_elements/">
 <template>
     <style include="shared-styles">
-  
+
 
 .tiletitle {
   visibility: hidden;
@@ -31943,7 +31946,7 @@ background-color:black;
     <des-card heading="[[header]]">
     <div class="card-content">
     <div id="tiletitle" class="tiletitle"> Tile: </div>
-<canvas id="GlobWebCanvas" class="box" width="600px" height="600px"></canvas> 
+<canvas id="GlobWebCanvas" class="box" width="600px" height="600px"></canvas>
     </div>
     </des-card>
     </section>
@@ -31953,16 +31956,16 @@ background-color:black;
 
 <script>
 
- function loadTiles(filename,color,callback) {   
+ function loadTiles(filename,color,callback) {
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', filename, true); 
+    xobj.open('GET', filename, true);
     xobj.onreadystatechange = function () {
     if (xobj.readyState == 4 && xobj.status == "200") {
     callback(color,xobj.responseText);
         }
     };
-    xobj.send(null);  
+    xobj.send(null);
  }
 
  function checkRA(ra) {
@@ -31971,7 +31974,7 @@ background-color:black;
        };
      return ra;
  }
- 
+
  function restoreRA(ra) {
      if (ra < 0) {
         ra = ra + 360.;
@@ -32006,19 +32009,19 @@ background-color:black;
        ready: function(){
 require.config({
   baseUrl: '/static/scripts/src/'});
-require(['GlobWeb'], function (GlobWeb) 
-{	
+require(['GlobWeb'], function (GlobWeb)
+{
 	var cvs = document.getElementById("GlobWebCanvas");
 	//cvs.width = window.innerWidth;
 	//cvs.height = window.innerHeight;
-	var globe = new GlobWeb.Globe( { canvas: cvs, 
+	var globe = new GlobWeb.Globe( { canvas: cvs,
 			lighting: false,
 			tileErrorTreshold: 3,
             backgroundColor : "#000",
 			continuousRendering: false,
             defaultColor: [220.,220.,220.,255.]} );
 	    var navigation = new GlobWeb.Navigation(globe, { inertia: false, minDistance: 100000 });
-        var canvas = navigation.renderContext.canvas; 
+        var canvas = navigation.renderContext.canvas;
           loadTiles('/static/tiles/grid.json',[0.0,0.0,0.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
@@ -32031,7 +32034,7 @@ require(['GlobWeb'], function (GlobWeb)
 		vectorLayer.opacity(0.5);
         globe.addLayer(vectorLayer);
         });
-    
+
     loadTiles('/static/tiles/plane.json',[1.0,0.0,0.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
@@ -32090,7 +32093,21 @@ require(['GlobWeb'], function (GlobWeb)
         globe.addLayer(vectorLayer);
         window.y1_tiles = vectorLayer;
         });
-        
+
+        loadTiles('/static/tiles/y1a1_d_tiles.json',[0.0,0.0,1.0,1.0],function(mycolor,response){
+	      var vectorLayer = new GlobWeb.VectorLayer({
+		  style : new GlobWeb.FeatureStyle({
+              strokeColor : [1.,0.53333333,0,1.0],
+              strokeWidth: 1.0,
+			  fill: false,
+              zIndex: 20,
+			  })
+		  });
+		vectorLayer.addFeatureCollection(JSON.parse(response));
+		vectorLayer.visible(true);
+        globe.addLayer(vectorLayer);
+        window.y1d_tiles = vectorLayer;
+        });
         loadTiles('/static/tiles/sva1_tiles.json',[1.0,0.0,1.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
@@ -32106,7 +32123,7 @@ require(['GlobWeb'], function (GlobWeb)
         globe.addLayer(vectorLayer);
         window.sv_tiles = vectorLayer;
         });
-        
+
         loadTiles('/static/tiles/y3a1_tiles.json',[0.0,1.0,1.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
@@ -32167,7 +32184,7 @@ require(['GlobWeb'], function (GlobWeb)
             var max_d = Number.POSITIVE_INFINITY;
             var tile = -1
 			if (geo)
-			{   
+			{
                 for (i=0; i < all_tiles.features.length-1; i++){
                     var ra = checkRA(all_tiles.features[i].properties.RA_C);
                     var dec = all_tiles.features[i].properties.DEC_C;
@@ -32211,7 +32228,7 @@ require(['GlobWeb'], function (GlobWeb)
     canvas.addEventListener("dblclick", _handleMouseDblClick);
     window.globe = globe;
     window.navigation = navigation;
-			
+
 });
        },
     });
@@ -32232,7 +32249,7 @@ require(['GlobWeb'], function (GlobWeb)
     --paper-checkbox-label-color: #4C72B0;
 
     }
-    
+
     paper-checkbox.y1a1 {
 
     --paper-checkbox-checked-color: #55A868;
@@ -32242,7 +32259,7 @@ require(['GlobWeb'], function (GlobWeb)
     --paper-checkbox-label-color: #55A868;
 
     }
-    
+
     paper-checkbox.sva1 {
 
     --paper-checkbox-checked-color: #C44E52;
@@ -32250,6 +32267,16 @@ require(['GlobWeb'], function (GlobWeb)
     --paper-checkbox-unchecked-color: #C44E52;
     --paper-checkbox-unchecked-ink-color: #C44E52;
     --paper-checkbox-label-color: #C44E52;
+
+    }
+
+    paper-checkbox.y1a1d {
+
+    --paper-checkbox-checked-color: #ff8800;
+    --paper-checkbox-checked-ink-color: #ff8800;
+    --paper-checkbox-unchecked-color: #ff8800;
+    --paper-checkbox-unchecked-ink-color: #ff8800;
+    --paper-checkbox-label-color: #ff8800;
 
     }
 
@@ -32282,25 +32309,31 @@ require(['GlobWeb'], function (GlobWeb)
     <paper-item-body>
      <span style="color:  #4C72B0;">Y3A1 Coadd</span>
     </paper-item-body>
-    <paper-checkbox class="y3a1" id="check_y3" checked="" on-change="display_y3"></paper-checkbox>  
+    <paper-checkbox class="y3a1" id="check_y3" checked="" on-change="display_y3"></paper-checkbox>
     </paper-item>
     <paper-item>
     <paper-item-body>
     <span style="color: #55A868;">Y1A1 Coadd</span>
     </paper-item-body>
-    <paper-checkbox class="y1a1" id="check_y1" checked="" on-change="display_y1"></paper-checkbox>  
+    <paper-checkbox class="y1a1" id="check_y1" checked="" on-change="display_y1"></paper-checkbox>
+    </paper-item>
+    <paper-item>
+    <paper-item-body>
+    <span style="color: #ff8800;">Y1A1_D Coadd</span>
+    </paper-item-body>
+    <paper-checkbox class="y1a1d" id="check_y1d" checked="" on-change="display_y1d"></paper-checkbox>
     </paper-item>
     <paper-item>
     <paper-item-body>
      <span style="color:  #C44E52;">SVA1 Coadd</span>
     </paper-item-body>
-    <paper-checkbox class="sva1" id="check_sv" checked="" on-change="display_sv"></paper-checkbox>  
+    <paper-checkbox class="sva1" id="check_sv" checked="" on-change="display_sv"></paper-checkbox>
     </paper-item>
   <hr class="des-hr">
    <paper-input on-keydown="checkForEnter" class="input_position" id="zoomto" label="Position (ra,dec)">
-   
+
     <paper-icon-button suffix="" icon="search" on-tap="gotoposition"></paper-icon-button>
-   </paper-input>    
+   </paper-input>
   </div>
 </des-card-help>
 
@@ -32316,7 +32349,7 @@ require(['GlobWeb'], function (GlobWeb)
                 }
             },
       gotoposition: function(){
-      var position = document.getElementById("zoomto").value.split(","); 
+      var position = document.getElementById("zoomto").value.split(",");
       var ra1 = parseFloat(position[0]);
       var dec1 = parseFloat(position[1]);
       if (ra1 > 180.) {
@@ -32332,6 +32365,16 @@ require(['GlobWeb'], function (GlobWeb)
          }
          else{
           y1_tiles._visible = false;
+         }
+        globe.refresh();
+      },
+      display_y1d: function(){
+      var checky1d = document.getElementById("check_y1d");
+        if (checky1d.checked) {
+         y1d_tiles._visible = true;
+         }
+         else{
+          y1d_tiles._visible = false;
          }
         globe.refresh();
       },

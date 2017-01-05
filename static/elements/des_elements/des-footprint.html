@@ -1,7 +1,7 @@
 <dom-module id="des-footprint">
 <template>
     <style include="shared-styles">
-  
+
 
 .tiletitle {
   visibility: hidden;
@@ -26,7 +26,7 @@
     <des-card heading=[[header]]>
     <div class="card-content">
     <div id="tiletitle" class="tiletitle"> Tile: </div>
-<canvas id="GlobWebCanvas" class="box" width="600px" height="600px"></canvas> 
+<canvas id="GlobWebCanvas" class="box" width="600px" height="600px"></canvas>
     </div>
     </des-card>
     </section>
@@ -36,16 +36,16 @@
 
 <script>
 
- function loadTiles(filename,color,callback) {   
+ function loadTiles(filename,color,callback) {
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', filename, true); 
+    xobj.open('GET', filename, true);
     xobj.onreadystatechange = function () {
     if (xobj.readyState == 4 && xobj.status == "200") {
     callback(color,xobj.responseText);
         }
     };
-    xobj.send(null);  
+    xobj.send(null);
  }
 
  function checkRA(ra) {
@@ -54,7 +54,7 @@
        };
      return ra;
  }
- 
+
  function restoreRA(ra) {
      if (ra < 0) {
         ra = ra + 360.;
@@ -89,19 +89,19 @@
        ready: function(){
 require.config({
   baseUrl: '/static/scripts/src/'});
-require(['GlobWeb'], function (GlobWeb) 
-{	
+require(['GlobWeb'], function (GlobWeb)
+{
 	var cvs = document.getElementById("GlobWebCanvas");
 	//cvs.width = window.innerWidth;
 	//cvs.height = window.innerHeight;
-	var globe = new GlobWeb.Globe( { canvas: cvs, 
+	var globe = new GlobWeb.Globe( { canvas: cvs,
 			lighting: false,
 			tileErrorTreshold: 3,
             backgroundColor : "#000",
 			continuousRendering: false,
             defaultColor: [220.,220.,220.,255.]} );
 	    var navigation = new GlobWeb.Navigation(globe, { inertia: false, minDistance: 100000 });
-        var canvas = navigation.renderContext.canvas; 
+        var canvas = navigation.renderContext.canvas;
           loadTiles('/static/tiles/grid.json',[0.0,0.0,0.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
@@ -114,7 +114,7 @@ require(['GlobWeb'], function (GlobWeb)
 		vectorLayer.opacity(0.5);
         globe.addLayer(vectorLayer);
         });
-    
+
     loadTiles('/static/tiles/plane.json',[1.0,0.0,0.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
@@ -173,7 +173,21 @@ require(['GlobWeb'], function (GlobWeb)
         globe.addLayer(vectorLayer);
         window.y1_tiles = vectorLayer;
         });
-        
+
+        loadTiles('/static/tiles/y1a1_d_tiles.json',[0.0,0.0,1.0,1.0],function(mycolor,response){
+	      var vectorLayer = new GlobWeb.VectorLayer({
+		  style : new GlobWeb.FeatureStyle({
+              strokeColor : [1.,0.53333333,0,1.0],
+              strokeWidth: 1.0,
+			  fill: false,
+              zIndex: 20,
+			  })
+		  });
+		vectorLayer.addFeatureCollection(JSON.parse(response));
+		vectorLayer.visible(true);
+        globe.addLayer(vectorLayer);
+        window.y1d_tiles = vectorLayer;
+        });
         loadTiles('/static/tiles/sva1_tiles.json',[1.0,0.0,1.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
@@ -189,7 +203,7 @@ require(['GlobWeb'], function (GlobWeb)
         globe.addLayer(vectorLayer);
         window.sv_tiles = vectorLayer;
         });
-        
+
         loadTiles('/static/tiles/y3a1_tiles.json',[0.0,1.0,1.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({
@@ -250,7 +264,7 @@ require(['GlobWeb'], function (GlobWeb)
             var max_d = Number.POSITIVE_INFINITY;
             var tile = -1
 			if (geo)
-			{   
+			{
                 for (i=0; i < all_tiles.features.length-1; i++){
                     var ra = checkRA(all_tiles.features[i].properties.RA_C);
                     var dec = all_tiles.features[i].properties.DEC_C;
@@ -294,7 +308,7 @@ require(['GlobWeb'], function (GlobWeb)
     canvas.addEventListener("dblclick", _handleMouseDblClick);
     window.globe = globe;
     window.navigation = navigation;
-			
+
 });
        },
     });
