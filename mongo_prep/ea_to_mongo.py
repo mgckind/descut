@@ -13,6 +13,7 @@ import pymongo
 
 connection = ea.connect()
 cursor = connection.cursor()
+# tag names or tables names in DES DB, need to be changed for different tag
 ops_proctag = 'Y3A1_FINALCUT'
 full_table = 'descut_full'
 clean_table = 'descut_clean'
@@ -82,7 +83,7 @@ df_clean = connection.query_to_pandas(query_get.format(clean_table))
 full_list = df_full.to_dict(orient='records')
 clean_list = df_clean.to_dict(orient='records')
 
-# init connection to mongo and specify collection name 
+# init connection to mongo and specify collection name (need to match tag name)
 db = MongoClient().descut
 coll_full = 'tag'
 coll_clean = 'tag_clean'

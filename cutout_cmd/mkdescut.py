@@ -369,6 +369,7 @@ def to_table(df_w_path, ra, dec, thumbs_folder):
 
 	output.close()
 def task_try (series):
+	'''wrapper for making cutouts in parallel, called in fiscutter() '''
 	data = series[1]
 	ra = data.loc['ra']
 	dec = data.loc['dec']

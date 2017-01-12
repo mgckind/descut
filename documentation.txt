@@ -1,0 +1,36 @@
+## File Directories
+cutout_cmd/ # home folder for single-epoch tool
+	astrometry.py # set of functions to make astrometry convertions
+	f2n.py # from fits to pngs
+	mkdescut.py # python command-line script to make image cutouts
+	mongo_util.py # library of mongodb utility functions (for querys)
+
+mongo_prep/ # automatic data loading from Oracle database to MongoDB
+	ea_to_mongo.py # change the tag names in the script and load new data to mongo
+	mongo_data_prep.py # give database name and collection name to create indexes (collection name is usually the tag name)
+
+static/ # web-components folder 
+	bower_components/ # polymer elements folder
+	elements/des_elements/ # des customized elements folder
+		des-mainpages.html # master element, containing all page elements
+		des-home.html # first page element 
+		des-login.html # login card element
+		des-position-single.html # elemment for manually entering RA, DEC (single epoch)
+		des-result-single.html # page element contains image cutout thumbs for each object
+		des-thumb-single.html # image cutout thumb element of objects (rendered in des-result-single)
+		des-thumb-band.html # thumb element for individual filters (rendered in des-thumb-single)
+
+
+## Description for classes and functions in server files
+dtasks.py: # Celery tasks
+	desthumb #create coadd cutouts
+	mkcut #create single-epoch cutouts
+	getList #query the running mongo for file names only (not making any cutouts)
+
+api.py: # handling REST API
+	TokenHandler # create and validate tokens
+	JobHandler # handling job requests 
+	MongoHandler # handling requests for file names only (direct mongo)
+	ApiHandler # Check job status
+	LogHandler # return log with given job id
+	CancelJobHandler # cancel jobs 

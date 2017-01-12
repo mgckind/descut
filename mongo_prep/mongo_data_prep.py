@@ -9,8 +9,8 @@ from bson.json_util import dumps
 import sys
 
 client = MongoClient(port = 27017)
-dbName = sys.argv[1]
-collName = sys.argv[2]
+dbName = sys.argv[1] # database name, usually descut
+collName = sys.argv[2] # collection names, match operation years (tag) and blacklist or noblacklist
 db = client[dbName]
 coll = db[collName]
 

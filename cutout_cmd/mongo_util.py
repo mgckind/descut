@@ -9,7 +9,9 @@ client = MongoClient(port=27017, host="mongodb", connect=False)
 db = client.descut
 coll = db.Y3A1_FINALCUT
 
+# need to modify this function if multiple operation years become an option
 def select_collection(noBlacklist):
+	'''switch collections, blacklist, noblacklist, other tag names'''
 	global coll
 	if noBlacklist:
 		print ('# Blacklist excluded!!')
@@ -71,6 +73,7 @@ def query_to_pandas(ra, dec, bands):
 	return query_df
 
 def query_by_night(nights):
+	"""for MongoAPI"""
 	df_list = []
 	nights = [int(nite) for nite in nights]
 	for nite in nights:
@@ -83,6 +86,7 @@ def query_by_night(nights):
 	return df_final
 
 def query_by_exps(exps):
+	"""for MongoAPI"""
 	df_list = []
 	expnums = [int(exp) for exp in exps]
 	for expnum in expnums:
@@ -95,7 +99,7 @@ def query_by_exps(exps):
 	return df_final
 
 def setup():
-
+	'''deprecated, see mongo_prep/'''
 	cursor = coll.find()
 	#create loc field for geospatial index
 	for doc in cursor:
