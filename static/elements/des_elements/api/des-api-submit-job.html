@@ -4,7 +4,7 @@
     </style>
 
 
-  
+
  <paper-card elevation="4"  class="apicard">
       <div class="api-header">Submit Job: <span class="api-subheader">Submit Job to the server and return Job Id</span></div>
     <div class="card-content">
@@ -15,13 +15,14 @@
      { <br>
     'token'     : tokeb generated  <b>REQUIRED</b> <br>
     'ra'        : string list of RA positions  <b>REQUIRED</b> <br>
-    'dec'       : string list of DEC positions <b>REQUIRED</b> <br> 
-    'job_type'  : 'coadd' or 'single' Creates cutouts from coadd images or single epoch <b>REQUIRED</b> <br>   
-    'xsize'     : xsize of cutout in arcmin, can be single number or list <b>OPTIONAL></b> (default : 1.0) <br> 
-    'ysize'     : ysize of cutout in arcmin, can be single number or list <b>OPTIONAL</b> (default : 1.0) <br> 
-    'band'      : only for 'single' job_type. List of bands for single epoch exposures 'g,r,i,z,Y' <b>OPTIONAL</b> (default : All bands) <br> 
-    'no_blacklist'     : only for 'single' job_type. 'true' or 'false' <b>OPTIONAL</b> (default : blacklist is on) <br> 
-    'list_only' : if 'true' only generate list fo files, not png and no tar.gz file for all content which is much faster <b>OPTIONAL</b> (default : 'false')  <br> 
+    'dec'       : string list of DEC positions <b>REQUIRED</b> <br>
+    'job_type'  : 'coadd' or 'single' Creates cutouts from coadd images or single epoch <b>REQUIRED</b> <br>
+    'xsize'     : xsize of cutout in arcmin, can be single number or list <b>OPTIONAL></b> (default : 1.0) <br>
+    'ysize'     : ysize of cutout in arcmin, can be single number or list <b>OPTIONAL</b> (default : 1.0) <br>
+    'tag'       : Release tag for coadd cutouts jobs <b>OPTIONAL for coadd job_type</b> (default : Y3A1_COADD) <br>
+    'band'      : only for 'single' job_type. List of bands for single epoch exposures 'g,r,i,z,Y' <b>OPTIONAL</b> (default : All bands) <br>
+    'no_blacklist'     : only for 'single' job_type. 'true' or 'false' <b>OPTIONAL</b> (default : blacklist is on) <br>
+    'list_only' : if 'true' only generate list of files, not png and no tar.gz file for all content which is much faster <b>OPTIONAL</b> (default : 'false')  <br>
     'email'     : Will send  note when job is finished to this email  <b>OPTIONAL</b> (default: no email) <br>
      }<br>
      </td></tr>
@@ -42,6 +43,7 @@ body <span style="color: #333333">=</span> {
     <span style="background-color: #fff0f0">&#39;job_type&#39;</span>     : <span style="background-color: #fff0f0">&#39;coadd&#39;</span>,        <span style="color: #888888"># required &#39;coadd&#39; or &#39;single&#39;   </span>
     <span style="background-color: #fff0f0">&#39;xsize&#39;</span>        : <span style="color: #007020">str</span>(xs),            <span style="color: #888888"># optional (default : 1.0)</span>
     <span style="background-color: #fff0f0">&#39;ysize&#39;</span>        : <span style="color: #007020">str</span>(ys),            <span style="color: #888888"># optional (default : 1.0)</span>
+    <span style="background-color: #fff0f0">&#39;tag&#39;</span>          : <span style="background-color: #fff0f0">&#39;Y3A1_COADD&#39;</span>,              <span style="color: #888888"># optional for &#39;coadd&#39; jobs (default: Y3A1_COADD, see Coadd Help page for more options)</span>
     <span style="background-color: #fff0f0">&#39;band&#39;</span>         : <span style="background-color: #fff0f0">&#39;g,r,i&#39;</span>,              <span style="color: #888888"># optional for &#39;single&#39; epochs jobs (default: all bands)</span>
     <span style="background-color: #fff0f0">&#39;no_blacklist&#39;</span> : <span style="background-color: #fff0f0">&#39;false&#39;</span>,     <span style="color: #888888">#optional for &#39;single&#39; epochs jobs (default: &#39;false&#39;). return or not blacklisted exposures</span>
     <span style="background-color: #fff0f0">&#39;list_only&#39;</span>    : <span style="background-color: #fff0f0">&#39;false&#39;</span>,           <span style="color: #888888"># optional (default : &#39;false&#39;) &#39;true&#39;: will not generate pngs (faster)</span>

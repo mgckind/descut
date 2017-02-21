@@ -100,7 +100,7 @@ class TokenHandler(tornado.web.RequestHandler):
         self.write(response)
         self.flush()
         self.finish()
-    
+
     @tornado.web.asynchronous
     def post(self):
         arguments = { k.lower(): self.get_argument(k) for k in self.request.arguments}
@@ -124,18 +124,18 @@ class TokenHandler(tornado.web.RequestHandler):
         else:
             response['message'] = 'Need username'
             self.set_status(400)
-        
+
         if response['status'] == 'ok':
             response['message'] = 'Token created, expiration time: %s' % humantime(Settings.TOKEN_TTL)
             #temp = binascii.hexlify(os.urandom(64))
             temp = hashlib.sha1(os.urandom(64)).hexdigest()
             tokens[temp] = [user,passwd]
-            response['token'] = temp 
+            response['token'] = temp
             self.set_status(200)
         self.write(response)
         self.flush()
         self.finish()
-       
+
 
 
 class JobHandler(tornado.web.RequestHandler):
@@ -188,6 +188,18 @@ class JobHandler(tornado.web.RequestHandler):
                 pass
         # validate bands and convert the correct format
         if response['status'] == 'ok':
+            tags = ('y3a1_coadd','y1a1_coadd','y1a1_coadd_d04','y1a1_coadd_d10','y1a1_coadd_dfull','sva1_coadd')
+            if 'tag' in arguments:
+                try:
+                    rtag = arguments['tag'].lower()
+                    if rtag not in tags: raise
+                except:
+                    self.set_status(400)
+                    response['status']='error'
+                    response['message'] = "Need to specify tag from " +  ",".join(tags)
+            else:
+                rtag = 'y3a1_coadd'
+        if response['status'] == 'ok':
             if 'band' in arguments:
                 bands = arguments['band'].replace('[','').replace(']','').replace("'",'').replace(' ','')
                 bands_set = set(bands.lower().replace(',',' ').split())
@@ -197,7 +209,7 @@ class JobHandler(tornado.web.RequestHandler):
                 else:
                     self.set_status(400)
                     response['status']='error'
-                    response['message'] = "Optional band must be one of g, r, i, z, Y"                    
+                    response['message'] = "Optional band must be one of g, r, i, z, Y"
             else:
                 bands = 'all'
 
@@ -251,25 +263,25 @@ class JobHandler(tornado.web.RequestHandler):
                     ys = ys_read[0]
             folder2 = user_folder+'results/'+jobid+'/'
             os.system('mkdir -p '+folder2)
-            infP = infoP(user,passwd) 
+            infP = infoP(user,passwd)
             now = datetime.datetime.now()
             tiid = user+'__'+jobid+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
-            
+
             #SUBMIT JOB, ADD TO SQLITE
             if jtype == 'coadd':
                 tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
                 if send_email:
-                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
+                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, rtag], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
                 else:
-                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
+                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, rtag], task_id=tiid)
             else:
                 tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE'])
                 if send_email:
                     run=dtasks.mkcut.apply_async(args=[filename, infP, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
-                        task_id=tiid, link=dtasks.send_note.si(loc_user, tiid, toemail)) 
+                        task_id=tiid, link=dtasks.send_note.si(loc_user, tiid, toemail))
                 else:
                     run=dtasks.mkcut.apply_async(args=[filename, infP, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
-                        task_id=tiid)                  
+                        task_id=tiid)
 
             con = lite.connect(Settings.DBFILE)
             with con:
@@ -282,7 +294,7 @@ class JobHandler(tornado.web.RequestHandler):
             except:
                 pass
             self.set_status(200)
-        
+
         self.write(response)
         self.flush()
         self.finish()
@@ -352,7 +364,7 @@ class JobHandler(tornado.web.RequestHandler):
                 response['status'] = 'error'
                 self.set_status(400)
                 response['message'] = 'Job Id does not exists'
-        
+
         self.write(response)
         self.flush()
         self.finish()
@@ -407,7 +419,7 @@ class JobHandler(tornado.web.RequestHandler):
                 response['status'] = 'error'
                 self.set_status(400)
                 response['message'] = 'Job Id does not exists'
-        
+
         self.write(response)
         self.flush()
         self.finish()
@@ -471,16 +483,16 @@ class MongoHandler(tornado.web.RequestHandler):
                 except:
                     self.set_status(400)
                     response['status']='error'
-                    response['message'] = "Invalid expnum!"  
+                    response['message'] = "Invalid expnum!"
             elif 'nite' in arguments:
                 try:
-                    night = [int(i) for i in arguments['nite'].replace('[','').replace(']','').split(',')] 
+                    night = [int(i) for i in arguments['nite'].replace('[','').replace(']','').split(',')]
                     qParam['night'] = night
                     arguments.pop('nite')
                 except:
                     self.set_status(400)
                     response['status']='error'
-                    response['message'] = "Invalid nite!" 
+                    response['message'] = "Invalid nite!"
             else:
                 response['status'] = 'error'
                 response['message'] = 'Missing input: at least one of expnum, nite or (ra, dec) has to be specified for the query!'
@@ -500,17 +512,17 @@ class MongoHandler(tornado.web.RequestHandler):
                 except:
                     self.set_status(400)
                     response['status']='error'
-                    response['message'] = "Invalid ccdnum!"  
+                    response['message'] = "Invalid ccdnum!"
 
             if 'nite' in arguments:
                 try:
-                    night = [int(i) for i in arguments['nite'].replace('[','').replace(']','').split(',')] 
+                    night = [int(i) for i in arguments['nite'].replace('[','').replace(']','').split(',')]
                     qParam['night'] = night
                 except:
                     self.set_status(400)
                     response['status']='error'
-                    response['message'] = "Invalid nite!" 
-            
+                    response['message'] = "Invalid nite!"
+
             if 'expnum' in arguments:
                 try:
                     expnum = [int(i) for i in arguments['expnum'].replace('[','').replace(']','').split(',')]
@@ -518,10 +530,10 @@ class MongoHandler(tornado.web.RequestHandler):
                 except:
                     self.set_status(400)
                     response['status']='error'
-                    response['message'] = "Invalid expnum!"  
+                    response['message'] = "Invalid expnum!"
 
-            
-        
+
+
         if response['status'] == 'ok':
 
             #init jobid
@@ -563,7 +575,7 @@ class ApiHandler(BaseHandler):
                 q = "DELETE from Jobs where job = '%s' and user = '%s'" % (jid, loc_user)
                 cc = cur.execute(q)
                 folder = os.path.join(user_folder,'results/' + jid)
-                try:    
+                try:
                     os.system('rm -rf ' + folder)
                     os.system('rm -f ' + os.path.join(user_folder,jid+'.csv'))
                 except:
@@ -614,7 +626,7 @@ class LogHandler(BaseHandler):
         res = AsyncResult(jobidFull)
 
         log = ''
-        
+
         if res.ready():
             with open(log_path, 'r') as logFile:
                 for line in logFile:
@@ -648,4 +660,3 @@ class CancelJobHandler(BaseHandler):
         self.set_status(200)
         self.flush()
         self.finish()
-
