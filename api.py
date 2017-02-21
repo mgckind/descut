@@ -271,9 +271,9 @@ class JobHandler(tornado.web.RequestHandler):
             if jtype == 'coadd':
                 tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
                 if send_email:
-                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, rtag], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
+                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
                 else:
-                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, rtag], task_id=tiid)
+                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid)
             else:
                 tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE'])
                 if send_email:
