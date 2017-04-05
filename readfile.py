@@ -167,10 +167,10 @@ class FileHandler(BaseHandler):
         #run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
         if send_email:
             #run=dtasks.sendjob.apply_async(args=[loc_user, user_folder, jobid, xs,ys], task_id=tiid,  link=dtasks.send_note.si(loc_user, jobid, email))
-            run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, tag], task_id=tiid, link=dtasks.send_note.si(loc_user, jobid, email))
+            run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', loc_user, loc_passw folder2, xs,ys,jobid, list_only, tag], task_id=tiid, link=dtasks.send_note.si(loc_user, jobid, email))
         else:
             #run=dtasks.sendjob.apply_async(args=[loc_user, user_folder, jobid, xs,ys], task_id=tiid)
-            run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, tag], task_id=tiid)
+            run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', loc_user, loc_passw, folder2, xs,ys,jobid, list_only, tag], task_id=tiid)
         con = lite.connect(Settings.DBFILE)
         tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
         with con:
@@ -231,11 +231,11 @@ class FileHandlerS(BaseHandler):
         
         if send_email:
             print('Sending email to %s' % email)
-            run=dtasks.mkcut.apply_async(args=[filename, infP, job_dir, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
+            run=dtasks.mkcut.apply_async(args=[filename, loc_user, loc_passw, job_dir, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                 task_id=tiid, link=dtasks.send_note.si(loc_user, tiid, toemail))
         else:
             print('Not sending email')
-            run=dtasks.mkcut.apply_async(args=[filename, infP, job_dir, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
+            run=dtasks.mkcut.apply_async(args=[filename, loc_user, loc_passw, job_dir, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                 task_id=tiid)
         con = lite.connect(Settings.DBFILE)
         tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE'])

@@ -29,15 +29,15 @@ celery.config_from_object('celeryconfig')
 
 
 @celery.task
-def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly, tag):
-    com =  "makeDESthumbs  %s --user %s --password %s --MP --outdir=%s" % (inputs, infoP._uu, infoP._pp, outputs)
+def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
+    com =  "makeDESthumbs  %s --user %s --password %s --MP --outdir=%s" % (inputs, uu, pp, outputs)
     if xs != "": com += ' --xsize %s ' % xs
     if ys != "": com += ' --ysize %s ' % ys
     com += " --logfile %s" % (outputs + 'log.log')
     com += " --tag %s" % tag
     oo = subprocess.check_output([com],shell=True)
-    mypath = Settings.UPLOADS+infoP._uu+'/results/'+siid+'/'
-    user_folder = Settings.UPLOADS+infoP._uu+"/"
+    mypath = Settings.UPLOADS+uu+'/results/'+siid+'/'
+    user_folder = Settings.UPLOADS+uu+"/"
 
     if listonly:
         if os.path.exists(mypath+"list.json"): os.remove(mypath+"list.json")
@@ -76,17 +76,17 @@ def desthumb(inputs, infoP, outputs,xs,ys, siid, listonly, tag):
         cur = con.cursor()
         cur.execute(q)
     try:
-        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
+        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (uu,siid))
         #readfile.notify(infoP._uu,siid)
     except:
         pass
     return oo.decode('ascii')
 
 @celery.task
-def mkcut(filename, infoP, outdir, xs, ys, bands, jobid, noBlacklist, tiid, listOnly):
+def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, listOnly):
     #different dir path
-    loc_user = infoP._uu
-    loc_passw = infoP._pp
+    loc_user = uu
+    loc_passw = pp
     user_folder = Settings.UPLOADS+loc_user+"/"  
     outdir =  os.path.join(user_folder+'results', jobid)
     script_dir = os.path.dirname(os.path.abspath(__file__))
