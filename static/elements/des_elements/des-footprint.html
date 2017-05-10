@@ -204,6 +204,21 @@ require(['GlobWeb'], function (GlobWeb)
         window.sv_tiles = vectorLayer;
         });
 
+        loadTiles('/static/tiles/y3a1_d_tiles.json',[1.0,0.0,1.0,1.0],function(mycolor,response){
+	      var vectorLayer = new GlobWeb.VectorLayer({
+		  style : new GlobWeb.FeatureStyle({
+              strokeColor : [0.729, 0.408,0.784,1.],
+              strokeWidth: 1.0,
+			  fill: false,
+              zIndex: 30,
+			  })
+		  });
+		vectorLayer.addFeatureCollection(JSON.parse(response));
+		vectorLayer.visible(true);
+		vectorLayer.opacity(1.0);
+        globe.addLayer(vectorLayer);
+        window.y3d_tiles = vectorLayer;
+        });
         loadTiles('/static/tiles/y3a1_tiles.json',[0.0,1.0,1.0,1.0],function(mycolor,response){
 	      var vectorLayer = new GlobWeb.VectorLayer({
 		  style : new GlobWeb.FeatureStyle({

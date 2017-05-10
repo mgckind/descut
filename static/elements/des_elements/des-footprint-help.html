@@ -41,6 +41,15 @@
     --paper-checkbox-label-color: #ff8800;
 
     }
+    paper-checkbox.y3a1d {
+
+    --paper-checkbox-checked-color: #BA68C8;
+    --paper-checkbox-checked-ink-color: #BA68C8;
+    --paper-checkbox-unchecked-color: #BA68C8;
+    --paper-checkbox-unchecked-ink-color: #BA68C8;
+    --paper-checkbox-label-color: #BA68C8;
+
+    }
 
   .input_position{
     max-width: 20px;
@@ -72,6 +81,12 @@
      <span style="color:  #4C72B0;">Y3A1 Coadd</span>
     </paper-item-body>
     <paper-checkbox class = "y3a1" id="check_y3" checked on-change="display_y3"></paper-checkbox>
+    </paper-item>
+    <paper-item >
+    <paper-item-body>
+     <span style="color:  #BA68C8">Y3A1_D Coadd</span>
+    </paper-item-body>
+    <paper-checkbox class = "y3a1d" id="check_y3d" checked on-change="display_y3d"></paper-checkbox>
     </paper-item>
     <paper-item >
     <paper-item-body>
@@ -137,6 +152,16 @@
          }
          else{
           y1d_tiles._visible = false;
+         }
+        globe.refresh();
+      },
+      display_y3d: function(){
+      var checky3d = document.getElementById("check_y3d");
+        if (checky1d.checked) {
+         y3d_tiles._visible = true;
+         }
+         else{
+          y3d_tiles._visible = false;
          }
         globe.refresh();
       },
