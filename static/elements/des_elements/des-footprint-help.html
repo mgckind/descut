@@ -43,11 +43,11 @@
     }
     paper-checkbox.y3a1d {
 
-    --paper-checkbox-checked-color: #BA68C8;
-    --paper-checkbox-checked-ink-color: #BA68C8;
-    --paper-checkbox-unchecked-color: #BA68C8;
-    --paper-checkbox-unchecked-ink-color: #BA68C8;
-    --paper-checkbox-label-color: #BA68C8;
+    --paper-checkbox-checked-color: #8e24aa;
+    --paper-checkbox-checked-ink-color: #8e24aa;
+    --paper-checkbox-unchecked-color: #8e24aa;
+    --paper-checkbox-unchecked-ink-color: #8e24aa;
+    --paper-checkbox-label-color: #8e24aa;
 
     }
 
@@ -86,25 +86,25 @@
     <paper-item-body>
      <span style="color:  #BA68C8">Y3A1_D Coadd</span>
     </paper-item-body>
-    <paper-checkbox class = "y3a1d" id="check_y3d" checked on-change="display_y3d"></paper-checkbox>
+    <paper-checkbox class = "y3a1d" id="check_y3d"  on-change="display_y3d"></paper-checkbox>
     </paper-item>
     <paper-item >
     <paper-item-body>
     <span style="color: #55A868;">Y1A1 Coadd</span>
     </paper-item-body>
-    <paper-checkbox class="y1a1" id="check_y1" checked on-change="display_y1"></paper-checkbox>
+    <paper-checkbox class="y1a1" id="check_y1"  on-change="display_y1"></paper-checkbox>
     </paper-item>
     <paper-item >
     <paper-item-body>
     <span style="color: #ff8800;">Y1A1_D Coadd</span>
     </paper-item-body>
-    <paper-checkbox class="y1a1d" id="check_y1d" checked on-change="display_y1d"></paper-checkbox>
+    <paper-checkbox class="y1a1d" id="check_y1d" on-change="display_y1d"></paper-checkbox>
     </paper-item>
     <paper-item >
     <paper-item-body>
      <span style="color:  #C44E52;">SVA1 Coadd</span>
     </paper-item-body>
-    <paper-checkbox class="sva1" id="check_sv" checked on-change="display_sv"></paper-checkbox>
+    <paper-checkbox class="sva1" id="check_sv" on-change="display_sv"></paper-checkbox>
     </paper-item>
   <hr class="des-hr">
    <paper-input  on-keydown="checkForEnter" class="input_position" id="zoomto" label="Position (ra,dec)">
@@ -157,7 +157,7 @@
       },
       display_y3d: function(){
       var checky3d = document.getElementById("check_y3d");
-        if (checky1d.checked) {
+        if (checky3d.checked) {
          y3d_tiles._visible = true;
          }
          else{
