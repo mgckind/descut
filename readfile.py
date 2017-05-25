@@ -29,11 +29,11 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
         clients[loc_user]=self
         print('%s connected' % loc_user)
- 
+
     def on_message(self, message):
         pass
         #self.write_message(u"Your message was: " + message)
- 
+
     def on_close(self):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
         print('%s disconnected' % loc_user)
@@ -44,39 +44,6 @@ def notify(user,jobid):
     clients[user].write_message(u"Job done!:" + jobid)
 
 
-def sendjob(user,folder,jobid,xs,ys):
-    global clients
-    filename = folder+jobid+'.csv'
-    df = pd.read_csv(filename,sep=',')
-    ra = df.RA.values.tolist()
-    dec = df.DEC.values.tolist()
-    C=ea.api.DesCoaddCuts(root_url='http://desdev2.cosmology.illinois.edu')
-    C.get_token()
-    C.make_cuts(ra,dec,xsize=xs,ysize=ys, wait=True)
-    folder2=folder+'results/'+jobid+'/'
-    links = C.job.json()['links']
-    for link in links:
-        temp_file = os.path.join(folder2, os.path.basename(link))
-        req = requests.get(link, stream=True)
-        if req.status_code == 200:
-            with open(temp_file, 'wb') as temp_file:
-                for chunk in req:
-                    temp_file.write(chunk)
-    listpngs = glob.glob(folder2+'*.png')
-    print(listpngs)
-    titles=[]
-    Ntiles=len(listpngs)
-    for i in range(Ntiles):
-        title=listpngs[i].split('/')[-1][:-8]
-        titles.append(title)
-        listpngs[i] = listpngs[i][listpngs[i].find('/static'):]
-    if os.path.exists(folder2+"list.json"):
-        os.remove(folder2+"list.json")
-    if Ntiles > 0:
-        with open(folder2+"list.json","w") as outfile:
-            json.dump([dict(name=listpngs[i],title=titles[i], size=Ntiles) for i in range(Ntiles)], outfile, indent=4)
-        print('json Done!')
-    
 
     con = lite.connect(Settings.DBFILE)
     q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
@@ -94,7 +61,7 @@ def dt_t(entry):
     return t.strftime('%Y-%m-%d %H:%M:%S')
 
 
-class BaseHandler(tornado.web.RequestHandler): 
+class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_secure_cookie("usera")
 
@@ -161,15 +128,13 @@ class FileHandler(BaseHandler):
         print('**************')
         folder2=user_folder+'results/'+jobid+'/'
         os.system('mkdir -p '+folder2)
-        infP=infoP(loc_user,loc_passw) 
+        infP=infoP(loc_user,loc_passw)
         now = datetime.datetime.now()
         tiid = loc_user+'__'+jobid+'_{'+now.ctime()+'}'
         #run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only], task_id=tiid)
         if send_email:
-            #run=dtasks.sendjob.apply_async(args=[loc_user, user_folder, jobid, xs,ys], task_id=tiid,  link=dtasks.send_note.si(loc_user, jobid, email))
             run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', loc_user, loc_passw,folder2, xs,ys,jobid, list_only, tag], task_id=tiid, link=dtasks.send_note.si(loc_user, jobid, email))
         else:
-            #run=dtasks.sendjob.apply_async(args=[loc_user, user_folder, jobid, xs,ys], task_id=tiid)
             run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', loc_user, loc_passw, folder2, xs,ys,jobid, list_only, tag], task_id=tiid)
         con = lite.connect(Settings.DBFILE)
         tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
@@ -225,10 +190,10 @@ class FileHandlerS(BaseHandler):
         print('**************')
         job_dir=user_folder+'results/'+jobid+'/'
         os.system('mkdir -p '+job_dir)
-        infP=infoP(loc_user,loc_passw) 
+        infP=infoP(loc_user,loc_passw)
         now = datetime.datetime.now()
         tiid = loc_user+'__'+jobid+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
-        
+
         if send_email:
             print('Sending email to %s' % email)
             run=dtasks.mkcut.apply_async(args=[filename, loc_user, loc_passw, job_dir, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
@@ -245,4 +210,3 @@ class FileHandlerS(BaseHandler):
         self.set_status(200)
         self.flush()
         self.finish()
-

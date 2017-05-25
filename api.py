@@ -188,7 +188,7 @@ class JobHandler(tornado.web.RequestHandler):
                 pass
         # validate bands and convert the correct format
         if response['status'] == 'ok':
-            tags = ('y3a1_coadd','y1a1_coadd','y1a1_coadd_d04','y1a1_coadd_d10','y1a1_coadd_dfull','sva1_coadd')
+            tags = ('y3a1_coadd','y3a1_coadd_deep','y1a1_coadd','y1a1_coadd_d04','y1a1_coadd_d10','y1a1_coadd_dfull','sva1_coadd')
             if 'tag' in arguments:
                 try:
                     rtag = arguments['tag'].lower()
@@ -271,16 +271,16 @@ class JobHandler(tornado.web.RequestHandler):
             if jtype == 'coadd':
                 tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
                 if send_email:
-                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
+                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', user, passwd, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
                 else:
-                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', infP, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid)
+                    run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', user, passwd, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid)
             else:
                 tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE'])
                 if send_email:
-                    run=dtasks.mkcut.apply_async(args=[filename, infP, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
+                    run=dtasks.mkcut.apply_async(args=[filename, user, passwd, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                         task_id=tiid, link=dtasks.send_note.si(loc_user, tiid, toemail))
                 else:
-                    run=dtasks.mkcut.apply_async(args=[filename, infP, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
+                    run=dtasks.mkcut.apply_async(args=[filename,user, passwd, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                         task_id=tiid)
 
             con = lite.connect(Settings.DBFILE)

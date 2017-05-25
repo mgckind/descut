@@ -53,11 +53,11 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
             os.system("convert %s %s.png" % (f,f))
             titles.append(title)
             pngfiles.append(mypath+title+'.tif.png')
-        
+
         for ij in range(Ntiles):
-            pngfiles[ij] = pngfiles[ij][pngfiles[ij].find('/static'):]       
+            pngfiles[ij] = pngfiles[ij][pngfiles[ij].find('/static'):]
         os.chdir(user_folder)
-        os.system("tar -zcf results/"+siid+"/"+siid+".tar.gz results/"+siid+"/") 
+        os.system("tar -zcf results/"+siid+"/"+siid+".tar.gz results/"+siid+"/")
         os.chdir(os.path.dirname(__file__))
         if os.path.exists(mypath+"list.json"): os.remove(mypath+"list.json")
         with open(mypath+"list.json","w") as outfile:
@@ -87,22 +87,22 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
     #different dir path
     loc_user = uu
     loc_passw = pp
-    user_folder = Settings.UPLOADS+loc_user+"/"  
+    user_folder = Settings.UPLOADS+loc_user+"/"
     outdir =  os.path.join(user_folder+'results', jobid)
     script_dir = os.path.dirname(os.path.abspath(__file__))
     if bands == "all":
         bands = "g r i z Y"
     else:
         bands = bands.replace(',', ' ')
-    
+
     cmd = script_dir+"/cutout_cmd/mkdescut.py {} --username {} --password {} " \
       "--bands {} --outdir {} --listOnly {} --noBlacklist {}".format(filename, loc_user, loc_passw, \
         bands, outdir, listOnly, noBlacklist)
     if xs != "": cmd += ' --xsize %s ' % xs
     if ys != "": cmd += ' --ysize %s ' % ys
-    
+
     oo = subprocess.check_call(cmd, shell=True)
-    
+
     #generate archives for each job
     job_tar = jobid+'.tar.gz'
     os.chdir(user_folder+'results/')
@@ -110,19 +110,19 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
         subprocess.check_call("tar -zcf {} {}".format(os.path.join(outdir,job_tar), jobid+'/'),shell=True)
     except:
         print ('not making the tars')
-    
+
     #create all file list
     prefix = Settings.ROOT_URL+'/static/uploads/'+loc_user+'/results/'+jobid+'/'
     os.chdir(outdir)
     all_files = glob.glob('thumbs*/DESJ*')
-    
+
     with open('list_all.txt', 'w') as list_output:
         for file in all_files:
             list_output.write(prefix+file+'\n')
-    
+
     os.chdir(script_dir)
-    
-    # update job status in sqlite 
+
+    # update job status in sqlite
     conS = lite.connect(Settings.DBFILE)
     qS="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
     with conS:
@@ -130,29 +130,29 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
         curS.execute(qS)
     # a=requests.get('http://descut.cosmology.illinois.edu:8888/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
     # a=requests.get('http://localhost:8888/api/refresh?user=%s&jid=%s' % (infoP._uu,jobid))
-    
+
     # call error taks if error.log is not zero byte
     err_file = outdir+'/error.log'
-    try: 
+    try:
         if os.path.getsize(err_file) > 0:
             print ('init error task')
             celery.send_task('dtasks.error', [err_file])
     except:
         pass
-    
+
     try:
         a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (loc_user,jobid))
     except:
         pass
     return oo
-        
+
 @celery.task
 def send_note(user, jobid, toemail):
     print('Task was completed')
     print('I will notify %s to its email address :  %s' % (user, toemail))
     fromemail = 'devnull@ncsa.illinois.edu'
     s = smtplib.SMTP('smtp.ncsa.illinois.edu')
-    link = Settings.ROOT_URL 
+    link = Settings.ROOT_URL
     #link2 = urllib.quote(link.encode('utf8'),safe="%/:=&?~#+!$,;'@()*[]")
     #jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
 
@@ -163,7 +163,7 @@ def send_note(user, jobid, toemail):
     <head></head>
     <body>
          <b> Please do not reply to this email</b> <br><br>
-        <p>The job %s was completed, <br> 
+        <p>The job %s was completed, <br>
         the results can be retrieved from this <a href="%s">link</a> under My Jobs Tab.
         </p><br>
         <p> DESDM Thumbs generator</p><br>
@@ -228,63 +228,12 @@ def getList(noBlacklist, args_dict):
     if 'night' in args_dict:
         nite = args_dict['night']
         df_result = df_result[df_result['NITE'].isin(nite)]
-    
+
     if bands is not None:
         df_result = df_result[df_result['BAND'].isin(bands)]
 
     df_result.to_json(final_out, orient='records')
     return_value = final_out.getvalue()
     final_out.close()
-   
+
     return return_value
-
-@celery.task
-def sendjob(user,folder,jobid,xs,ys):
-    filename = folder+jobid+'.csv'
-    df = pd.read_csv(filename,sep=',')
-    ra = df.RA.values.tolist()
-    dec = df.DEC.values.tolist()
-    C=ea.api.DesCoaddCuts(root_url='http://desdev2.cosmology.illinois.edu')
-    C.get_token()
-    C.make_cuts(ra,dec,xsize=xs,ysize=ys, wait=True)
-    folder2=folder+'results/'+jobid+'/'
-    links = C.job.json()['links']
-    for link in links:
-        temp_file = os.path.join(folder2, os.path.basename(link))
-        req = requests.get(link, stream=True)
-        if req.status_code == 200:
-            with open(temp_file, 'wb') as temp_file:
-                for chunk in req:
-                    temp_file.write(chunk)
-    listpngs = glob.glob(folder2+'*.png')
-    print(listpngs)
-    titles=[]
-    Ntiles=len(listpngs)
-    for i in range(Ntiles):
-        title=listpngs[i].split('/')[-1][:-8]
-        titles.append(title)
-        listpngs[i] = listpngs[i][listpngs[i].find('/static'):]
-    if os.path.exists(folder2+"list.json"):
-        os.remove(folder2+"list.json")
-    if Ntiles > 0:
-        with open(folder2+"list.json","w") as outfile:
-            json.dump([dict(name=listpngs[i],title=titles[i], size=Ntiles) for i in range(Ntiles)], outfile, indent=4)
-        print('json Done!')
-    
-    allfiles = glob.glob(folder2+'*.*')
-    Fall = open(folder2+'list_all.txt','w')
-    prefix='http://desdev2.cosmology.illinois.edu/static'
-    for ff in allfiles:
-        if (ff.find(siid+'.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
-    Fall.close()
-    
-
-    con = lite.connect(Settings.DBFILE)
-    q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
-    print(q)
-    with con:
-        cur = con.cursor()
-        cur.execute(q)
-    print('Done!')
-    a=requests.get('http://localhost:8999/api/refresh/?user=%s&jid=%s' % (user,jobid))
-    return jobid + '\n' + testtext
