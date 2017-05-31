@@ -1,12 +1,12 @@
 <dom-module id="des-card-help">
 <style>
         paper-card {
-        margin-top: 0px;
-        width: 100%;
-        border-top: 1px solid var(--paper-blue-200);
-      --paper-card-header-color: var(--paper-red-500);
-      --paper-card-background-color: var(--paper-grey-100) ;
-    }
+            margin-top: 0px;
+            width: 100%;
+            border-top: 1px solid var(--paper-blue-200);
+          --paper-card-header-color: var(--paper-red-500);
+          --paper-card-background-color: var(--paper-grey-100) ;
+        }
 
 
 
@@ -14,21 +14,21 @@
 
 <template>
         <paper-card  elevation="2" heading={{heading}}>
-      <content></content> 
-      </paper-card>
+            <content></content>
+        </paper-card>
 
 
 </template>
+</dom-module>
 
 <script>
-      Polymer({
-      is: "des-card-help",
-      properties:{
-        heading:{
-        type: String,
-          value: '',
-        }
-      },
+    Polymer({
+        is: "des-card-help",
+        properties:{
+            heading:{
+                type: String,
+                value: '',
+            }
+        },
     });
 </script>
-</dom-module>

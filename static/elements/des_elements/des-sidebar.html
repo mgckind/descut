@@ -1,32 +1,32 @@
 <dom-module id="des-sidebar">
 <template>
     <style>
-    paper-menu{
-    --paper-menu-background-color: var(--primary-background-color);
-    --paper-menu-color: var(--primary-text-color);
-    --paper-menu-focused-item: {
-        background: white;
-    };
-    --paper-menu-focused-item-after: {
-        background:blue;
-    };
-    }
-    paper-item {
-        --paper-item-focused: {
-        font-weight: bold;
-        };
-        --paper-item-selected: {
-        background: var(--paper-green-100) ;
-        };
-        --paper-item-focused-before: {
-            opacity:0.0;
+        paper-menu{
+            --paper-menu-background-color: var(--primary-background-color);
+            --paper-menu-color: var(--primary-text-color);
+            --paper-menu-focused-item: {
+                background: white;
             };
-    }
+            --paper-menu-focused-item-after: {
+                background:blue;
+            };
+        }
+        paper-item {
+            --paper-item-focused: {
+            font-weight: bold;
+            };
+            --paper-item-selected: {
+            background: var(--paper-green-100) ;
+            };
+            --paper-item-focused-before: {
+                opacity:0.0;
+                };
+        }
         :hover {
             cursor: pointer;
-            }
-    </style>  
-    
+        }
+    </style>
+
     <paper-menu id="bigmenu"  selected="[[selection]]">
         <!-- Order is important, it needs to match des-mainpages -->
         <paper-item> Home              </paper-item>
@@ -39,18 +39,18 @@
 
 
 
-<iron-pages id="helpPages" selected="[[helpselection]]">
+    <iron-pages id="helpPages" selected="[[helpselection]]">
 
-    <des-home-help></des-home-help>
-    <des-my-jobs-help></des-my-jobs-help>
-    <des-coadds-help></des-coadds-help>
-    <des-single-help></des-single-help>
-    <des-api-help></des-api-help>
-    <des-footprint-help></des-footprint-help>
-    <des-results-help></des-results-help>
-    <des-logs-help></des-logs-help>
+        <des-home-help></des-home-help>
+        <des-my-jobs-help></des-my-jobs-help>
+        <des-coadds-help></des-coadds-help>
+        <des-single-help></des-single-help>
+        <des-api-help></des-api-help>
+        <des-footprint-help></des-footprint-help>
+        <des-results-help></des-results-help>
+        <des-logs-help></des-logs-help>
 
-</iron-pages>
+    </iron-pages>
 
 </template>
 

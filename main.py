@@ -56,6 +56,11 @@ class Application(tornado.web.Application):
             (r"/readfile/single/", readfile.FileHandlerS),
             (r"/download/object/", download.DownloadObjectHandler),
             (r"/download/single/", download.DownloadHandler),
+            # (r"/intro/jobs", intro.JobsHandler),
+            # (r"/intro/coadd", intro.CoaddHandler),
+            # (r"/intro/epoch", intro.EpochHandler),
+            # (r"/intro/api", intro.ApiHandler),
+            # (r"/intro/footprint", intro.FootprintHandler),
             ]
         settings = {
             "template_path":Settings.TEMPLATE_PATH,

@@ -1,0 +1,44 @@
+<dom-module id="des-card-intro">
+    <style>
+
+        div.intro {
+            /*position: relative;*/
+            padding: 15px;
+            text-align: center;
+            margin: 300px 0;
+            background-color: rgba(211, 211, 211, 0.7);
+            vertical-align: middle;
+            line-height: 20px;
+            font-size: 20px;
+            color: black;
+            font-family: 'Roboto', 'Noto', sans-serif;
+
+        }
+
+
+
+    </style>
+
+    <template>
+
+            <div class="intro" id="intro">[[member]]</div>
+    </template>
+
+
+</dom-module>
+
+
+
+<script>
+    Polymer({
+        is: "des-card-intro",
+        properties:{
+            member :{
+                type: String,
+                value:''
+            },
+
+        },
+    });
+
+</script>

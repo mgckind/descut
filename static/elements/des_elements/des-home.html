@@ -1,27 +1,224 @@
 <dom-module id="des-home">
-<template>
     <style>
+        :hover {
+            cursor: pointer;
+        }
+        /*div.card-content {*/
+            /*max-width: 100%;*/
+        /*}*/
+
+
+        div.gallery {
+            display: inline-block;
+            margin: 5px;
+            border: 1px solid #ccc;
+            /*float: left;*/
+            width: auto;
+            height: 700px;
+
+        }
+
+        div#jobs {
+            background: url("../../images/home-jobs.jpg");
+            width: 250px;
+            height: inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+
+
+        }
+
+        div#coadd {
+            background: url("../../images/home-coadd.jpg");
+            width: 250px;
+            height: inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+
+
+        }
+
+
+        div#epoch {
+            background: url("../../images/home-epoch.jpg");
+            width: 250px;
+            height:  inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+
+
+        }
+
+
+        div#api {
+            background: url("../../images/home-api.jpg");
+            width: 250px;
+            height:  inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+
+
+        }
+        div#footprint {
+            background-image: url("../../images/home-footprint.jpg");
+            width: 250px;
+            height:  inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+
+        }
+
+        div.gallery:hover {
+            border: 1px solid #777;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1.5em;
+        }
+
+        /*iron-pages div:nth-child(1) {*/
+            /*background-color: var(--google-blue-500);*/
+        /*}*/
+        /*iron-pages div:nth-child(2) {*/
+            /*background-color: var(--google-red-500);*/
+        /*}*/
+        /*iron-pages div:nth-child(3) {*/
+            /*background-color: var(--google-green-500);*/
+        /*}*/
+        /*iron-pages div:nth-child(4) {*/
+            /*background-color: var(--google-grey-500);*/
+        /*}*/
+        /*iron-pages div:nth-child(5) {*/
+            /*background-color: var(--google-yellow-500);*/
+        /*}*/
+        [page-name=fallback] {
+            background-color: white;
+            font-size: 0.5em;
+        }
+
+        /*div.content {*/
+            /*!*display: inline-block;*!*/
+            /*margin: auto;*/
+            /*border: 1px solid #ccc;*/
+            /*!*float: left;*!*/
+            /*width: 100%;*/
+            /*height: 700px;*/
+        /*}*/
     </style>
 
-    <section>
-    <des-card heading="Welcome [[name]]!">
-    <div class="card-content">
-    </div>
-    </des-card>
-    </section>
-</template>
+    <template>
+<!--text in a transperant box -->
+        <!--<botton on-click="changePage">Change page</botton>-->
+        <section>
+            <des-card heading="Welcome [[name]]!" class="welcome">
+
+                <!--<input value="{{pageName::input}}" placeholder="jobs/coadd/epoch/api/footprint">-->
+                    <iron-pages id="mainGallery"  selected="[[selection]]" fallback-selection="fallback">
+                        <div page-name="fallback">
+
+                            <div class="gallery" id="jobs">
+                                <des-card-intro member="My Jobs"></des-card-intro>
+                            </div>
+
+                            <div class="gallery" id="coadd">
+                                <des-card-intro member="Coadds Images" ></des-card-intro>
+                            </div>
+
+                            <div class="gallery" id="epoch">
+                                <des-card-intro member="Single Epoch" ></des-card-intro>
+                            </div>
+
+                            <div class="gallery" id="api">
+                                <des-card-intro member="API Help"></des-card-intro>
+                            </div>
+
+                            <div class="gallery" id="footprint">
+                                <des-card-intro member="Footprint"></des-card-intro>
+                            </div>
+
+                        </div>
+                        <div page-name="jobs">
+                            <des-my-jobs-intro></des-my-jobs-intro>
+                        </div>
+
+                        <div page-name="coadd">
+                            <des-coadds-intro></des-coadds-intro>
+                        </div>
+
+                        <div page-name="epoch">
+                            <des-single-intro></des-single-intro>
+                        </div>
+
+                        <div page-name="api">
+                            <des-api-intro></des-api-intro>
+                        </div>
+
+                        <div page-name="footprint">
+                            <des-footprint-intro></des-footprint-intro>
+                        </div>
+                    </iron-pages>
+
+            </des-card>
+
+        </section>
+    </template>
+
+</dom-module>
 
 <script>
-      Polymer({
-      is: "des-home",
-      properties:{
-        name :{
-            type: String,
-            value:''
-        },
+    Polymer({
+        is: "des-home",
+        properties:{
+            name :{
+                type: String,
+                value:''
+            },
         },
     });
+//    var pages = document.querySelector('iron-pages');
+//    pages.addEventListener('click', function(e) {
+//        pages.selectNext();
+//    });
+
 
 
 </script>
-</dom-module>
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<style>-->
+        <!--div.background {-->
+            <!--background: url(klematis.jpg) repeat;-->
+            <!--border: 2px solid black;-->
+        <!--}-->
+
+        <!--div.transbox {-->
+            <!--margin: 30px;-->
+            <!--background-color: #ffffff;-->
+            <!--border: 1px solid black;-->
+            <!--opacity: 0.6;-->
+            <!--filter: alpha(opacity=60); /* For IE8 and earlier */-->
+        <!--}-->
+
+        <!--div.transbox p {-->
+            <!--margin: 5%;-->
+            <!--font-weight: bold;-->
+            <!--color: #000000;-->
+        <!--}-->
+    <!--</style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="background">-->
+    <!--<div class="transbox">-->
+        <!--<p>This is some text that is placed in the transparent box.</p>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
