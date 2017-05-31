@@ -114,8 +114,8 @@
         <section>
             <des-card heading="Welcome [[name]]!" class="welcome">
 
-                <!--<input value="{{pageName::input}}" placeholder="jobs/coadd/epoch/api/footprint">-->
-                    <iron-pages id="mainGallery"  selected="[[selection]]" fallback-selection="fallback">
+                <input value="{{pageName::input}}" placeholder="jobs/coadd/epoch/api/footprint">
+                    <iron-pages id="mainGallery"  selected="[[pageName]]" attr-for-selected="page-name" fallback-selection="fallback">
                         <div page-name="fallback">
 
                             <div class="gallery" id="jobs">
