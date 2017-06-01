@@ -1,34 +1,12 @@
 <dom-module id="des-single-help">
 <template>
     <style  include="shared-styles">
-          paper-icon-item {
-        --paper-item-disabled-color: black;
-      }
-      paper-item {
-        --paper-item-disabled-color: black;
-        color: black;
-        --paper-item-focused: {
-        };
-        --paper-item-selected: {
-        background: var(--paper-amber-50) ;
-        };
-        --paper-item-focused-before: {
-            opacity:0.0;
-            };
 
-      }
     </style>
 
  <des-card-help heading="Help">
   <div class="card-content">
   You can upload a csv file with positions or enter a list manually. The jobs is submitted asynchronously. <br>Check <b>My Jobs</b> tab to see the status of your jobs.
-    <hr class="des-hr">
-    <paper-item >
-    <paper-item-body>
-    Clear Form
-    </paper-item-body>
-     <paper-icon-button icon="clear" on-tap="_clearForm"></paper-icon-button>
-    </paper-item>
 
     </div>
 </des-card-help>
@@ -38,10 +16,7 @@
 <script>
       Polymer({
       is: "des-single-help",
-      _clearForm: function(){
-        desSingle=document.getElementById('desSingle');
-        desSingle.clear();
-      },
+
     });
 
 

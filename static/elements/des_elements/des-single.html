@@ -1,80 +1,101 @@
 <dom-module id="des-single">
 <template>
     <style include="shared-styles">
-      paper-radio-button.myradio {
-        --paper-radio-button-checked-color: var(--paper-blue-500);
-        --paper-radio-button-checked-ink-color: var(--paper-blue-500);
-        --paper-radio-button-unchecked-color: var(--paper-blue-900);
-        --paper-radio-button-unchecked-ink-color: var(--paper-blue-900);
-      }
+        paper-radio-button.myradio {
+            --paper-radio-button-checked-color: var(--paper-blue-500);
+            --paper-radio-button-checked-ink-color: var(--paper-blue-500);
+            --paper-radio-button-unchecked-color: var(--paper-blue-900);
+            --paper-radio-button-unchecked-ink-color: var(--paper-blue-900);
+        }
 
 
-      .caption {
-        padding-left: 12px;
-        color: #a0a0a0;
-      }
-      .upload{
-        position: absolute;
-        opacity: 0;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
-      .temp {
-        border: 1px solid grey;
-      }
+        .caption {
+            padding-left: 12px;
+            color: #a0a0a0;
+        }
+        .upload{
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .temp {
+            border: 1px solid grey;
+        }
   
     </style>
 
     <section>
     <div class="horizontal layout center-justified">
     <des-card heading = "Single Epoch Cutout Form" class="temp" >
-    <div class="card-content">
-    Upload the file with the positions or enter the positions by hand and run the desthumb generator
-    </div>
-    <div class="card-content">
-    <div class="horizontal layout around-justified" >
-    <paper-button raised  class="desbutton"  id="uploadFileS">
-    <div id ="uploadiconS" style="display: inline-block;"> <i class="fa fa-cloud-upload"></i>&nbsp;  &nbsp;</div>
-    <span style="overflow-x: auto; overflow-wrap: break-word;">[[file_name]]</span>
-    <input type="file" class="upload" id="fileS" on-change="_fileChange"/>
-    </paper-button>
-    <paper-button raised  class="desbutton" id="enterValuesS" on-tap="_openPositionsS">
-    <div id ="keyboardiconS" style="display: inline-block;"> <i class="fa fa-keyboard-o"></i> &nbsp;  &nbsp;</div>
-    <span>[[enter_values]]</span>
-    </paper-button>
-    </div>
-    <hr>
-    <div>xsize (arcmin, if not selected default is from file or 1.0): <span id="xsizeLabelS" class="caption">0</span></div><br>
-    <paper-slider id="xsizeSliderS" pin  max="10" max-markers="10" step="0.1" value="0" expand></paper-slider>
-    <div>ysize (arcmin, if not selected default is from file or 1.0): <span id="ysizeLabelS" class="caption">0</span></div><br>
-    <paper-slider id="ysizeSliderS" pin  max="10" max-markers="10" step="0.1" value="0"></paper-slider>
-    <hr>
-    <p><b>Filters</b></p>
-    <div class=" horizontal layout around-justified wrap">
-    <paper-radio-button class="myradio" value="g" disabled><i>g</i></paper-radio-button>
-    <paper-radio-button class="myradio" value="r" disabled><i>r</i></paper-radio-button>
-    <paper-radio-button class="myradio" value="i" disabled><i>i</i></paper-radio-button>
-    <paper-radio-button class="myradio" value="z" disabled><i>z</i></paper-radio-button>
-    <paper-radio-button class="myradio" value="Y" disabled><i>Y</i></paper-radio-button>
-    <paper-toggle-button id="all_toggle" checked>All filters</paper-toggle-button>
-    </div>
-    <hr>
-    <paper-checkbox id="blacklist">Exclude blacklisted ccds</paper-checkbox>
-    <hr>
-    <paper-checkbox id="onlyreturnlistS">Return just list of files (do not produce and display pngs, i.e. faster)</paper-checkbox>
-    <hr>
-    <div class=" horizontal center layout justified" >
-   <paper-checkbox style="font-size:14px;" id="sendemailS" on-change="emailcheckS">Send email after job completion </paper-checkbox>
-       <paper-input  id="validemailS" name="email" label="Email" value="[[email]]">
-    </paper-input>
-    </div>
-    <hr> 
-    <div class="horizontal layout around-justified" >
-    <paper-button raised  class="desbutton"  id="submitJobButtonS" disabled on-tap="_submitJob">
-    <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Submit Job </paper-button>
-    </div>
+        <div class="card-content">
+            Upload the file with the positions or enter the positions by hand and run the desthumb generator
+        </div>
+        <div class="card-content">
+            <div class="horizontal layout around-justified" >
+                <paper-button raised  class="desbutton"  id="uploadFileS">
+                    <div id ="uploadiconS" style="display: inline-block;"> <i class="fa fa-cloud-upload"></i>
+                        &nbsp;  &nbsp;
+                    </div>
+                    <span style="overflow-x: auto; overflow-wrap: break-word;">[[file_name]]</span>
+                    <input type="file" class="upload" id="fileS" on-change="_fileChange"/>
+                </paper-button>
+
+                <paper-button raised  class="desbutton" id="enterValuesS" on-tap="_openPositionsS">
+                    <div id ="keyboardiconS" style="display: inline-block;"> <i class="fa fa-keyboard-o"></i>
+                        &nbsp;  &nbsp;
+                    </div>
+                    <span>[[enter_values]]</span>
+                </paper-button>
+            </div>
+
+            <hr>
+
+            <div>xsize (arcmin, if not selected default is from file or 1.0): <span id="xsizeLabelS" class="caption">0</span></div><br>
+            <paper-slider id="xsizeSliderS" pin  max="10" max-markers="10" step="0.1" value="0" expand></paper-slider>
+            <div>ysize (arcmin, if not selected default is from file or 1.0): <span id="ysizeLabelS" class="caption">0</span></div><br>
+            <paper-slider id="ysizeSliderS" pin  max="10" max-markers="10" step="0.1" value="0"></paper-slider>
+
+            <hr>
+
+            <p><b>Filters</b></p>
+            <div class=" horizontal layout around-justified wrap">
+                <paper-radio-button class="myradio" value="g" disabled><i>g</i></paper-radio-button>
+                <paper-radio-button class="myradio" value="r" disabled><i>r</i></paper-radio-button>
+                <paper-radio-button class="myradio" value="i" disabled><i>i</i></paper-radio-button>
+                <paper-radio-button class="myradio" value="z" disabled><i>z</i></paper-radio-button>
+                <paper-radio-button class="myradio" value="Y" disabled><i>Y</i></paper-radio-button>
+                <paper-toggle-button id="all_toggle" checked>All filters</paper-toggle-button>
+            </div>
+
+            <hr>
+
+            <paper-checkbox id="blacklist">Exclude blacklisted ccds</paper-checkbox>
+
+            <hr>
+
+            <paper-checkbox id="onlyreturnlistS">Return just list of files (do not produce and display pngs, i.e. faster)</paper-checkbox>
+
+            <hr>
+
+            <div class=" horizontal center layout justified" >
+                <paper-checkbox style="font-size:14px;" id="sendemailS" on-change="emailcheckS">Send email after job completion </paper-checkbox>
+                <paper-input  id="validemailS" name="email" label="Email" value="[[email]]">
+                </paper-input>
+            </div>
+
+            <hr>
+            <div class="horizontal layout around-justified" >
+
+                <paper-button raised class="desbutton"  id="clearFormButton" on-tap="_clearForm">
+                    <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Clear Form
+                </paper-button>
+
+                <paper-button raised  class="desbutton"  id="submitJobButtonS" disabled on-tap="_submitJob">
+                <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Submit Job </paper-button>
+            </div>
     </div>
 
     </des-card>
@@ -210,6 +231,10 @@
       console.log(bands);
       return bands;
 
+    },
+    _clearForm: function(){
+        desSingle=document.getElementById('desSingle');
+        desSingle.clear();
     },
     _submitJob: function(event){
         var formdata = new FormData();
