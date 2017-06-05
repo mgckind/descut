@@ -25,82 +25,105 @@
 
 
     <iron-ajax id="getData"
-    auto
-    url="/api"
-    params='{"part":"fff"}'
-    handle-as="json"
-    on-response="_handleResponse"
-    debounce-duration="300">
+        auto
+        url="/api"
+        params='{"part":"fff"}'
+        handle-as="json"
+        on-response="_handleResponse"
+        debounce-duration="300">
     </iron-ajax>
 
     <iron-ajax id="DeleteReq"
-    url="/api"
-    method="DELETE"
-    params='[1,2,3]'
-    on-response="_afterDelete"
-    debounce-duration="300">
+        url="/api"
+        method="DELETE"
+        params='[1,2,3]'
+        on-response="_afterDelete"
+        debounce-duration="300">
     </iron-ajax>
 
     <iron-ajax id="cancelJob"
-    url="/api/canceljob/"
-    method="DELETE"
-    params=''
-    on-response="_afterCancel"
-    debounce-duration="300">
+        url="/api/canceljob/"
+        method="DELETE"
+        params=''
+        on-response="_afterCancel"
+        debounce-duration="300">
     </iron-ajax>
 
     <section>
-	<des-card>
+        <des-card>
         <div class='card-content'>
-                    <div id="ListHeader" style="display:block;">
-                    <paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible; max-width:1000px;">
-                    <paper-item-body>
-                    <div>status &emsp; &emsp; Job id</div>
-                    </paper-item-body>
-                    <paper-item-body>
-                    <div style="margin-left:25px;">Job type</div>
-                    </paper-item-body>
-                    <div>View | Log | Cancel</div>
-                    </paper-item>
-                    </div>
-                    <div id="DeleteHeader" style="display:none;">
-                    <paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1000px;">
-                    <paper-icon-button icon="delete" on-tap="deleteall"></paper-icon-button>
-                    <paper-item-body>
-                    <div> Delete Jobs 
-                    </div>
-                    </paper-item-body>
-                    </paper-icon-item>
-                    </div>
-               <paper-listbox multi id="jobList">
-                    <hr>
+        <div id="ListHeader" style="display:block;">
+            <paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible; max-width:1000px;">
+                <paper-item-body>
+                <div>status &emsp; &emsp; Job id</div>
+                </paper-item-body>
 
-                <template is="dom-repeat" id="menu" items="{{data}}">
-                    <paper-icon-item>
-                     <template is="dom-if" if="{{_completed(item.status)}}">
-                    <div class="status size green" item-icon></div>
-                    </template>
-                     <template is="dom-if" if="{{_pending(item.status)}}">
-                    <div class="status size" item-icon></div>
-                    </template>
-                    <template is="dom-if" if="{{_stop(item.status)}}">
-                    <div class="status size red" item-icon></div>
-                    </template>
-                    <paper-item-body two-line>
-                        <div>{{returnName(item.job)}}</div>
-                        <div secondary>{{item.elapsed}} ({{returnDate(item.time)}})</div>
-                    </paper-item-body two-line>
-                    <paper-item-body >
-                    <div style="margin-left:10px;">{{item.jtypes}}</div>
-                    </paper-item-body>
-                    <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
-                    <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
-                    <paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
-                    </paper-icon-item>
-            </template>
-            </paper-listbox>
+                <paper-item-body>
+                <div style="margin-left:25px;">Job type</div>
+                </paper-item-body>
+                <div>View | Log | Cancel</div>
+            </paper-item>
         </div>
-    </des-card>
+
+        <div id="DeleteHeader" style="display:none;">
+            <paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1000px;">
+                <paper-icon-button icon="delete" on-tap="deleteall"></paper-icon-button>
+                <paper-item-body>
+                    <div>
+                        Delete Jobs
+                    </div>
+                </paper-item-body>
+            </paper-icon-item>
+        </div>
+
+        <paper-listbox multi id="jobList">
+
+        <hr>
+
+        <template is="dom-repeat" id="menu" items="{{data}}">
+            <paper-icon-item>
+                <template is="dom-if" if="{{_completed(item.status)}}">
+                    <div class="status size green" item-icon>
+                    </div>
+                </template>
+
+                <template is="dom-if" if="{{_pending(item.status)}}">
+
+                    <div class="status size" item-icon>
+
+                    </div>
+                </template>
+
+                <template is="dom-if" if="{{_stop(item.status)}}">
+
+                    <div class="status size red" item-icon>
+
+                    </div>
+                </template>
+
+                <paper-item-body two-line>
+                    <div>
+                        {{returnName(item.job)}}
+                    </div>
+                    <div secondary>
+                        {{item.elapsed}} ({{returnDate(item.time)}})
+                    </div>
+                </paper-item-body two-line>
+
+                <paper-item-body >
+                    <div style="margin-left:10px;">
+                        {{item.jtypes}}
+                    </div>
+                </paper-item-body>
+
+                <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
+                <paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
+            </paper-icon-item>
+        </template>
+        </paper-listbox>
+        </div>
+        </des-card>
     </section>
 </template>
 

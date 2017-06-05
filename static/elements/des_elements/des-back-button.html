@@ -1,0 +1,18 @@
+<dom-module id="des-back-button">
+    <style>
+
+    </style>
+    <template>
+        <paper-icon-button icon="reply" on-tap="home"></paper-icon-button>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "des-back-button",
+        home: function(event){
+            window.open('/','_self',false);
+        },
+    });
+
+</script>

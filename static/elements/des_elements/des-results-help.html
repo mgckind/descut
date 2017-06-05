@@ -13,47 +13,56 @@
 
 
  <des-card-help heading="Help">
-  <div class="card-content">
- <p> Download all tiles or a text file with the list of files only. In the latter case use:
- <pre>wget -i list.txt</pre> Selectable list below to change between jobs</p>
-    <hr class="des-hr">
-    <paper-item >
-    <paper-item-body>
-     See the logfile
-    </paper-item-body>
-    <paper-icon-button icon="assignment" on-tap="_seeLog"></paper-icon-button>
-    </paper-item>
- <paper-item >
-    <paper-item-body>
-    Download All Tiles
-    </paper-item-body>
-    <paper-icon-button id="getAllIcon" icon="file-download" on-tap="_getall" ></paper-icon-button>
-    </paper-item>
-    <paper-item >
-    <paper-item-body>
-    Get list of files
-    </paper-item-body>
-    <paper-icon-button icon="assignment-returned" on-tap="_getlist" ></paper-icon-button>
-    </paper-item>
-    <hr class="des-hr">
-    <b> Job list shortcut</b>
-               <paper-listbox id="smallJobList" >
+    <div class="card-content">
+        <p> Download all tiles or a text file with the list of files only. In the latter case use:
+            <pre>wget -i list.txt</pre> Selectable list below to change between jobs
+        </p>
+
+        <hr class="des-hr">
+        <paper-item >
+            <paper-item-body>
+                See the logfile
+            </paper-item-body>
+            <paper-icon-button icon="assignment" on-tap="_seeLog"></paper-icon-button>
+        </paper-item>
+
+        <paper-item >
+            <paper-item-body>
+                Download All Tiles
+            </paper-item-body>
+        <paper-icon-button id="getAllIcon" icon="file-download" on-tap="_getall" ></paper-icon-button>
+        </paper-item>
+
+        <paper-item >
+            <paper-item-body>
+                Get list of files
+            </paper-item-body>
+            <paper-icon-button icon="assignment-returned" on-tap="_getlist" ></paper-icon-button>
+        </paper-item>
+
+        <hr class="des-hr">
+
+        <b> Job list shortcut</b>
+        <paper-listbox id="smallJobList" >
                 <template is="dom-repeat" id="menu" items="[[data]]">
-                     <paper-item on-focus="_focus">
-                     <template is="dom-if" if="{{_completed(item.status)}}">
-                    <div class="status size green" item-icon></div>
-                    </template>
-                     <template is="dom-if" if="{{_pending(item.status)}}">
-                    <div class="status size" item-icon></div>
-                    </template>
-                    <template is="dom-if" if="{{_stop(item.status)}}">
-                    <div class="status size red" item-icon></div>
-                    </template>
+                    <paper-item on-focus="_focus">
+
+                        <template is="dom-if" if="{{_completed(item.status)}}">
+                        <div class="status size green" item-icon></div>
+                        </template>
+
+                        <template is="dom-if" if="{{_pending(item.status)}}">
+                        <div class="status size" item-icon></div>
+                        </template>
+
+                        <template is="dom-if" if="{{_stop(item.status)}}">
+                        <div class="status size red" item-icon></div>
+                        </template>
 
                         <div style="font-size: 8.5px;">&nbsp; &nbsp;[[returnName(item.job)]]</div>
                     </paper-item>
-            </template>
-            </paper-listbox>
+                </template>
+        </paper-listbox>
 
     </div>
 </des-card-help>
