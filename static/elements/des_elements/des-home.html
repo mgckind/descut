@@ -20,17 +20,24 @@
 
         div#jobs {
             background: url("../../images/home-jobs.jpg");
-            width: 250px;
+            width: 200px;
+            height: inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div#shared {
+            background: url("../../images/home-shared.png");
+            width: 200px;
             height: inherit;
             background-position: center;
             background-repeat: no-repeat;
 
 
         }
-
         div#coadd {
             background: url("../../images/home-coadd.jpg");
-            width: 250px;
+            width: 200px;
             height: inherit;
             background-position: center;
             background-repeat: no-repeat;
@@ -41,7 +48,7 @@
 
         div#epoch {
             background: url("../../images/home-epoch.jpg");
-            width: 250px;
+            width: 200px;
             height:  inherit;
             background-position: center;
             background-repeat: no-repeat;
@@ -52,7 +59,7 @@
 
         div#api {
             background: url("../../images/home-api.jpg");
-            width: 250px;
+            width: 200px;
             height:  inherit;
             background-position: center;
             background-repeat: no-repeat;
@@ -61,7 +68,7 @@
         }
         div#footprint {
             background-image: url("../../images/home-footprint.jpg");
-            width: 250px;
+            width: 200px;
             height:  inherit;
             background-position: center;
             background-repeat: no-repeat;
@@ -115,52 +122,60 @@
         <section>
             <des-card heading="Welcome [[name]]!" class="welcome">
                 <!--<div id="content" onclick="_selectPage">-->
-                <iron-pages id="mainGallery" selected="0">
-                    <div page-name="fallback">
-                        <div class="gallery" id="jobs" onclick="document.getElementById('mainGallery').innerHTML=_selectPage(1)">
-                            <des-card-intro member="My Jobs"></des-card-intro>
-                        </div>
+                <!--<iron-pages id="mainGallery" selected="0">-->
+                <div class="gallery" id="jobs">
+                    <des-card-intro member="My Jobs"></des-card-intro>
+                </div>
 
-                        <div class="gallery" id="coadd">
-                            <des-card-intro member="Coadds Images" ></des-card-intro>
-                        </div>
+                <div class="gallery" id="shared">
+                    <des-card-intro member="Shared Jobs"></des-card-intro>
+                </div>
 
-                        <div class="gallery" id="epoch">
-                            <des-card-intro member="Single Epoch" ></des-card-intro>
-                        </div>
+                <div class="gallery" id="coadd">
+                    <des-card-intro member="Coadds Images" ></des-card-intro>
+                </div>
 
-                        <div class="gallery" id="api">
-                            <des-card-intro member="API Help"></des-card-intro>
-                        </div>
+                <div class="gallery" id="epoch">
+                    <des-card-intro member="Single Epoch" ></des-card-intro>
+                </div>
 
-                        <div class="gallery" id="footprint">
-                            <des-card-intro member="Footprint"></des-card-intro>
-                        </div>
+                <div class="gallery" id="api">
+                    <des-card-intro member="API Help"></des-card-intro>
+                </div>
 
-                    </div>
+                <div class="gallery" id="footprint">
+                    <des-card-intro member="Footprint"></des-card-intro>
+                </div>
+
+
+
                 <!--</div>-->
                 <!--<input value="{{pageName::input}}" placeholder="jobs/coadd/epoch/api/footprint">-->
                 <!--<iron-pages id="mainGallery"  selected="[[pageName]]" attr-for-selected="page-name" fallback-selection="fallback">-->
-                    <div page-name="jobs">
-                        <des-my-jobs-intro></des-my-jobs-intro>
-                    </div>
+                    <!--<div page-name="jobs">-->
+                        <!--<des-my-jobs-intro></des-my-jobs-intro>-->
+                    <!--</div>-->
 
-                    <div page-name="coadd">
-                        <des-coadds-intro></des-coadds-intro>
-                    </div>
+                    <!--<div page-name="shared">-->
+                        <!--<des-shared-jobs-intro></des-shared-jobs-intro>-->
+                    <!--</div>-->
 
-                    <div page-name="epoch">
-                        <des-single-intro></des-single-intro>
-                    </div>
+                    <!--<div page-name="coadd">-->
+                        <!--<des-coadds-intro></des-coadds-intro>-->
+                    <!--</div>-->
 
-                    <div page-name="api">
-                        <des-api-intro></des-api-intro>
-                    </div>
+                    <!--<div page-name="epoch">-->
+                        <!--<des-single-intro></des-single-intro>-->
+                    <!--</div>-->
 
-                    <div page-name="footprint">
-                        <des-footprint-intro></des-footprint-intro>
-                    </div>
-                </iron-pages>
+                    <!--<div page-name="api">-->
+                        <!--<des-api-intro></des-api-intro>-->
+                    <!--</div>-->
+
+                    <!--<div page-name="footprint">-->
+                        <!--<des-footprint-intro></des-footprint-intro>-->
+                    <!--</div>-->
+                <!--</iron-pages>-->
 
             </des-card>
 
@@ -180,13 +195,6 @@
         },
     });
 
-//    _selectPage: function(index) {
-//        window.alert(5 + 6);
-//
-//    };
-//    function _selectPage(index) {
-//        window.alert(5 + 6);
-//    }
 
 
 </script>

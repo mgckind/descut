@@ -1,18 +1,28 @@
 <dom-module id="des-api">
     <style>
+        paper-tabs {
+            font-family: 'Roboto', 'Noto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            width: 100%;
+            text-transform: uppercase;
+            margin-bottom: 1px;
+        }
     </style>
     <template>
 
         <section>
             <des-card heading="API Help">
-                <paper-tabs selected="0" link>
-                    <paper-tab>The first tab</paper-tab>
-                    <paper-tab>Tab two</paper-tab>
-                    <paper-tab>The third tab</paper-tab>
-                    <paper-tab>Fourth tab</paper-tab>
+                <paper-tabs selected="0">
+                    <paper-tab id="api_tab_one">Create Authetication Token</paper-tab>
+                    <paper-tab id="api_tab_two">Check Token Status</paper-tab>
+                    <paper-tab id="api_tab_three">Submit Job</paper-tab>
+                    <paper-tab id="api_tab_four">Get Job Results</paper-tab>
+                    <paper-tab id="api_tab_five">Get Jobs List</paper-tab>
+                    <paper-tab id="api_tab_six">Delete Jobs</paper-tab>
+                    <paper-tab id="api_tab_seven">Single Epoch Info</paper-tab>
                 </paper-tabs>
-                <input value="{{pageName::input}}" placeholder="jobs/coadd/epoch/api/footprint">
-                <iron-pages id="apis"  selected="[[pageName]]" attr-for-selected="page-name" fallback-selection="api_0">
+                <!--<input value="{{pageName::input}}" placeholder="jobs/coadd/epoch/api/footprint">-->
+                <iron-pages id="apis"  selected="0">
 
                     <des-api-create-token page-name="api_0" ></des-api-create-token>
                     <des-api-check-token page-name="api_1" ></des-api-check-token>

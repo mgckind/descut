@@ -49,80 +49,94 @@
         debounce-duration="300">
     </iron-ajax>
 
+    <iron-ajax id="shareJob"
+               url="/api/sharejob/"
+        <!--method="PUBLIC"-->
+        params=''
+        on-response="_afterShare"
+        debounce-duration="300">
+    </iron-ajax>
+
     <section>
         <des-card>
-        <div class='card-content'>
-        <div id="ListHeader" style="display:block;">
-            <paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible; max-width:1000px;">
-                <paper-item-body>
-                <div>status &emsp; &emsp; Job id</div>
-                </paper-item-body>
+            <div class='card-content'>
+                <div id="ListHeader" style="display:block;">
+                    <paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible; max-width:1000px;">
+                        <paper-item-body>
+                            <div>status &emsp; &emsp; Job id</div>
+                        </paper-item-body>
 
-                <paper-item-body>
-                <div style="margin-left:25px;">Job type</div>
-                </paper-item-body>
-                <div>View | Log | Cancel</div>
-            </paper-item>
-        </div>
+                        <paper-item-body>
+                            <div style="margin-left:45px;">Job type &emsp; &emsp; &emsp; &emsp; &emsp;Public / Private</div>
+                        </paper-item-body>
 
-        <div id="DeleteHeader" style="display:none;">
-            <paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1000px;">
-                <paper-icon-button icon="delete" on-tap="deleteall"></paper-icon-button>
-                <paper-item-body>
-                    <div>
-                        Delete Jobs
-                    </div>
-                </paper-item-body>
-            </paper-icon-item>
-        </div>
+                        <div>View | Log | Share | Cancel</div>
+                    </paper-item>
+                </div>
 
-        <paper-listbox multi id="jobList">
+                <div id="DeleteHeader" style="display:none;">
+                    <paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1000px;">
+                        <paper-icon-button icon="delete" on-tap="deleteall"></paper-icon-button>
+                        <paper-item-body>
+                            <div>
+                                Delete Jobs
+                            </div>
+                        </paper-item-body>
+                    </paper-icon-item>
+                </div>
 
-        <hr>
+                <paper-listbox multi id="jobList">
 
-        <template is="dom-repeat" id="menu" items="{{data}}">
-            <paper-icon-item>
-                <template is="dom-if" if="{{_completed(item.status)}}">
-                    <div class="status size green" item-icon>
-                    </div>
-                </template>
+                    <hr>
 
-                <template is="dom-if" if="{{_pending(item.status)}}">
+                    <template is="dom-repeat" id="menu" items="{{data}}">
+                        <paper-icon-item>
+                            <template is="dom-if" if="{{_completed(item.status)}}">
+                                <div class="status size green" item-icon>
+                                </div>
+                            </template>
 
-                    <div class="status size" item-icon>
+                            <template is="dom-if" if="{{_pending(item.status)}}">
 
-                    </div>
-                </template>
+                                <div class="status size" item-icon>
 
-                <template is="dom-if" if="{{_stop(item.status)}}">
+                                </div>
+                            </template>
 
-                    <div class="status size red" item-icon>
+                            <template is="dom-if" if="{{_stop(item.status)}}">
 
-                    </div>
-                </template>
+                                <div class="status size red" item-icon>
 
-                <paper-item-body two-line>
-                    <div>
-                        {{returnName(item.job)}}
-                    </div>
-                    <div secondary>
-                        {{item.elapsed}} ({{returnDate(item.time)}})
-                    </div>
-                </paper-item-body two-line>
+                                </div>
+                            </template>
 
-                <paper-item-body >
-                    <div style="margin-left:10px;">
-                        {{item.jtypes}}
-                    </div>
-                </paper-item-body>
+                            <paper-item-body two-line>
+                                <div>
+                                    {{returnName(item.job)}}
+                                </div>
+                                <div secondary>
+                                    {{item.elapsed}} ({{returnDate(item.time)}})
+                                </div>
+                            </paper-item-body two-line>
 
-                <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
-                <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
-                <paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
-            </paper-icon-item>
-        </template>
-        </paper-listbox>
-        </div>
+                            <paper-item-body >
+                                <div style="margin-left:10px;">
+                                    {{item.jtypes}}
+                                </div>
+                            </paper-item-body>
+
+                                <div>
+                                    {{item.jpublic}}
+                                </div>
+
+                            <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                            <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
+                            <paper-icon-button icon="social:share" on-tap="sharejob" disabled$="{{_sharejob(item.status)}}"></paper-icon-button>
+                            <paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
+                        </paper-icon-item>
+                    </template>
+                </paper-listbox>
+            </div>
         </des-card>
     </section>
 </template>
@@ -131,7 +145,7 @@
 
 
 
- function loadJSON(callback) {   
+ function loadJSON(callback) {
     var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
     xobj.open('GET', '/api', true); // Replace 'my_data' with the path to your file
@@ -141,7 +155,7 @@
             callback(xobj.responseText);
           }
     };
-    xobj.send(null);  
+    xobj.send(null);
  }
 
       Polymer({
@@ -189,7 +203,7 @@
         //    var listAll2 = JSON.parse(JSON.stringify(listAll));
           //  console.log(listAll2.length);
            // }
-        for (i = 1; i< list.items.length ;i++) { 
+        for (i = 1; i< list.items.length ;i++) {
             list.selectIndex(i);
         }
         //if (typeof listAll !== 'undefined') {
@@ -203,7 +217,7 @@
         console.log(listAll);
         if (typeof listAll !== 'undefined') {
             var listAll2 = JSON.parse(JSON.stringify(listAll));
-            for (i = 0; i< listAll2.length ;i++) { 
+            for (i = 0; i< listAll2.length ;i++) {
                 list.selectIndex(listAll2[i]);
             }
         }
@@ -290,12 +304,13 @@
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
             desResults.jtypes = e.model.item.jtypes;
+            desResults.jpublic = e.model.item.jpublic;
             desLog.jobid = this.returnName(e.model.item.job);
             desLog.jobidFull = e.model.item.job;
-            app.selection="6";
-            pages.selected="6";
-            menu.selected="6";
-            help.selected="6";
+            app.selection="7";
+            pages.selected="7";
+            menu.selected="7";
+            help.selected="7";
 
       },
       viewlog: function(e) {
@@ -313,10 +328,27 @@
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
             desResults.jtypes = e.model.item.jtypes;
-            app.selection="7";
-            pages.selected="7";
-            menu.selected="7";
-            help.selected="7";
+            desResults.jpublic = e.model.item.jpublic;
+            app.selection="8";
+            pages.selected="8";
+            menu.selected="8";
+            help.selected="8";
+      },
+
+      sharejob: function(e){
+          console.log(e.model.item.job);
+          var shareJob = document.getElementById("shareJob");
+          shareJob.params = {jobid: e.model.item.job};
+          shareJob.generateRequest();
+      },
+
+      _afterShare: function(e){
+          var list = document.getElementById("jobList");
+          for (i = 0; i < this.mytemp.length ; i++) {
+              list.selectIndex(this.mytemp[i]);
+          }
+          req = document.getElementById("getData");
+          req.generateRequest();
       },
 
     });

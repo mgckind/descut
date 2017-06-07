@@ -3,28 +3,27 @@
 
 <!-- shared styles for all elements and index.html -->
 <dom-module id="shared-styles">
-  <template>
     <style>
 
-   table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid #dddddd;
-}
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #dddddd;
+    }
 
     th {
-    text-align: right;
-    padding: 8px;
+        text-align: right;
+        padding: 8px;
     }
     td {
-    text-align: left;
-    padding: 8px;
+        text-align: left;
+        padding: 8px;
     }
 
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
     paper-card.apicard {
         width: 100%;
         margin-top: 30px;
@@ -34,74 +33,87 @@ tr:nth-child(even) {
         font-size: 20px;
         font-weight: bold;
         padding: 8px;
-            }
-
-   .api-subheader {
-    color: var(--paper-green-400);
-    font-size: 18px;
-        font-weight: normal;
-   }
-
- paper-button.desbutton {
-    width:200px;
-    font-size: 14pt;
-    color: var(--paper-blue-500);
-    --paper-button-flat-focus-color: var(--paper-blue-50);
-  }
-  paper-button.desbutton:hover {
-    background: var(--paper-blue-50);
-  } 
-
-
-  paper-slider {
-    width:100%;
-  }
-
-  paper-input {
-    width: 300px;
-    min-width: 200px;
-  }
-
-  paper-dialog.size-position {
-      position: fixed;
-      top: 50%;
-      right: 45%  ;
-      width: 200px;
-      max-height: 80px;
-      overflow: auto;
-  }
-
-    .status {
-      display: inline-block;
-      box-sizing: border-box;
-      border-radius: 50%;
-      background: var(--paper-yellow-500);
     }
-    .green {background: var(--paper-green-500);}
-    .red {background: var(--paper-red-500);}
+
+    .api-subheader {
+        color: var(--paper-green-400);
+        font-size: 18px;
+        font-weight: normal;
+    }
+
+    paper-button.desbutton {
+        width:200px;
+        font-size: 14pt;
+        color: var(--paper-blue-500);
+        --paper-button-flat-focus-color: var(--paper-blue-50);
+    }
+    paper-button.desbutton:hover {
+        background: var(--paper-blue-50);
+    }
 
 
-.des-hr {
+    paper-slider {
+        width:100%;
+    }
 
-color:black; 
-border-color:black; 
-background-color:black;
-}
+    paper-input {
+        width: 300px;
+        min-width: 200px;
+    }
+
+    paper-dialog.size-position {
+        position: fixed;
+        top: 50%;
+        right: 45%  ;
+        width: 200px;
+        max-height: 80px;
+        overflow: auto;
+    }
+    paper-tabs {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        width: 100%;
+        text-transform: uppercase;
+        margin-bottom: 1px;
+    }
+    .status {
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 50%;
+        background: var(--paper-yellow-500);
+    }
+    .green {
+        background: var(--paper-green-500);
+    }
+    .red {
+        background: var(--paper-red-500);
+    }
 
 
-.paper-header {
-  position: absolute;
-  width: 100%;
-  color: white;
-}
-      .page-title {
+    .des-hr {
+
+        color:black;
+        border-color:black;
+        background-color:black;
+    }
+
+
+    .paper-header {
+        position: absolute;
+        width: 100%;
+        color: white;
+    }
+    .page-title {
         @apply(--paper-font-display2);
-      }
-      @media (max-width: 600px) {
+    }
+
+    @media (max-width: 600px) {
         .page-title {
-          font-size: 24px!important;
+            font-size: 24px!important;
         }
-      }
-     </style>
-  </template>
+    }
+    </style>
+    <template>
+
+    </template>
 </dom-module>

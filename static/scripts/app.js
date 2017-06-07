@@ -27,11 +27,8 @@
            app.$.paperDrawerPanel.closeDrawer();
         });
 
-
-        // function _selectPage(index) {
-        //    window.alert(5 + 6);
-        // }
         var jobsEntry = document.getElementById("jobs");
+        var sharedEntry = document.getElementById("shared");
         var coaddEntry = document.getElementById("coadd");
         var epochEntry = document.getElementById("epoch");
         var apiEntry = document.getElementById("api");
@@ -40,57 +37,100 @@
         var gal = document.getElementById("mainGallery");
 
         jobsEntry.addEventListener('click', function() {
-            gal.selected = "1";
+            // gal.selected = "1";
+            menu.selected="1";
+            app.selection=1;
+            pages.selected=1;
+            help.selected=1;
+            app.$.paperDrawerPanel.closeDrawer();
+        });
+
+        sharedEntry.addEventListener('click', function() {
+            // gal.selected = "2";
+            menu.selected="2";
+            app.selection=2;
+            pages.selected=2;
+            help.selected=2;
+            app.$.paperDrawerPanel.closeDrawer();
         });
 
         coaddEntry.addEventListener('click', function() {
-            gal.selected = "2";
+            // gal.selected = "3";
+            menu.selected="3";
+            app.selection=3;
+            pages.selected=3;
+            help.selected=3;
+            app.$.paperDrawerPanel.closeDrawer();
         });
 
         epochEntry.addEventListener('click', function() {
-            gal.selected = "3";
+            // gal.selected = "4";
+            menu.selected="4";
+            app.selection=4;
+            pages.selected=4;
+            help.selected=4;
+            app.$.paperDrawerPanel.closeDrawer();
         });
 
         apiEntry.addEventListener('click', function() {
-            gal.selected = "4";
+            // gal.selected = "5";
+            menu.selected="5";
+            app.selection=5;
+            pages.selected=5;
+            help.selected=5;
+            app.$.paperDrawerPanel.closeDrawer();
         });
 
         footprintEntry.addEventListener('click', function() {
-            gal.selected = "5";
+            // gal.selected = "6";
+            menu.selected="6";
+            app.selection=6;
+            pages.selected=6;
+            help.selected=6;
+            app.$.paperDrawerPanel.closeDrawer();
         });
-        // viewlog: function(e) {
-        //     e.stopPropagation();
-        //     var pages = document.getElementById("mainPages");
-        //     var help = document.getElementById("helpPages");
-        //     var menu = document.querySelector('paper-menu');
-        //     var desLog = document.getElementById("desLog");
-        //     var desResults = document.getElementById("desResults");
-        //     document.getElementById("smallJobList").selected=e.model.index;
-        //     document.getElementById("smallJobListL").selected=e.model.index;
-        //     desLog.jobidFull = e.model.item.job;
-        //     desLog.jobid= this.returnName(e.model.item.job);
-        //     desResults.jobid = this.returnName(e.model.item.job);
-        //     desResults.jobidFull = e.model.item.job;
-        //     desResults.username = this.username;
-        //     desResults.jtypes = e.model.item.jtypes;
-        //     app.selection="7";
-        //     pages.selected="7";
-        //     menu.selected="7";
-        //     help.selected="7";
-        // },
-        // var iron_coadds = document.querySelector('iron-pages');
-        // var coadds = document.getElementById('coadds-page')
-        // iron_coadds.addEventListener('click', function(e) {
-        //     coadds.selectNext();
-        //     coadds.selected="0";
-        // });
 
-        // var worker = document.querySelector('iron-pages');
-        // var choice = document.querySelector('iron-selector');
-        // var intro = document.getElementById('mainGallery')
-        // choice.addEventListener('click', function(e) {
-        //     intro.selected = choice.selected;
-        // });
+
+
+
+        var tab_one = document.getElementById("api_tab_one");
+        var tab_two = document.getElementById("api_tab_two");
+        var tab_three = document.getElementById("api_tab_three");
+        var tab_four = document.getElementById("api_tab_four");
+        var tab_five = document.getElementById("api_tab_five");
+        var tab_six = document.getElementById("api_tab_six");
+        var tab_seven = document.getElementById("api_tab_seven");
+
+
+        var apis = document.getElementById("apis");
+
+        tab_one.addEventListener('click', function() {
+            apis.selected = "0";
+        });
+
+        tab_two.addEventListener('click', function() {
+            apis.selected = "1";
+        });
+
+        tab_three.addEventListener('click', function() {
+            apis.selected = "2";
+        });
+
+        tab_four.addEventListener('click', function() {
+            apis.selected = "3";
+        });
+
+        tab_five.addEventListener('click', function() {
+            apis.selected = "4";
+        });
+
+        tab_six.addEventListener('click', function() {
+            apis.selected = "5";
+        });
+
+        tab_seven.addEventListener('click', function() {
+            apis.selected = "6";
+        });
 
 
 
