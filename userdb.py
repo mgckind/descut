@@ -43,7 +43,7 @@ bigJ=tuple(bigJ)
 
 
 # write
-def create_db(delete=False)
+def create_db(delete=False):
     con = lite.connect('users.db')
     with con:
         cur = con.cursor()

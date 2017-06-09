@@ -1,38 +1,38 @@
 <dom-module id="des-api-check-token">
-<template>
     <style include="shared-styles">
     </style>
+    <template>
 
- <paper-card elevation="4" class="apicard">
-      <div class="api-header">Check Token status: <span class="api-subheader">Check the expiration time for a token</span></div>
-    <div class="card-content">
-      <table>
-     <tr><th>URL:</th><td>/api/token/?</td></tr>
-     <tr><th>Method:</th><td>GET</td></tr>
-     <tr><th>URL Params:</th><td>token=mytokenid</td></tr>
-     <tr><th>Success:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"} </td></tr>
-     <tr><th>Errors:</th><td> 400: Missing token parameter, 404: Token doesn't exists or expired </td></tr>
-     <tr><th>Example:</th><td> curl http://descut.cosmology.illinois.edu/api/token/?token=mytokenid  </td></tr>
-     </table>
-     <b>Python example:</b>
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&#39;http://descut.cosmology.illinois.edu/api/token/?token=263q...&#39;</span>)
-<span style="color: #008800; font-weight: bold">print</span>(req)
-<span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
-<span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
-{<span style="background-color: #fff0f0">&quot;status&quot;</span>: <span style="background-color: #fff0f0">&quot;ok&quot;</span>, <span style="background-color: #fff0f0">&quot;message&quot;</span>: <span style="background-color: #fff0f0">&quot;Token is valid for XX hours&quot;</span>}
-</pre></div>
+        <paper-card elevation="4" class="apicard">
+            <div class="api-header">Check Token status: <span class="api-subheader">Check the expiration time for a token</span></div>
+                <div class="card-content">
+                    <table>
+                    <tr><th>URL:</th><td>/api/token/?</td></tr>
+                    <tr><th>Method:</th><td>GET</td></tr>
+                    <tr><th>URL Params:</th><td>token=mytokenid</td></tr>
+                    <tr><th>Success:</th><td> 200: content: {"status": "ok", "message": "Token is valid XX hours"} </td></tr>
+                    <tr><th>Errors:</th><td> 400: Missing token parameter, 404: Token doesn't exists or expired </td></tr>
+                    <tr><th>Example:</th><td> curl http://descut.cosmology.illinois.edu/api/token/?token=mytokenid  </td></tr>
+                    </table>
+                    <b>Python example:</b>
+                    <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
+                    req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&#39;http://descut.cosmology.illinois.edu/api/token/?token=263q...&#39;</span>)
+                    <span style="color: #008800; font-weight: bold">print</span>(req)
+                    <span style="color: #333333">&lt;</span>Response [<span style="color: #0000DD; font-weight: bold">200</span>]<span style="color: #333333">&gt;</span>
+                    <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
+                    {<span style="background-color: #fff0f0">&quot;status&quot;</span>: <span style="background-color: #fff0f0">&quot;ok&quot;</span>, <span style="background-color: #fff0f0">&quot;message&quot;</span>: <span style="background-color: #fff0f0">&quot;Token is valid for XX hours&quot;</span>}
+                    </pre>
+                </div>
+            </div>
+        </paper-card>
 
-    </div>
-    </paper-card>
 
 
-
-</template>
+    </template>
 
 <script>
-      Polymer({
-      is: "des-api-check-token",
-    });
+Polymer({
+is: "des-api-check-token",
+});
 </script>
 </dom-module>

@@ -1,26 +1,26 @@
 <dom-module id="des-my-jobs">
 <template>
     <style include="shared-styles">
-    paper-listbox {
-        --paper-listbox-color: var(--primary-text-color);
-        width: 100%;
-        max-width:1000px;
-    }
+        paper-listbox {
+            --paper-listbox-color: var(--primary-text-color);
+            width: 100%;
+            max-width:1000px;
+        }
 
-    paper-icon-item {
-        --paper-item-focused: {
-        };
-        --paper-item-selected: {
-        background: var(--paper-amber-50) ;
-        };
-        --paper-item-focused-before: {
-            opacity:0.0;
+        paper-icon-item {
+            --paper-item-focused: {
             };
-    }
-    .size {
-      width: 40px;
-      height: 40px;
-    }
+            --paper-item-selected: {
+            background: var(--paper-amber-50) ;
+            };
+            --paper-item-focused-before: {
+                opacity:0.0;
+                };
+        }
+        .size {
+          width: 40px;
+          height: 40px;
+        }
     </style>
 
 
@@ -51,7 +51,7 @@
 
     <iron-ajax id="shareJob"
                url="/api/sharejob/"
-        <!--method="PUBLIC"-->
+        method="PUBLIC"
         params=''
         on-response="_afterShare"
         debounce-duration="300">
@@ -119,7 +119,7 @@
                                 </div>
                             </paper-item-body two-line>
 
-                            <paper-item-body >
+                            <paper-item-body>
                                 <div style="margin-left:10px;">
                                     {{item.jtypes}}
                                 </div>
@@ -142,216 +142,213 @@
 </template>
 
 <script>
-
-
-
- function loadJSON(callback) {
-    var xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
-    xobj.open('GET', '/api', true); // Replace 'my_data' with the path to your file
-    xobj.onreadystatechange = function () {
-          if (xobj.readyState == 4 && xobj.status == "200") {
-            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-            callback(xobj.responseText);
-          }
-    };
-    xobj.send(null);
- }
+     function loadJSON(callback) {
+        var xobj = new XMLHttpRequest();
+            xobj.overrideMimeType("application/json");
+        xobj.open('GET', '/api', true); // Replace 'my_data' with the path to your file
+        xobj.onreadystatechange = function () {
+              if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                callback(xobj.responseText);
+              }
+        };
+        xobj.send(null);
+     }
 
       Polymer({
-      is: "des-my-jobs",
-      properties: {
-        username: {
-            type: String,
-            value: '',
-        },
-      },
-      ready: function() {
-        var _self = this;
-        loc = window.location.host
-        var ws = new WebSocket("ws://"+loc+"/websocket");
-         ws.onmessage = function(e) {
-           console.log(e.data);
-           req = document.getElementById("getData");
-           req.generateRequest();
-        };
+          is: "des-my-jobs",
+          properties: {
+            username: {
+                type: String,
+                value: '',
+            },
+          },
+          ready: function() {
+            var _self = this;
+            loc = window.location.host
+            var ws = new WebSocket("ws://"+loc+"/websocket");
+             ws.onmessage = function(e) {
+               console.log(e.data);
+               req = document.getElementById("getData");
+               req.generateRequest();
+            };
 
-        //loadJSON(function(response) {
-        //_self.data = JSON.parse(response);
-        //_self.count = _self.data.length;
-         //});
-      },
-      _handleResponse: function(e){
-        var _self = this;
-        _self.data = e.detail.response;
-        _self.count = _self.data.length;
-        document.querySelector('des-results-help').data = _self.data;
-        document.querySelector('des-logs-help').data = _self.data;
-      },
-      _afterDelete: function(e){
-        var list = document.getElementById("jobList");
-        for (i = 0; i < this.mytemp.length ; i++) {
-            list.selectIndex(this.mytemp[i]);
-        }
-        req = document.getElementById("getData");
-        req.generateRequest();
-      },
-      selectall: function(){
-        var list = document.getElementById("jobList");
-        var listAll = list.selectedValues;
-        //if (typeof listAll !== 'undefined') {
-        //    var listAll2 = JSON.parse(JSON.stringify(listAll));
-          //  console.log(listAll2.length);
-           // }
-        for (i = 1; i< list.items.length ;i++) {
-            list.selectIndex(i);
-        }
-        //if (typeof listAll !== 'undefined') {
-        //for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
-        //};
-        app.scrollPageToTop();
-        },
-      unselectall: function(){
-        var list = document.getElementById("jobList");
-        var listAll = list.selectedValues;
-        console.log(listAll);
-        if (typeof listAll !== 'undefined') {
-            var listAll2 = JSON.parse(JSON.stringify(listAll));
-            for (i = 0; i< listAll2.length ;i++) {
-                list.selectIndex(listAll2[i]);
-            }
-        }
-        app.scrollPageToTop();
-        },
-      deleteall: function(){
-        var list = document.getElementById("jobList");
-        var listAll = list.selectedValues;
-        this.mytemp = JSON.parse(JSON.stringify(listAll));
-        var result = confirm("Do you want to delete these "+listAll.length+" jobs? They will be also erased from disk storage");
-        var toDel=[];
-        if (result){
+            //loadJSON(function(response) {
+            //_self.data = JSON.parse(response);
+            //_self.count = _self.data.length;
+             //});
+          },
+          _handleResponse: function(e){
+            var _self = this;
+            _self.data = e.detail.response;
+            _self.count = _self.data.length;
+            document.querySelector('des-results-help').data = _self.data;
+            document.querySelector('des-logs-help').data = _self.data;
+          },
+          _afterDelete: function(e){
+            var list = document.getElementById("jobList");
             for (i = 0; i < this.mytemp.length ; i++) {
-                toDel.push(this.returnName(this.data[this.mytemp[i]-1].job));
+                list.selectIndex(this.mytemp[i]);
             }
-            req = document.getElementById("DeleteReq");
-            req.params = toDel;
+            req = document.getElementById("getData");
             req.generateRequest();
+          },
+          selectall: function(){
+            var list = document.getElementById("jobList");
+            var listAll = list.selectedValues;
+            //if (typeof listAll !== 'undefined') {
+            //    var listAll2 = JSON.parse(JSON.stringify(listAll));
+              //  console.log(listAll2.length);
+               // }
+            for (i = 1; i< list.items.length ;i++) {
+                list.selectIndex(i);
             }
-        },
-      returnName: function(job) {
-        var n1=job.search("__");
-        var n2=job.search("{");
-        var job0 = job.substring(n1+2,n2-1);
-        return job0;
-      },
-      returnDate: function(date) {
-        var date0 = date.substring(4,19);
-        return date0;
-      },
-      _completed: function(status) {
-        if (status === "SUCCESS") {return true;}
-      },
-      _pending: function(status) {
-        if (status === "PENDING") {return true;}
-      },
-      _stop: function(status) {
-        if (status != "PENDING" && status != "SUCCESS" ) {return true;}
-      },
-       _viewjob: function(status){
-        if (status === "SUCCESS") {
-          return false;
-        }
-        else{
-          return true;
-        }
-      },
-       _viewlog: function(status){
-        if (status === "REVOKED") {
-          return true;
-        }
-        else{
-          return false;
-        }
-      },
-      _canceljob: function(status){
-        if (status === "PENDING") {
-          return false;
-        }
-        else{
-          return true;
-        }
-      },
+            //if (typeof listAll !== 'undefined') {
+            //for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
+            //};
+            app.scrollPageToTop();
+            },
+          unselectall: function(){
+            var list = document.getElementById("jobList");
+            var listAll = list.selectedValues;
+            console.log(listAll);
+            if (typeof listAll !== 'undefined') {
+                var listAll2 = JSON.parse(JSON.stringify(listAll));
+                for (i = 0; i< listAll2.length ;i++) {
+                    list.selectIndex(listAll2[i]);
+                }
+            }
+            app.scrollPageToTop();
+            },
+          deleteall: function(){
+            var list = document.getElementById("jobList");
+            var listAll = list.selectedValues;
+            this.mytemp = JSON.parse(JSON.stringify(listAll));
+            var result = confirm("Do you want to delete these "+listAll.length+" jobs? They will be also erased from disk storage");
+            var toDel=[];
+            if (result){
+                for (i = 0; i < this.mytemp.length ; i++) {
+                    toDel.push(this.returnName(this.data[this.mytemp[i]-1].job));
+                }
+                req = document.getElementById("DeleteReq");
+                req.params = toDel;
+                req.generateRequest();
+                }
+            },
+          returnName: function(job) {
+            var n1=job.search("__");
+            var n2=job.search("{");
+            var job0 = job.substring(n1+2,n2-1);
+            return job0;
+          },
+          returnDate: function(date) {
+            var date0 = date.substring(4,19);
+            return date0;
+          },
+          _completed: function(status) {
+            if (status === "SUCCESS") {return true;}
+          },
+          _pending: function(status) {
+            if (status === "PENDING") {return true;}
+          },
+          _stop: function(status) {
+            if (status != "PENDING" && status != "SUCCESS" ) {return true;}
+          },
+           _viewjob: function(status){
+            if (status === "SUCCESS") {
+              return false;
+            }
+            else{
+              return true;
+            }
+          },
+           _viewlog: function(status){
+            if (status === "REVOKED") {
+              return true;
+            }
+            else{
+              return false;
+            }
+          },
+          _canceljob: function(status){
+            if (status === "PENDING") {
+              return false;
+            }
+            else{
+              return true;
+            }
+          },
 
-      canceljob: function(e){
-        console.log(e.model.item.job);
-        var cancelJob = document.getElementById("cancelJob");
-        cancelJob.params = {jobid: e.model.item.job};
-        cancelJob.generateRequest();
-      },
-      _afterCancel: function(){
-        document.getElementById("getData").generateRequest();
-        },
-      viewresults: function(e){
-        e.stopPropagation();
-        var pages = document.getElementById("mainPages");
-        var help = document.getElementById("helpPages");
-        var menu = document.querySelector('paper-menu');
-        var desResults = document.getElementById("desResults");
-        var desLog = document.getElementById("desLog");
-        document.getElementById("smallJobList").selected=e.model.index;
-        document.getElementById("smallJobListL").selected=e.model.index;
-            desResults.jobid = this.returnName(e.model.item.job);
-            desResults.jobidFull = e.model.item.job;
-            desResults.username = this.username;
-            desResults.jtypes = e.model.item.jtypes;
-            desResults.jpublic = e.model.item.jpublic;
-            desLog.jobid = this.returnName(e.model.item.job);
-            desLog.jobidFull = e.model.item.job;
-            app.selection="7";
-            pages.selected="7";
-            menu.selected="7";
-            help.selected="7";
+          canceljob: function(e){
+            console.log(e.model.item.job);
+            var cancelJob = document.getElementById("cancelJob");
+            cancelJob.params = {jobid: e.model.item.job};
+            cancelJob.generateRequest();
+          },
+          _afterCancel: function(){
+            document.getElementById("getData").generateRequest();
+            },
+          viewresults: function(e){
+            e.stopPropagation();
+            var pages = document.getElementById("mainPages");
+            var help = document.getElementById("helpPages");
+            var menu = document.querySelector('paper-menu');
+            var desResults = document.getElementById("desResults");
+            var desLog = document.getElementById("desLog");
+            document.getElementById("smallJobList").selected=e.model.index;
+            document.getElementById("smallJobListL").selected=e.model.index;
+                desResults.jobid = this.returnName(e.model.item.job);
+                desResults.jobidFull = e.model.item.job;
+                desResults.username = this.username;
+                desResults.jtypes = e.model.item.jtypes;
+                desResults.jpublic = e.model.item.jpublic;
+                desLog.jobid = this.returnName(e.model.item.job);
+                desLog.jobidFull = e.model.item.job;
+                app.selection="7";
+                pages.selected="7";
+                menu.selected="7";
+                help.selected="7";
 
-      },
-      viewlog: function(e) {
-        e.stopPropagation();
-        var pages = document.getElementById("mainPages");
-        var help = document.getElementById("helpPages");
-        var menu = document.querySelector('paper-menu');
-        var desLog = document.getElementById("desLog");
-        var desResults = document.getElementById("desResults");
-        document.getElementById("smallJobList").selected=e.model.index;
-        document.getElementById("smallJobListL").selected=e.model.index;
-            desLog.jobidFull = e.model.item.job;
-            desLog.jobid= this.returnName(e.model.item.job);
-            desResults.jobid = this.returnName(e.model.item.job);
-            desResults.jobidFull = e.model.item.job;
-            desResults.username = this.username;
-            desResults.jtypes = e.model.item.jtypes;
-            desResults.jpublic = e.model.item.jpublic;
-            app.selection="8";
-            pages.selected="8";
-            menu.selected="8";
-            help.selected="8";
-      },
+          },
+          viewlog: function(e) {
+            e.stopPropagation();
+            var pages = document.getElementById("mainPages");
+            var help = document.getElementById("helpPages");
+            var menu = document.querySelector('paper-menu');
+            var desLog = document.getElementById("desLog");
+            var desResults = document.getElementById("desResults");
+            document.getElementById("smallJobList").selected=e.model.index;
+            document.getElementById("smallJobListL").selected=e.model.index;
+                desLog.jobidFull = e.model.item.job;
+                desLog.jobid= this.returnName(e.model.item.job);
+                desResults.jobid = this.returnName(e.model.item.job);
+                desResults.jobidFull = e.model.item.job;
+                desResults.username = this.username;
+                desResults.jtypes = e.model.item.jtypes;
+                desResults.jpublic = e.model.item.jpublic;
+                app.selection="8";
+                pages.selected="8";
+                menu.selected="8";
+                help.selected="8";
+          },
 
-      sharejob: function(e){
-          console.log(e.model.item.job);
-          var shareJob = document.getElementById("shareJob");
-          shareJob.params = {jobid: e.model.item.job};
-          shareJob.generateRequest();
-      },
+          sharejob: function(e){
+              console.log(e.model.item.job);
+              var shareJob = document.getElementById("shareJob");
+              shareJob.params = {jobid: e.model.item.job};
+              shareJob.generateRequest();
+          },
 
-      _afterShare: function(e){
-          var list = document.getElementById("jobList");
-          for (i = 0; i < this.mytemp.length ; i++) {
-              list.selectIndex(this.mytemp[i]);
-          }
-          req = document.getElementById("getData");
-          req.generateRequest();
-      },
+          _afterShare: function(e){
+              var list = document.getElementById("jobList");
+              for (i = 0; i < this.mytemp.length ; i++) {
+                  list.selectIndex(this.mytemp[i]);
+              }
+              req = document.getElementById("getData");
+              req.generateRequest();
+          },
 
-    });
+      });
 
 
 </script>

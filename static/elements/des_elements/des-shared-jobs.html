@@ -1,5 +1,5 @@
 <dom-module id="des-shared-jobs">
-    <template>
+
         <style include="shared-styles">
             paper-listbox {
                 --paper-listbox-color: var(--primary-text-color);
@@ -22,7 +22,7 @@
                 height: 40px;
             }
         </style>
-
+    <template>
 
         <iron-ajax id="getData"
                    auto
@@ -56,7 +56,6 @@
                    on-response="_afterShare"
                    debounce-duration="300">
         </iron-ajax>
-
         <section>
             <des-card>
                 <div class='card-content'>

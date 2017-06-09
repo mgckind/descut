@@ -39,58 +39,63 @@
         jobsEntry.addEventListener('click', function() {
             // gal.selected = "1";
             menu.selected="1";
-            app.selection=1;
-            pages.selected=1;
-            help.selected=1;
+            app.selection="1";
+            pages.selected="1";
+            // help.selected="1";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
         sharedEntry.addEventListener('click', function() {
             // gal.selected = "2";
             menu.selected="2";
-            app.selection=2;
-            pages.selected=2;
-            help.selected=2;
+            app.selection="2";
+            pages.selected="2";
+            // help.selected="2";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
         coaddEntry.addEventListener('click', function() {
             // gal.selected = "3";
             menu.selected="3";
-            app.selection=3;
-            pages.selected=3;
-            help.selected=3;
+            app.selection="3";
+            pages.selected="3";
+            // help.selected="3";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
         epochEntry.addEventListener('click', function() {
             // gal.selected = "4";
             menu.selected="4";
-            app.selection=4;
-            pages.selected=4;
-            help.selected=4;
+            app.selection="4";
+            pages.selected="4";
+            // help.selected="4";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
         apiEntry.addEventListener('click', function() {
             // gal.selected = "5";
             menu.selected="5";
-            app.selection=5;
-            pages.selected=5;
-            help.selected=5;
+            app.selection="5";
+            pages.selected="5";
+            // help.selected="5";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
         footprintEntry.addEventListener('click', function() {
             // gal.selected = "6";
             menu.selected="6";
-            app.selection=6;
-            pages.selected=6;
-            help.selected=6;
+            app.selection="6";
+            pages.selected="6";
+            // help.selected="6";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
 
+
+        // var tabs = document.getElementById("api-tabs");
+        // tabs.addEventListener('iron-active', function () {
+        //     tabs.style.backgroundColor = "red";
+        // });
 
 
         var tab_one = document.getElementById("api_tab_one");
