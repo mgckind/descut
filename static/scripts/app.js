@@ -140,9 +140,14 @@
 
 
         var list = document.getElementById("jobList");
+        var list2 = document.getElementById("jobListShared");
         var smallList = document.getElementById("smallJobList");
         var smallListL = document.getElementById("smallJobListL");
+        var smallList2 = document.getElementById("smallJobListShared");
+        var smallListL2 = document.getElementById("smallJobListLShared");
         var checkList = document.getElementById("checkAll");
+        var checkList2 = document.getElementById("checkAllShared");
+
         list.addEventListener('iron-select', function(){
             var listAll = [];
             listAll = list.selectedValues;
@@ -152,6 +157,7 @@
                 checkList.checked = true;
             };
         });
+
         //smallList.addEventListener('iron-select', function(){
           //  console.log(smallList.selectedItem.item);
            // document.getElementById("desResults").jobid=smallList.selectedItem.innerText.trim();
@@ -172,10 +178,36 @@
                 checkList.checked = false;
                 };
         });
+
+
         list.addEventListener('iron-items-changed', function(){
             document.getElementById("DeleteHeader").style.display = "none";
             document.getElementById("ListHeader").style.display = "block";
             checkList.checked = false;
+        });
+
+        list2.addEventListener('iron-select', function(){
+            var listAll = [];
+            listAll = list2.selectedValues;
+            if (listAll.length > 0){
+                checkList2.checked = true;
+            };
+        });
+
+        list2.addEventListener('iron-deselect', function(){
+            var listAll = [];
+            listAll = list2.selectedValues;
+            if (listAll.length == 0){
+                // document.getElementById("InfoHeader").style.display = "none";
+                document.getElementById("ListHeaderShared").style.display = "block";
+                checkList2.checked = false;
+            };
+        });
+
+        list2.addEventListener('iron-items-changed', function(){
+            // document.getElementById("InfoHeader").style.display = "none";
+            document.getElementById("ListHeaderShared").style.display = "block";
+            checkList2.checked = false;
         });
 
         var xsize = document.getElementById("xsizeSlider");

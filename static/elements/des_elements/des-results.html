@@ -44,68 +44,68 @@
 </template>
 
 <script>
-      Polymer({
-      is: "des-results",
-      listeners:{
-        "dom-change": "_afterChange",
-      },
-      properties : {
-        jsondata: {
-            type: Array,
+    Polymer({
+          is: "des-results",
+          listeners:{
+            "dom-change": "_afterChange",
+          },
+          properties : {
+            jsondata: {
+                type: Array,
             },
-        jobid: {
-            value : '',
-            type : String,
-            notify: true,
-        },
-        jobid2:{
-            value: '',
-            type: String,
-            notify: true,
-        },
-        jobidFull: {
-            value : '',
-            type : String,
-            notify: true,
-        },
-        jtypes: {
-            value : '',
-            type : String,
-            notify: true,
-        },
+            jobid: {
+                value : '',
+                type : String,
+                notify: true,
+            },
+            jobid2:{
+                value: '',
+                type: String,
+                notify: true,
+            },
+            jobidFull: {
+                value : '',
+                type : String,
+                notify: true,
+            },
+            jtypes: {
+                value : '',
+                type : String,
+                notify: true,
+            },
 
-        jpublic: {
-            value : '',
-            type : String,
-            notify: true,
+            jpublic: {
+                value : '',
+                type : String,
+                notify: true,
+            },
+            username:{
+                type: String,
+                value: '',
+            },
+          },
+          _afterChange: function(e){
+            this.async(function(){
+              if (e.target.id == "inside" && this.jtypes == "SE"){
+                this.jobid2 = this.jobid;
+              }
+            });
+
+          },
+          _actionIsCoadd: function(job_type) {
+            if (job_type == "Coadd") return true;
+          },
+          _actionIsSE: function(job_type) {
+            if (job_type == "SE") return true;
+          },
+          _getTilesResponse: function() {
+            if (this.jsondata.length == 0 ) {
+              document.getElementById('getAllIcon').disabled=true;
+               }
+            else {
+              document.getElementById('getAllIcon').disabled=false;
+              }
         },
-        username:{
-            type: String,
-            value: '',
-        },
-      },
-      _afterChange: function(e){
-        this.async(function(){
-          if (e.target.id == "inside" && this.jtypes == "SE"){
-            this.jobid2 = this.jobid;
-          }
-        });
-        
-      },
-      _actionIsCoadd: function(job_type) {
-        if (job_type == "Coadd") return true;
-      },
-      _actionIsSE: function(job_type) {
-        if (job_type == "SE") return true;
-      },
-      _getTilesResponse: function() {
-        if (this.jsondata.length == 0 ) {
-          document.getElementById('getAllIcon').disabled=true;
-           }
-        else {
-          document.getElementById('getAllIcon').disabled=false;
-          }
-	},
     });
 </script>
 </dom-module>

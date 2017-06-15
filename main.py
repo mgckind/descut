@@ -30,7 +30,7 @@ def create_db(delete=False):
         cur = con.cursor()
         if delete:
             cur.execute("DROP TABLE IF EXISTS Jobs")
-        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, type text)")
+        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, type text,  public integer)")
 
 
 
@@ -49,18 +49,15 @@ class Application(tornado.web.Application):
             (r"/api/log/?", api.LogHandler),
             (r"/api/token/?", api.TokenHandler),            
             (r"/api/jobs/?", api.JobHandler),
-            (r"/api/mongo/?", api.MongoHandler),            
+            (r"/api/mongo/?", api.MongoHandler),
+            (r"/api/share/?", api.ShareHandler),
             (r"/api/refresh/?", readfile.RefreshHandler),
             (r'/websocket', readfile.WebSocketHandler),
             (r"/readfile/coadd/", readfile.FileHandler),
             (r"/readfile/single/", readfile.FileHandlerS),
             (r"/download/object/", download.DownloadObjectHandler),
             (r"/download/single/", download.DownloadHandler),
-            # (r"/intro/jobs", intro.JobsHandler),
-            # (r"/intro/coadd", intro.CoaddHandler),
-            # (r"/intro/epoch", intro.EpochHandler),
-            # (r"/intro/api", intro.ApiHandler),
-            # (r"/intro/footprint", intro.FootprintHandler),
+
             ]
         settings = {
             "template_path":Settings.TEMPLATE_PATH,
