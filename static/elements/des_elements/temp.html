@@ -69,20 +69,8 @@
                         <hr>
 
                         <template is="dom-repeat" id="menu" items="{{data}}">
-                            <paper-icon-item>
-
-                                <template is="dom-if" if="{{_completed(item.status)}}">
-                                    <div class="status size green" item-icon></div>
-                                </template>
-
-                                <template is="dom-if" if="{{_pending(item.status)}}">
-                                    <div class="status size" item-icon></div>
-                                </template>
-
-                                <template is="dom-if" if="{{_stop(item.status)}}">
-                                    <div class="status size red" item-icon></div>
-                                </template>
-
+                            <paper-icon-itedm>
+                                <div class="status size}}" item-icon></div>
 
                                 <paper-item-body two-line>
                                     <div>
@@ -100,32 +88,30 @@
                                 </paper-item-body>
 
                                 <paper-item-body>
-                                    <iron-icon id="eyeShared" icon="{{_isShared(item.jpublic)}}"></iron-icon>
+
+                                    <paper-item-body >
+                                        <paper-icon-button icon="{{_isShared(item.jpublic)}}"></paper-icon-button>
+                                    </paper-item-body>
                                 </paper-item-body>
 
                                 <paper-item-body>
-
                                     <div>{{username}}</div>
-
                                 </paper-item-body>
-                                <!--<div>-->
-                                <!--{{item.jpublic}}-->
-                                <!--</div>-->
 
                                 <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
                                 <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
 
-                            </paper-icon-item>
+                            </paper-icon-itedm>
                         </template>
 
                         <!--<div id="InfoHeader" style="display:none;">-->
-                            <!--<paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1500px;">-->
-                                <!--<paper-item-body>-->
-                                    <!--<div>-->
-                                        <!--{{username}}-->
-                                    <!--</div>-->
-                                <!--</paper-item-body>-->
-                            <!--</paper-icon-item>-->
+                        <!--<paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1500px;">-->
+                        <!--<paper-item-body>-->
+                        <!--<div>-->
+                        <!--{{username}}-->
+                        <!--</div>-->
+                        <!--</paper-item-body>-->
+                        <!--</paper-icon-item>-->
                         <!--</div>-->
                     </paper-listbox>
                 </div>
@@ -216,24 +202,24 @@
             var date0 = date.substring(4,19);
             return date0;
         },
-//        _share: function(access) {
-//            if (access === 1) {return true;}
+
+        _jobStatus: function(status) {
+            if (status === "SUCCESS") {
+                return "green";
+            }
+            else if (status === "PENDING") {
+                return "";
+            }
+            else {
+                return "red";
+            }
+        },
+//        _pending: function(status) {
+//            if (status === "PENDING") {return true;}
 //        },
-//        _notShare: function(access) {
-//            if (access === 0) {return true;}
+//        _stop: function(status) {
+//            if (status != "PENDING" && status != "SUCCESS" ) {return true;}
 //        },
-
-        _completed: function(status) {
-            if (status === "SUCCESS") {return true;}
-        },
-        _pending: function(status) {
-            if (status === "PENDING") {return true;}
-        },
-        _stop: function(status) {
-            if (status != "PENDING" && status != "SUCCESS" ) {return true;}
-        },
-
-
         _viewjob: function(status){
             if (status === "SUCCESS") {
                 return false;

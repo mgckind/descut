@@ -723,3 +723,19 @@ class CancelJobHandler(BaseHandler):
         self.set_status(200)
         self.flush()
         self.finish()
+
+class ShareJobHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        jobid = self.get_argument("jobid")
+        jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
+        revoke(jobid, terminate=True)
+        con = lite.connect(Settings.DBFILE)
+        with con:
+            cur = con.cursor()
+            q = "UPDATE Jobs SET public= %d where job = '%s'" % (1, jobid2)
+            cc = cur.execute(q)
+        self.set_status(200)
+        self.flush()
+        self.finish()

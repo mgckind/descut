@@ -50,6 +50,14 @@
                    debounce-duration="300">
         </iron-ajax>
 
+        <iron-ajax id="ShareReq"
+                   url="/api/sharejob/"
+                   method="GET"
+                   params='[1,2,3]'
+                   on-response="_afterShare"
+                   debounce-duration="300">
+        </iron-ajax>
+
 
 
         <section>
@@ -68,18 +76,29 @@
                             <paper-item-body>
                                 <div>Public / Private</div>
                             </paper-item-body>
-                            <div>View | Log | Share | Cancel</div>
+                            <div>View | Log | Cancel</div>
                         </paper-item>
                     </div>
 
                     <div id="DeleteHeader" style="display:none;">
                         <paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1500px;">
+
+                            <paper-icon-button icon="social:share" on-tap="shareall"></paper-icon-button>
+                            <paper-item-body>
+                                <div>
+                                    Share Jobs
+                                </div>
+                            </paper-item-body>
+
+
                             <paper-icon-button icon="delete" on-tap="deleteall"></paper-icon-button>
                             <paper-item-body>
                                 <div>
                                     Delete Jobs
                                 </div>
                             </paper-item-body>
+
+
                         </paper-icon-item>
                     </div>
 
@@ -90,22 +109,15 @@
                         <template is="dom-repeat" id="menu" items="{{data}}">
                             <paper-icon-item>
                                 <template is="dom-if" if="{{_completed(item.status)}}">
-                                    <div class="status size green" item-icon>
-                                    </div>
+                                    <div class="status size green" item-icon></div>
                                 </template>
 
                                 <template is="dom-if" if="{{_pending(item.status)}}">
-
-                                    <div class="status size" item-icon>
-
-                                    </div>
+                                    <div class="status size" item-icon></div>
                                 </template>
 
                                 <template is="dom-if" if="{{_stop(item.status)}}">
-
-                                    <div class="status size red" item-icon>
-
-                                    </div>
+                                    <div class="status size red" item-icon></div>
                                 </template>
 
                                 <paper-item-body two-line>
@@ -123,18 +135,8 @@
                                     </div>
                                 </paper-item-body>
 
-                                <paper-item-body>
-
-                                    <template is="dom-if" if="{{_share(item.jpublic)}}">
-                                        <iron-icon icon="visibility"></iron-icon>
-                                    </template>
-
-                                    <template is="dom-if" if="{{_notShare(item.jpublic)}}">
-
-                                        <iron-icon icon="visibility-off"></iron-icon>
-
-                                    </template>
-
+                                <paper-item-body >
+                                    <iron-icon id="eye" icon="{{_isShared(item.jpublic)}}"></iron-icon>
                                 </paper-item-body>
                                 <!--<div>-->
                                     <!--{{item.jpublic}}-->
@@ -142,14 +144,15 @@
 
                                 <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
                                 <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
-                                <paper-icon-button icon="social:share" on-tap="sharejob" disabled$="{{_sharejob(item.status)}}"></paper-icon-button>
                                 <paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
                             </paper-icon-item>
                         </template>
+
                     </paper-listbox>
                 </div>
             </des-card>
         </section>
+
     </template>
 </dom-module>
 <script>
@@ -231,6 +234,7 @@
             }
             app.scrollPageToTop();
         },
+
         deleteall: function(){
             var list = document.getElementById("jobList");
             var listAll = list.selectedValues;
@@ -246,22 +250,21 @@
                 req.generateRequest();
             }
         },
+
         returnName: function(job) {
             var n1=job.search("__");
             var n2=job.search("{");
             var job0 = job.substring(n1+2,n2-1);
             return job0;
         },
+
         returnDate: function(date) {
             var date0 = date.substring(4,19);
             return date0;
         },
-        _share: function(access) {
-            if (access === 1) {return true;}
-        },
-        _notShare: function(access) {
-            if (access === 0) {return true;}
-        },
+
+
+
 
         _completed: function(status) {
             if (status === "SUCCESS") {return true;}
@@ -297,6 +300,8 @@
             }
         },
 
+
+
         canceljob: function(e){
             console.log(e.model.item.job);
             var cancelJob = document.getElementById("cancelJob");
@@ -307,6 +312,7 @@
         _afterCancel: function(){
             document.getElementById("getData").generateRequest();
         },
+
         viewresults: function(e){
             e.stopPropagation();
             var pages = document.getElementById("mainPages");
@@ -330,6 +336,7 @@
             help.selected="7";
 
         },
+
         viewlog: function(e) {
             e.stopPropagation();
             var pages = document.getElementById("mainPages");
@@ -353,7 +360,71 @@
             help.selected="8";
         },
 
+        shareall: function(e) {
+            var list = document.getElementById("jobList");
+            var listAll = list.selectedValues;
+            this.mytemp = JSON.parse(JSON.stringify(listAll));
+            var result = 0;
+            if (listAll.length > 1) {
+                result = confirm("Do you want to make these " + listAll.length + " jobs public? ");
+            }
+            else {
+                result = confirm("Do you want to make this 1 job public? ");
+            }
+            var toShare = [];
+            if (result) {
+                for (i = 0; i < this.mytemp.length; i++) {
+                    toShare.push(this.returnName(this.data[this.mytemp[i] - 1].job));
+                }
+                req = document.getElementById("ShareReq");
+                req.params = toShare;
+                req.generateRequest();
+            }
 
+        },
+
+
+        _isShared: function(access) {
+            if (access === 1) {
+                return "visibility";
+            }
+            else {
+                return "visibility-off";
+            }
+        },
+
+        _afterShare: function(e){
+//            change visibility
+            var list = document.getElementById("jobList");
+
+            for (i = 0; i < this.mytemp.length ; i++) {
+                list.selectIndex(this.mytemp[i]);
+            }
+            var desResults = document.getElementById("desResults");
+            req = document.getElementById("getData");
+            req2 = document.getElementById("getDataShared");
+//            icon = document.getElementById("eye");
+//            if(desResults.jpublic === 1) {
+//                Polymer.dom(icon).setAttribute('icon', 'visibility')
+//            }
+//            else {
+//                console.log("change fail.");
+//            }
+            req.generateRequest();
+            req2.generateRequest();
+
+//            console.log(e.model.item.job);
+//            var shareJob = document.getElementById("shareJob");
+//            shareJob.params = {jobid: e.model.item.job};
+//            shareJob.generateRequest();
+        },
+
+
+
+//        shareConfirm: function(){
+//            var sdialog = document.getElementById("shareDialog");
+//                sdialog.open();
+//        },
     });
 
 
