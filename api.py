@@ -561,29 +561,6 @@ class MongoHandler(tornado.web.RequestHandler):
 
 
 class ShareHandler(BaseHandler):
-    # @tornado.web.authenticated
-    # def delete(self):
-    #     loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
-    #     user_folder = os.path.join(Settings.UPLOADS,loc_user)
-    #     response = { k: self.get_argument(k) for k in self.request.arguments }
-    #     Nd=len(response)
-    #     con = lite.connect(Settings.DBFILE)
-    #     with con:
-    #         cur = con.cursor()
-    #         for j in range(Nd):
-    #             jid=response[str(j)]
-    #             q = "DELETE from Jobs where job = '%s' and public = '%s'" % (jid, 1)
-    #             cc = cur.execute(q)
-    #             folder = os.path.join(user_folder,'results/' + jid)
-    #             try:
-    #                 os.system('rm -rf ' + folder)
-    #                 os.system('rm -f ' + os.path.join(user_folder,jid+'.csv'))
-    #             except:
-    #                 pass
-    #     self.set_status(200)
-    #     self.flush()
-    #     self.finish()
-
     @tornado.web.authenticated
     def get(self):
         # loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
@@ -727,15 +704,19 @@ class CancelJobHandler(BaseHandler):
 class ShareJobHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
-        jobid = self.get_argument("jobid")
-        jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
-        revoke(jobid, terminate=True)
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"', '')
+        user_folder = os.path.join(Settings.UPLOADS, loc_user)
+        response = {k: self.get_argument(k) for k in self.request.arguments}
+        Nd = len(response)
         con = lite.connect(Settings.DBFILE)
         with con:
             cur = con.cursor()
-            q = "UPDATE Jobs SET public= %d where job = '%s'" % (1, jobid2)
-            cc = cur.execute(q)
+            for j in range(Nd):
+                jid = response[str(j)]
+                q = "UPDATE Jobs SET public=%d where job = '%s'" % (1, jid)
+                cc = cur.execute(q)
+                folder = os.path.join(user_folder, 'results/' + jid)
+
         self.set_status(200)
         self.flush()
         self.finish()
