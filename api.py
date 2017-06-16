@@ -720,3 +720,22 @@ class ShareJobHandler(BaseHandler):
         self.set_status(200)
         self.flush()
         self.finish()
+
+    @tornado.web.authenticated
+    def delete(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        user_folder = os.path.join(Settings.UPLOADS,loc_user)
+        response = { k: self.get_argument(k) for k in self.request.arguments }
+        Nd=len(response)
+        con = lite.connect(Settings.DBFILE)
+        with con:
+            cur = con.cursor()
+            for j in range(Nd):
+                jid=response[str(j)]
+                q = "UPDATE Jobs SET public=%d where job = '%s'" % (0, jid)
+                cc = cur.execute(q)
+                folder = os.path.join(user_folder,'results/' + jid)
+
+        self.set_status(200)
+        self.flush()
+        self.finish()

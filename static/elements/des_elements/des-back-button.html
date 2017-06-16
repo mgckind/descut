@@ -1,18 +1,18 @@
 <dom-module id="des-back-button">
-    <style>
-
-    </style>
     <template>
-        <paper-icon-button icon="reply" on-tap="home"></paper-icon-button>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <paper-icon-button icon="arrow-back" on-tap="goback"></paper-icon-button>
     </template>
+    <script>
+        Polymer({
+            is: 'des-back-button',
+            goback: function () {
+                window.history.back();
+            }
+        });
+    </script>
 </dom-module>
-
-<script>
-    Polymer({
-        is: "des-back-button",
-        home: function(event){
-            window.open('/','_self',false);
-        },
-    });
-
-</script>

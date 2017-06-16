@@ -58,9 +58,16 @@
                    debounce-duration="300">
         </iron-ajax>
 
-
+        <iron-ajax id="UnshareReq"
+                   url="/api/sharejob/"
+                   method="DELETE"
+                   params='[1,2,3]'
+                   on-response="_afterUnshare"
+                   debounce-duration="300">
+        </iron-ajax>
 
         <section>
+            <des-back-button></des-back-button>
             <des-card>
                 <div class='card-content'>
                     <div id="ListHeader" style="display:block;">
@@ -81,15 +88,25 @@
                     </div>
 
                     <div id="DeleteHeader" style="display:none;">
-                        <paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1500px;">
+                        <paper-icon-item style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1500px;">
 
-                            <paper-icon-button icon="social:share" on-tap="shareall"></paper-icon-button>
-                            <paper-item-body>
-                                <div>
-                                    Share Jobs
-                                </div>
-                            </paper-item-body>
+                            <!--<template is="dom-if" if="{{_isPrivate(item.jpublic)}}">-->
+                                <paper-icon-button icon="social:share" on-tap="shareall"></paper-icon-button>
+                                <paper-item-body>
+                                    <div>
+                                        Share Jobs
+                                    </div>
+                                </paper-item-body>
+                            <!--</template>-->
 
+                            <!--<template is="dom-if" if="{{_isPublic(item.jpublic)}}">-->
+                                <paper-icon-button icon="undo" on-tap="unshareall"></paper-icon-button>
+                                <paper-item-body>
+                                    <div>
+                                        Unshare Jobs
+                                    </div>
+                                </paper-item-body>
+                            <!--</template>-->
 
                             <paper-icon-button icon="delete" on-tap="deleteall"></paper-icon-button>
                             <paper-item-body>
@@ -363,10 +380,10 @@
             this.mytemp = JSON.parse(JSON.stringify(listAll));
             var result = 0;
             if (listAll.length > 1) {
-                result = confirm("Do you want to make these " + listAll.length + " jobs public? ");
+                result = confirm("Do you want to share these " + listAll.length + " jobs? ");
             }
             else {
-                result = confirm("Do you want to make this 1 job public? ");
+                result = confirm("Do you want to share this 1 job? ");
             }
             var toShare = [];
             if (result) {
@@ -380,6 +397,28 @@
 
         },
 
+        unshareall: function(e) {
+            var list = document.getElementById("jobList");
+            var listAll = list.selectedValues;
+            this.mytemp = JSON.parse(JSON.stringify(listAll));
+            var result = 0;
+            if (listAll.length > 1) {
+                result = confirm("Do you want to unshare these " + listAll.length + " jobs? ");
+            }
+            else {
+                result = confirm("Do you want to unshare this 1 job? ");
+            }
+            var toUnshare = [];
+            if (result) {
+                for (i = 0; i < this.mytemp.length; i++) {
+                    toUnshare.push(this.returnName(this.data[this.mytemp[i] - 1].job));
+                }
+                req = document.getElementById("UnshareReq");
+                req.params = toUnshare;
+                req.generateRequest();
+            }
+
+        },
 
         _isShared: function(access) {
             if (access === 1) {
@@ -391,6 +430,22 @@
         },
 
         _afterShare: function(e){
+            var list = document.getElementById("jobList");
+
+            for (i = 0; i < this.mytemp.length ; i++) {
+                list.selectIndex(this.mytemp[i]);
+            }
+            var desResults = document.getElementById("desResults");
+            req = document.getElementById("getData");
+            req2 = document.getElementById("getDataShared");
+
+            req.generateRequest();
+            req2.generateRequest();
+
+
+        },
+
+        _afterUnshare: function(e){
 //            change visibility
             var list = document.getElementById("jobList");
 
@@ -400,24 +455,23 @@
             var desResults = document.getElementById("desResults");
             req = document.getElementById("getData");
             req2 = document.getElementById("getDataShared");
-//            icon = document.getElementById("eye");
-//            if(desResults.jpublic === 1) {
-//                Polymer.dom(icon).setAttribute('icon', 'visibility')
-//            }
-//            else {
-//                console.log("change fail.");
-//            }
             req.generateRequest();
             req2.generateRequest();
 
-//            console.log(e.model.item.job);
-//            var shareJob = document.getElementById("shareJob");
-//            shareJob.params = {jobid: e.model.item.job};
-//            shareJob.generateRequest();
+
         },
 
+        _isPublic: function(access) {
+            if (access === 1) {
+                return true;
+            }
+        },
 
-
+        _isPrivate: function(access) {
+            if (access === 0) {
+                return true;
+            }
+        },
 //        shareConfirm: function(){
 //            var sdialog = document.getElementById("shareDialog");
 //                sdialog.open();
