@@ -178,8 +178,8 @@
             var _self = this;
             _self.data = e.detail.response;
             _self.count = _self.data.length;
-            document.querySelector('des-results-help').data = _self.data;
-            document.querySelector('des-logs-help').data = _self.data;
+            document.querySelector('des-shared-results-help').data = _self.data;
+            document.querySelector('des-shared-logs-help').data = _self.data;
         },
 
         selectall: function(){
@@ -265,10 +265,10 @@
             var pages = document.getElementById("mainPages");
             var help = document.getElementById("helpPages");
             var menu = document.querySelector('paper-menu');
-            var desResults = document.getElementById("desResults");
-            var desLog = document.getElementById("desLog");
-            document.getElementById("smallJobList").selected=e.model.index;
-            document.getElementById("smallJobListL").selected=e.model.index;
+            var desResults = document.getElementById("desResultsShared");
+            var desLog = document.getElementById("desLogShared");
+            document.getElementById("smallJobListShared").selected=e.model.index;
+            document.getElementById("smallJobListLShared").selected=e.model.index;
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
@@ -276,10 +276,10 @@
             desResults.jpublic = e.model.item.jpublic;
             desLog.jobid = this.returnName(e.model.item.job);
             desLog.jobidFull = e.model.item.job;
-            app.selection="7";
-            pages.selected="7";
-            menu.selected="7";
-            help.selected="7";
+            app.selection="9";
+            pages.selected="9";
+            menu.selected="9";
+            help.selected="9";
 
         },
         viewlog: function(e) {
@@ -287,10 +287,10 @@
             var pages = document.getElementById("mainPages");
             var help = document.getElementById("helpPages");
             var menu = document.querySelector('paper-menu');
-            var desLog = document.getElementById("desLog");
-            var desResults = document.getElementById("desResults");
-            document.getElementById("smallJobList").selected=e.model.index;
-            document.getElementById("smallJobListL").selected=e.model.index;
+            var desLog = document.getElementById("desLogShared");
+            var desResults = document.getElementById("desResultsShared");
+            document.getElementById("smallJobListShared").selected=e.model.index;
+            document.getElementById("smallJobListLShared").selected=e.model.index;
             desLog.jobidFull = e.model.item.job;
             desLog.jobid= this.returnName(e.model.item.job);
             desResults.jobid = this.returnName(e.model.item.job);
@@ -298,10 +298,10 @@
             desResults.username = this.username;
             desResults.jtypes = e.model.item.jtypes;
             desResults.jpublic = e.model.item.jpublic;
-            app.selection="8";
-            pages.selected="8";
-            menu.selected="8";
-            help.selected="8";
+            app.selection="10";
+            pages.selected="10";
+            menu.selected="10";
+            help.selected="10";
         },
 
         _isShared: function(access) {

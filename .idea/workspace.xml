@@ -7,34 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe8ff00-c69e-4956-8391-0f6ede683082" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/api/des-api-get-shared-job.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/api/des-api-share-job.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/api/des-api-unshare-job.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-api-help-text.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-coadds-help-text.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-footprint-help-text.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-help-text.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs-help-text.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-single-help-text.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-logs-help.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-logs.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-results.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-api.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-api.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-back-button.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-back-button.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-card-help.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-card-help.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-coadds.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-coadds.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-footprint-help.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-footprint-help.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-footprint.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-footprint.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-home.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-menubar.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-menubar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-help.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-help.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-single.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-single.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/elements.html" afterPath="$PROJECT_DIR$/static/elements/elements.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/scripts/app.js" afterPath="$PROJECT_DIR$/static/scripts/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/styles/shared-styles.html" afterPath="$PROJECT_DIR$/static/styles/shared-styles.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -52,48 +33,38 @@
       <file leaf-file-name="elements.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/elements/elements.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="115" column="78" lean-forward="true" selection-start-line="115" selection-start-column="78" selection-end-line="115" selection-end-column="78" />
+            <state relative-caret-position="785">
+              <caret line="122" column="75" lean-forward="true" selection-start-line="122" selection-start-column="75" selection-end-line="122" selection-end-column="75" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="des-card.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-card.html">
+      <file leaf-file-name="des-sidebar.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="13" column="65" lean-forward="true" selection-start-line="13" selection-start-column="65" selection-end-line="13" selection-end-column="65" />
+            <state relative-caret-position="434">
+              <caret line="111" column="31" lean-forward="false" selection-start-line="111" selection-start-column="31" selection-end-line="111" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="des-card-help.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-card-help.html">
+      <file leaf-file-name="des-shared-results-help.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+            <state relative-caret-position="220">
+              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="des-my-jobs-help.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-help.html">
+      <file leaf-file-name="des-shared-logs-help.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-logs-help.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-700">
-              <caret line="32" column="37" lean-forward="false" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="des-api.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-api.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="63" column="36" lean-forward="false" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
+            <state relative-caret-position="-75">
+              <caret line="67" column="75" lean-forward="false" selection-start-line="67" selection-start-column="75" selection-end-line="67" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -102,18 +73,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/scripts/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
+            <state relative-caret-position="314">
               <caret line="109" column="58" lean-forward="false" selection-start-line="109" selection-start-column="58" selection-end-line="109" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="des-logs.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-logs.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,18 +83,48 @@
       <file leaf-file-name="des-results.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-results.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1429">
+            <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="des-results-help.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-results-help.html">
+      <file leaf-file-name="des-shared-jobs.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1826">
-              <caret line="46" column="65" lean-forward="false" selection-start-line="46" selection-start-column="61" selection-end-line="46" selection-end-column="65" />
+            <state relative-caret-position="2682">
+              <caret line="258" column="29" lean-forward="true" selection-start-line="258" selection-start-column="29" selection-end-line="258" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="des-mainpages.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="23" column="69" lean-forward="false" selection-start-line="23" selection-start-column="69" selection-end-line="23" selection-end-column="69" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="des-shared-results.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-results.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="des-shared-logs.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-logs.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-115">
+              <caret line="5" column="25" lean-forward="false" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -143,21 +134,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>smallJobList</find>
-      <find>box</find>
-      <find>border: 1px solid grey; position:absolute;</find>
-      <find>e</find>
-      <find>menut-</find>
-      <find>menut</find>
-      <find>menu-bar</find>
-      <find>menu-ba</find>
-      <find>menu-</find>
-      <find>menu</find>
-      <find>menubar</find>
-      <find>drawerToolbar</find>
-      <find>black</find>
-      <find>contact-info</find>
-      <find>paper-header</find>
       <find>contact</find>
       <find>paper</find>
       <find>paper-</find>
@@ -171,8 +147,23 @@
       <find>smallListL</find>
       <find>smallJListL</find>
       <find>smallJoListL</find>
-      <find>smallJobListL</find>
       <find>data</find>
+      <find>smallJobListL</find>
+      <find>d</find>
+      <find>des-re</find>
+      <find>des-result-d</find>
+      <find>des-result-</find>
+      <find>des-result-si</find>
+      <find>des-result-sinl</find>
+      <find>des-result-sin</find>
+      <find>des-result-sing</find>
+      <find>des-result-single</find>
+      <find>des-result-singl</find>
+      <find>des-result</find>
+      <find>des-results</find>
+      <find>des-results-</find>
+      <find>des-results-singl</find>
+      <find>des-results-single</find>
     </findStrings>
     <replaceStrings>
       <replace>iron-image</replace>
@@ -196,12 +187,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/static/elements/des_elements/des-toolbar.html" />
-        <option value="$PROJECT_DIR$/static/elements/des_elements/des-coadds-intro.html" />
-        <option value="$PROJECT_DIR$/static/elements/des_elements/des-single-intro.html" />
-        <option value="$PROJECT_DIR$/static/elements/des_elements/des-footprint-intro.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-api-intro.html" />
-        <option value="$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs-intro.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-intro.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-api-help.html" />
@@ -216,7 +202,6 @@
         <option value="$PROJECT_DIR$/static/elements/elements-built.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-logs-help.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/temp.html" />
-        <option value="$PROJECT_DIR$/api.py" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-results-help.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-back-button.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-card-intro.html" />
@@ -237,16 +222,22 @@
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-card.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-menubar.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-home.html" />
-        <option value="$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html" />
-        <option value="$PROJECT_DIR$/static/elements/elements.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/api/des-api-get-shared-job.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-api.html" />
         <option value="$PROJECT_DIR$/static/scripts/app.js" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/api/des-api-share-job.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/api/des-api-unshare-job.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-card-help.html" />
+        <option value="$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html" />
+        <option value="$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html" />
+        <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html" />
+        <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-logs-help.html" />
+        <option value="$PROJECT_DIR$/static/elements/des_elements/des--shared-results.html" />
+        <option value="$PROJECT_DIR$/api.py" />
+        <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-logs.html" />
+        <option value="$PROJECT_DIR$/static/elements/elements.html" />
+        <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html" />
       </list>
     </option>
   </component>
@@ -438,8 +429,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/static/elements/des_elements/api" />
       <recent name="$PROJECT_DIR$/static/elements/des_elements" />
+      <recent name="$PROJECT_DIR$/static/elements/des_elements/api" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -458,7 +449,64 @@
     <configuration default="false" name="app.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="app.js" working-dir="$PROJECT_DIR$/static/scripts">
       <method />
     </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
       <method />
     </configuration>
     <list size="1">
@@ -502,12 +550,12 @@
       <workItem from="1497625716463" duration="8098000" />
       <workItem from="1497666216998" duration="588000" />
       <workItem from="1497801645392" duration="3738000" />
-      <workItem from="1497823030571" duration="11504000" />
+      <workItem from="1497823030571" duration="13136000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="182019000" />
+    <option name="totallyTimeSpent" value="183651000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
@@ -576,41 +624,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/scripts/require.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/jobs.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="47" column="42" lean-forward="false" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs-help.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="694">
-          <caret line="114" column="10" lean-forward="false" selection-start-line="114" selection-start-column="10" selection-end-line="114" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/elements-built.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="885">
-          <caret line="29487" column="20" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="32809" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/userdb.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/temp.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="885">
@@ -702,13 +715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-single.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-menubar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -737,32 +743,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="11" lean-forward="true" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
-          <caret line="135" column="0" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-footprint.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/api/des-api-delete-job.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1497828099403" expanded="true" signature="839:859" ph="..." />
+            <marker date="1497828099403" expanded="true" signature="887:13804" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -778,14 +766,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="314">
           <caret line="69" column="30" lean-forward="true" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/api/des-api-get-job.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -807,7 +787,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -815,15 +794,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -831,38 +801,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-720">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2257">
-          <caret line="737" column="0" lean-forward="false" selection-start-line="737" selection-start-column="0" selection-end-line="737" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/api/des-api-get-shared-job.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="275">
+          <caret line="684" column="24" lean-forward="true" selection-start-line="684" selection-start-column="24" selection-end-line="684" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-api.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="63" column="36" lean-forward="false" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/scripts/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="109" column="58" lean-forward="false" selection-start-line="109" selection-start-column="58" selection-end-line="109" selection-end-column="58" />
-          <folding />
+        <state relative-caret-position="-415">
+          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+          <folding>
+            <marker date="1497837644555" expanded="true" signature="2810:3033" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -870,7 +825,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="19" column="93" lean-forward="false" selection-start-line="19" selection-start-column="93" selection-end-line="19" selection-end-column="93" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -878,15 +832,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="19" column="90" lean-forward="false" selection-start-line="19" selection-start-column="90" selection-end-line="19" selection-end-column="90" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/elements.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="115" column="78" lean-forward="true" selection-start-line="115" selection-start-column="78" selection-end-line="115" selection-end-column="78" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -894,7 +839,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="13" column="65" lean-forward="true" selection-start-line="13" selection-start-column="65" selection-end-line="13" selection-end-column="65" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -902,7 +846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -910,7 +853,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-700">
           <caret line="32" column="37" lean-forward="false" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -918,23 +860,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="152" column="48" lean-forward="false" selection-start-line="152" selection-start-column="48" selection-end-line="152" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-results.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1429">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -942,14 +867,138 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="298">
           <caret line="68" column="68" lean-forward="false" selection-start-line="68" selection-start-column="64" selection-end-line="68" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-results-help.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1826">
-          <caret line="46" column="65" lean-forward="false" selection-start-line="46" selection-start-column="61" selection-end-line="46" selection-end-column="65" />
+        <state relative-caret-position="94">
+          <caret line="61" column="36" lean-forward="true" selection-start-line="61" selection-start-column="36" selection-end-line="61" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-340">
+          <caret line="152" column="48" lean-forward="false" selection-start-line="152" selection-start-column="48" selection-end-line="152" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/api/des-api-get-shared-job.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="41" lean-forward="false" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/api/des-api-delete-job.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/api/des-api-get-job.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-single.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-results-single.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="15" column="55" lean-forward="true" selection-start-line="15" selection-start-column="55" selection-end-line="15" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-results.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/elements.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="785">
+          <caret line="122" column="75" lean-forward="true" selection-start-line="122" selection-start-column="75" selection-end-line="122" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-results.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-logs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-115">
+          <caret line="5" column="25" lean-forward="false" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-logs-help.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-75">
+          <caret line="67" column="75" lean-forward="false" selection-start-line="67" selection-start-column="75" selection-end-line="67" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/scripts/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="109" column="58" lean-forward="false" selection-start-line="109" selection-start-column="58" selection-end-line="109" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="111" column="31" lean-forward="false" selection-start-line="111" selection-start-column="31" selection-end-line="111" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="23" column="69" lean-forward="false" selection-start-line="23" selection-start-column="69" selection-end-line="23" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2682">
+          <caret line="258" column="29" lean-forward="true" selection-start-line="258" selection-start-column="29" selection-end-line="258" selection-end-column="29" />
           <folding />
         </state>
       </provider>
