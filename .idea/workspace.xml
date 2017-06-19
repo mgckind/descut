@@ -6,17 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/static/elements/des_elements/des-coadds-intro.html" line="6" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dbe8ff00-c69e-4956-8391-0f6ede683082" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-logs-help.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-logs.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-results.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/elements.html" afterPath="$PROJECT_DIR$/static/elements/elements.html" />
-    </list>
+    <list default="true" id="dbe8ff00-c69e-4956-8391-0f6ede683082" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -93,8 +83,8 @@
       <file leaf-file-name="des-shared-jobs.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2682">
-              <caret line="258" column="29" lean-forward="true" selection-start-line="258" selection-start-column="29" selection-end-line="258" selection-end-column="29" />
+            <state relative-caret-position="885">
+              <caret line="258" column="0" lean-forward="false" selection-start-line="258" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -550,12 +540,12 @@
       <workItem from="1497625716463" duration="8098000" />
       <workItem from="1497666216998" duration="588000" />
       <workItem from="1497801645392" duration="3738000" />
-      <workItem from="1497823030571" duration="13136000" />
+      <workItem from="1497823030571" duration="13188000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183651000" />
+    <option name="totallyTimeSpent" value="183703000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
@@ -997,8 +987,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2682">
-          <caret line="258" column="29" lean-forward="true" selection-start-line="258" selection-start-column="29" selection-end-line="258" selection-end-column="29" />
+        <state relative-caret-position="885">
+          <caret line="258" column="0" lean-forward="false" selection-start-line="258" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
           <folding />
         </state>
       </provider>
