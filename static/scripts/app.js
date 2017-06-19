@@ -105,38 +105,68 @@
         var tab_five = document.getElementById("api_tab_five");
         var tab_six = document.getElementById("api_tab_six");
         var tab_seven = document.getElementById("api_tab_seven");
-
+        var tab_eight = document.getElementById("api_tab_eight");
+        var tab_nine = document.getElementById("api_tab_nine");
+        var tab_ten = document.getElementById("api_tab_ten");
+        var tabs = document.getElementById("api-tabs");
 
         var apis = document.getElementById("apis");
 
         tab_one.addEventListener('click', function() {
             apis.selected = "0";
+            tabs.selected = "0";
         });
 
         tab_two.addEventListener('click', function() {
             apis.selected = "1";
+            tabs.selected = "1";
+
         });
 
         tab_three.addEventListener('click', function() {
             apis.selected = "2";
+            tabs.selected = "2";
         });
 
         tab_four.addEventListener('click', function() {
             apis.selected = "3";
+            tabs.selected = "3";
+
         });
 
         tab_five.addEventListener('click', function() {
             apis.selected = "4";
+            tabs.selected = "4";
+
         });
 
         tab_six.addEventListener('click', function() {
             apis.selected = "5";
+            tabs.selected = "5";
+
         });
 
         tab_seven.addEventListener('click', function() {
             apis.selected = "6";
+            tabs.selected = "6";
+
         });
 
+        tab_eight.addEventListener('click', function() {
+            apis.selected = "7";
+            tabs.selected = "7";
+
+        });
+        tab_nine.addEventListener('click', function() {
+            apis.selected = "8";
+            tabs.selected = "8";
+
+        });
+        tab_ten.addEventListener('click', function() {
+            apis.selected = "9";
+            tabs.selected = "9";
+
+        });
 
 
         var list = document.getElementById("jobList");

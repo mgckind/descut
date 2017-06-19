@@ -27,7 +27,7 @@
 
         <iron-ajax id="getDataShared"
                    auto
-                   url="/api/share/"
+                   url="/api/shared/"
                    method="GET"
                    params='{"part":"fff"}'
                    handle-as="json"
@@ -40,6 +40,8 @@
 
 
         <section>
+            <des-shared-jobs-help style="float: right; width: 18%;"></des-shared-jobs-help>
+
             <des-card>
                 <div class='card-content'>
                     <div id="ListHeaderShared" style="display:block;">

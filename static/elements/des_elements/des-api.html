@@ -5,12 +5,21 @@
             -webkit-font-smoothing: antialiased;
             width: 100%;
             text-transform: uppercase;
+            --paper-tabs-selection-bar-color: var(--paper-blue-50);
+
+
         }
+
+        paper-tabs[scrollable] paper-tab.iron-selected {
+            color: #ffff8d;
+        }
+
         paper-tab {
             display: inline-flex;
             padding: 10px 30px;
             border: 1px solid #ccc;
             margin-top: 2px;
+
         }
 
         paper-tab:hover {
@@ -20,6 +29,7 @@
             border-style: none none solid none;
             border-color: red;
         }
+
 
 
     </style>
@@ -35,6 +45,9 @@
                     <paper-tab id="api_tab_five">Get Jobs List</paper-tab>
                     <paper-tab id="api_tab_six">Delete Jobs</paper-tab>
                     <paper-tab id="api_tab_seven">Single Epoch Info</paper-tab>
+                    <paper-tab id="api_tab_eight">Get Share Jobs List</paper-tab>
+                    <paper-tab id="api_tab_nine">Share Jobs</paper-tab>
+                    <paper-tab id="api_tab_ten">Unshare Jobs</paper-tab>
                 </paper-tabs>
                 <!--<input value="{{pageName::input}}" placeholder="jobs/coadd/epoch/api/footprint">-->
                 <iron-pages id="apis"  selected="0">
@@ -46,6 +59,9 @@
                     <des-api-get-joblist page-name="api_4" ></des-api-get-joblist>
                     <des-api-delete-job page-name="api_5" ></des-api-delete-job>
                     <des-api-mongo page-name="api_6" ></des-api-mongo>
+                    <des-api-get-shared-job page-name="api_7"></des-api-get-shared-job>
+                    <des-api-share-job page-name="api_8"></des-api-share-job>
+                    <des-api-unshare-job page-name="api_9"></des-api-unshare-job>
 
                 </iron-pages>
 

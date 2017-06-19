@@ -50,7 +50,7 @@ class Application(tornado.web.Application):
             (r"/api/token/?", api.TokenHandler),            
             (r"/api/jobs/?", api.JobHandler),
             (r"/api/mongo/?", api.MongoHandler),
-            (r"/api/share/?", api.ShareHandler),
+            (r"/api/shared/?", api.ShareHandler),
             (r"/api/sharejob/?", api.ShareJobHandler),
             (r"/api/refresh/?", readfile.RefreshHandler),
             (r'/websocket', readfile.WebSocketHandler),

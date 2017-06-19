@@ -1,11 +1,29 @@
 <dom-module id="des-back-button">
+    <style>
+        :host {
+            display: block;
+        }
+
+        :hover {
+            cursor: pointer;
+            background-color: var(--paper-red-100);
+
+        }
+        paper-button#bt {
+            background-color: var(--paper-red-500);
+            color: white;
+            --paper-button-raised-keyboard-focus: {
+                background-color: var(--paper-pink-a200) !important;
+                color: white !important;
+            };
+        }
+    </style>
     <template>
-        <style>
-            :host {
-                display: block;
-            }
-        </style>
-        <paper-icon-button icon="arrow-back" on-tap="goback"></paper-icon-button>
+        <paper-button id="bt" raised on-tap="goback">
+            <iron-icon icon="arrow-back" ></iron-icon>
+            GO BACK
+        </paper-button>
+
     </template>
     <script>
         Polymer({
