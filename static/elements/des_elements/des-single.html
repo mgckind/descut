@@ -23,7 +23,7 @@
         }
         .temp {
             margin: 50px;
-            width: 100%;
+            width: 80%;
             height: 500px;
         }
 
@@ -35,9 +35,9 @@
     <template>
 
         <section>
-        <div class="horizontal layout center-justified">
+            <des-single-help style="float: right; max-width:18%; height: auto;"></des-single-help>
+
             <des-card id="single-head" heading = "Single Epoch Cutout Form" class="temp" >
-                <des-single-help style="float: right; width: 18%;"></des-single-help>
                 <div class="card-content">
                     Upload the file with the positions or enter the positions by hand and run the desthumb generator
                 </div>
@@ -105,9 +105,7 @@
                         <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Submit Job </paper-button>
                     </div>
             </div>
-
             </des-card>
-            </div>
 
             <des-positions-single id="desPositionsS"></des-positions-single>
             <paper-toast class="toast-position" id="toast1S" text="Job has been submitted!" duration="5000"> </paper-toast>

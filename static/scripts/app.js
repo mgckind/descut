@@ -108,64 +108,148 @@
         var tab_eight = document.getElementById("api_tab_eight");
         var tab_nine = document.getElementById("api_tab_nine");
         var tab_ten = document.getElementById("api_tab_ten");
-        var tabs = document.getElementById("api-tabs");
 
         var apis = document.getElementById("apis");
 
         tab_one.addEventListener('click', function() {
             apis.selected = "0";
-            tabs.selected = "0";
+            tab_one.setAttribute('class', 'selected-tab');
+            tab_two.setAttribute('class', 'unselected-tab');
+            tab_three.setAttribute('class', 'unselected-tab');
+            tab_four.setAttribute('class', 'unselected-tab');
+            tab_five.setAttribute('class', 'unselected-tab');
+            tab_six.setAttribute('class', 'unselected-tab');
+            tab_seven.setAttribute('class', 'unselected-tab');
+            tab_eight.setAttribute('class', 'unselected-tab');
+            tab_nine.setAttribute('class', 'unselected-tab');
+            tab_ten.setAttribute('class', 'unselected-tab');
+
         });
 
         tab_two.addEventListener('click', function() {
             apis.selected = "1";
-            tabs.selected = "1";
-
+            tab_one.setAttribute('class', 'unselected-tab');
+            tab_two.setAttribute('class', 'selected-tab');
+            tab_three.setAttribute('class', 'unselected-tab');
+            tab_four.setAttribute('class', 'unselected-tab');
+            tab_five.setAttribute('class', 'unselected-tab');
+            tab_six.setAttribute('class', 'unselected-tab');
+            tab_seven.setAttribute('class', 'unselected-tab');
+            tab_eight.setAttribute('class', 'unselected-tab');
+            tab_nine.setAttribute('class', 'unselected-tab');
+            tab_ten.setAttribute('class', 'unselected-tab');
         });
 
         tab_three.addEventListener('click', function() {
             apis.selected = "2";
-            tabs.selected = "2";
+            tab_one.setAttribute('class', 'unselected-tab');
+            tab_two.setAttribute('class', 'unselected-tab');
+            tab_three.setAttribute('class', 'selected-tab');
+            tab_four.setAttribute('class', 'unselected-tab');
+            tab_five.setAttribute('class', 'unselected-tab');
+            tab_six.setAttribute('class', 'unselected-tab');
+            tab_seven.setAttribute('class', 'unselected-tab');
+            tab_eight.setAttribute('class', 'unselected-tab');
+            tab_nine.setAttribute('class', 'unselected-tab');
+            tab_ten.setAttribute('class', 'unselected-tab');
         });
 
         tab_four.addEventListener('click', function() {
             apis.selected = "3";
-            tabs.selected = "3";
+            tab_one.setAttribute('class', 'unselected-tab');
+            tab_two.setAttribute('class', 'unselected-tab');
+            tab_three.setAttribute('class', 'unselected-tab');
+            tab_four.setAttribute('class', 'selected-tab');
+            tab_five.setAttribute('class', 'unselected-tab');
+            tab_six.setAttribute('class', 'unselected-tab');
+            tab_seven.setAttribute('class', 'unselected-tab');
+            tab_eight.setAttribute('class', 'unselected-tab');
+            tab_nine.setAttribute('class', 'unselected-tab');
+            tab_ten.setAttribute('class', 'unselected-tab');
 
         });
 
         tab_five.addEventListener('click', function() {
             apis.selected = "4";
-            tabs.selected = "4";
+            tab_one.setAttribute('class', 'unselected-tab');
+            tab_two.setAttribute('class', 'unselected-tab');
+            tab_three.setAttribute('class', 'unselected-tab');
+            tab_four.setAttribute('class', 'unselected-tab');
+            tab_five.setAttribute('class', 'selected-tab');
+            tab_six.setAttribute('class', 'unselected-tab');
+            tab_seven.setAttribute('class', 'unselected-tab');
+            tab_eight.setAttribute('class', 'unselected-tab');
+            tab_nine.setAttribute('class', 'unselected-tab');
+            tab_ten.setAttribute('class', 'unselected-tab');
 
         });
 
         tab_six.addEventListener('click', function() {
             apis.selected = "5";
-            tabs.selected = "5";
-
+            tab_one.setAttribute('class', 'unselected-tab');
+            tab_two.setAttribute('class', 'unselected-tab');
+            tab_three.setAttribute('class', 'unselected-tab');
+            tab_four.setAttribute('class', 'unselected-tab');
+            tab_five.setAttribute('class', 'unselected-tab');
+            tab_six.setAttribute('class', 'selected-tab');
+            tab_seven.setAttribute('class', 'unselected-tab');
+            tab_eight.setAttribute('class', 'unselected-tab');
+            tab_nine.setAttribute('class', 'unselected-tab');
+            tab_ten.setAttribute('class', 'unselected-tab');
         });
 
         tab_seven.addEventListener('click', function() {
             apis.selected = "6";
-            tabs.selected = "6";
-
+            tab_one.setAttribute('class', 'unselected-tab');
+            tab_two.setAttribute('class', 'unselected-tab');
+            tab_three.setAttribute('class', 'unselected-tab');
+            tab_four.setAttribute('class', 'unselected-tab');
+            tab_five.setAttribute('class', 'unselected-tab');
+            tab_six.setAttribute('class', 'unselected-tab');
+            tab_seven.setAttribute('class', 'selected-tab');
+            tab_eight.setAttribute('class', 'unselected-tab');
+            tab_nine.setAttribute('class', 'unselected-tab');
+            tab_ten.setAttribute('class', 'unselected-tab');
         });
 
         tab_eight.addEventListener('click', function() {
             apis.selected = "7";
-            tabs.selected = "7";
-
+            tab_one.setAttribute('class', 'unselected-tab');
+            tab_two.setAttribute('class', 'unselected-tab');
+            tab_three.setAttribute('class', 'unselected-tab');
+            tab_four.setAttribute('class', 'unselected-tab');
+            tab_five.setAttribute('class', 'unselected-tab');
+            tab_six.setAttribute('class', 'unselected-tab');
+            tab_seven.setAttribute('class', 'unselected-tab');
+            tab_eight.setAttribute('class', 'selected-tab');
+            tab_nine.setAttribute('class', 'unselected-tab');
+            tab_ten.setAttribute('class', 'unselected-tab');
         });
         tab_nine.addEventListener('click', function() {
             apis.selected = "8";
-            tabs.selected = "8";
-
+            tab_one.setAttribute('class', 'unselected-tab');
+            tab_two.setAttribute('class', 'unselected-tab');
+            tab_three.setAttribute('class', 'unselected-tab');
+            tab_four.setAttribute('class', 'unselected-tab');
+            tab_five.setAttribute('class', 'unselected-tab');
+            tab_six.setAttribute('class', 'unselected-tab');
+            tab_seven.setAttribute('class', 'unselected-tab');
+            tab_eight.setAttribute('class', 'unselected-tab');
+            tab_nine.setAttribute('class', 'selected-tab');
+            tab_ten.setAttribute('class', 'unselected-tab');
         });
         tab_ten.addEventListener('click', function() {
             apis.selected = "9";
-            tabs.selected = "9";
-
+            tab_one.setAttribute('class', 'unselected-tab');
+            tab_two.setAttribute('class', 'unselected-tab');
+            tab_three.setAttribute('class', 'unselected-tab');
+            tab_four.setAttribute('class', 'unselected-tab');
+            tab_five.setAttribute('class', 'unselected-tab');
+            tab_six.setAttribute('class', 'unselected-tab');
+            tab_seven.setAttribute('class', 'unselected-tab');
+            tab_eight.setAttribute('class', 'unselected-tab');
+            tab_nine.setAttribute('class', 'unselected-tab');
+            tab_ten.setAttribute('class', 'selected-tab');
         });
 
 

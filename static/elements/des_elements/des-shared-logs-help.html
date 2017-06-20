@@ -63,7 +63,7 @@
             document.getElementById("getLog").generateRequest();
             document.getElementById("desResultsShared").jobid=this._returnName(e.model.item.job);
             document.getElementById("desResultsShared").jobidFull=e.model.item.job;
-            document.getElementById("desResultsShared").username = document.getElementById("desJobs").username;
+            document.getElementById("desResultsShared").username = document.getElementById("desJobsShared").username;
 
             var select_index = document.getElementById('smallJobListLShared').selected;
             document.getElementById("desResultsShared").jtypes = this.data[select_index].jtypes;

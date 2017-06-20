@@ -16,8 +16,9 @@
         }
         .temp {
             margin: 50px;
-            width: 100%;
+            width: 80%;
             height: 500px;
+
         }
 
         des-card#coadd-head {
@@ -28,82 +29,80 @@
     <template>
 
         <section>
-            <div class="layout horizontal start-justified">
-                <des-card id="coadd-head" heading = "Coadds Images Cutout Form" class="temp" >
-                    <des-coadds-help></des-coadds-help>
-                    <div class="card-content">
-                        Upload the file with the positions or enter the positions by hand and run the desthumb generator
-                    </div>
-                    <div class="card-content">
-                        <div class="horizontal layout around-justified" >
-                            <paper-button raised  class="desbutton"  id="uploadFile">
-                                <div id ="uploadicon" style="display: inline-block;"> <i class="fa fa-cloud-upload"></i>
-                                    &nbsp;  &nbsp;
-                                </div>
-                                <span style="overflow-x: auto; overflow-wrap: break-word;">
-                                    [[file_name]]
-                                </span>
-                                <input type="file" class="upload" id="file" on-change="_fileChange"/>
-                            </paper-button>
+            <des-coadds-help style="float: right; max-width:18%; height: auto;"></des-coadds-help>
+            <des-card id="coadd-head" heading = "Coadds Images Cutout Form" class="temp" >
+                <div class="card-content">
+                    Upload the file with the positions or enter the positions by hand and run the desthumb generator
+                </div>
+                <div class="card-content">
+                    <div class="horizontal layout around-justified" >
+                        <paper-button raised  class="desbutton"  id="uploadFile">
+                            <div id ="uploadicon" style="display: inline-block;"> <i class="fa fa-cloud-upload"></i>
+                                &nbsp;  &nbsp;
+                            </div>
+                            <span style="overflow-x: auto; overflow-wrap: break-word;">
+                                [[file_name]]
+                            </span>
+                            <input type="file" class="upload" id="file" on-change="_fileChange"/>
+                        </paper-button>
 
-                            <paper-button raised  class="desbutton" id="enterValues" on-tap="_openPositions">
-                                <div id ="keyboardicon" style="display: inline-block;"> <i class="fa fa-keyboard-o"></i>
-                                    &nbsp;  &nbsp;
-                                </div>
-                                <span>[[enter_values]]</span>
-                            </paper-button>
-                        </div>
-
-                        <hr>
-
-                        <div>xsize (arcmin, if not selected default is from file or 1.0): <span id="xsizeLabel" class="caption">0</span></div><br>
-                        <paper-slider id="xsizeSlider" pin  max="10" max-markers="10" step="0.1" value="0" expand></paper-slider>
-                        <div>ysize (arcmin, if not selected default is from file or 1.0): <span id="ysizeLabel" class="caption">0</span></div><br>
-                        <paper-slider id="ysizeSlider" pin  max="10" max-markers="10" step="0.1" value = "0" expand ></paper-slider>
-
-                        <hr>
-
-                        <paper-dropdown-menu label="Release TAG">
-                            <paper-listbox id="coaddTag" selected = "0" class="dropdown-content">
-                                <paper-item value="Y3A1_COADD">Y3A1_COADD</paper-item>
-                                <paper-item value="Y3A1_COADD_DEEP">Y3A1_COADD_DEEP</paper-item>
-                                <paper-item value="Y1A1_COADD">Y1A1_COADD</paper-item>
-                                <paper-item value="Y1A1_COADD_D04">Y1A1_COADD_D04</paper-item>
-                                <paper-item value="Y1A1_COADD_D10">Y1A1_COADD_D10</paper-item>
-                                <paper-item value="Y1A1_COADD_DFULL">Y1A1_COADD_DFULL</paper-item>
-                                <paper-item value="SVA1_COADD">SVA1_COADD</paper-item>
-                              </paper-listbox>
-                        </paper-dropdown-menu>
-
-                        <hr>
-
-                        <paper-checkbox id="onlyreturnlist">Return just list of files (do not produce and display pngs, i.e. faster)</paper-checkbox>
-
-                        <hr>
-
-                        <div class=" horizontal center layout justified" >
-                            <paper-checkbox style="font-size:14px;" id="sendemail" on-change="emailcheck">Send email after job completion </paper-checkbox>
-                            <paper-input  id="validemail" name="email" label="Email" value="[[email]]">
-                            </paper-input>
-                        </div>
-
-                        <hr>
-
-                        <div class="horizontal layout around-justified" >
-
-                            <paper-button raised class="desbutton"  id="clearFormButton" on-tap="_clearForm">
-                                <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Clear Form
-                            </paper-button>
-
-                            <paper-button raised  class="desbutton"  id="submitJobButton" disabled on-tap="_submitJob">
-                            <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Submit Job
-                            </paper-button>
-
-                        </div>
+                        <paper-button raised  class="desbutton" id="enterValues" on-tap="_openPositions">
+                            <div id ="keyboardicon" style="display: inline-block;"> <i class="fa fa-keyboard-o"></i>
+                                &nbsp;  &nbsp;
+                            </div>
+                            <span>[[enter_values]]</span>
+                        </paper-button>
                     </div>
 
-                </des-card>
-            </div>
+                    <hr>
+
+                    <div>xsize (arcmin, if not selected default is from file or 1.0): <span id="xsizeLabel" class="caption">0</span></div><br>
+                    <paper-slider id="xsizeSlider" pin  max="10" max-markers="10" step="0.1" value="0" expand></paper-slider>
+                    <div>ysize (arcmin, if not selected default is from file or 1.0): <span id="ysizeLabel" class="caption">0</span></div><br>
+                    <paper-slider id="ysizeSlider" pin  max="10" max-markers="10" step="0.1" value = "0" expand ></paper-slider>
+
+                    <hr>
+
+                    <paper-dropdown-menu label="Release TAG">
+                        <paper-listbox id="coaddTag" selected = "0" class="dropdown-content">
+                            <paper-item value="Y3A1_COADD">Y3A1_COADD</paper-item>
+                            <paper-item value="Y3A1_COADD_DEEP">Y3A1_COADD_DEEP</paper-item>
+                            <paper-item value="Y1A1_COADD">Y1A1_COADD</paper-item>
+                            <paper-item value="Y1A1_COADD_D04">Y1A1_COADD_D04</paper-item>
+                            <paper-item value="Y1A1_COADD_D10">Y1A1_COADD_D10</paper-item>
+                            <paper-item value="Y1A1_COADD_DFULL">Y1A1_COADD_DFULL</paper-item>
+                            <paper-item value="SVA1_COADD">SVA1_COADD</paper-item>
+                          </paper-listbox>
+                    </paper-dropdown-menu>
+
+                    <hr>
+
+                    <paper-checkbox id="onlyreturnlist">Return just list of files (do not produce and display pngs, i.e. faster)</paper-checkbox>
+
+                    <hr>
+
+                    <div class=" horizontal center layout justified" >
+                        <paper-checkbox style="font-size:14px;" id="sendemail" on-change="emailcheck">Send email after job completion </paper-checkbox>
+                        <paper-input  id="validemail" name="email" label="Email" value="[[email]]">
+                        </paper-input>
+                    </div>
+
+                    <hr>
+
+                    <div class="horizontal layout around-justified" >
+
+                        <paper-button raised class="desbutton"  id="clearFormButton" on-tap="_clearForm">
+                            <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Clear Form
+                        </paper-button>
+
+                        <paper-button raised  class="desbutton"  id="submitJobButton" disabled on-tap="_submitJob">
+                        <i class="fa fa-cogs"></i> &nbsp;  &nbsp;Submit Job
+                        </paper-button>
+
+                    </div>
+                </div>
+
+            </des-card>
 
             <des-positions id="desPositions"></des-positions>
 
