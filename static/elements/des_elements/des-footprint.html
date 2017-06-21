@@ -24,13 +24,12 @@
         <des-footprint-help style="float: right; max-width:18%; height: auto;"></des-footprint-help>
 
         <section class="horizontal layout around justified">
-
             <des-card heading=[[header]]>
                 <div class="card-content">
-                    <div id="tiletitle" class="tiletitle"> Tile: </div>
-                    <canvas id="GlobWebCanvas" class="box" width="600px" height="600px" style="text-align: center; vertical-align: middle;"></canvas>
+                    <canvas id="GlobWebCanvas" class="box" width="inherit" height="inherit" style="text-align: center; vertical-align: middle;"></canvas>
                 </div>
             </des-card>
+            <des-card id="tiletitle" class="tiletitle" heading="Tile">  </des-card>
 
         </section>
     </template>
@@ -302,7 +301,7 @@
                             var dec_t = all_tiles.features[tile].properties.DEC_C;
                             navigation.zoomTo([ra_t,dec_t],500000,1000);
                             var title =document.getElementById("tiletitle");
-                            title.innerHTML = "Tile: " + tilename + "( " +restoreRA(ra_t)+", "+dec_t+" )";
+                            title.innerHTML = tilename + "( " +restoreRA(ra_t)+", "+dec_t+" )";
                             title.style.visibility = 'visible';
 
                             if (window.tempLayer === undefined){
