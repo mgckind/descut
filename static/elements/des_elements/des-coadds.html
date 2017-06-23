@@ -88,7 +88,11 @@
                     </div>
 
                     <hr>
-
+                    <div>
+                        <paper-input  id="jobcomment" name="comment" label="Comment" value="[[job_comment]]">
+                        </paper-input>
+                    </div>
+                    </paper-input>
                     <div class="horizontal layout around-justified" >
 
                         <paper-button raised class="desbutton"  id="clearFormButton" on-tap="_clearForm">
@@ -151,6 +155,10 @@
                 type: String,
                 values: "",
             },
+            job_comment: {
+                type : String,
+                value : "Add comment"
+            }
         },
         get file(){
             return this.$.file.files[0]

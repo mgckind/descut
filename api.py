@@ -265,16 +265,16 @@ class JobHandler(tornado.web.RequestHandler):
             infP = infoP(user,passwd)
             now = datetime.datetime.now()
             tiid = user+'__'+jobid+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
-
+            comment = arguments['comment']
             #SUBMIT JOB, ADD TO SQLITE
             if jtype == 'coadd':
-                tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd', 0])
+                tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd', 0, comment])
                 if send_email:
                     run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', user, passwd, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
                 else:
                     run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', user, passwd, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid)
             else:
-                tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE', 0])
+                tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE', 0, comment])
                 if send_email:
                     run=dtasks.mkcut.apply_async(args=[filename, user, passwd, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                         task_id=tiid, link=dtasks.send_note.si(loc_user, tiid, toemail))
@@ -285,7 +285,7 @@ class JobHandler(tornado.web.RequestHandler):
             con = lite.connect(Settings.DBFILE)
             with con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?, ?, ?)", tup)
+                cur.execute("INSERT INTO Jobs VALUES(?, ?, ?, ?, ?, ?, ?)", tup)
             response['message'] = 'Job %s submitted.' % (jobid)
             response['job'] = jobid
             try:
@@ -328,6 +328,8 @@ class JobHandler(tornado.web.RequestHandler):
                 response['creation_time'] = [j[1] for j in cc]
                 response['job_status'] = [j[2] for j in cc]
                 response['job_type'] = [j[3] for j in cc]
+                response['job_public'] = [j[4] for j in cc]
+                response['job_comment'] = [j[5] for j in cc]
                 self.set_status(200)
                 self.write(response)
                 self.flush()
@@ -576,6 +578,7 @@ class ShareHandler(BaseHandler):
         jelapsed=[]
         jtype=[]
         jpublic=[]
+        jcomment=[]
 
         for i in range(len(cc)):
             dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
@@ -586,8 +589,9 @@ class ShareHandler(BaseHandler):
             jtype.append(cc[i][4])
             jelapsed.append(humantime((dt.datetime.now()-dd).total_seconds())+" ago")
             jpublic.append(cc[i][5])
+            jcomment.append(cc[i][6])
 
-        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i], jpublic=jpublic[i]) for i in range(len(jjob))]
+        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i], jpublic=jpublic[i], jcomment=jcomment[i]) for i in range(len(jjob))]
         temp = json.dumps(out_dict, indent=4)
             #with open('static/jobs2.json',"w") as outfile:
         self.write(temp)
@@ -635,6 +639,7 @@ class ApiHandler(BaseHandler):
         jelapsed=[]
         jtype=[]
         jpublic=[]
+        jcomment=[]
 
         for i in range(len(cc)):
             dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
@@ -645,8 +650,9 @@ class ApiHandler(BaseHandler):
             jtype.append(cc[i][4])
             jelapsed.append(humantime((dt.datetime.now()-dd).total_seconds())+" ago")
             jpublic.append(cc[i][5])
+            jcomment.append(cc[i][6])
 
-        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i], jpublic=jpublic[i]) for i in range(len(jjob))]
+        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i], jpublic=jpublic[i], jcomment=jcomment[i]) for i in range(len(jjob))]
         temp = json.dumps(out_dict, indent=4)
             #with open('static/jobs2.json',"w") as outfile:
         self.write(temp)

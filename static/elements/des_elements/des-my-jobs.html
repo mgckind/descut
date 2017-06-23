@@ -95,7 +95,7 @@
                             <paper-item-body>
                                 <div>Public / Private</div>
                             </paper-item-body>
-                            <div>View | Cancel</div>
+                            <div>View | Comment | Cancel</div>
                         </paper-item>
                     </div>
 
@@ -152,6 +152,9 @@
                                     <paper-button dialog-dismiss>Cancel</paper-button>
                                 </div>
                             </paper-dialog>
+
+
+
                             <paper-icon-item>
                                 <template is="dom-if" if="{{_completed(item.status)}}">
                                     <div class="status size green" item-icon></div>
@@ -183,9 +186,28 @@
                                 <paper-item-body >
                                     <iron-icon id="eye" icon="{{_isShared(item.jpublic)}}"></iron-icon>
                                 </paper-item-body>
+                                <!--<paper-item-body >-->
+                                    <!--<div>-->
+                                        <!--&lt;!&ndash;{{item.jtypes}}&ndash;&gt;-->
+                                        <!--&lt;!&ndash;{{item.jcomment}}&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</paper-item-body>-->
 
-                                <paper-icon-button icon="launch" on-tap="_open" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                                <paper-icon-button icon="launch" on-tap="_logDialog" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                                <paper-icon-button icon="communication:comment" on-tap="_commentDialog" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
                                 <paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
+
+                                <paper-dialog id="comment">
+                                    <h2>Comment</h2>
+                                    <paper-dialog-scrollable>
+                                        {{item.jcomment}}
+                                    </paper-dialog-scrollable>
+                                    <div class="buttons">
+                                        <paper-button dialog-confirm autofocus>Edit Comment</paper-button>
+                                        <paper-button dialog-dismiss>Cancel</paper-button>
+                                    </div>
+                                </paper-dialog>
+
                             </paper-icon-item>
                         </template>
 
@@ -235,6 +257,10 @@
             jobname: {
                 type: String,
                 value: 'NULL',
+            },
+            jobcomment: {
+                type: String,
+                value: '',
             }
 
         },
@@ -378,7 +404,8 @@
         _afterCancel: function(){
             document.getElementById("getData").generateRequest();
         },
-        _open: function(e) {
+
+        _logDialog: function(e) {
             var pages = document.getElementById("mainPages");
             var help = document.getElementById("helpPages");
             var menu = document.querySelector('paper-menu');
@@ -407,7 +434,7 @@
             desResults.username = this.username;
             desResults.jtypes = e.model.item.jtypes;
             desResults.jpublic = e.model.item.jpublic;
-
+            desResults.jcomment = e.model.item.jcomment;
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.jobidFull = e.model.item.job;
             app.selection="7";
@@ -416,7 +443,13 @@
             help.selected="7";
 
         },
+        _commentDialog: function(e) {
+//            this.jobcomment= e.model.item.job;
+            var comment = document.getElementById('comment');
 
+            comment.positionTarget = e;
+            comment.open();
+        },
 //        viewlog: function(e) {
 //            e.stopPropagation();
 //            var pages = document.getElementById("mainPages");

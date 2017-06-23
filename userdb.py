@@ -49,7 +49,7 @@ def create_db(delete=False):
         cur = con.cursor()
         if delete:
             cur.execute("DROP TABLE IF EXISTS Jobs")
-        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, public integer)")
+        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, public integer, comment text)")
 
 #cur.executemany("INSERT INTO Jobs VALUES(?,?,?,?)", bigJ)
 
@@ -65,6 +65,7 @@ def create_db(delete=False):
     jtime=[]
     jelapsed=[]
     jpublic=[]
+    jcomment=[]
 
     for i in range(len(cc)):
         dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
@@ -74,8 +75,9 @@ def create_db(delete=False):
         jtime.append(ctime)
         jelapsed.append((dt.datetime.now()-dd).total_seconds())
         jpublic.append(cc[i][4])
+        jcomment.append(cc[i][5])
 
-    out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=humantime(jelapsed[i]), public=jpublic[i]) for i in range(len(jjob))]
+    out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=humantime(jelapsed[i]), public=jpublic[i], comment=jcomment[i]) for i in range(len(jjob))]
     with open('static/jobs2.json',"w") as outfile:
         json.dump(out_dict, outfile, indent=4)
 
