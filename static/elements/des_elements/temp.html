@@ -1,4 +1,4 @@
-<dom-module id="des-shared-jobs">
+<dom-module id="des-my-jobs">
 
     <style include="shared-styles">
         paper-listbox {
@@ -25,23 +25,72 @@
 
     <template>
 
-        <iron-ajax id="getDataShared"
+        <iron-ajax id="getData"
                    auto
-                   url="/api/share/"
-                   method="GET"
+                   url="/api"
                    params='{"part":"fff"}'
                    handle-as="json"
                    on-response="_handleResponse"
                    debounce-duration="300">
         </iron-ajax>
 
+        <iron-ajax id="DeleteReq"
+                   url="/api"
+                   method="DELETE"
+                   params='[1,2,3]'
+                   on-response="_afterDelete"
+                   debounce-duration="300">
+        </iron-ajax>
 
+        <iron-ajax id="cancelJob"
+                   url="/api/canceljob/"
+                   method="DELETE"
+                   params=''
+                   on-response="_afterCancel"
+                   debounce-duration="300">
+        </iron-ajax>
 
+        <iron-ajax id="ShareReq"
+                   url="/api/sharejob/"
+                   method="GET"
+                   params='[1,2,3]'
+                   on-response="_afterShare"
+                   debounce-duration="300">
+        </iron-ajax>
+
+        <iron-ajax id="UnshareReq"
+                   url="/api/sharejob/"
+                   method="DELETE"
+                   params='[1,2,3]'
+                   on-response="_afterUnshare"
+                   debounce-duration="300">
+        </iron-ajax>
+
+        <iron-ajax id="getLog"
+                   auto
+                   url="/api/log/"
+                   params={{logParams}}
+                   handle-as="json"
+                   last-response="{{logdata}}"
+                   debounce-duration="300">
+        </iron-ajax>
+
+        <!--<iron-ajax id="AddComment"-->
+        <!--url="/api/addcomment/"-->
+        <!--method="GET"-->
+        <!--params='[1,2,3]'-->
+        <!--on-response="_afterComment"-->
+        <!--debounce-duration="300">-->
+        <!--</iron-ajax>-->
 
         <section>
+            <des-my-jobs-help style="float: right; width: 18%;"></des-my-jobs-help>
+
+
+            <!--<des-back-button></des-back-button>-->
             <des-card>
                 <div class='card-content'>
-                    <div id="ListHeaderShared" style="display:block;">
+                    <div id="ListHeader" style="display:block;">
                         <paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible; max-width:1500px;">
                             <paper-item-body>
                                 <div>status &emsp; &emsp; Job id</div>
@@ -54,23 +103,92 @@
                             <paper-item-body>
                                 <div>Public / Private</div>
                             </paper-item-body>
-
-                            <paper-item-body>
-                                <div>Contributor</div>
-                            </paper-item-body>
-
-                            <div>View | Log </div>
+                            <div>View | Comment | Cancel</div>
                         </paper-item>
                     </div>
 
+                    <div id="DeleteHeader" style="display:none;">
+                        <paper-icon-item style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1500px;">
 
-                    <paper-listbox multi id="jobListShared">
+                            <!--<template is="dom-if" if="{{_isPrivate(item.jpublic)}}">-->
+                            <paper-icon-button icon="social:share" on-tap="shareall"></paper-icon-button>
+                            <paper-item-body>
+                                <div>
+                                    Share Jobs
+                                </div>
+                            </paper-item-body>
+                            <!--</template>-->
+
+                            <!--<template is="dom-if" if="{{_isPublic(item.jpublic)}}">-->
+                            <paper-icon-button icon="undo" on-tap="unshareall"></paper-icon-button>
+                            <paper-item-body>
+                                <div>
+                                    Unshare Jobs
+                                </div>
+                            </paper-item-body>
+                            <!--</template>-->
+
+                            <paper-icon-button icon="delete" on-tap="deleteall"></paper-icon-button>
+                            <paper-item-body>
+                                <div>
+                                    Delete Jobs
+                                </div>
+                            </paper-item-body>
+
+
+                        </paper-icon-item>
+                    </div>
+
+                    <paper-listbox multi id="jobList">
 
                         <hr>
 
                         <template is="dom-repeat" id="menu" items="{{data}}">
-                            <paper-icon-itedm>
-                                <div class="status size}}" item-icon></div>
+                            <paper-dialog id="log">
+                                <h2>Log</h2>
+                                <paper-dialog-scrollable>
+                                    <paper-card>
+                                        <div class="card-content">
+                                            Job : {{jobname}}
+                                            <span>{{logdata}}</span>
+                                            <des-html html={{logdata}}></des-html>
+                                        </div>
+                                    </paper-card>
+                                </paper-dialog-scrollable>
+                                <div class="buttons">
+                                    <paper-button dialog-confirm autofocus>Continue</paper-button>
+                                    <paper-button onclick="viewCommentDialog.toggle()" autofocus>View Comment</paper-button>
+                                    <paper-button dialog-dismiss>Cancel</paper-button>
+                                </div>
+                            </paper-dialog>
+
+                            <paper-dialog id="viewCommentDialog">
+                                <h2>Comment</h2>
+                                <paper-dialog-scrollable>
+                                    Job : {{jobname}}
+                                    {{item.jcomment}}
+                                </paper-dialog-scrollable>
+                                <div class="buttons">
+                                    <paper-button dialog-confirm autofocus>OK</paper-button>
+                                    <!--<paper-button dialog-confirm autofocus>Edit Comment</paper-button>-->
+                                    <!--<paper-button dialog-dismiss>Cancel</paper-button>-->
+                                </div>
+                            </paper-dialog>
+
+
+
+                            <paper-icon-item>
+                                <template is="dom-if" if="{{_completed(item.status)}}">
+                                    <div class="status size green" item-icon></div>
+                                </template>
+
+                                <template is="dom-if" if="{{_pending(item.status)}}">
+                                    <div class="status size" item-icon></div>
+                                </template>
+
+                                <template is="dom-if" if="{{_stop(item.status)}}">
+                                    <div class="status size red" item-icon></div>
+                                </template>
 
                                 <paper-item-body two-line>
                                     <div>
@@ -87,36 +205,40 @@
                                     </div>
                                 </paper-item-body>
 
-                                <paper-item-body>
-
-                                    <paper-item-body >
-                                        <paper-icon-button icon="{{_isShared(item.jpublic)}}"></paper-icon-button>
-                                    </paper-item-body>
+                                <paper-item-body >
+                                    <iron-icon id="eye" icon="{{_isShared(item.jpublic)}}"></iron-icon>
                                 </paper-item-body>
 
-                                <paper-item-body>
-                                    <div>{{username}}</div>
-                                </paper-item-body>
+                                <paper-icon-button icon="launch" on-tap="_logDialog" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                                <paper-icon-button icon="communication:comment" on-tap="_editComment" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                                <paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
 
-                                <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
-                                <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
 
-                            </paper-icon-itedm>
+
+                                <paper-dialog id="editCommentDialog">
+                                    <h2>Comment</h2>
+                                    <paper-dialog-scrollable>
+                                        Job : {{jobname}}
+                                        <paper-input  id="commentInput" name="comment" label="Comment" value="[[item.jcomment]]">
+                                        </paper-input>
+                                    </paper-dialog-scrollable>
+                                    <div class="buttons">
+                                        <paper-button dialog-confirm autofocus>Edit Comment</paper-button>
+                                        <paper-button dialog-dismiss>Cancel</paper-button>
+                                    </div>
+                                </paper-dialog>
+
+                                <paper-toast class="toast-position" id="toast-cmt-good" text="Comment has been changed" duration="5000"> </paper-toast>
+                                <paper-toast class="toast-position" id="toast-cmt-bad" text="ERROR!. There was an error. Please try again" duration="5000"> </paper-toast>
+                            </paper-icon-item>
                         </template>
 
-                        <!--<div id="InfoHeader" style="display:none;">-->
-                        <!--<paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1500px;">-->
-                        <!--<paper-item-body>-->
-                        <!--<div>-->
-                        <!--{{username}}-->
-                        <!--</div>-->
-                        <!--</paper-item-body>-->
-                        <!--</paper-icon-item>-->
-                        <!--</div>-->
                     </paper-listbox>
                 </div>
             </des-card>
+
         </section>
+
     </template>
 </dom-module>
 <script>
@@ -134,12 +256,40 @@
     }
 
     Polymer({
-        is: "des-shared-jobs",
+        is: "des-my-jobs",
         properties: {
             username: {
                 type: String,
                 value: '',
             },
+            jobid: {
+                value : '',
+                type : String,
+                notify: true,
+            },
+            jobidFull: {
+                value : '',
+                type : String,
+                notify: true,
+            },
+            logParams:{
+                type: String,
+                computed: 'processParams(jobidFull)'
+            },
+            jobname: {
+                type: String,
+                value: 'NULL',
+            },
+            jobcomment: {
+                type: String,
+                value: '',
+            }
+
+        },
+        processParams: function(jobidFull) {
+            return {
+                jobid: jobidFull
+            };
         },
         ready: function() {
             var _self = this;
@@ -147,7 +297,7 @@
             var ws = new WebSocket("ws://"+loc+"/websocket");
             ws.onmessage = function(e) {
                 console.log(e.data);
-                req = document.getElementById("getDataShared");
+                req = document.getElementById("getData");
                 req.generateRequest();
             };
 
@@ -163,9 +313,16 @@
             document.querySelector('des-results-help').data = _self.data;
             document.querySelector('des-logs-help').data = _self.data;
         },
-
+        _afterDelete: function(e){
+            var list = document.getElementById("jobList");
+            for (i = 0; i < this.mytemp.length ; i++) {
+                list.selectIndex(this.mytemp[i]);
+            }
+            req = document.getElementById("getData");
+            req.generateRequest();
+        },
         selectall: function(){
-            var list = document.getElementById("jobListShared");
+            var list = document.getElementById("jobList");
             var listAll = list.selectedValues;
             //if (typeof listAll !== 'undefined') {
             //    var listAll2 = JSON.parse(JSON.stringify(listAll));
@@ -180,7 +337,7 @@
             app.scrollPageToTop();
         },
         unselectall: function(){
-            var list = document.getElementById("jobListShared");
+            var list = document.getElementById("jobList");
             var listAll = list.selectedValues;
             console.log(listAll);
             if (typeof listAll !== 'undefined') {
@@ -192,34 +349,46 @@
             app.scrollPageToTop();
         },
 
+        deleteall: function(){
+            var list = document.getElementById("jobList");
+            var listAll = list.selectedValues;
+            this.mytemp = JSON.parse(JSON.stringify(listAll));
+            var result = confirm("Do you want to delete these "+listAll.length+" jobs? They will be also erased from disk storage");
+            var toDel=[];
+            if (result){
+                for (i = 0; i < this.mytemp.length ; i++) {
+                    toDel.push(this.returnName(this.data[this.mytemp[i]-1].job));
+                }
+                req = document.getElementById("DeleteReq");
+                req.params = toDel;
+                req.generateRequest();
+            }
+        },
+
         returnName: function(job) {
             var n1=job.search("__");
             var n2=job.search("{");
             var job0 = job.substring(n1+2,n2-1);
             return job0;
         },
+
         returnDate: function(date) {
             var date0 = date.substring(4,19);
             return date0;
         },
 
-        _jobStatus: function(status) {
-            if (status === "SUCCESS") {
-                return "green";
-            }
-            else if (status === "PENDING") {
-                return "";
-            }
-            else {
-                return "red";
-            }
+
+
+
+        _completed: function(status) {
+            if (status === "SUCCESS") {return true;}
         },
-//        _pending: function(status) {
-//            if (status === "PENDING") {return true;}
-//        },
-//        _stop: function(status) {
-//            if (status != "PENDING" && status != "SUCCESS" ) {return true;}
-//        },
+        _pending: function(status) {
+            if (status === "PENDING") {return true;}
+        },
+        _stop: function(status) {
+            if (status != "PENDING" && status != "SUCCESS" ) {return true;}
+        },
         _viewjob: function(status){
             if (status === "SUCCESS") {
                 return false;
@@ -236,47 +405,142 @@
                 return false;
             }
         },
+        _canceljob: function(status){
+            if (status === "PENDING") {
+                return false;
+            }
+            else{
+                return true;
+            }
+        },
+
+
+
+        canceljob: function(e){
+            console.log(e.model.item.job);
+            var cancelJob = document.getElementById("cancelJob");
+            cancelJob.params = {jobid: e.model.item.job};
+            cancelJob.generateRequest();
+        },
+
+        _afterCancel: function(){
+            document.getElementById("getData").generateRequest();
+        },
+
+        _logDialog: function(e) {
+            var pages = document.getElementById("mainPages");
+            var help = document.getElementById("helpPages");
+            var menu = document.querySelector('paper-menu');
+            var desResults = document.getElementById("desResults");
+            var log = document.getElementById('log');
+
+            document.getElementById("smallJobList").selected=e.model.index;
+            document.getElementById("smallJobListL").selected=e.model.index;
+            this.jobname = this.returnName(e.model.item.job);
+            log.open();
+
+        },
+
+        _editComment: function {
+            var formdata = new FormData();
+            formdata.append('comment', document.getElementById("commentInput").value);
+            $.ajax({
+                url: '/api/addcomment/',
+                type: 'POST',
+                //beforeSend: this.beforeSendHandler,
+                success: this.completeHandler,
+                error: this.errorHandler,
+                data: formdata,
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        },
+
+        completeHandler: function(){
+            console.log('YESSSSS');
+//            document.getElementById('desCoadds').clear();
+            document.getElementById("getData").generateRequest();
+            document.querySelector('#toast-cmt-good').show();
+        },
+
+        errorHandler: function(){
+            console.log('NOOOO');
+//            document.getElementById('desCoadds').clear();
+            document.querySelector('#toast-cmt-bad').show();
+        },
 
         viewresults: function(e){
+            var log = document.getElementById('log');
+            log.close();
             e.stopPropagation();
             var pages = document.getElementById("mainPages");
             var help = document.getElementById("helpPages");
             var menu = document.querySelector('paper-menu');
             var desResults = document.getElementById("desResults");
-            var desLog = document.getElementById("desLog");
+//            var desLog = document.getElementById("desLog");
             document.getElementById("smallJobList").selected=e.model.index;
             document.getElementById("smallJobListL").selected=e.model.index;
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
             desResults.jtypes = e.model.item.jtypes;
-            desLog.jobid = this.returnName(e.model.item.job);
-            desLog.jobidFull = e.model.item.job;
+            desResults.jpublic = e.model.item.jpublic;
+            desResults.jcomment = e.model.item.jcomment;
+            desResults.jobid = this.returnName(e.model.item.job);
+            desResults.jobidFull = e.model.item.job;
             app.selection="7";
             pages.selected="7";
             menu.selected="7";
             help.selected="7";
 
         },
-        viewlog: function(e) {
-            e.stopPropagation();
-            var pages = document.getElementById("mainPages");
-            var help = document.getElementById("helpPages");
-            var menu = document.querySelector('paper-menu');
-            var desLog = document.getElementById("desLog");
-            var desResults = document.getElementById("desResults");
-            document.getElementById("smallJobList").selected=e.model.index;
-            document.getElementById("smallJobListL").selected=e.model.index;
-            desLog.jobidFull = e.model.item.job;
-            desLog.jobid= this.returnName(e.model.item.job);
-            desResults.jobid = this.returnName(e.model.item.job);
-            desResults.jobidFull = e.model.item.job;
-            desResults.username = this.username;
-            desResults.jtypes = e.model.item.jtypes;
-            app.selection="8";
-            pages.selected="8";
-            menu.selected="8";
-            help.selected="8";
+
+
+        shareall: function(e) {
+            var list = document.getElementById("jobList");
+            var listAll = list.selectedValues;
+            this.mytemp = JSON.parse(JSON.stringify(listAll));
+            var result = 0;
+            if (listAll.length > 1) {
+                result = confirm("Do you want to share these " + listAll.length + " jobs? ");
+            }
+            else {
+                result = confirm("Do you want to share this 1 job? ");
+            }
+            var toShare = [];
+            if (result) {
+                for (i = 0; i < this.mytemp.length; i++) {
+                    toShare.push(this.returnName(this.data[this.mytemp[i] - 1].job));
+                }
+                req = document.getElementById("ShareReq");
+                req.params = toShare;
+                req.generateRequest();
+            }
+
+        },
+
+        unshareall: function(e) {
+            var list = document.getElementById("jobList");
+            var listAll = list.selectedValues;
+            this.mytemp = JSON.parse(JSON.stringify(listAll));
+            var result = 0;
+            if (listAll.length > 1) {
+                result = confirm("Do you want to unshare these " + listAll.length + " jobs? ");
+            }
+            else {
+                result = confirm("Do you want to unshare this 1 job? ");
+            }
+            var toUnshare = [];
+            if (result) {
+                for (i = 0; i < this.mytemp.length; i++) {
+                    toUnshare.push(this.returnName(this.data[this.mytemp[i] - 1].job));
+                }
+                req = document.getElementById("UnshareReq");
+                req.params = toUnshare;
+                req.generateRequest();
+            }
+
         },
 
         _isShared: function(access) {
@@ -285,6 +549,50 @@
             }
             else {
                 return "visibility-off";
+            }
+        },
+
+        _afterShare: function(e){
+            var list = document.getElementById("jobList");
+
+            for (i = 0; i < this.mytemp.length ; i++) {
+                list.selectIndex(this.mytemp[i]);
+            }
+            var desResults = document.getElementById("desResults");
+            req = document.getElementById("getData");
+            req2 = document.getElementById("getDataShared");
+
+            req.generateRequest();
+            req2.generateRequest();
+
+
+        },
+
+        _afterUnshare: function(e){
+//            change visibility
+            var list = document.getElementById("jobList");
+
+            for (i = 0; i < this.mytemp.length ; i++) {
+                list.selectIndex(this.mytemp[i]);
+            }
+            var desResults = document.getElementById("desResults");
+            req = document.getElementById("getData");
+            req2 = document.getElementById("getDataShared");
+            req.generateRequest();
+            req2.generateRequest();
+
+
+        },
+
+        _isPublic: function(access) {
+            if (access === 1) {
+                return true;
+            }
+        },
+
+        _isPrivate: function(access) {
+            if (access === 0) {
+                return true;
             }
         },
 
