@@ -77,7 +77,7 @@
 
 
         <section>
-            <des-my-jobs-help style="float: right; width: 18%;"></des-my-jobs-help>
+            <!--<des-my-jobs-help style="float: right; width: 18%;"></des-my-jobs-help>-->
 
 
             <!--<des-back-button></des-back-button>-->
@@ -190,7 +190,7 @@
                                         </paper-card>
                                     </paper-dialog-scrollable>
                                     <div class="buttons">
-                                        <paper-button dialog-confirm autofocus>Continue</paper-button>
+                                        <paper-button on-tap="viewresults" autofocus>Continue</paper-button>
                                         <paper-button on-tap="_viewToggle" autofocus>View Comment</paper-button>
                                         <paper-button dialog-dismiss>Cancel</paper-button>
                                     </div>
@@ -213,7 +213,7 @@
                                     <h2>Comment</h2>
                                     <paper-dialog-scrollable>
                                         <!--Job : {{jobname}}-->
-                                        <paper-input  id="commentInput" name="comment" label="Comment" value="[[jobcomment]]">
+                                        <paper-input  id="commentInput" name="comment" label="Edit comment" value="[[jobcomment]]">
                                         </paper-input>
                                     </paper-dialog-scrollable>
                                     <div class="buttons">
@@ -454,8 +454,8 @@
             desResults.jtypes = e.model.item.jtypes;
             desResults.jpublic = e.model.item.jpublic;
             desResults.jcomment = e.model.item.jcomment;
-            desResults.jobid = this.returnName(e.model.item.job);
-            desResults.jobidFull = e.model.item.job;
+//            desResults.jobid = this.returnName(e.model.item.job);
+//            desResults.jobidFull = e.model.item.job;
             app.selection="7";
             pages.selected="7";
             menu.selected="7";
@@ -469,6 +469,8 @@
             var req = document.getElementById("getData");
             req.generateRequest();
             document.querySelector('#toast-cmt-good').show();
+            var edit = document.getElementById('editCommentDialog');
+            edit.close();
         },
 
         errorHandler: function(){
