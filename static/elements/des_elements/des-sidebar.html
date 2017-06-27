@@ -61,6 +61,12 @@
         .self-info .email {
             color: #999;
         }
+
+        @media screen and (min-width: 1300px){
+            .visual {
+                display: none
+            }
+        }
     </style>
     <template>
 
@@ -89,12 +95,12 @@
 
         <iron-pages id="helpPages" selected="[[helpselection]]">
 
-            <des-home-help></des-home-help>
-            <des-my-jobs-help></des-my-jobs-help>
-            <des-shared-jobs-help></des-shared-jobs-help>
-            <des-coadds-help></des-coadds-help>
-            <des-single-help></des-single-help>
-            <des-api-help></des-api-help>
+            <des-home-help class="visual"></des-home-help>
+            <des-my-jobs-help class="visual"></des-my-jobs-help>
+            <des-shared-jobs-help class="visual"></des-shared-jobs-help>
+            <des-coadds-help class="visual"></des-coadds-help>
+            <des-single-help class="visual"></des-single-help>
+            <des-api-help-text></des-api-help-text>
             <des-footprint-help></des-footprint-help>
             <des-results-help></des-results-help>
             <des-logs-help></des-logs-help>
