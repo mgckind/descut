@@ -121,14 +121,32 @@
 
 
                 Coords
-                <div id="tiletitleHelp">
-                </div>
-                <div class="card-actions">
-                    <paper-button on-tap="_toCoadds">Export to Coadds Images </paper-button>
-                    <paper-button on-tap="_toSingle">Export to Single Epoch </paper-button>
-                    <!--<paper-button on-tap="_editComment" autofocus>Confirm</paper-button>-->
-                    <paper-button on-tap="_clear">Clear </paper-button>
-                </div>
+                <paper-item >
+                    <paper-item-body>
+                        <div id="tiletitleHelp">
+                        </div>
+                    </paper-item-body>
+                </paper-item>
+
+                <paper-item >
+                    <paper-item-body>
+                        Export to Coadds Images
+                    </paper-item-body>
+                    <paper-icon-button icon="maps:near-me" on-tap="_toCoadds"></paper-icon-button>
+                </paper-item>
+                <paper-item >
+                    <paper-item-body>
+                        Export to Single Epoch
+                    </paper-item-body>
+                    <paper-icon-button icon="maps:near-me" on-tap="_toSingle"></paper-icon-button>
+                </paper-item>
+                <paper-item >
+                    <paper-item-body>
+                        clear
+                    </paper-item-body>
+                    <paper-icon-button icon="clear" on-tap="_clear"></paper-icon-button>
+                </paper-item>
+
             </div>
         </des-card-help>
 
