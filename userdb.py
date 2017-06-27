@@ -30,7 +30,7 @@ def dt_t(entry):
     return t.strftime('%Y-%m-%d %H:%M:%S')
 
 def tup(entry,i, user='mcarras2'):
-    return (user,job_s(entry),entry['status'],dt_t(entry))
+    return (user,job_s(entry),entry['status'],dt_t(entry), 0)
 
 with open('static/jobs.json','r') as F:
     J =json.load(F)
@@ -43,13 +43,13 @@ bigJ=tuple(bigJ)
 
 
 # write
-def create_db(delete=False)
+def create_db(delete=False):
     con = lite.connect('users.db')
     with con:
         cur = con.cursor()
         if delete:
             cur.execute("DROP TABLE IF EXISTS Jobs")
-        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime)")
+        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, public integer, comment text)")
 
 #cur.executemany("INSERT INTO Jobs VALUES(?,?,?,?)", bigJ)
 
@@ -64,6 +64,8 @@ def create_db(delete=False)
     jstatus=[]
     jtime=[]
     jelapsed=[]
+    jpublic=[]
+    jcomment=[]
 
     for i in range(len(cc)):
         dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
@@ -72,8 +74,10 @@ def create_db(delete=False)
         jstatus.append(cc[i][2])
         jtime.append(ctime)
         jelapsed.append((dt.datetime.now()-dd).total_seconds())
+        jpublic.append(cc[i][4])
+        jcomment.append(cc[i][5])
 
-    out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=humantime(jelapsed[i])) for i in range(len(jjob))]
+    out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=humantime(jelapsed[i]), public=jpublic[i], comment=jcomment[i]) for i in range(len(jjob))]
     with open('static/jobs2.json',"w") as outfile:
         json.dump(out_dict, outfile, indent=4)
 

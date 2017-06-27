@@ -1,0 +1,429 @@
+<dom-module id="des-card-intro">
+    <style>
+        div.gallery {
+            display: inline-block;
+            margin: 5px;
+            border: 1px solid #ccc;
+            /*float: left;*/
+            width: auto;
+            height: 700px;
+
+        }
+
+        div#jobs {
+            background: url("../../images/home-jobs.jpg");
+            width: 250px;
+            height: inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+
+
+        }
+
+        div#coadd {
+            background: url("../../images/home-coadd.jpg");
+            width: 250px;
+            height: inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+
+
+        }
+
+        div#epoch {
+            background: url("../../images/home-epoch.jpg");
+            width: 250px;
+            height:  inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+
+
+        }
+
+        div#api {
+            background: url("../../images/home-api.jpg");
+            width: 250px;
+            height:  inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+
+
+        }
+
+        div#footprint {
+            background-image: url("../../images/home-footprint.jpg");
+            width: 250px;
+            height:  inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+
+        }
+
+        div.gallery:hover {
+            border: 1px solid #777;
+        }
+
+        /*div.gallery iron-image {*/
+            /*width: 250px;*/
+            /*height: 100%;*/
+            /*opacity: 0.8;*/
+        /*}*/
+
+        div.intro {
+            /*position: relative;*/
+            padding: 15px;
+            text-align: center;
+            margin: 300px 0;
+            background-color: rgba(211, 211, 211, 0.7);
+            vertical-align: middle;
+            line-height: 20px;
+            font-size: 20px;
+            color: black;
+            font-family: 'Roboto', 'Noto', sans-serif;
+
+        }
+        div.text {
+            display: none;
+            z-index: -1;
+        }
+        div.text:hover {
+            display: block;
+            z-index: -1;
+        }
+
+    </style>
+
+    <template>
+
+        <div class="gallery" id="jobs">
+            <div class="intro" id="jobs-intro" onclick="introPage('jobs-intro')">My jobs</div>
+            <!--<iron-image id="coadd" sizing="cover" src="../../images/home-coadd.jpg" alt="Coadd">-->
+            <!--</iron-image>-->
+            <div class="text"> DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+            </div>
+
+        </div>
+
+        <div class="gallery" id="coadd">
+            <div class="intro" id="coadd-intro" onclick="introPage('coadd-intro')">Coadds Images</div>
+            <div class="text"> DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+            </div>
+
+        </div>
+
+        <div class="gallery" id="epoch">
+            <div class="intro" id="epoch-intro" onclick="introPage('epoch-intro')">Single Epoch</div>
+            <div class="text"> DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+            </div>
+
+        </div>
+
+        <div class="gallery" id="api">
+            <div class="intro" id="api-intro" onclick="introPage('api-intro')">API Help</div>
+            <div class="text"> DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+            </div>
+        </div>
+
+        <div class="gallery" id="footprint">
+            <div class="intro" id="footprint-intro" onclick="introPage('footprint-intro')">Footprint</div>
+            <div class="text"> DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+                DescriptionDescriptionDescriptionDescription
+            </div>
+        </div>
+
+
+    </template>
+
+
+</dom-module>
+
+
+
+<script>
+    Polymer({
+        is: "des-card-intro"
+    });
+
+    function introPage(id) {
+        document.getElementById(id).innerHTML = window.open('/'+id+'/', '_self',false);
+    }
+</script>
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<style>-->
+        <!--div.background {-->
+            <!--background: url(klematis.jpg) repeat;-->
+            <!--border: 2px solid black;-->
+        <!--}-->
+
+        <!--div.transbox {-->
+            <!--margin: 30px;-->
+            <!--background-color: #ffffff;-->
+            <!--border: 1px solid black;-->
+            <!--opacity: 0.6;-->
+            <!--filter: alpha(opacity=60); /* For IE8 and earlier */-->
+        <!--}-->
+
+        <!--div.transbox p {-->
+            <!--margin: 5%;-->
+            <!--font-weight: bold;-->
+            <!--color: #000000;-->
+        <!--}-->
+    <!--</style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="background">-->
+    <!--<div class="transbox">-->
+        <!--<p>This is some text that is placed in the transparent box.</p>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->

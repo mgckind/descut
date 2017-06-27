@@ -98,6 +98,7 @@ class FileHandler(BaseHandler):
         email = self.get_argument("email")
         stype = self.get_argument("submit_type")
         tag = self.get_argument("tag")
+        comment = self.get_argument("comment")
         print('**************')
         print(xs,ys,'sizes')
         print(stype,'type')
@@ -105,6 +106,7 @@ class FileHandler(BaseHandler):
         print(send_email,'send_email')
         print(email,'email')
         print(tag,'Tag')
+        print(comment,'comment')
         jobid = str(uuid.uuid4())
         if xs == 0.0 : xs=''
         if ys == 0.0 : ys=''
@@ -137,10 +139,10 @@ class FileHandler(BaseHandler):
         else:
             run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', loc_user, loc_passw, folder2, xs,ys,jobid, list_only, tag], task_id=tiid)
         con = lite.connect(Settings.DBFILE)
-        tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
+        tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'], 0, comment)
         with con:
             cur = con.cursor()
-            cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?, ?)", tup)
+            cur.execute("INSERT INTO Jobs VALUES(?, ?, ?, ?, ?, ?, ?)", tup)
         self.set_status(200)
         self.flush()
         self.finish()
@@ -158,6 +160,7 @@ class FileHandlerS(BaseHandler):
         noBlacklist = self.get_argument('noBlacklist') == 'true'
         bands = self.get_argument('bands')
         email = self.get_argument("email")
+        comment = self.get_argument("comment")
         stype = self.get_argument("submit_type")
         if xs == 0.0 : xs=''
         if ys == 0.0 : ys=''
@@ -167,6 +170,7 @@ class FileHandlerS(BaseHandler):
         print(list_only,'list_only')
         print(send_email,'send_email')
         print(email,'email')
+        print(comment,'comment')
         print(bands, 'bands')
         print(noBlacklist, 'noBlacklist')
         jobid = str(uuid.uuid4())
@@ -203,10 +207,10 @@ class FileHandlerS(BaseHandler):
             run=dtasks.mkcut.apply_async(args=[filename, loc_user, loc_passw, job_dir, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                 task_id=tiid)
         con = lite.connect(Settings.DBFILE)
-        tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE'])
+        tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE',0, comment])
         with con:
             cur = con.cursor()
-            cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?, ?)", tup)
+            cur.execute("INSERT INTO Jobs VALUES(?, ?, ? ,?, ?, ?, ?)", tup)
         self.set_status(200)
         self.flush()
         self.finish()

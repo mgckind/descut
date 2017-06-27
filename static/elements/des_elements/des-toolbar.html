@@ -2,10 +2,10 @@
 <template>
     <style>
         paper-toolbar.black {
-        --paper-toolbar-background: black;
-        --paper-toolbar-title: {
-            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;      
-            };
+            --paper-toolbar-background: black;
+            --paper-toolbar-title: {
+                font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                };
         }
     </style>
    <paper-toolbar id="mainToolbar" class="black">
@@ -13,22 +13,23 @@
         <span class="title">DARK ENERGY SURVEY Cutouts Services</span>
         <paper-icon-button icon="home" on-tap="home"></paper-icon-button>
         <paper-icon-button icon="power-settings-new" on-tap="logout"></paper-icon-button>
-    </paper-toolbar> 
+
+    </paper-toolbar>
 </template>
 
 <script>
       Polymer({
-      is: "des-toolbar",
-      toggle: function(event){
-        app.$.paperDrawerPanel.togglePanel(); 
-      },
-      logout: function(event){
-        window.open('/logout/','_self',false);
-      },
-      home: function(event){
-        window.open('/','_self',false);
-      },
-    });
+          is: "des-toolbar",
+          toggle: function(event){
+            app.$.paperDrawerPanel.togglePanel();
+          },
+          logout: function(event){
+            window.open('/logout/','_self',false);
+          },
+          home: function(event){
+            window.open('/','_self',false);
+          },
+      });
 
 
 </script>

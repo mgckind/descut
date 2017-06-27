@@ -1,0 +1,114 @@
+<dom-module id="des-shared-logs-help">
+<template>
+    <style include="shared-styles">
+    
+        .size {
+      width: 15px;
+      height: 15px;
+    }
+    </style>
+
+
+
+ <des-card-help heading="Help">
+  <div class="card-content">
+ <p> Check the logfile to find more information about the job.  Use list below to change between jobs.</p>
+    <hr class="des-hr">
+ <paper-item >
+    <paper-item-body>
+    View results
+    </paper-item-body>
+    <paper-icon-button icon="launch" on-tap="_seeResults"></paper-icon-button>
+    </paper-item>
+    <hr class="des-hr">
+    <b> Job list shortcut</b>
+               <paper-listbox id="smallJobListLShared" >
+                <template is="dom-repeat" id="menu" items="[[data]]">
+                     <paper-item on-focus="_focus">
+                     <template is="dom-if" if="{{_completed(item.status)}}">
+                    <div class="status size green" item-icon></div>
+                    </template>
+                     <template is="dom-if" if="{{_pending(item.status)}}">
+                    <div class="status size" item-icon></div>
+                    </template>
+                    <template is="dom-if" if="{{_stop(item.status)}}">
+                    <div class="status size red" item-icon></div>
+                    </template>
+
+                        <div style="font-size: 8.5px;">&nbsp; &nbsp;[[returnName(item.job)]]</div>
+                    </paper-item>
+            </template>
+            </paper-listbox>
+
+    </div>
+</des-card-help>
+
+</template>
+
+<script>
+    Polymer({
+        is: "des-shared-logs-help",
+        properties: {
+            data: {
+                type: Array,
+            },
+        },
+        _print: function() {
+            console.log(this.data);
+        },
+        _focus: function(e){
+            document.getElementById("desLogShared").jobid=this._returnName(e.model.item.job);
+            document.getElementById("desLogShared").jobidFull=e.model.item.job;
+            document.getElementById("smallJobListShared").selected=e.model.index;
+            document.getElementById("getLog").generateRequest();
+            document.getElementById("desResultsShared").jobid=this._returnName(e.model.item.job);
+            document.getElementById("desResultsShared").jobidFull=e.model.item.job;
+            document.getElementById("desResultsShared").username = document.getElementById("desJobsShared").username;
+
+            var select_index = document.getElementById('smallJobListLShared').selected;
+            document.getElementById("desResultsShared").jtypes = this.data[select_index].jtypes;
+        },
+        returnName: function(job) {
+            var n1=job.search("__");
+            var n2=job.search("{");
+            var job0 = job.substring(n1+2,n2-1);
+            return job0;
+        },
+        _returnName: function(job) {
+            var n1=job.search("__");
+            var n2=job.search("{");
+            var job0 = job.substring(n1+2,n2-1);
+            return job0;
+        },
+        _completed: function(status) {
+            if (status === "SUCCESS") {return true;}
+        },
+        _pending: function(status) {
+            if (status === "PENDING") {return true;}
+        },
+        _stop: function(status) {
+            if (status != "PENDING" && status != "SUCCESS" ) {return true;}
+        },
+        _seeResults: function(e){
+            e.stopPropagation();
+            // var select_index = document.getElementById('smallJobListL').selected;
+            var pages = document.getElementById("mainPages");
+            var help = document.getElementById("helpPages");
+            var menu = document.querySelector('paper-menu');
+            // var desResults = document.getElementById("desResults");
+            //     desResults.jobid = document.getElementById("desLog").jobid;
+            //     desResults.jtypes = this.data[select_index].jtypes;
+            //     desResults.jobidFull = document.getElementById("desLog").jobidFull;
+            //     desResults.username =  document.getElementById("desJobs").username;
+            app.selection="9";
+            pages.selected="9";
+            menu.selected="9";
+            help.selected="9";
+        },
+
+
+    });
+
+
+</script>
+</dom-module>

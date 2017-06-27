@@ -1,0 +1,176 @@
+<dom-module id="des-shared-results-help">
+<template>
+    <style include="shared-styles">
+
+    .size {
+      width: 15px;
+      height: 15px;
+    }
+
+
+    </style>
+
+
+
+ <des-card-help heading="Help">
+    <div class="card-content">
+        <p> Download all tiles or a text file with the list of files only. In the latter case use:
+            <pre>wget -i list.txt</pre> Selectable list below to change between jobs
+        </p>
+
+        <hr class="des-hr">
+        <!--<paper-item >-->
+            <!--<paper-item-body>-->
+                <!--See the logfile-->
+            <!--</paper-item-body>-->
+            <!--<paper-icon-button icon="assignment" on-tap="_seeLog"></paper-icon-button>-->
+        <!--</paper-item>-->
+
+        <paper-item >
+            <paper-item-body>
+                Download All Tiles
+            </paper-item-body>
+        <paper-icon-button id="getAllIcon" icon="file-download" on-tap="_getall" ></paper-icon-button>
+        </paper-item>
+
+        <paper-item >
+            <paper-item-body>
+                Get list of files
+            </paper-item-body>
+            <paper-icon-button icon="assignment-returned" on-tap="_getlist" ></paper-icon-button>
+        </paper-item>
+
+        <hr class="des-hr">
+
+        <b> Job list shortcut</b>
+        <paper-listbox id="smallJobListShared" >
+                <template is="dom-repeat" id="menu" items="[[data]]">
+                    <paper-item on-focus="_focus">
+
+                        <template is="dom-if" if="{{_completed(item.status)}}">
+                        <div class="status size green" item-icon></div>
+                        </template>
+
+                        <template is="dom-if" if="{{_pending(item.status)}}">
+                        <div class="status size" item-icon></div>
+                        </template>
+
+                        <template is="dom-if" if="{{_stop(item.status)}}">
+                        <div class="status size red" item-icon></div>
+                        </template>
+
+                        <div style="font-size: 8.5px;">&nbsp; &nbsp;[[returnName(item.job)]]</div>
+                    </paper-item>
+                </template>
+        </paper-listbox>
+
+    </div>
+</des-card-help>
+
+</template>
+
+<script>
+    Polymer({
+        is: "des-shared-results-help",
+        properties: {
+            data: {
+                type: Array,
+            },
+        },
+        _print: function() {
+            console.log(this.data);
+        },
+        _focus: function(e){
+            document.getElementById("desResultsShared").jobid=this._returnName(e.model.item.job);
+            document.getElementById("desResultsShared").jobidFull=e.model.item.job;
+            document.getElementById("desResultsShared").jtypes=e.model.item.jtypes;
+//            document.getElementById("desLogShared").jobid=this._returnName(e.model.item.job);
+//            document.getElementById("desLogShared").jobidFull=e.model.item.job;
+            document.getElementById("smallJobListLShared").selected=e.model.index;
+        },
+        returnName: function(job) {
+            var n1=job.search("__");
+            var n2=job.search("{");
+            var job0 = job.substring(n1+2,n2-1);
+            return job0;
+        },
+        _returnName: function(job) {
+            var n1=job.search("__");
+            var n2=job.search("{");
+            var job0 = job.substring(n1+2,n2-1);
+            return job0;
+        },
+        _completed: function(status) {
+            if (status === "SUCCESS") {return true;}
+        },
+        _pending: function(status) {
+            if (status === "PENDING") {return true;}
+        },
+        _stop: function(status) {
+            if (status != "PENDING" && status != "SUCCESS" ) {return true;}
+        },
+//        _seeLog: function(e){
+//            e.stopPropagation();
+//            // var jobid = document.getElementById("desResults").jobid;
+//            // var jobidFull = document.getElementById("desResults").jobidFull;
+//            var pages = document.getElementById("mainPages");
+//            var help = document.getElementById("helpPages");
+//            var menu = document.querySelector('paper-menu');
+//            // var desLog = document.getElementById("desLog");
+//            //     desLog.jobidFull = jobidFull;
+//            //     desLog.jobid = jobid;
+//            app.selection="10";
+//            pages.selected="10";
+//            menu.selected="10";
+//            help.selected="10";
+//
+//        },
+        _getall: function(){
+            var SE = document.getElementById('mainPages').selected=="7";
+            var link = document.createElement('a');
+            var siid = document.getElementById("desResultsShared").jobid;
+            var user = document.getElementById("desResultsShared").username;
+
+            link.href = "/static/uploads/"+user+"/results/"+siid+"/"+siid+".tar.gz";
+
+            if (link.download !== undefined){
+                //Set HTML5 download attribute. This will prevent file from opening if supported.
+                var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
+                link.download = fileName;
+            }
+            if (document.createEvent) {
+                var e = document.createEvent('MouseEvents');
+                e.initEvent('click' ,true ,true);
+                link.dispatchEvent(e);
+                return true;
+            }
+            var query = '?download';
+            window.open(link.href + query);
+        },
+
+        _getlist: function(){
+            var link = document.createElement('a');
+            var siid = document.getElementById("desResultsShared").jobid;
+            var user = document.getElementById("desResultsShared").username;
+            link.href = "/static/uploads/"+user+"/results/"+siid+"/list_all.txt";
+            if (link.download !== undefined){
+                var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
+                link.download = fileName;
+            }
+            if (document.createEvent) {
+                var e = document.createEvent('MouseEvents');
+                e.initEvent('click' ,true ,true);
+                link.dispatchEvent(e);
+                return true;
+            }
+            var query = '?download';
+            window.open(link.href + query);
+        },
+
+
+
+    });
+
+
+</script>
+</dom-module>

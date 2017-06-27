@@ -46,68 +46,65 @@
 </template>
 
 <script>
-      Polymer({
-      is: "des-logs-help",
-      properties: {
-        data: {
-            type: Array,
+    Polymer({
+        is: "des-logs-help",
+        properties: {
+            data: {
+                type: Array,
+            },
         },
-      },
-      _print: function() {
-        console.log(this.data);
-      },
-      _focus: function(e){
-        document.getElementById("desLog").jobid=this._returnName(e.model.item.job);
-        document.getElementById("desLog").jobidFull=e.model.item.job;
-        document.getElementById("smallJobList").selected=e.model.index;
-        document.getElementById("getLog").generateRequest();
-        document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
-        document.getElementById("desResults").jobidFull=e.model.item.job;
-        document.getElementById("desResults").username = document.getElementById("desJobs").username;
-        
-        var select_index = document.getElementById('smallJobListL').selected;
-        document.getElementById("desResults").jtypes = this.data[select_index].jtypes;
-      },
+        _print: function() {
+            console.log(this.data);
+        },
+        _focus: function(e){
+            document.getElementById("desLog").jobid=this._returnName(e.model.item.job);
+            document.getElementById("desLog").jobidFull=e.model.item.job;
+            document.getElementById("smallJobList").selected=e.model.index;
+            document.getElementById("getLog").generateRequest();
+            document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
+            document.getElementById("desResults").jobidFull=e.model.item.job;
+            document.getElementById("desResults").username = document.getElementById("desJobs").username;
+
+            var select_index = document.getElementById('smallJobListL').selected;
+            document.getElementById("desResults").jtypes = this.data[select_index].jtypes;
+        },
         returnName: function(job) {
-        var n1=job.search("__");
-        var n2=job.search("{");
-        var job0 = job.substring(n1+2,n2-1);
-        return job0;
-      },
+            var n1=job.search("__");
+            var n2=job.search("{");
+            var job0 = job.substring(n1+2,n2-1);
+            return job0;
+        },
         _returnName: function(job) {
-        var n1=job.search("__");
-        var n2=job.search("{");
-        var job0 = job.substring(n1+2,n2-1);
-        return job0;
-      },
-       _completed: function(status) {
-        if (status === "SUCCESS") {return true;}
-      },
-      _pending: function(status) {
-        if (status === "PENDING") {return true;}
-      },
-      _stop: function(status) {
-        if (status != "PENDING" && status != "SUCCESS" ) {return true;}
-      },
-      _seeResults: function(e){
-        e.stopPropagation();
-        // var select_index = document.getElementById('smallJobListL').selected;
-        var pages = document.getElementById("mainPages");
-        var help = document.getElementById("helpPages");
-        var menu = document.querySelector('paper-menu');
-        // var desResults = document.getElementById("desResults");        
-        //     desResults.jobid = document.getElementById("desLog").jobid;
-        //     desResults.jtypes = this.data[select_index].jtypes;
-        //     desResults.jobidFull = document.getElementById("desLog").jobidFull;
-        //     desResults.username =  document.getElementById("desJobs").username;
-        app.selection="6";
-        pages.selected="6";
-        menu.selected="6";
-        help.selected="6";
-
-
-      },
-
+            var n1=job.search("__");
+            var n2=job.search("{");
+            var job0 = job.substring(n1+2,n2-1);
+            return job0;
+        },
+        _completed: function(status) {
+            if (status === "SUCCESS") {return true;}
+        },
+        _pending: function(status) {
+            if (status === "PENDING") {return true;}
+        },
+        _stop: function(status) {
+            if (status != "PENDING" && status != "SUCCESS" ) {return true;}
+        },
+        _seeResults: function(e){
+            e.stopPropagation();
+            // var select_index = document.getElementById('smallJobListL').selected;
+            var pages = document.getElementById("mainPages");
+            var help = document.getElementById("helpPages");
+            var menu = document.querySelector('paper-menu');
+            // var desResults = document.getElementById("desResults");
+            //     desResults.jobid = document.getElementById("desLog").jobid;
+            //     desResults.jtypes = this.data[select_index].jtypes;
+            //     desResults.jobidFull = document.getElementById("desLog").jobidFull;
+            //     desResults.username =  document.getElementById("desJobs").username;
+            app.selection="7";
+            pages.selected="7";
+            menu.selected="7";
+            help.selected="7";
+        },
 
 
     });

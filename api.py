@@ -137,7 +137,6 @@ class TokenHandler(tornado.web.RequestHandler):
         self.finish()
 
 
-
 class JobHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def post(self):
@@ -266,16 +265,16 @@ class JobHandler(tornado.web.RequestHandler):
             infP = infoP(user,passwd)
             now = datetime.datetime.now()
             tiid = user+'__'+jobid+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
-
+            comment = arguments['comment']
             #SUBMIT JOB, ADD TO SQLITE
             if jtype == 'coadd':
-                tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'])
+                tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd', 0, comment])
                 if send_email:
                     run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', user, passwd, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
                 else:
                     run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', user, passwd, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid)
             else:
-                tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE'])
+                tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE', 0, comment])
                 if send_email:
                     run=dtasks.mkcut.apply_async(args=[filename, user, passwd, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                         task_id=tiid, link=dtasks.send_note.si(loc_user, tiid, toemail))
@@ -286,7 +285,7 @@ class JobHandler(tornado.web.RequestHandler):
             con = lite.connect(Settings.DBFILE)
             with con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?, ?)", tup)
+                cur.execute("INSERT INTO Jobs VALUES(?, ?, ?, ?, ?, ?, ?)", tup)
             response['message'] = 'Job %s submitted.' % (jobid)
             response['job'] = jobid
             try:
@@ -329,6 +328,8 @@ class JobHandler(tornado.web.RequestHandler):
                 response['creation_time'] = [j[1] for j in cc]
                 response['job_status'] = [j[2] for j in cc]
                 response['job_type'] = [j[3] for j in cc]
+                response['job_public'] = [j[4] for j in cc]
+                response['job_comment'] = [j[5] for j in cc]
                 self.set_status(200)
                 self.write(response)
                 self.flush()
@@ -423,6 +424,7 @@ class JobHandler(tornado.web.RequestHandler):
         self.write(response)
         self.flush()
         self.finish()
+
 
 class MongoHandler(tornado.web.RequestHandler):
 
@@ -560,6 +562,44 @@ class MongoHandler(tornado.web.RequestHandler):
         self.finish()
 
 
+class ShareHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        # loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        response = { k: self.get_argument(k) for k in self.request.arguments }
+        con = lite.connect(Settings.DBFILE)
+        with con:
+            cur = con.cursor()
+            cc = cur.execute("SELECT * from Jobs where public = %d order by datetime(time) DESC " % 1).fetchall()
+        cc = list(cc)
+        jjob=[]
+        jstatus=[]
+        jtime=[]
+        jelapsed=[]
+        jtype=[]
+        jpublic=[]
+        jcomment=[]
+
+        for i in range(len(cc)):
+            dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
+            ctime = dd.strftime('%a %b %d %H:%M:%S %Y')
+            jjob.append(cc[i][0]+'__'+cc[i][1]+'_{'+ctime+'}')
+            jstatus.append(cc[i][2])
+            jtime.append(ctime)
+            jtype.append(cc[i][4])
+            jelapsed.append(humantime((dt.datetime.now()-dd).total_seconds())+" ago")
+            jpublic.append(cc[i][5])
+            jcomment.append(cc[i][6])
+
+        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i], jpublic=jpublic[i], jcomment=jcomment[i]) for i in range(len(jjob))]
+        temp = json.dumps(out_dict, indent=4)
+            #with open('static/jobs2.json',"w") as outfile:
+        self.write(temp)
+            #self.set_status(200)
+            #self.flush()
+            #self.finish()
+
+
 class ApiHandler(BaseHandler):
     @tornado.web.authenticated
     def delete(self):
@@ -598,6 +638,8 @@ class ApiHandler(BaseHandler):
         jtime=[]
         jelapsed=[]
         jtype=[]
+        jpublic=[]
+        jcomment=[]
 
         for i in range(len(cc)):
             dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
@@ -607,13 +649,17 @@ class ApiHandler(BaseHandler):
             jtime.append(ctime)
             jtype.append(cc[i][4])
             jelapsed.append(humantime((dt.datetime.now()-dd).total_seconds())+" ago")
-        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i]) for i in range(len(jjob))]
+            jpublic.append(cc[i][5])
+            jcomment.append(cc[i][6])
+
+        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i], jpublic=jpublic[i], jcomment=jcomment[i]) for i in range(len(jjob))]
         temp = json.dumps(out_dict, indent=4)
             #with open('static/jobs2.json',"w") as outfile:
         self.write(temp)
             #self.set_status(200)
             #self.flush()
             #self.finish()
+
 
 class LogHandler(BaseHandler):
 
@@ -657,6 +703,76 @@ class CancelJobHandler(BaseHandler):
             cur = con.cursor()
             q = "UPDATE Jobs SET status='REVOKED' where job = '%s'" % jobid2
             cc = cur.execute(q)
+        self.set_status(200)
+        self.flush()
+        self.finish()
+
+class ShareJobHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"', '')
+        user_folder = os.path.join(Settings.UPLOADS, loc_user)
+        response = {k: self.get_argument(k) for k in self.request.arguments}
+        Nd = len(response)
+        con = lite.connect(Settings.DBFILE)
+        with con:
+            cur = con.cursor()
+            for j in range(Nd):
+                jid = response[str(j)]
+                q = "UPDATE Jobs SET public=%d where job = '%s'" % (1, jid)
+                cc = cur.execute(q)
+                folder = os.path.join(user_folder, 'results/' + jid)
+
+        self.set_status(200)
+        self.flush()
+        self.finish()
+
+    @tornado.web.authenticated
+    def delete(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
+        user_folder = os.path.join(Settings.UPLOADS,loc_user)
+        response = { k: self.get_argument(k) for k in self.request.arguments }
+        Nd=len(response)
+        con = lite.connect(Settings.DBFILE)
+        with con:
+            cur = con.cursor()
+            for j in range(Nd):
+                jid=response[str(j)]
+                q = "UPDATE Jobs SET public=%d where job = '%s'" % (0, jid)
+                cc = cur.execute(q)
+                folder = os.path.join(user_folder,'results/' + jid)
+
+        self.set_status(200)
+        self.flush()
+        self.finish()
+
+class AddCommentHandler(BaseHandler):
+    @tornado.web.authenticated
+    @tornado.web.asynchronous
+    def post(self):
+        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"', '')
+        user_folder = os.path.join(Settings.UPLOADS, loc_user)
+        comment = self.get_argument("comment")
+        print("*******")
+        print(comment)
+        jobid = self.get_argument("jobid")
+        print(jobid)
+        print("*******")
+
+        # response = {k: self.get_argument(k) for k in  self.request.arguments}
+        # Nd = len(response)
+        con = lite.connect(Settings.DBFILE)
+        with con:
+            cur = con.cursor()
+            # for j in range(Nd):
+                # jid = response[str(j)]
+            q = "UPDATE Jobs SET comment='%s' where job = '%s'" % (comment, jobid)
+            check = "select * from Jobs where job = '%s'" % jobid
+            cc = cur.execute(q)
+            cc = cur.execute(check).fetchall()
+            print(cc)
+            folder = os.path.join(user_folder, 'results/' + jobid)
+
         self.set_status(200)
         self.flush()
         self.finish()

@@ -3,105 +3,138 @@
 
 <!-- shared styles for all elements and index.html -->
 <dom-module id="shared-styles">
-  <template>
     <style>
 
-   table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid #dddddd;
-}
+        .selected-tab {
+            padding: 7px 31px;
+            border-width: 3px;
+            border-style: none none solid none;
+            border-color: red;
+        }
 
-    th {
-    text-align: right;
-    padding: 8px;
-    }
-    td {
-    text-align: left;
-    padding: 8px;
-    }
+        .unselected-tab {
+            display: inline-flex;
+            padding: 10px 30px;
+            border: 1px solid #ccc;
+            margin-top: 2px;
 
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-    paper-card.apicard {
-        width: 100%;
-        margin-top: 30px;
-    }
-    .api-header {
-        color: var(--paper-blue-500);
-        font-size: 20px;
-        font-weight: bold;
-        padding: 8px;
+        }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #dddddd;
+        }
+
+        th {
+            text-align: right;
+            padding: 8px;
+        }
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        paper-card.apicard {
+            width: 100%;
+            margin-top: 30px;
+        }
+        .api-header {
+            color: var(--paper-blue-500);
+            font-size: 20px;
+            font-weight: bold;
+            padding: 8px;
+        }
+
+        .api-subheader {
+            color: var(--paper-green-400);
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        paper-button.desbutton {
+            width:200px;
+            font-size: 14pt;
+            color: var(--paper-blue-500);
+            --paper-button-flat-focus-color: var(--paper-blue-50);
+        }
+        paper-button.desbutton:hover {
+            background: var(--paper-blue-50);
+        }
+
+
+        paper-slider {
+            width:100%;
+        }
+
+        paper-input {
+            width: 300px;
+            min-width: 200px;
+        }
+
+        paper-dialog.size-position {
+            position: fixed;
+            top: 50%;
+            right: 45%  ;
+            width: 200px;
+            max-height: 80px;
+            overflow: auto;
+        }
+
+        .status {
+            display: inline-block;
+            box-sizing: border-box;
+            border-radius: 50%;
+            background: var(--paper-yellow-500);
+        }
+        .green {
+            background: var(--paper-green-500);
+        }
+        .red {
+            background: var(--paper-red-500);
+        }
+
+
+        .des-hr {
+
+            color:black;
+            border-color:black;
+            background-color:black;
+        }
+
+
+        .paper-header {
+            position: absolute;
+            width: 100%;
+            color: white;
+        }
+        .page-title {
+            @apply(--paper-font-display2);
+        }
+
+        @media (max-width: 600px) {
+            .page-title {
+                font-size: 24px!important;
             }
 
-   .api-subheader {
-    color: var(--paper-green-400);
-    font-size: 18px;
-        font-weight: normal;
-   }
-
- paper-button.desbutton {
-    width:200px;
-    font-size: 14pt;
-    color: var(--paper-blue-500);
-    --paper-button-flat-focus-color: var(--paper-blue-50);
-  }
-  paper-button.desbutton:hover {
-    background: var(--paper-blue-50);
-  } 
-
-
-  paper-slider {
-    width:100%;
-  }
-
-  paper-input {
-    width: 300px;
-    min-width: 200px;
-  }
-
-  paper-dialog.size-position {
-      position: fixed;
-      top: 50%;
-      right: 45%  ;
-      width: 200px;
-      max-height: 80px;
-      overflow: auto;
-  }
-
-    .status {
-      display: inline-block;
-      box-sizing: border-box;
-      border-radius: 50%;
-      background: var(--paper-yellow-500);
-    }
-    .green {background: var(--paper-green-500);}
-    .red {background: var(--paper-red-500);}
-
-
-.des-hr {
-
-color:black; 
-border-color:black; 
-background-color:black;
-}
-
-
-.paper-header {
-  position: absolute;
-  width: 100%;
-  color: white;
-}
-      .page-title {
-        @apply(--paper-font-display2);
-      }
-      @media (max-width: 600px) {
-        .page-title {
-          font-size: 24px!important;
         }
-      }
-     </style>
-  </template>
+
+        @media screen and (max-width: 1300px){
+            .helpB {
+                display: none
+            }
+            .visual {
+                display: inherit;
+            }
+        }
+
+
+
+    </style>
+    <template>
+
+    </template>
 </dom-module>

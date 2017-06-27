@@ -1,0 +1,428 @@
+<dom-module id="des-shared-jobs">
+
+    <style include="shared-styles">
+        paper-listbox {
+            --paper-listbox-color: var(--primary-text-color);
+            width: 100%;
+            max-width:1500px;
+        }
+
+        paper-icon-item {
+            --paper-item-focused: {
+            };
+            --paper-item-selected: {
+                background: var(--paper-amber-50) ;
+            };
+            --paper-item-focused-before: {
+                opacity:0.0;
+            };
+        }
+        .size {
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+
+    <template>
+
+        <iron-ajax id="getDataShared"
+                   auto
+                   url="/api/shared/"
+                   method="GET"
+                   params='{"part":"fff"}'
+                   handle-as="json"
+                   on-response="_handleResponse"
+                   debounce-duration="300">
+        </iron-ajax>
+
+        <iron-ajax id="getLogShared"
+                   auto
+                   url="/api/log/"
+                   params={{logParams}}
+                   handle-as="json"
+                   last-response="{{logdata}}"
+                   debounce-duration="300">
+        </iron-ajax>
+
+
+
+
+        <section>
+            <des-shared-jobs-help class="helpB" style="float: right; width: 18%;"></des-shared-jobs-help>
+
+            <des-card>
+                <div class='card-content'>
+                    <div id="ListHeaderShared" style="display:block;">
+                        <paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible; max-width:1500px;">
+                            <paper-item-body>
+                                <div>status &emsp; &emsp; Job id</div>
+                            </paper-item-body>
+
+                            <paper-item-body>
+                                <div style="text-align: center;"> &emsp; &emsp; &emsp; &emsp;  Job type</div>
+                            </paper-item-body>
+
+                            <paper-item-body>
+                                <div>Public / Private</div>
+                            </paper-item-body>
+
+                            <paper-item-body>
+                                <div>Contributor</div>
+                            </paper-item-body>
+
+                            <div>View | Comment</div>
+                        </paper-item>
+                    </div>
+
+
+                    <paper-listbox multi id="jobListShared">
+
+                        <hr>
+
+                        <template is="dom-repeat" id="menu" items="{{data}}">
+                            <paper-icon-item>
+
+                                <template is="dom-if" if="{{_completed(item.status)}}">
+                                    <div class="status size green" item-icon></div>
+                                </template>
+
+                                <template is="dom-if" if="{{_pending(item.status)}}">
+                                    <div class="status size" item-icon></div>
+                                </template>
+
+                                <template is="dom-if" if="{{_stop(item.status)}}">
+                                    <div class="status size red" item-icon></div>
+                                </template>
+
+
+                                <paper-item-body two-line>
+                                    <div>
+                                        {{returnName(item.job)}}
+                                    </div>
+                                    <div secondary>
+                                        {{item.elapsed}} ({{returnDate(item.time)}})
+                                    </div>
+                                </paper-item-body two-line>
+
+                                <paper-item-body>
+                                    <div style="text-align: center;">
+                                        {{item.jtypes}}
+                                    </div>
+                                </paper-item-body>
+
+                                <paper-item-body>
+                                    <iron-icon id="eyeShared" icon="{{_isShared(item.jpublic)}}"></iron-icon>
+                                </paper-item-body>
+
+                                <paper-item-body>
+
+                                    <div>{{returnUser(item.job)}}</div>
+
+                                </paper-item-body>
+                                <!--<div>-->
+                                <!--{{item.jpublic}}-->
+                                <!--</div>-->
+
+                                <paper-icon-button icon="launch" on-tap="_logDialogOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                                <!--<paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>-->
+                                <paper-icon-button icon="communication:comment" on-tap="_viewDialogOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+
+                            </paper-icon-item>
+                        </template>
+                        <paper-dialog id="logShared">
+                            <h2>Log</h2>
+                            <paper-dialog-scrollable>
+                                <paper-card>
+                                    <div class="card-content">
+                                        Job : {{jobname}}
+                                        <span>{{logdata}}</span>
+                                        <des-html html={{logdata}}></des-html>
+                                    </div>
+                                </paper-card>
+                            </paper-dialog-scrollable>
+                            <div class="buttons">
+                                <paper-button on-tap="viewresults" autofocus>Continue</paper-button>
+                                <paper-button on-tap="_viewToggle" autofocus>View Comment</paper-button>
+                                <paper-button dialog-dismiss>Cancel</paper-button>
+                            </div>
+                        </paper-dialog>
+
+                        <paper-dialog id="viewCommentDialogShared">
+                            <h2>Comment</h2>
+                            <paper-dialog-scrollable>
+                                <!--Job : {{jobname}}-->
+                                {{jobcomment}}
+                            </paper-dialog-scrollable>
+                            <div class="buttons">
+                                <paper-button dialog-confirm autofocus>OK</paper-button>
+                                <!--<paper-button dialog-confirm autofocus>Edit Comment</paper-button>-->
+                                <!--<paper-button dialog-dismiss>Cancel</paper-button>-->
+                            </div>
+                        </paper-dialog>
+
+                        <!--<div id="InfoHeader" style="display:none;">-->
+                            <!--<paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1500px;">-->
+                                <!--<paper-item-body>-->
+                                    <!--<div>-->
+                                        <!--{{username}}-->
+                                    <!--</div>-->
+                                <!--</paper-item-body>-->
+                            <!--</paper-icon-item>-->
+
+                        <!--</div>-->
+                    </paper-listbox>
+                </div>
+            </des-card>
+        </section>
+    </template>
+</dom-module>
+<script>
+    function loadJSON(callback) {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', '/api', true); // Replace 'my_data' with the path to your file
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                callback(xobj.responseText);
+            }
+        };
+        xobj.send(null);
+    }
+
+    Polymer({
+        is: "des-shared-jobs",
+        properties: {
+            username: {
+                type: String,
+                value: '',
+            },
+            jobid: {
+                value : '',
+                type : String,
+                notify: true,
+            },
+            jobidFull: {
+                value : '',
+                type : String,
+                notify: true,
+            },
+            logParams:{
+                type: String,
+                computed: 'processParams(jobidFull)'
+            },
+            jobname: {
+                type: String,
+                value: 'NULL',
+            },
+            jobcomment: {
+                type: String,
+                value: 'NULL',
+            },
+
+
+
+        },
+        processParams: function(jobidFull) {
+            return {
+                jobid: jobidFull
+            };
+        },
+
+        _logDialogOpen: function(e) {
+            e.stopPropagation();
+
+            var pages = document.getElementById("mainPages");
+            var help = document.getElementById("helpPages");
+            var menu = document.querySelector('paper-menu');
+            var desResults = document.getElementById("desResultsShared");
+            var log = document.getElementById('logShared');
+
+            document.getElementById("smallJobListShared").selected=e.model.index;
+            document.getElementById("smallJobListLShared").selected=e.model.index;
+            this.jobname = this.returnName(e.model.item.job);
+            this.jobcomment = e.model.item.jcomment;
+
+            desResults.jobid = this.returnName(e.model.item.job);
+            desResults.jobidFull = e.model.item.job;
+            desResults.username = this.username;
+            desResults.jtypes = e.model.item.jtypes;
+            desResults.jpublic = e.model.item.jpublic;
+            desResults.jobid = this.returnName(e.model.item.job);
+            desResults.jobidFull = e.model.item.job;
+            log.open();
+
+        },
+
+        _viewToggle: function() {
+            var view = document.getElementById("viewCommentDialogShared");
+            view.toggle();
+        },
+        _viewDialogOpen: function(e) {
+            var comment = document.getElementById('viewCommentDialogShared');
+            this.jobname = this.returnName(e.model.item.job);
+            this.jobcomment = e.model.item.jcomment;
+            comment.positionTarget = e;
+            comment.open();
+        },
+
+        ready: function() {
+            var _self = this;
+            loc = window.location.host
+            var ws = new WebSocket("ws://"+loc+"/websocket");
+            ws.onmessage = function(e) {
+                console.log(e.data);
+                req = document.getElementById("getDataShared");
+                req.generateRequest();
+            };
+
+            //loadJSON(function(response) {
+            //_self.data = JSON.parse(response);
+            //_self.count = _self.data.length;
+            //});
+        },
+        _handleResponse: function(e){
+            var _self = this;
+            _self.data = e.detail.response;
+            _self.count = _self.data.length;
+            document.querySelector('des-shared-results-help').data = _self.data;
+            document.querySelector('des-shared-logs-help').data = _self.data;
+        },
+
+        selectall: function(){
+            var list = document.getElementById("jobListShared");
+            var listAll = list.selectedValues;
+            //if (typeof listAll !== 'undefined') {
+            //    var listAll2 = JSON.parse(JSON.stringify(listAll));
+            //  console.log(listAll2.length);
+            // }
+            for (i = 1; i< list.items.length ;i++) {
+                list.selectIndex(i);
+            }
+            //if (typeof listAll !== 'undefined') {
+            //for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
+            //};
+            app.scrollPageToTop();
+        },
+        unselectall: function(){
+            var list = document.getElementById("jobListShared");
+            var listAll = list.selectedValues;
+            console.log(listAll);
+            if (typeof listAll !== 'undefined') {
+                var listAll2 = JSON.parse(JSON.stringify(listAll));
+                for (i = 0; i< listAll2.length ;i++) {
+                    list.selectIndex(listAll2[i]);
+                }
+            }
+            app.scrollPageToTop();
+        },
+        returnUser: function(job) {
+            var n1=job.search("__");
+            var n2=job.search("{");
+            var job0 = job.substring(0,n1);
+            return job0;
+        },
+        returnName: function(job) {
+            var n1=job.search("__");
+            var n2=job.search("{");
+            var job0 = job.substring(n1+2,n2-1);
+            return job0;
+        },
+        returnDate: function(date) {
+            var date0 = date.substring(4,19);
+            return date0;
+        },
+//        _share: function(access) {
+//            if (access === 1) {return true;}
+//        },
+//        _notShare: function(access) {
+//            if (access === 0) {return true;}
+//        },
+
+        _completed: function(status) {
+            if (status === "SUCCESS") {return true;}
+        },
+        _pending: function(status) {
+            if (status === "PENDING") {return true;}
+        },
+        _stop: function(status) {
+            if (status != "PENDING" && status != "SUCCESS" ) {return true;}
+        },
+
+
+        _viewjob: function(status){
+            if (status === "SUCCESS") {
+                return false;
+            }
+            else{
+                return true;
+            }
+        },
+        _viewlog: function(status){
+            if (status === "REVOKED") {
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
+
+        viewresults: function(e){
+            var log = document.getElementById('log');
+            log.close();
+            var pages = document.getElementById("mainPages");
+            var help = document.getElementById("helpPages");
+            var menu = document.querySelector('paper-menu');
+
+//            var desResults = document.getElementById("desResultsShared");
+//            var desLog = document.getElementById("desLogShared");
+//            document.getElementById("smallJobListShared").selected=e.model.index;
+//            document.getElementById("smallJobListLShared").selected=e.model.index;
+//            desResults.jobid = this.returnName(e.model.item.job);
+//            desResults.jobidFull = e.model.item.job;
+//            desResults.username = this.username;
+//            desResults.jtypes = e.model.item.jtypes;
+//            desResults.jpublic = e.model.item.jpublic;
+//            desResults.jobid = this.returnName(e.model.item.job);
+//            desResults.jobidFull = e.model.item.job;
+            app.selection="9";
+            pages.selected="9";
+            menu.selected="9";
+            help.selected="9";
+
+        },
+//        viewlog: function(e) {
+//            e.stopPropagation();
+//            var pages = document.getElementById("mainPages");
+//            var help = document.getElementById("helpPages");
+//            var menu = document.querySelector('paper-menu');
+//            var desLog = document.getElementById("desLogShared");
+//            var desResults = document.getElementById("desResultsShared");
+//            document.getElementById("smallJobListShared").selected=e.model.index;
+//            document.getElementById("smallJobListLShared").selected=e.model.index;
+//            desLog.jobidFull = e.model.item.job;
+//            desLog.jobid= this.returnName(e.model.item.job);
+//            desResults.jobid = this.returnName(e.model.item.job);
+//            desResults.jobidFull = e.model.item.job;
+//            desResults.username = this.username;
+//            desResults.jtypes = e.model.item.jtypes;
+//            desResults.jpublic = e.model.item.jpublic;
+//            app.selection="10";
+//            pages.selected="10";
+//            menu.selected="10";
+//            help.selected="10";
+//        },
+
+        _isShared: function(access) {
+            if (access === 1) {
+                return "visibility";
+            }
+            else {
+                return "visibility-off";
+            }
+        },
+
+    });
+
+
+</script>

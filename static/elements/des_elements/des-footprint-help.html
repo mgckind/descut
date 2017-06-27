@@ -1,192 +1,286 @@
 <dom-module id="des-footprint-help">
-<template>
     <style include="shared-styles">
 
     paper-checkbox.y3a1 {
 
-    --paper-checkbox-checked-color: #4C72B0;
-    --paper-checkbox-checked-ink-color: #4C72B0;
-    --paper-checkbox-unchecked-color: #4C72B0;
-    --paper-checkbox-unchecked-ink-color: #4C72B0;
-    --paper-checkbox-label-color: #4C72B0;
+        --paper-checkbox-checked-color: #4C72B0;
+        --paper-checkbox-checked-ink-color: #4C72B0;
+        --paper-checkbox-unchecked-color: #4C72B0;
+        --paper-checkbox-unchecked-ink-color: #4C72B0;
+        --paper-checkbox-label-color: #4C72B0;
 
     }
 
     paper-checkbox.y1a1 {
 
-    --paper-checkbox-checked-color: #55A868;
-    --paper-checkbox-checked-ink-color: #55A868;
-    --paper-checkbox-unchecked-color: #55A868;
-    --paper-checkbox-unchecked-ink-color: #55A868;
-    --paper-checkbox-label-color: #55A868;
+        --paper-checkbox-checked-color: #55A868;
+        --paper-checkbox-checked-ink-color: #55A868;
+        --paper-checkbox-unchecked-color: #55A868;
+        --paper-checkbox-unchecked-ink-color: #55A868;
+        --paper-checkbox-label-color: #55A868;
 
     }
 
     paper-checkbox.sva1 {
 
-    --paper-checkbox-checked-color: #C44E52;
-    --paper-checkbox-checked-ink-color: #C44E52;
-    --paper-checkbox-unchecked-color: #C44E52;
-    --paper-checkbox-unchecked-ink-color: #C44E52;
-    --paper-checkbox-label-color: #C44E52;
+        --paper-checkbox-checked-color: #C44E52;
+        --paper-checkbox-checked-ink-color: #C44E52;
+        --paper-checkbox-unchecked-color: #C44E52;
+        --paper-checkbox-unchecked-ink-color: #C44E52;
+        --paper-checkbox-label-color: #C44E52;
 
     }
 
     paper-checkbox.y1a1d {
 
-    --paper-checkbox-checked-color: #ff8800;
-    --paper-checkbox-checked-ink-color: #ff8800;
-    --paper-checkbox-unchecked-color: #ff8800;
-    --paper-checkbox-unchecked-ink-color: #ff8800;
-    --paper-checkbox-label-color: #ff8800;
+        --paper-checkbox-checked-color: #ff8800;
+        --paper-checkbox-checked-ink-color: #ff8800;
+        --paper-checkbox-unchecked-color: #ff8800;
+        --paper-checkbox-unchecked-ink-color: #ff8800;
+        --paper-checkbox-label-color: #ff8800;
 
     }
     paper-checkbox.y3a1d {
 
-    --paper-checkbox-checked-color: #8e24aa;
-    --paper-checkbox-checked-ink-color: #8e24aa;
-    --paper-checkbox-unchecked-color: #8e24aa;
-    --paper-checkbox-unchecked-ink-color: #8e24aa;
-    --paper-checkbox-label-color: #8e24aa;
+        --paper-checkbox-checked-color: #8e24aa;
+        --paper-checkbox-checked-ink-color: #8e24aa;
+        --paper-checkbox-unchecked-color: #8e24aa;
+        --paper-checkbox-unchecked-ink-color: #8e24aa;
+        --paper-checkbox-label-color: #8e24aa;
 
     }
 
-  .input_position{
-    max-width: 20px;
-    width: 20px;
-  }
-      paper-icon-item {
+    .input_position{
+        max-width: auto;
+        /*width: 20px;*/
+    }
+    paper-icon-item {
         --paper-item-disabled-color: black;
-      }
-      paper-item {
+    }
+    paper-item {
         --paper-item-disabled-color: black;
         color: black;
         --paper-item-focused: {
         };
         --paper-item-selected: {
-        background: var(--paper-amber-50) ;
+            background: var(--paper-amber-50);
         };
         --paper-item-focused-before: {
             opacity:0.0;
-            };
-      }
+        };
+    }
+        div.backup {
+            visibility: hidden;
+        }
+
+        @media screen and (max-width:1000px) {
+            div.backup {
+                visibility: visible;
+            }
+
+        }​
     </style>
+    <template>
 
-<des-card-help heading="Help">
-  <div class="card-content">
-  DES Tiles based on Coadd Releases. (Un)Check the boxes to (un)display a particular release. Drag and rotate sphere, double click to zoom into a tile. Enter a position to zoom to it.
-  <hr class="des-hr">
-    <paper-item >
-    <paper-item-body>
-     <span style="color:  #4C72B0;">Y3A1 Coadd</span>
-    </paper-item-body>
-    <paper-checkbox class = "y3a1" id="check_y3" checked on-change="display_y3"></paper-checkbox>
-    </paper-item>
-    <paper-item >
-    <paper-item-body>
-     <span style="color:  #BA68C8">Y3A1_D Coadd</span>
-    </paper-item-body>
-    <paper-checkbox class = "y3a1d" id="check_y3d"  on-change="display_y3d"></paper-checkbox>
-    </paper-item>
-    <paper-item >
-    <paper-item-body>
-    <span style="color: #55A868;">Y1A1 Coadd</span>
-    </paper-item-body>
-    <paper-checkbox class="y1a1" id="check_y1"  on-change="display_y1"></paper-checkbox>
-    </paper-item>
-    <paper-item >
-    <paper-item-body>
-    <span style="color: #ff8800;">Y1A1_D Coadd</span>
-    </paper-item-body>
-    <paper-checkbox class="y1a1d" id="check_y1d" on-change="display_y1d"></paper-checkbox>
-    </paper-item>
-    <paper-item >
-    <paper-item-body>
-     <span style="color:  #C44E52;">SVA1 Coadd</span>
-    </paper-item-body>
-    <paper-checkbox class="sva1" id="check_sv" on-change="display_sv"></paper-checkbox>
-    </paper-item>
-  <hr class="des-hr">
-   <paper-input  on-keydown="checkForEnter" class="input_position" id="zoomto" label="Position (ra,dec)">
+        <des-card-help heading="Help">
+            <div class="card-content">
+                DES Tiles based on Coadd Releases. (Un)Check the boxes to (un)display a particular release. Drag and rotate sphere, double click to zoom into a tile. Enter a position to zoom to it.
+                <hr class="des-hr">
+                <paper-item >
+                    <paper-item-body>
+                        <span style="color:  #4C72B0;">Y3A1 Coadd</span>
+                    </paper-item-body>
+                    <paper-checkbox class = "y3a1" id="check_y3" checked on-change="display_y3"></paper-checkbox>
+                </paper-item>
 
-    <paper-icon-button suffix icon="search" on-tap="gotoposition"></paper-icon-button>
-   </paper-input>
-  </div>
-</des-card-help>
+                <paper-item >
+                    <paper-item-body>
+                    <span style="color:  #BA68C8">Y3A1_D Coadd</span>
+                    </paper-item-body>
+                    <paper-checkbox class = "y3a1d" id="check_y3d"  on-change="display_y3d"></paper-checkbox>
+                </paper-item>
+
+                <paper-item >
+                    <paper-item-body>
+                    <span style="color: #55A868;">Y1A1 Coadd</span>
+                    </paper-item-body>
+                    <paper-checkbox class="y1a1" id="check_y1"  on-change="display_y1"></paper-checkbox>
+                </paper-item>
+
+                <paper-item >
+                    <paper-item-body>
+                    <span style="color: #ff8800;">Y1A1_D Coadd</span>
+                    </paper-item-body>
+                    <paper-checkbox class="y1a1d" id="check_y1d" on-change="display_y1d"></paper-checkbox>
+                </paper-item>
+
+                <paper-item >
+
+                    <paper-item-body>
+                    <span style="color:  #C44E52;">SVA1 Coadd</span>
+                    </paper-item-body>
+                    <paper-checkbox class="sva1" id="check_sv" on-change="display_sv"></paper-checkbox>
+                </paper-item>
+
+                <hr class="des-hr">
+
+                <paper-input  on-keydown="checkForEnter" class="input_position" id="zoomto" label="Position (ra,dec)" style="width: auto;">
+
+                <paper-icon-button suffix icon="search" on-tap="gotoposition"></paper-icon-button>
+                </paper-input>
+
+                <div class="backup">
+                Coords
+                <paper-item style="border: 1px solid grey;">
+                    <paper-item-body>
+                        <div id="tiletitleHelp">
+                        </div>
+                    </paper-item-body>
+                </paper-item>
+                <paper-item >
+                    <paper-item-body>
+                        Export to Coadds Images
+                    </paper-item-body>
+                    <paper-icon-button icon="maps:near-me" on-tap="_toCoadds"></paper-icon-button>
+                </paper-item>
+                <paper-item >
+                    <paper-item-body>
+                        Export to Single Epoch
+                    </paper-item-body>
+                    <paper-icon-button icon="maps:near-me" on-tap="_toSingle"></paper-icon-button>
+                </paper-item>
+                <paper-item >
+                    <paper-item-body>
+                        clear
+                    </paper-item-body>
+                    <paper-icon-button icon="clear" on-tap="_clear"></paper-icon-button>
+                </paper-item>
+                </div>
+            </div>
+        </des-card-help>
 
 
 </template>
 
+
+</dom-module>
 <script>
-      Polymer({
-      is: "des-footprint-help",
-      checkForEnter: function (e) {
-                if (e.keyCode === 13) {
-                    this.gotoposition();
-                }
-            },
-      gotoposition: function(){
-      var position = document.getElementById("zoomto").value.split(",");
-      var ra1 = parseFloat(position[0]);
-      var dec1 = parseFloat(position[1]);
-      if (ra1 > 180.) {
-         ra1 = ra1 - 360.;
-         };
-      //navigation.zoomTo([ra1,dec1],500000,1000);
-      PositionZoom(ra1,dec1);
-      },
-      display_y1: function(){
-      var checky1 = document.getElementById("check_y1");
-        if (checky1.checked) {
-         y1_tiles._visible = true;
-         }
-         else{
-          y1_tiles._visible = false;
-         }
-        globe.refresh();
-      },
-      display_y1d: function(){
-      var checky1d = document.getElementById("check_y1d");
-        if (checky1d.checked) {
-         y1d_tiles._visible = true;
-         }
-         else{
-          y1d_tiles._visible = false;
-         }
-        globe.refresh();
-      },
-      display_y3d: function(){
-      var checky3d = document.getElementById("check_y3d");
-        if (checky3d.checked) {
-         y3d_tiles._visible = true;
-         }
-         else{
-          y3d_tiles._visible = false;
-         }
-        globe.refresh();
-      },
-      display_y3: function(){
-      var checky3 = document.getElementById("check_y3");
-        if (checky3.checked) {
-         y3_tiles._visible = true;
-         }
-         else{
-          y3_tiles._visible = false;
-         }
-        globe.refresh();
-      },
-      display_sv: function(){
-      var checksv = document.getElementById("check_sv");
-        if (checksv.checked) {
-         sv_tiles._visible = true;
-         }
-         else{
-          sv_tiles._visible = false;
-         }
-        globe.refresh();
-      },
+    Polymer({
+        is: "des-footprint-help",
+        checkForEnter: function (e) {
+            if (e.keyCode === 13) {
+                this.gotoposition();
+            }
+        },
+
+        _clear: function() {
+            var title =document.getElementById("tiletitleHelp");
+            title.innerHTML = '';
+        },
+        _toCoadds: function () {
+            var title =document.getElementById("tiletitleHelp");
+            var input = document.getElementById("enteredPositions");
+            var source = title.innerHTML
+            var n = source.search('DES');
+            if(n == -1) {
+                document.querySelector('#toast-ft-bad').show();
+            }
+            else {
+                var temp = title.innerHTML.split('(');
+                var half = temp[1].split(')');
+                input.value = half[0];
+                console.log(input.value);
+
+                document.querySelector('#toast-ft-good').show();
+                document.getElementById("submitJobButton").disabled=false;
+                document.getElementById("uploadFile").disabled=true;
+                document.getElementById("keyboardicon").style.display='none';
+                document.getElementById("desCoadds").enter_values = "Values Entered";
+            }
+
+        },
+        _toSingle: function () {
+            var title =document.getElementById("tiletitleHelp");
+            var input = document.getElementById("enteredPositionsS");
+            var source = title.innerHTML
+            var n = source.search('DES');
+            if(n == -1) {
+                document.querySelector('#toast-ft-bad').show();
+            }
+            else {
+                var temp = title.innerHTML.split('(');
+                var half = temp[1].split(')');
+                input.value = half[0];
+                console.log(input.value);
+
+                document.getElementById("submitJobButtonS").disabled=false;
+                document.getElementById("uploadFileS").disabled=true;
+                document.getElementById("keyboardiconS").style.display='none';
+                document.getElementById("desSingle").enter_values = "Values Entered";
+            }
+        },
+
+        gotoposition: function(){
+            var position = document.getElementById("zoomto").value.split(",");
+            var ra1 = parseFloat(position[0]);
+            var dec1 = parseFloat(position[1]);
+            if (ra1 > 180.) {
+                ra1 = ra1 - 360.;
+            };
+            //navigation.zoomTo([ra1,dec1],500000,1000);
+            PositionZoom(ra1,dec1);
+        },
+        display_y1: function(){
+            var checky1 = document.getElementById("check_y1");
+            if (checky1.checked) {
+                y1_tiles._visible = true;
+            }
+            else{
+                y1_tiles._visible = false;
+            }
+            globe.refresh();
+        },
+        display_y1d: function(){
+            var checky1d = document.getElementById("check_y1d");
+            if (checky1d.checked) {
+                y1d_tiles._visible = true;
+            }
+            else{
+                y1d_tiles._visible = false;
+            }
+            globe.refresh();
+        },
+        display_y3d: function(){
+            var checky3d = document.getElementById("check_y3d");
+            if (checky3d.checked) {
+                y3d_tiles._visible = true;
+            }
+            else{
+                y3d_tiles._visible = false;
+            }
+            globe.refresh();
+        },
+        display_y3: function(){
+            var checky3 = document.getElementById("check_y3");
+            if (checky3.checked) {
+                y3_tiles._visible = true;
+            }
+            else{
+                y3_tiles._visible = false;
+            }
+            globe.refresh();
+        },
+        display_sv: function(){
+            var checksv = document.getElementById("check_sv");
+            if (checksv.checked) {
+                sv_tiles._visible = true;
+            }
+            else{
+                sv_tiles._visible = false;
+            }
+            globe.refresh();
+        },
     });
 
 
 </script>
-</dom-module>

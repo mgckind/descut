@@ -1,26 +1,83 @@
 <dom-module id="des-api">
-<template>
     <style>
+        paper-tabs {
+            font-family: 'Roboto', 'Noto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            width: 100%;
+            text-transform: uppercase;
+            --paper-tabs-selection-bar-color: var(--paper-blue-50);
+
+
+        }
+
+        paper-tab.unselected-tab {
+            display: inline-flex;
+            padding: 10px 30px;
+            border: 1px solid #ccc;
+            margin-top: 2px;
+
+        }
+
+        paper-tab:hover {
+            cursor: pointer;
+            padding: 7px 30px;
+            border-width: 3px;
+            border-style: none none solid none;
+            border-color: red;
+        }
+
+        .selected-tab {
+            padding: 7px 31px;
+            border-width: 3px;
+            border-style: none none solid none;
+            border-color: red;
+        }
+
     </style>
+    <template>
 
-    <section>
-    <des-card heading="API Help">
- 
-     <des-api-create-token id = "api_0" ></des-api-create-token>
-     <des-api-check-token id = "api_1" ></des-api-check-token>
-     <des-api-submit-job id = "api_2" ></des-api-submit-job>
-     <des-api-get-job id = "api_3" ></des-api-get-job>
-     <des-api-get-joblist id = "api_4" ></des-api-get-joblist>
-     <des-api-delete-job id = "api_5" ></des-api-delete-job>
-     <des-api-mongo id = "api_6" ></des-api-mongo>
+        <section>
+            <des-card heading="API Help">
+                <paper-tabs id="api-tabs" selected="0" scrollable>
+                    <paper-tab id="api_tab_one" class="unselected-tab">Create Authetication Token</paper-tab>
+                    <paper-tab id="api_tab_two" class="unselected-tab">Check Token Status</paper-tab>
+                    <paper-tab id="api_tab_three" class="unselected-tab">Submit Job</paper-tab>
+                    <paper-tab id="api_tab_four" class="unselected-tab">Get Job Results</paper-tab>
+                    <paper-tab id="api_tab_five" class="unselected-tab">Get Jobs List</paper-tab>
+                    <paper-tab id="api_tab_six" class="unselected-tab">Delete Jobs</paper-tab>
+                    <paper-tab id="api_tab_seven" class="unselected-tab">Single Epoch Info</paper-tab>
+                    <paper-tab id="api_tab_eight" class="unselected-tab">Get Share Jobs List</paper-tab>
+                    <paper-tab id="api_tab_nine" class="unselected-tab">Share Jobs</paper-tab>
+                    <paper-tab id="api_tab_ten" class="unselected-tab">Unshare Jobs</paper-tab>
+                </paper-tabs>
+                <!--<input value="{{pageName::input}}" placeholder="jobs/coadd/epoch/api/footprint">-->
+                <iron-pages id="apis"  selected="0">
 
-</des-card>
-    </section>
-</template>
+                    <des-api-create-token page-name="api_0" ></des-api-create-token>
+                    <des-api-check-token page-name="api_1" ></des-api-check-token>
+                    <des-api-submit-job page-name="api_2" ></des-api-submit-job>
+                    <des-api-get-job page-name="api_3" ></des-api-get-job>
+                    <des-api-get-joblist page-name="api_4" ></des-api-get-joblist>
+                    <des-api-delete-job page-name="api_5" ></des-api-delete-job>
+                    <des-api-mongo page-name="api_6" ></des-api-mongo>
+                    <des-api-get-shared-job page-name="api_7"></des-api-get-shared-job>
+                    <des-api-share-job page-name="api_8"></des-api-share-job>
+                    <des-api-unshare-job page-name="api_9"></des-api-unshare-job>
+
+                </iron-pages>
+
+            </des-card>
+        </section>
+    </template>
+</dom-module>
 
 <script>
-      Polymer({
-      is: "des-api",
+    Polymer({
+        is: "des-api",
     });
+
+//    var tabs = document.getElementById("api-tabs");
+//    tabs.addEventListener('iron-active', function () {
+//        tabs.style.backgroundColor = "red";
+//    });
 </script>
-</dom-module>

@@ -1,62 +1,132 @@
 <dom-module id="des-sidebar">
-<template>
     <style>
-    paper-menu{
-    --paper-menu-background-color: var(--primary-background-color);
-    --paper-menu-color: var(--primary-text-color);
-    --paper-menu-focused-item: {
-        background: white;
-    };
-    --paper-menu-focused-item-after: {
-        background:blue;
-    };
-    }
-    paper-item {
-        --paper-item-focused: {
-        font-weight: bold;
-        };
-        --paper-item-selected: {
-        background: var(--paper-green-100) ;
-        };
-        --paper-item-focused-before: {
-            opacity:0.0;
+        paper-menu{
+            --paper-menu-background-color: var(--primary-background-color);
+            --paper-menu-color: var(--primary-text-color);
+            --paper-menu-focused-item: {
+                background: white;
             };
-    }
+            --paper-menu-focused-item-after: {
+                background: blue;
+            };
+
+        }
+        /*.menu-content {*/
+            /*--paper-menu-background-color: var(--secondary-background-color);*/
+
+        /*}*/
+        paper-item {
+            --paper-item-focused: {
+                font-weight: bold;
+            };
+            --paper-item-selected: {
+                background: var(--paper-green-100);
+            };
+            --paper-item-focused-before: {
+                opacity:0.0;
+            };
+
+        }
         :hover {
             cursor: pointer;
+        }
+        .info-container {
+            position: relative;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            height: 90px;
+            padding: 2px;
+            width: 90px;
+            margin: 20px auto;
+        }
+        .info-container .image {
+            background-image: url('/static/images/user.png');
+            background-size: contain;
+            border-radius: 50%;
+            height: 100%;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .self-info {
+            margin: 0 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #CCC;
+            text-align: center;
+        }
+        .self-info .name {
+            font-weight: bold;
+        }
+        .self-info .email {
+            color: #999;
+        }
+
+        @media screen and (min-width: 1300px){
+            .visual {
+                display: none
             }
-    </style>  
-    
-    <paper-menu id="bigmenu"  selected="[[selection]]">
-        <!-- Order is important, it needs to match des-mainpages -->
-        <paper-item> Home              </paper-item>
-        <paper-item> My Jobs           </paper-item>
-        <paper-item> Coadds Images     </paper-item>
-        <paper-item> Single Epoch      </paper-item>
-        <paper-item> API Help           </paper-item>
-        <paper-item> Footprint          </paper-item>
-    </paper-menu>
+        }
+    </style>
+    <template>
+
+        <app-header fixed slot="header">
+            <div class="info-container">
+                <div class="image"></div>
+            </div>
+            <div class="self-info">
+                <div class="name">{{name}}</div>
+                <div class="email">{{email}}</div>
+            </div>
+        </app-header>
+        <paper-menu id="bigmenu"  selected="[[selection]]" >
+            <!-- Order is important, it needs to match des-mainpages -->
+            <paper-item style="background-color: lightpink; text-align: center;">Home              </paper-item>
+            <paper-item> My Jobs              </paper-item>
+            <paper-item> Shared Jobs              </paper-item>
+            <paper-item> Coadds Images              </paper-item>
+            <paper-item> Single Epoch              </paper-item>
+            <paper-item> API Help</paper-item>
+            <paper-item> Footprint         </paper-item>
+
+        </paper-menu>
 
 
 
-<iron-pages id="helpPages" selected="[[helpselection]]">
+        <iron-pages id="helpPages" selected="[[helpselection]]">
 
-    <des-home-help></des-home-help>
-    <des-my-jobs-help></des-my-jobs-help>
-    <des-coadds-help></des-coadds-help>
-    <des-single-help></des-single-help>
-    <des-api-help></des-api-help>
-    <des-footprint-help></des-footprint-help>
-    <des-results-help></des-results-help>
-    <des-logs-help></des-logs-help>
+            <des-home-help class="visual"></des-home-help>
+            <des-my-jobs-help class="visual"></des-my-jobs-help>
+            <des-shared-jobs-help class="visual"></des-shared-jobs-help>
+            <des-coadds-help class="visual"></des-coadds-help>
+            <des-single-help class="visual"></des-single-help>
+            <des-api-help-text></des-api-help-text>
+            <des-footprint-help     /des-footprint-help>
+            <des-results-help></des-results-help>
+            <des-logs-help></des-logs-help>
+            <des-shared-results-help></des-shared-results-help>
+            <des-shared-logs-help></des-shared-logs-help>
+        </iron-pages>
 
-</iron-pages>
-
-</template>
+    </template>
 
 <script>
       Polymer({
-      is: "des-sidebar",
+        is: "des-sidebar",
+        properties: {
+            name : {
+                type: String,
+                value:''
+            },
+            email: {
+                type: String,
+                value:''
+            },
+            username:{
+                type:String,
+                value:''
+            }
+        },
     });
 </script>
 </dom-module>

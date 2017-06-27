@@ -1,0 +1,153 @@
+<dom-module id="des-footprint-help-text">
+    <style include="shared-styles">
+
+    paper-checkbox.y3a1 {
+
+        --paper-checkbox-checked-color: #4C72B0;
+        --paper-checkbox-checked-ink-color: #4C72B0;
+        --paper-checkbox-unchecked-color: #4C72B0;
+        --paper-checkbox-unchecked-ink-color: #4C72B0;
+        --paper-checkbox-label-color: #4C72B0;
+
+    }
+
+    paper-checkbox.y1a1 {
+
+        --paper-checkbox-checked-color: #55A868;
+        --paper-checkbox-checked-ink-color: #55A868;
+        --paper-checkbox-unchecked-color: #55A868;
+        --paper-checkbox-unchecked-ink-color: #55A868;
+        --paper-checkbox-label-color: #55A868;
+
+    }
+
+    paper-checkbox.sva1 {
+
+        --paper-checkbox-checked-color: #C44E52;
+        --paper-checkbox-checked-ink-color: #C44E52;
+        --paper-checkbox-unchecked-color: #C44E52;
+        --paper-checkbox-unchecked-ink-color: #C44E52;
+        --paper-checkbox-label-color: #C44E52;
+
+    }
+
+    paper-checkbox.y1a1d {
+
+        --paper-checkbox-checked-color: #ff8800;
+        --paper-checkbox-checked-ink-color: #ff8800;
+        --paper-checkbox-unchecked-color: #ff8800;
+        --paper-checkbox-unchecked-ink-color: #ff8800;
+        --paper-checkbox-label-color: #ff8800;
+
+    }
+    paper-checkbox.y3a1d {
+
+        --paper-checkbox-checked-color: #8e24aa;
+        --paper-checkbox-checked-ink-color: #8e24aa;
+        --paper-checkbox-unchecked-color: #8e24aa;
+        --paper-checkbox-unchecked-ink-color: #8e24aa;
+        --paper-checkbox-label-color: #8e24aa;
+
+    }
+
+    .input_position{
+        max-width: 20px;
+        width: 20px;
+    }
+    paper-icon-item {
+        --paper-item-disabled-color: black;
+    }
+    paper-item {
+        --paper-item-disabled-color: black;
+        color: black;
+        --paper-item-focused: {
+        };
+        --paper-item-selected: {
+            background: var(--paper-amber-50);
+        };
+        --paper-item-focused-before: {
+            opacity:0.0;
+        };
+    }
+    </style>
+    <template>
+
+
+
+
+</template>
+
+
+</dom-module>
+<script>
+    Polymer({
+        is: "des-footprint-help-text",
+        checkForEnter: function (e) {
+            if (e.keyCode === 13) {
+                this.gotoposition();
+            }
+        },
+        gotoposition: function(){
+            var position = document.getElementById("zoomto").value.split(",");
+            var ra1 = parseFloat(position[0]);
+            var dec1 = parseFloat(position[1]);
+            if (ra1 > 180.) {
+                ra1 = ra1 - 360.;
+            };
+            //navigation.zoomTo([ra1,dec1],500000,1000);
+            PositionZoom(ra1,dec1);
+        },
+        display_y1: function(){
+            var checky1 = document.getElementById("check_y1");
+            if (checky1.checked) {
+                y1_tiles._visible = true;
+            }
+            else{
+                y1_tiles._visible = false;
+            }
+            globe.refresh();
+        },
+        display_y1d: function(){
+            var checky1d = document.getElementById("check_y1d");
+            if (checky1d.checked) {
+                y1d_tiles._visible = true;
+            }
+            else{
+                y1d_tiles._visible = false;
+            }
+            globe.refresh();
+        },
+        display_y3d: function(){
+            var checky3d = document.getElementById("check_y3d");
+            if (checky3d.checked) {
+                y3d_tiles._visible = true;
+            }
+            else{
+                y3d_tiles._visible = false;
+            }
+            globe.refresh();
+        },
+        display_y3: function(){
+            var checky3 = document.getElementById("check_y3");
+            if (checky3.checked) {
+                y3_tiles._visible = true;
+            }
+            else{
+                y3_tiles._visible = false;
+            }
+            globe.refresh();
+        },
+        display_sv: function(){
+            var checksv = document.getElementById("check_sv");
+            if (checksv.checked) {
+                sv_tiles._visible = true;
+            }
+            else{
+                sv_tiles._visible = false;
+            }
+            globe.refresh();
+        },
+    });
+
+
+</script>
