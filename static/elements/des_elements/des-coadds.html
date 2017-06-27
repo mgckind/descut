@@ -89,10 +89,9 @@
 
                     <hr>
                     <div>
-                        <paper-input  id="jobcomment" name="comment" label="Comment" value="[[job_comment]]">
+                        <paper-input  id="jobcommentcoadds" name="comment" label="Comment" value="{{job_comment}}" placeholder="Add comment">
                         </paper-input>
                     </div>
-                    </paper-input>
                     <div class="horizontal layout around-justified" >
 
                         <paper-button raised class="desbutton"  id="clearFormButton" on-tap="_clearForm">
@@ -157,7 +156,7 @@
             },
             job_comment: {
                 type : String,
-                value : "Add comment"
+                value : ""
             }
         },
         get file(){
@@ -227,6 +226,8 @@
             formdata.append('submit_type', this.submit_type);
             formdata.append('values',document.getElementById("enteredPositions").value);
             formdata.append('tag',document.getElementById("coaddTag").selectedItem.getAttribute("value"));
+            formdata.append('comment', document.getElementById("jobcommentcoadds").value);
+
             $.ajax({
                 url: '/readfile/coadd/',
                 type: 'POST',

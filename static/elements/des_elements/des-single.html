@@ -95,6 +95,10 @@
                     </div>
 
                     <hr>
+                    <div>
+                        <paper-input  id="jobcommentsingle" name="comment" label="Comment" value="{{job_comment}}" placeholder="Add comment">
+                        </paper-input>
+                    </div>
                     <div class="horizontal layout around-justified" >
 
                         <paper-button raised class="desbutton"  id="clearFormButton" on-tap="_clearForm">
@@ -143,6 +147,10 @@
                 type: String,
                 values: "",
             },
+            job_comment: {
+                type : String,
+                value : ""
+            }
         },
 
         ready:function(){
@@ -266,7 +274,9 @@
             formdata.append('submit_type', this.submit_type);
             formdata.append('values',document.getElementById("enteredPositionsS").value);
             formdata.append('noBlacklist', this.$.blacklist.checked);
+            formdata.append('comment', document.getElementById("jobcommentsingle").value);
             console.log('xsize');
+            console.log('comment');
             console.log(document.getElementById('xsizeSliderS').value);
             $.ajax({
                 url: '/readfile/single/',

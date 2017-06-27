@@ -230,6 +230,8 @@
         },
 
         _logDialogOpen: function(e) {
+            e.stopPropagation();
+
             var pages = document.getElementById("mainPages");
             var help = document.getElementById("helpPages");
             var menu = document.querySelector('paper-menu');
@@ -240,6 +242,14 @@
             document.getElementById("smallJobListLShared").selected=e.model.index;
             this.jobname = this.returnName(e.model.item.job);
             this.jobcomment = e.model.item.jcomment;
+
+            desResults.jobid = this.returnName(e.model.item.job);
+            desResults.jobidFull = e.model.item.job;
+            desResults.username = this.username;
+            desResults.jtypes = e.model.item.jtypes;
+            desResults.jpublic = e.model.item.jpublic;
+            desResults.jobid = this.returnName(e.model.item.job);
+            desResults.jobidFull = e.model.item.job;
             log.open();
 
         },
@@ -358,22 +368,23 @@
         },
 
         viewresults: function(e){
-            e.stopPropagation();
+            var log = document.getElementById('log');
+            log.close();
             var pages = document.getElementById("mainPages");
             var help = document.getElementById("helpPages");
             var menu = document.querySelector('paper-menu');
 
-            var desResults = document.getElementById("desResultsShared");
+//            var desResults = document.getElementById("desResultsShared");
 //            var desLog = document.getElementById("desLogShared");
-            document.getElementById("smallJobListShared").selected=e.model.index;
-            document.getElementById("smallJobListLShared").selected=e.model.index;
-            desResults.jobid = this.returnName(e.model.item.job);
-            desResults.jobidFull = e.model.item.job;
-            desResults.username = this.username;
-            desResults.jtypes = e.model.item.jtypes;
-            desResults.jpublic = e.model.item.jpublic;
-            desResults.jobid = this.returnName(e.model.item.job);
-            desResults.jobidFull = e.model.item.job;
+//            document.getElementById("smallJobListShared").selected=e.model.index;
+//            document.getElementById("smallJobListLShared").selected=e.model.index;
+//            desResults.jobid = this.returnName(e.model.item.job);
+//            desResults.jobidFull = e.model.item.job;
+//            desResults.username = this.username;
+//            desResults.jtypes = e.model.item.jtypes;
+//            desResults.jpublic = e.model.item.jpublic;
+//            desResults.jobid = this.returnName(e.model.item.job);
+//            desResults.jobidFull = e.model.item.job;
             app.selection="9";
             pages.selected="9";
             menu.selected="9";

@@ -3,7 +3,14 @@
 
 
     .tiletitle {
-      visibility: hidden;
+      /*visibility: hidden;*/
+        border: 1px solid #ccc;
+        /*position: absolute;*/
+        margin-top: 100px;
+        margin-right: 100px;
+        vertical-align: middle;
+        width: 50%;
+        height: 50%;
     }
 
     .box {
@@ -23,15 +30,29 @@
     <template>
         <!--<des-footprint-help style="float: right; max-width:18%; height: auto;"></des-footprint-help>-->
 
-        <section class="horizontal layout around justified">
+        <section>
+            <div class="horizontal layout around justified">
             <des-card heading=[[header]]>
                 <div class="card-content">
-                    <canvas id="GlobWebCanvas" class="box" width="400" height="400" style="text-align: center; vertical-align: middle;"></canvas>
+                    <canvas id="GlobWebCanvas" class="box" width="800%" height="800%" style="text-align: center; vertical-align: middle;"></canvas>
                 </div>
             </des-card>
-            <des-card id="tiletitle" class="tiletitle" heading="Tile">  </des-card>
-
+            <des-card heading="Coords"  class="tiletitle" >
+                <div id="tiletitle">
+                </div>
+                <div class="card-actions ">
+                    <paper-button class="desbutton"  on-tap="_toCoadds">Export to Coadds Images</paper-button>
+                    <paper-button class="desbutton"  on-tap="_toSingle">Export to Single Epoch</paper-button>
+                    <!--<paper-button on-tap="_editComment" autofocus>Confirm</paper-button>-->
+                    <paper-button class="desbutton" on-tap="_clear">Clear</paper-button>
+                </div>
+            </des-card>
+            <!--<paper-card id="tiletitle" class="tiletitle" heading="[[header]]">  </paper-card>-->
+            </div>
         </section>
+        <paper-toast class="toast-position" id="toast-ft-good" text="Value copied." duration="5000"> </paper-toast>
+        <paper-toast class="toast-position" id="toast-ft-bad" text="Please choose a position." duration="5000"> </paper-toast>
+
     </template>
 
 
@@ -88,7 +109,64 @@
             tiledata:{
                 value: {},
             },
+            xvalue:{
+                type:Number,
+            },
+            yvalue:{
+                type:Number,
+            },
+            data: {
+                type: String,
+                value:''
+            }
         },
+        _clear: function() {
+            var title =document.getElementById("tiletitle");
+            title.innerHTML = '';
+        },
+        _toCoadds: function () {
+            var title =document.getElementById("tiletitle");
+            var input = document.getElementById("enteredPositions");
+            var source = title.innerHTML
+            var n = source.search('DES');
+            if(n == -1) {
+                document.querySelector('#toast-ft-bad').show();
+            }
+            else {
+                var temp = title.innerHTML.split('(');
+                var half = temp[1].split(')');
+                input.value = half[0];
+                console.log(input.value);
+
+                document.querySelector('#toast-ft-good').show();
+                document.getElementById("submitJobButton").disabled=false;
+                document.getElementById("uploadFile").disabled=true;
+                document.getElementById("keyboardicon").style.display='none';
+                document.getElementById("desCoadds").enter_values = "Values Entered";
+            }
+
+        },
+        _toSingle: function () {
+            var title =document.getElementById("tiletitle");
+            var input = document.getElementById("enteredPositionsS");
+            var source = title.innerHTML
+            var n = source.search('DES');
+            if(n == -1) {
+                document.querySelector('#toast-ft-bad').show();
+            }
+            else {
+                var temp = title.innerHTML.split('(');
+                var half = temp[1].split(')');
+                input.value = half[0];
+                console.log(input.value);
+
+                document.getElementById("submitJobButtonS").disabled=false;
+                document.getElementById("uploadFileS").disabled=true;
+                document.getElementById("keyboardiconS").style.display='none';
+                document.getElementById("desSingle").enter_values = "Values Entered";
+            }
+        },
+
         ready: function(){
             require.config({
                 baseUrl: '/static/scripts/src/'
@@ -301,9 +379,12 @@
                             var dec_t = all_tiles.features[tile].properties.DEC_C;
                             navigation.zoomTo([ra_t,dec_t],500000,1000);
                             var title =document.getElementById("tiletitle");
+                            this.xvalue = restoreRA(ra_t);
+                            this.yvalue = dec_t;
+                            this.data = restoreRA(ra_t)+", "+dec_t;
+//                            console.log(this.data);
                             title.innerHTML = tilename + "( " +restoreRA(ra_t)+", "+dec_t+" )";
                             title.style.visibility = 'visible';
-
                             if (window.tempLayer === undefined){
                                 var ju = 0;
                             }

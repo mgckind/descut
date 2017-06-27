@@ -142,7 +142,7 @@ class FileHandler(BaseHandler):
         tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'], 0, comment)
         with con:
             cur = con.cursor()
-            cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?, ?, ?, ?)", tup)
+            cur.execute("INSERT INTO Jobs VALUES(?, ?, ?, ?, ?, ?, ?)", tup)
         self.set_status(200)
         self.flush()
         self.finish()

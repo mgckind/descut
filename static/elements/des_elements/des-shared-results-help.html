@@ -19,12 +19,12 @@
         </p>
 
         <hr class="des-hr">
-        <paper-item >
-            <paper-item-body>
-                See the logfile
-            </paper-item-body>
-            <paper-icon-button icon="assignment" on-tap="_seeLog"></paper-icon-button>
-        </paper-item>
+        <!--<paper-item >-->
+            <!--<paper-item-body>-->
+                <!--See the logfile-->
+            <!--</paper-item-body>-->
+            <!--<paper-icon-button icon="assignment" on-tap="_seeLog"></paper-icon-button>-->
+        <!--</paper-item>-->
 
         <paper-item >
             <paper-item-body>
@@ -84,8 +84,8 @@
             document.getElementById("desResultsShared").jobid=this._returnName(e.model.item.job);
             document.getElementById("desResultsShared").jobidFull=e.model.item.job;
             document.getElementById("desResultsShared").jtypes=e.model.item.jtypes;
-            document.getElementById("desLogShared").jobid=this._returnName(e.model.item.job);
-            document.getElementById("desLogShared").jobidFull=e.model.item.job;
+//            document.getElementById("desLogShared").jobid=this._returnName(e.model.item.job);
+//            document.getElementById("desLogShared").jobidFull=e.model.item.job;
             document.getElementById("smallJobListLShared").selected=e.model.index;
         },
         returnName: function(job) {
@@ -109,22 +109,22 @@
         _stop: function(status) {
             if (status != "PENDING" && status != "SUCCESS" ) {return true;}
         },
-        _seeLog: function(e){
-            e.stopPropagation();
-            // var jobid = document.getElementById("desResults").jobid;
-            // var jobidFull = document.getElementById("desResults").jobidFull;
-            var pages = document.getElementById("mainPages");
-            var help = document.getElementById("helpPages");
-            var menu = document.querySelector('paper-menu');
-            // var desLog = document.getElementById("desLog");
-            //     desLog.jobidFull = jobidFull;
-            //     desLog.jobid = jobid;
-            app.selection="10";
-            pages.selected="10";
-            menu.selected="10";
-            help.selected="10";
-
-        },
+//        _seeLog: function(e){
+//            e.stopPropagation();
+//            // var jobid = document.getElementById("desResults").jobid;
+//            // var jobidFull = document.getElementById("desResults").jobidFull;
+//            var pages = document.getElementById("mainPages");
+//            var help = document.getElementById("helpPages");
+//            var menu = document.querySelector('paper-menu');
+//            // var desLog = document.getElementById("desLog");
+//            //     desLog.jobidFull = jobidFull;
+//            //     desLog.jobid = jobid;
+//            app.selection="10";
+//            pages.selected="10";
+//            menu.selected="10";
+//            help.selected="10";
+//
+//        },
         _getall: function(){
             var SE = document.getElementById('mainPages').selected=="7";
             var link = document.createElement('a');
