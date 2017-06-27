@@ -118,6 +118,17 @@
 
                 <paper-icon-button suffix icon="search" on-tap="gotoposition"></paper-icon-button>
                 </paper-input>
+
+
+                Coords
+                <div id="tiletitleHelp">
+                </div>
+                <div class="card-actions">
+                    <paper-button on-tap="_toCoadds">Export to Coadds Images </paper-button>
+                    <paper-button on-tap="_toSingle">Export to Single Epoch </paper-button>
+                    <!--<paper-button on-tap="_editComment" autofocus>Confirm</paper-button>-->
+                    <paper-button on-tap="_clear">Clear </paper-button>
+                </div>
             </div>
         </des-card-help>
 
@@ -134,6 +145,54 @@
                 this.gotoposition();
             }
         },
+
+        _clear: function() {
+            var title =document.getElementById("tiletitleHelp");
+            title.innerHTML = '';
+        },
+        _toCoadds: function () {
+            var title =document.getElementById("tiletitleHelp");
+            var input = document.getElementById("enteredPositions");
+            var source = title.innerHTML
+            var n = source.search('DES');
+            if(n == -1) {
+                document.querySelector('#toast-ft-bad').show();
+            }
+            else {
+                var temp = title.innerHTML.split('(');
+                var half = temp[1].split(')');
+                input.value = half[0];
+                console.log(input.value);
+
+                document.querySelector('#toast-ft-good').show();
+                document.getElementById("submitJobButton").disabled=false;
+                document.getElementById("uploadFile").disabled=true;
+                document.getElementById("keyboardicon").style.display='none';
+                document.getElementById("desCoadds").enter_values = "Values Entered";
+            }
+
+        },
+        _toSingle: function () {
+            var title =document.getElementById("tiletitleHelp");
+            var input = document.getElementById("enteredPositionsS");
+            var source = title.innerHTML
+            var n = source.search('DES');
+            if(n == -1) {
+                document.querySelector('#toast-ft-bad').show();
+            }
+            else {
+                var temp = title.innerHTML.split('(');
+                var half = temp[1].split(')');
+                input.value = half[0];
+                console.log(input.value);
+
+                document.getElementById("submitJobButtonS").disabled=false;
+                document.getElementById("uploadFileS").disabled=true;
+                document.getElementById("keyboardiconS").style.display='none';
+                document.getElementById("desSingle").enter_values = "Values Entered";
+            }
+        },
+
         gotoposition: function(){
             var position = document.getElementById("zoomto").value.split(",");
             var ra1 = parseFloat(position[0]);

@@ -40,11 +40,11 @@
             <des-card heading="Coords"  class="tiletitle" >
                 <div id="tiletitle">
                 </div>
-                <div class="card-actions ">
-                    <paper-button class="desbutton"  on-tap="_toCoadds">Export to Coadds Images</paper-button>
-                    <paper-button class="desbutton"  on-tap="_toSingle">Export to Single Epoch</paper-button>
+                <div class="card-actions">
+                    <paper-button class="desbutton" icon="maps:near-me" on-tap="_toCoadds">- Export to Coadds Images -</paper-button>
+                    <paper-button class="desbutton" icon="maps:near-me" on-tap="_toSingle">- Export to Single Epoch -</paper-button>
                     <!--<paper-button on-tap="_editComment" autofocus>Confirm</paper-button>-->
-                    <paper-button class="desbutton" on-tap="_clear">Clear</paper-button>
+                    <paper-button class="desbutton" icon="clear" on-tap="_clear">- Clear -</paper-button>
                 </div>
             </des-card>
             <!--<paper-card id="tiletitle" class="tiletitle" heading="[[header]]">  </paper-card>-->
@@ -379,11 +379,13 @@
                             var dec_t = all_tiles.features[tile].properties.DEC_C;
                             navigation.zoomTo([ra_t,dec_t],500000,1000);
                             var title =document.getElementById("tiletitle");
+                            var titleHelp =document.getElementById("tiletitleHelp");
                             this.xvalue = restoreRA(ra_t);
                             this.yvalue = dec_t;
                             this.data = restoreRA(ra_t)+", "+dec_t;
 //                            console.log(this.data);
                             title.innerHTML = tilename + "( " +restoreRA(ra_t)+", "+dec_t+" )";
+                            titleHelp.innerHTML = tilename + "( " +restoreRA(ra_t)+", "+dec_t+" )";
                             title.style.visibility = 'visible';
                             if (window.tempLayer === undefined){
                                 var ju = 0;
