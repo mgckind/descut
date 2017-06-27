@@ -69,6 +69,16 @@
             opacity:0.0;
         };
     }
+        div.backup {
+            visibility: hidden;
+        }
+
+        @media screen and (max-width:1000px) {
+            div.backup {
+                visibility: visible;
+            }
+            
+        }​
     </style>
     <template>
 
@@ -119,15 +129,14 @@
                 <paper-icon-button suffix icon="search" on-tap="gotoposition"></paper-icon-button>
                 </paper-input>
 
-
+                <div class="backup">
                 Coords
-                <paper-item >
+                <paper-item style="border: 1px solid grey;">
                     <paper-item-body>
                         <div id="tiletitleHelp">
                         </div>
                     </paper-item-body>
                 </paper-item>
-
                 <paper-item >
                     <paper-item-body>
                         Export to Coadds Images
@@ -146,7 +155,7 @@
                     </paper-item-body>
                     <paper-icon-button icon="clear" on-tap="_clear"></paper-icon-button>
                 </paper-item>
-
+                </div>
             </div>
         </des-card-help>
 
