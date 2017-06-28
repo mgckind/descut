@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe8ff00-c69e-4956-8391-0f6ede683082" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs-help.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs-help.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/styles/shared-styles.html" afterPath="$PROJECT_DIR$/static/styles/shared-styles.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,20 +22,20 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="des-my-jobs.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="des-my-jobs.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="441" column="54" lean-forward="false" selection-start-line="441" selection-start-column="54" selection-end-line="442" selection-end-column="58" />
+            <state relative-caret-position="349">
+              <caret line="481" column="16" lean-forward="false" selection-start-line="481" selection-start-column="16" selection-end-line="481" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="des-shared-jobs.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="des-shared-jobs.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5805">
+            <state relative-caret-position="-5985">
               <caret line="50" column="55" lean-forward="true" selection-start-line="50" selection-start-column="55" selection-end-line="50" selection-end-column="55" />
               <folding>
                 <element signature="n#style#0;n#des-shared-jobs-help#0;n#section#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
@@ -229,13 +227,13 @@
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-help.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-single-help.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-footprint.html" />
-        <option value="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-results.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-results.html" />
         <option value="$PROJECT_DIR$/static/styles/shared-styles.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs-help.html" />
+        <option value="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html" />
       </list>
     </option>
   </component>
@@ -568,12 +566,12 @@
       <workItem from="1498142665218" duration="7678000" />
       <workItem from="1498228133624" duration="5088000" />
       <workItem from="1498492158554" duration="27607000" />
-      <workItem from="1498620344857" duration="3002000" />
+      <workItem from="1498620344857" duration="3425000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="252695000" />
+    <option name="totallyTimeSpent" value="253118000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="34" width="1853" height="1048" extended-state="0" />
@@ -936,14 +934,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="441" column="54" lean-forward="false" selection-start-line="441" selection-start-column="54" selection-end-line="442" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-results.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-40">
@@ -1002,11 +992,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5805">
+        <state relative-caret-position="-5985">
           <caret line="50" column="55" lean-forward="true" selection-start-line="50" selection-start-column="55" selection-end-line="50" selection-end-column="55" />
           <folding>
             <element signature="n#style#0;n#des-shared-jobs-help#0;n#section#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="481" column="16" lean-forward="false" selection-start-line="481" selection-start-column="16" selection-end-line="481" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
