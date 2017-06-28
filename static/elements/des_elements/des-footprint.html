@@ -32,22 +32,24 @@
         <!--<des-footprint-help class="helpB" style="float: right; max-width:18%; height: auto;"></des-footprint-help>-->
 
         <section>
+            <des-footprint-help class="helpB" style="float: right; width: 18%;"></des-footprint-help>
+
             <div class="horizontal layout around justified">
             <des-card heading=[[header]]>
                 <div class="card-content">
                     <canvas id="GlobWebCanvas" class="box" width="800%" height="800%" style="text-align: center; vertical-align: middle;"></canvas>
                 </div>
             </des-card>
-            <des-card heading="Coords"  class="tiletitle" >
-                <div id="tiletitle">
-                </div>
-                <div class="card-actions">
-                    <paper-button class="desbutton" icon="maps:near-me" on-tap="_toCoadds">Export to Coadds Images</paper-button>
-                    <paper-button class="desbutton" icon="maps:near-me" on-tap="_toSingle">Export to Single Epoch</paper-button>
-                    <!--<paper-button on-tap="_editComment" autofocus>Confirm</paper-button>-->
-                    <paper-button class="desbutton" icon="clear" on-tap="_clear">Clear</paper-button>
-                </div>
-            </des-card>
+            <!--<des-card heading="Coords"  class="tiletitle" >-->
+                <!--<div id="tiletitle">-->
+                <!--</div>-->
+                <!--<div class="card-actions">-->
+                    <!--<paper-button class="desbutton" icon="maps:near-me" on-tap="_toCoadds">Export to Coadds Images</paper-button>-->
+                    <!--<paper-button class="desbutton" icon="maps:near-me" on-tap="_toSingle">Export to Single Epoch</paper-button>-->
+                    <!--&lt;!&ndash;<paper-button on-tap="_editComment" autofocus>Confirm</paper-button>&ndash;&gt;-->
+                    <!--<paper-button class="desbutton" icon="clear" on-tap="_clear">Clear</paper-button>-->
+                <!--</div>-->
+            <!--</des-card>-->
             <!--<paper-card id="tiletitle" class="tiletitle" heading="[[header]]">  </paper-card>-->
             </div>
         </section>
@@ -122,11 +124,11 @@
             }
         },
         _clear: function() {
-            var title =document.getElementById("tiletitle");
+            var title =document.getElementById("tiletitleHelp");
             title.innerHTML = '';
         },
         _toCoadds: function () {
-            var title =document.getElementById("tiletitle");
+            var title =document.getElementById("tiletitleHelp");
             var input = document.getElementById("enteredPositions");
             var source = title.innerHTML
             var n = source.search('DES');
@@ -148,7 +150,7 @@
 
         },
         _toSingle: function () {
-            var title =document.getElementById("tiletitle");
+            var title =document.getElementById("tiletitleHelp");
             var input = document.getElementById("enteredPositionsS");
             var source = title.innerHTML
             var n = source.search('DES');
@@ -350,8 +352,8 @@
                     tempLayer.visible(true);
                     globe.addLayer( tempLayer );
                     window.tempLayer = tempLayer;
-                    var title =document.getElementById("tiletitle");
-                    title.style.visibility = 'hidden';
+//                    var title =document.getElementById("tiletitleHelp");
+//                    title.style.visibility = 'hidde   n';
 
                 };
                 window.PositionZoom = PositionZoom;
@@ -379,15 +381,15 @@
                             var ra_t = checkRA(all_tiles.features[tile].properties.RA_C);
                             var dec_t = all_tiles.features[tile].properties.DEC_C;
                             navigation.zoomTo([ra_t,dec_t],500000,1000);
-                            var title =document.getElementById("tiletitle");
+//                            var title =document.getElementById("tiletitle");
                             var titleHelp =document.getElementById("tiletitleHelp");
                             this.xvalue = restoreRA(ra_t);
                             this.yvalue = dec_t;
                             this.data = restoreRA(ra_t)+", "+dec_t;
 //                            console.log(this.data);
-                            title.innerHTML = tilename + "( " +restoreRA(ra_t)+", "+dec_t+" )";
-                            titleHelp.innerHTML = tilename + "( " +restoreRA(ra_t)+", "+dec_t+" )";
-                            title.style.visibility = 'visible';
+//                            title.innerHTML = tilename + "( " +restoreRA(ra_t)+", "+dec_t+" )";
+                            titleHelp.innerHTML = tilename + "( "  +restoreRA(ra_t)+", "+dec_t+" )";
+//                            title.style.visibility = 'visible';
                             if (window.tempLayer === undefined){
                                 var ju = 0;
                             }
