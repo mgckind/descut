@@ -1,3 +1,4 @@
+
 <dom-module id="des-my-jobs">
 
     <style include="shared-styles">
@@ -81,17 +82,22 @@
 
 
             <!--<des-back-button></des-back-button>-->
-            <paper-button on-tap="_genReq"> refresh <iron-icon icon="icons:refresh"></iron-icon></paper-button>
+            <paper-button on-tap="_genFreshReq"> refresh <iron-icon icon="icons:refresh"></iron-icon></paper-button>
+            <paper-button on-tap="_genShareReq"> share <iron-icon icon="social:share"></iron-icon></paper-button>
+            <paper-button on-tap="_genUnshareReq"> unshare <iron-icon icon="undo"></iron-icon></paper-button>
+            <paper-button on-tap="_genDeleteReq"> delete <iron-icon icon="delete"></iron-icon></paper-button>
 
             <vaadin-grid id="material" items="{{data}}" size="200">
-                <vaadin-grid-column width="40px" flex-grow="0">
-                    <template class="header">
-                        <input aria-label="Select All" type="checkbox" on-click="_invert" checked="[[_isChecked(inverted, indeterminate)]]" indeterminate="[[indeterminate]]">
-                    </template>
-                    <template>
-                        <input aria-label="Select Row" type="checkbox" on-change="_selectItem" checked="[[_isSelected(inverted, selected)]]">
-                    </template>
-                </vaadin-grid-column>
+                <!--<vaadin-grid-column width="40px" flex-grow="0">-->
+                    <!--<template class="header">-->
+                        <!--<input aria-label="Select All" type="checkbox" on-click="_invert" checked="[[_isChecked(inverted, indeterminate)]]" indeterminate="[[indeterminate]]">-->
+                    <!--</template>-->
+                    <!--<template>-->
+                        <!--<input aria-label="Select Row" type="checkbox" on-change="_selectItem" checked="[[_isSelected(inverted, selected)]]">-->
+                    <!--</template>-->
+                <!--</vaadin-grid-column>-->
+                <vaadin-grid-selection-column id="auto" auto-select>
+                </vaadin-grid-selection-column>
 
                 <vaadin-grid-column  flex-grow="0">
                     <template class="header">#</template>
@@ -277,54 +283,17 @@
                 type: String,
                 value: 'NULL',
             },
-            inverted: {
-                type: Boolean,
-                value: false
-            },
-            indeterminate: {
-                type: Boolean,
-                value: false
-            }
+//            inverted: {
+//                type: Boolean,
+//                value: false
+//            },
+//            indeterminate: {
+//                type: Boolean,
+//                value: false
+//            }
 
         },
-        observers: ['_resetSelection(inverted)'],
-
-        _resetSelection: function(inverted) {
-            this.$.material.selectedItems = [];
-            this.updateStyles();
-            this.indeterminate = false;
-        },
-
-        _invert: function(e) {
-            this.inverted = !this.inverted;
-        },
-
-        // iOS needs indeterminated + checked at the same time
-        _isChecked: function(inverted, indeterminate) {
-            return indeterminate || inverted;
-        },
-
-        _selectItem: function(e) {
-            if (e.target.checked === this.inverted) {
-                this.$.material.deselectItem(e.model.item);
-            } else {
-                this.$.material.selectItem(e.model.item);
-            }
-            this.indeterminate = this.$.material.selectedItems.length > 0;
-        },
-
-        _isSelected: function(inverted, selected) {
-            return inverted != selected;
-        },
-        _genReq: function (){
-            var req = document.getElementById("getData");
-            req.generateRequest();
-        },
-        processParams: function(jobidFull) {
-            return {
-                jobid: jobidFull
-            };
-        },
+//        observers: ['_resetSelection(inverted)'],
         ready: function() {
             var _self = this;
             loc = window.location.host;
@@ -347,56 +316,86 @@
             document.querySelector('des-results-help').data = _self.data;
             document.querySelector('des-logs-help').data = _self.data;
         },
-        _afterDelete: function(e){
-            var list = document.getElementById("jobList");
-            for (i = 0; i < this.mytemp.length ; i++) {
-                list.selectIndex(this.mytemp[i]);
-            }
-            req = document.getElementById("getData");
-            req.generateRequest();
-        },
-        selectall: function(){
-            var list = document.getElementById("jobList");
-            var listAll = list.selectedValues;
-            //if (typeof listAll !== 'undefined') {
-            //    var listAll2 = JSON.parse(JSON.stringify(listAll));
-            //  console.log(listAll2.length);
-            // }
-            for (i = 1; i< list.items.length ;i++) {
-                list.selectIndex(i);
-            }
-            //if (typeof listAll !== 'undefined') {
-            //for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
-            //};
-            app.scrollPageToTop();
-        },
-        unselectall: function(){
-            var list = document.getElementById("jobList");
-            var listAll = list.selectedValues;
-            console.log(listAll);
-            if (typeof listAll !== 'undefined') {
-                var listAll2 = JSON.parse(JSON.stringify(listAll));
-                for (i = 0; i< listAll2.length ;i++) {
-                    list.selectIndex(listAll2[i]);
-                }
-            }
-            app.scrollPageToTop();
+        _resetSelection: function() {
+            this.$.material.selectedItems = [];
+            this.updateStyles();
         },
 
-        deleteall: function(){
-            var list = document.getElementById("jobList");
-            var listAll = list.selectedValues;
+
+        _genFreshReq: function (){
+            var req = document.getElementById("getData");
+            req.generateRequest();
+            this._resetSelection();
+        },
+        processParams: function(jobidFull) {
+            return {
+                jobid: jobidFull
+            };
+        },
+
+
+        _afterDelete: function(e){
+            var list = document.getElementById("material");
+//            this._resetSelection();
+//            for (i = 0; i < this.mytemp.length ; i++) {
+//                list.deselectItem(this.mytemp[i]);
+//            }
+            req = document.getElementById("getData");
+            req.generateRequest();
+            req2 = document.getElementById("getDataShared");
+            req2.generateRequest();
+        },
+//        selectall: function(){
+//            var list = document.getElementById("jobList");
+//            var listAll = list.selectedValues;
+//            //if (typeof listAll !== 'undefined') {
+//            //    var listAll2 = JSON.parse(JSON.stringify(listAll));
+//            //  console.log(listAll2.length);
+//            // }
+//            for (i = 1; i< list.items.length ;i++) {
+//                list.selectIndex(i);
+//            }
+//            //if (typeof listAll !== 'undefined') {
+//            //for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
+//            //};
+//            app.scrollPageToTop();
+//        },
+//        unselectall: function(){
+//            var list = document.getElementById("jobList");
+//            var listAll = list.selectedValues;
+//            console.log(listAll);
+//            if (typeof listAll !== 'undefined') {
+//                var listAll2 = JSON.parse(JSON.stringify(listAll));
+//                for (i = 0; i< listAll2.length ;i++) {
+//                    list.selectIndex(listAll2[i]);
+//                }
+//            }
+//            app.scrollPageToTop();
+//        },
+
+        _genDeleteReq: function(){
+            var list = document.getElementById("material");
+            var listAll = this.$.material.selectedItems;
             this.mytemp = JSON.parse(JSON.stringify(listAll));
-            var result = confirm("Do you want to delete these "+listAll.length+" jobs? They will be also erased from disk storage");
-            var toDel=[];
-            if (result){
-                for (i = 0; i < this.mytemp.length ; i++) {
-                    toDel.push(this.returnName(this.data[this.mytemp[i]-1].job));
-                }
-                req = document.getElementById("DeleteReq");
-                req.params = toDel;
-                req.generateRequest();
+            if(this.$.material.selectedItems.length === 0) {
+                alert("Invalid number of jobs.");
             }
+            else {
+                var result = confirm("Do you want to delete these "+this.$.material.selectedItems.length+" jobs? They will be also erased from disk storage");
+                var toDel=[];
+                if (result){
+                    for (i = 0; i < this.mytemp.length ; i++) {
+                        toDel.push(this.returnName(listAll[i].job));
+                    }
+                    req = document.getElementById("DeleteReq");
+                    req.params = toDel;
+                    req.generateRequest();
+                    this._resetSelection();
+
+                    
+                }
+            }
+
         },
 
         returnName: function(job) {
@@ -578,50 +577,68 @@
 //            help.selected="8";
 //        },
 
-        shareall: function(e) {
-            var list = document.getElementById("jobList");
-            var listAll = list.selectedValues;
+        _genShareReq: function(e) {
+            var list = document.getElementById("material");
+            var listAll = this.$.material.selectedItems;
             this.mytemp = JSON.parse(JSON.stringify(listAll));
             var result = 0;
-            if (listAll.length > 1) {
-                result = confirm("Do you want to share these " + listAll.length + " jobs? ");
+
+            if(this.$.material.selectedItems.length === 0) {
+                alert("Invalid number of jobs.");
             }
             else {
-                result = confirm("Do you want to share this 1 job? ");
-            }
-            var toShare = [];
-            if (result) {
-                for (i = 0; i < this.mytemp.length; i++) {
-                    toShare.push(this.returnName(this.data[this.mytemp[i] - 1].job));
+                if (listAll.length > 1) {
+                    result = confirm("Do you want to share these " + this.$.material.selectedItems.length + " jobs? ");
                 }
-                req = document.getElementById("ShareReq");
-                req.params = toShare;
-                req.generateRequest();
+                else {
+                    result = confirm("Do you want to share this 1 job? ");
+                }
+                var toShare = [];
+                if (result) {
+                    for (i = 0; i < this.mytemp.length; i++) {
+                        console.log("push job: ", this.returnName(listAll[i].job));
+                        toShare.push(this.returnName(listAll[i].job));
+                    }
+                    req = document.getElementById("ShareReq");
+                    req.params = toShare;
+                    req.generateRequest();
+                    this._resetSelection();
+                }
             }
 
         },
 
-        unshareall: function(e) {
-            var list = document.getElementById("jobList");
-            var listAll = list.selectedValues;
+        _genUnshareReq: function(e) {
+            var list = document.getElementById("material");
+            var listAll = this.$.material.selectedItems;
+
             this.mytemp = JSON.parse(JSON.stringify(listAll));
             var result = 0;
-            if (listAll.length > 1) {
-                result = confirm("Do you want to unshare these " + listAll.length + " jobs? ");
+            if(this.$.material.selectedItems.length === 0) {
+                alert("Invalid number of jobs.");
             }
             else {
-                result = confirm("Do you want to unshare this 1 job? ");
-            }
-            var toUnshare = [];
-            if (result) {
-                for (i = 0; i < this.mytemp.length; i++) {
-                    toUnshare.push(this.returnName(this.data[this.mytemp[i] - 1].job));
+                if (listAll.length > 1) {
+                    result = confirm("Do you want to unshare these " + this.$.material.selectedItems.length + " jobs? ");
                 }
-                req = document.getElementById("UnshareReq");
-                req.params = toUnshare;
-                req.generateRequest();
-            }
+                else {
+                    result = confirm("Do you want to unshare this 1 job? ");
+                }
 
+                var toUnshare = [];
+                if (result) {
+                    for (i = 0; i < this.mytemp.length; i++) {
+//                    console.log(this.returnName(this.data[this.mytemp[i]].job));
+                        console.log(listAll[i].job, ", public: ", listAll[i].jpublic);
+                        toUnshare.push(this.returnName(listAll[i].job));
+                    }
+                    req = document.getElementById("UnshareReq");
+                    req.params = toUnshare;
+                    req.generateRequest();
+                    this._resetSelection();
+
+                }
+            }
         },
 
         _isShared: function(access) {
@@ -634,12 +651,18 @@
         },
 
         _afterShare: function(e){
-            var list = document.getElementById("jobList");
-
-            for (i = 0; i < this.mytemp.length ; i++) {
-                list.selectIndex(this.mytemp[i]);
-            }
-            var desResults = document.getElementById("desResults");
+            var list = document.getElementById("material");
+//            var auto = document.getElementById("auto");
+//            auto.selectAll=false;
+//            auto.indeterminate=false;
+//            this._resetSelection();
+//            console.log("mytemp len: ",this.mytemp.length);
+//            for (i = 0; i < this.mytemp.length ; i++) {
+//                console.log(this.mytemp[i].job);
+//                list.selectItem(this.mytemp[i].item);
+//
+//            }
+//            var desResults = document.getElementById("desResults");
             req = document.getElementById("getData");
             req2 = document.getElementById("getDataShared");
 
@@ -651,12 +674,19 @@
 
         _afterUnshare: function(e){
 //            change visibility
-            var list = document.getElementById("jobList");
-
-            for (i = 0; i < this.mytemp.length ; i++) {
-                list.selectIndex(this.mytemp[i]);
-            }
-            var desResults = document.getElementById("desResults");
+            var list = document.getElementById("material");
+//            this._resetSelection();
+//            var auto = document.getElementById("auto");
+//            auto.selectAll=false;
+//            auto.indeterminate=false;
+//            console.log("mytemp len: ",this.mytemp.length);
+//            for (i = 0; i < this.mytemp.length ; i++) {
+//                console.log(this.mytemp[i].job);
+////                list.selectItem(this.mytemp[i]);
+//                list.selectItem(this.mytemp[i].item);
+//
+//            }
+//            var desResults = document.getElementById("desResults");
             req = document.getElementById("getData");
             req2 = document.getElementById("getDataShared");
             req.generateRequest();
