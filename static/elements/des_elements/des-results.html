@@ -1,6 +1,14 @@
 <dom-module id="des-results">
 <template>
-    <style>
+    <style is="shared-styles">
+        @media screen and (max-width: 1300px){
+            .helpB {
+                display: none;
+            }
+            .visual {
+                display: inherit;
+            }
+        }
     </style>
 
 
@@ -12,7 +20,8 @@
         on-response="_getTilesResponse">
     </iron-ajax>
 
-    
+    <des-results-help class="helpB" style="float: right; width: 18%;"></des-results-help>
+
 
     <des-card heading="Job : [[jobid]] ( [[jsondata.length]] objects)">
 

@@ -33,6 +33,7 @@
         var epochEntry = document.getElementById("epoch");
         var apiEntry = document.getElementById("api");
         var footprintEntry = document.getElementById("footprint");
+        // var demoEntry = document.getElementById("demo");
 
         var gal = document.getElementById("mainGallery");
 
@@ -89,6 +90,7 @@
             // help.selected="6";
             app.$.paperDrawerPanel.closeDrawer();
         });
+
 
 
 
