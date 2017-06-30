@@ -1,0 +1,644 @@
+<!--<dom-module id="des-my-jobs-vaadin">-->
+
+    <!--<style include="shared-styles">-->
+        <!--paper-listbox {-->
+            <!--&#45;&#45;paper-listbox-color: var(&#45;&#45;primary-text-color);-->
+            <!--width: 100%;-->
+            <!--max-width:1500px;-->
+        <!--}-->
+
+        <!--paper-icon-item {-->
+            <!--&#45;&#45;paper-item-focused: {-->
+            <!--};-->
+            <!--&#45;&#45;paper-item-selected: {-->
+                <!--background: var(&#45;&#45;paper-amber-50) ;-->
+            <!--};-->
+            <!--&#45;&#45;paper-item-focused-before: {-->
+                <!--opacity:0.0;-->
+            <!--};-->
+        <!--}-->
+        <!--.size {-->
+            <!--width: 40px;-->
+            <!--height: 40px;-->
+        <!--}-->
+
+        <!--.header {-->
+            <!--text-align: center;-->
+        <!--}-->
+
+
+
+    <!--</style>-->
+
+    <!--<template>-->
+
+
+
+        <!--<iron-ajax id="getData"-->
+                   <!--auto-->
+                   <!--url="/api"-->
+                   <!--params='{"part":"fff"}'-->
+                   <!--handle-as="json"-->
+                   <!--on-response="_handleResponse"-->
+                   <!--debounce-duration="300">-->
+        <!--</iron-ajax>-->
+
+        <!--&lt;!&ndash;<iron-ajax id="getDescTable"&ndash;&gt;-->
+                   <!--&lt;!&ndash;method="POST"&ndash;&gt;-->
+                   <!--&lt;!&ndash;url="/api/desctables/"&ndash;&gt;-->
+                   <!--&lt;!&ndash;params='{{_getPar(owner,tablename)}}'&ndash;&gt;-->
+                   <!--&lt;!&ndash;handle-as="json"&ndash;&gt;-->
+                   <!--&lt;!&ndash;on-request="_requestDescription"&ndash;&gt;-->
+                   <!--&lt;!&ndash;on-response="_handleDescription"&ndash;&gt;-->
+                   <!--&lt;!&ndash;debounce-duration="300">&ndash;&gt;-->
+        <!--&lt;!&ndash;</iron-ajax>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<paper-dialog class="dialog-position" id="scrolling"  with-backdrop on-iron-overlay-opened="patchOverlay">&ndash;&gt;-->
+            <!--&lt;!&ndash;<h2>{{tablename}}</h2>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<paper-spinner id="descSpinner" class="big" active></paper-spinner>&ndash;&gt;-->
+            <!--&lt;!&ndash;<vaadin-grid id="material" items="{{description}}" >&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<vaadin-grid-column flex-grow="2">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<template class="header">Column name</template>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<template>{{item.COLUMN_NAME}}</template>&ndash;&gt;-->
+                <!--&lt;!&ndash;</vaadin-grid-column>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<vaadin-grid-column flex-grow="1">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<template class="header">Data Type</template>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<template>{{item.DATA_TYPE}}</template>&ndash;&gt;-->
+                <!--&lt;!&ndash;</vaadin-grid-column>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<vaadin-grid-column flex-grow="1">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<template class="header">Data Format</template>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<template>{{item.DATA_FORMAT}}</template>&ndash;&gt;-->
+                <!--&lt;!&ndash;</vaadin-grid-column>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<vaadin-grid-column flex-grow="8">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<template class="header">Comments</template>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<template><span style="font-size: 10px;">{{item.COMMENTS}}</span></template>&ndash;&gt;-->
+                <!--&lt;!&ndash;</vaadin-grid-column>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;</vaadin-grid>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<div class="buttons">&ndash;&gt;-->
+                <!--&lt;!&ndash;<paper-button style="color: white;" dialog-confirm autofocus>OK</paper-button>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</paper-dialog>&ndash;&gt;-->
+
+
+        <!--&lt;!&ndash;<vaadin-grid id="material" items="{{data}}">&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<vaadin-grid-column width="50px" flex-grow="0">&ndash;&gt;-->
+                <!--&lt;!&ndash;<template class="header">#</template>&ndash;&gt;-->
+                <!--&lt;!&ndash;<template>{{index}}</template>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash; If necessary, the footer could be set using <template class="footer"> &ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;</vaadin-grid-column>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;&lt;!&ndash;<vaadin-grid-column>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<template class="header">&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<vaadin-grid-filter aria-label="Table Name" path="TABLE_NAME" value="[[_filterTableName]]">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<input placeholder="Table Name" value="{{_filterTableName::input}}" focus-target>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<vaadin-grid-sorter path="TABLE_NAME"><iron-icon icon="icons:swap-vert"></iron-icon></vaadin-grid-sorter>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;</vaadin-grid-filter>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;</template>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<template>{{item.TABLE_NAME}}</template>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;</vaadin-grid-column>&ndash;&gt;&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<vaadin-grid-column>&ndash;&gt;-->
+                <!--&lt;!&ndash;<template class="header"><vaadin-grid-sorter path="SIZE_GBYTES"> SIZE (GB)<iron-icon icon="icons:swap-vert"></iron-icon>&ndash;&gt;-->
+                <!--&lt;!&ndash;</vaadin-grid-sorter>&ndash;&gt;-->
+                <!--&lt;!&ndash;</template>&ndash;&gt;-->
+                <!--&lt;!&ndash;<template>{{item.SIZE_GBYTES}}</template>&ndash;&gt;-->
+            <!--&lt;!&ndash;</vaadin-grid-column>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<vaadin-grid-column>&ndash;&gt;-->
+                <!--&lt;!&ndash;<template class="header">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<vaadin-grid-sorter path="NROWS">ROWS<iron-icon icon="icons:swap-vert"></iron-icon></vaadin-grid-sorter>&ndash;&gt;-->
+                <!--&lt;!&ndash;</template>&ndash;&gt;-->
+                <!--&lt;!&ndash;<template>{{item.NROWS}}</template>&ndash;&gt;-->
+            <!--&lt;!&ndash;</vaadin-grid-column>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<vaadin-grid-column>&ndash;&gt;-->
+                <!--&lt;!&ndash;<template class="header">Description</template>&ndash;&gt;-->
+                <!--&lt;!&ndash;<template>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<paper-button class="describeButton" raised on-click="_describe">See description</paper-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</template>&ndash;&gt;-->
+            <!--&lt;!&ndash;</vaadin-grid-column>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;</vaadin-grid>&ndash;&gt;-->
+    <!--&lt;!&ndash;</template>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<tem/plate>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<vaadin-grid-column width="calc(50% - 100px)">&ndash;&gt;-->
+                <!--&lt;!&ndash;<template class="header">Comment</template>&ndash;&gt;-->
+                <!--&lt;!&ndash;<template>[[item.jcomment]]</template>&ndash;&gt;-->
+            <!--&lt;!&ndash;</vaadin-grid-column>&ndash;&gt;-->
+
+        <!--</vaadin-grid>-->
+    <!--&lt;!&ndash;</template>&ndash;&gt;-->
+        <!--<paper-dialog id="log">-->
+        <!--<h2>Log</h2>-->
+        <!--<paper-dialog-scrollable>-->
+        <!--<paper-card>-->
+        <!--<div class="card-content">-->
+        <!--Job : {{jobname}}-->
+        <!--<span>{{logdata}}</span>-->
+        <!--<des-html html={{logdata}}></des-html>-->
+        <!--</div>-->
+        <!--</paper-card>-->
+        <!--</paper-dialog-scrollable>-->
+        <!--<div class="buttons">-->
+        <!--<paper-button on-tap="viewresults" autofocus>Continue</paper-button>-->
+        <!--<paper-button on-tap="_viewToggle" autofocus>View Comment</paper-button>-->
+        <!--<paper-button dialog-dismiss>Cancel</paper-button>-->
+        <!--</div>-->
+        <!--</paper-dialog>-->
+
+        <!--<paper-dialog id="viewCommentDialog">-->
+        <!--<h2>Comment</h2>-->
+        <!--<paper-dialog-scrollable>-->
+        <!--&lt;!&ndash;Job : {{jobname}}&ndash;&gt;-->
+        <!--{{jobcomment}}-->
+        <!--</paper-dialog-scrollable>-->
+        <!--<div class="buttons">-->
+        <!--<paper-button dialog-confirm autofocus>OK</paper-button>-->
+        <!--&lt;!&ndash;<paper-button dialog-confirm autofocus>Edit Comment</paper-button>&ndash;&gt;-->
+        <!--&lt;!&ndash;<paper-button dialog-dismiss>Cancel</paper-button>&ndash;&gt;-->
+        <!--</div>-->
+        <!--</paper-dialog>-->
+
+        <!--<paper-dialog id="editCommentDialog">-->
+        <!--<h2>Comment</h2>-->
+        <!--<paper-dialog-scrollable>-->
+        <!--&lt;!&ndash;Job : {{jobname}}&ndash;&gt;-->
+        <!--<paper-input  id="commentInput" name="comment" label="Edit comment" value="[[jobcomment]]">-->
+        <!--</paper-input>-->
+        <!--</paper-dialog-scrollable>-->
+        <!--<div class="buttons">-->
+        <!--<paper-button on-tap="_editComment" autofocus>Confirm</paper-button>-->
+        <!--<paper-button dialog-dismiss>Cancel</paper-button>-->
+        <!--</div>-->
+        <!--</paper-dialog>-->
+        <!--<paper-toast class="toast-position" id="toast-cmt-good" text="Comment has been changed" duration="5000"> </paper-toast>-->
+        <!--<paper-toast class="toast-position" id="toast-cmt-bad" text="ERROR!. There was an error. Please try again" duration="5000"> </paper-toast>-->
+
+    <!--</template>-->
+<!--</dom-module>-->
+<!--<script>-->
+    <!--function loadJSON(callback) {-->
+        <!--var xobj = new XMLHttpRequest();-->
+        <!--xobj.overrideMimeType("application/json");-->
+        <!--xobj.open('GET', '/api', true); // Replace 'my_data' with the path to your file-->
+        <!--xobj.onreadystatechange = function () {-->
+            <!--if (xobj.readyState == 4 && xobj.status == "200") {-->
+                <!--// Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode-->
+                <!--callback(xobj.responseText);-->
+            <!--}-->
+        <!--};-->
+        <!--xobj.send(null);-->
+    <!--}-->
+
+    <!--Polymer({-->
+        <!--is: "des-my-jobs-vaadin",-->
+        <!--properties: {-->
+            <!--username: {-->
+                <!--type: String,-->
+                <!--value: '',-->
+            <!--},-->
+            <!--jobid: {-->
+                <!--value : '',-->
+                <!--type : String,-->
+                <!--notify: true,-->
+            <!--},-->
+            <!--jobidFull: {-->
+                <!--value : '',-->
+                <!--type : String,-->
+                <!--notify: true,-->
+            <!--},-->
+            <!--logParams:{-->
+                <!--type: String,-->
+                <!--computed: 'processParams(jobidFull)'-->
+            <!--},-->
+            <!--jobname: {-->
+                <!--type: String,-->
+                <!--value: 'NULL',-->
+            <!--},-->
+            <!--jobcomment: {-->
+                <!--type: String,-->
+                <!--value: 'NULL',-->
+            <!--},-->
+            <!--inverted: {-->
+                <!--type: Boolean,-->
+                <!--value: false-->
+            <!--},-->
+            <!--indeterminate: {-->
+                <!--type: Boolean,-->
+                <!--value: false-->
+            <!--}-->
+
+        <!--},-->
+
+        <!--observers: ['_resetSelection(inverted)'],-->
+
+        <!--_resetSelection: function(inverted) {-->
+            <!--this.$.material.selectedItems = [];-->
+            <!--this.updateStyles();-->
+            <!--this.indeterminate = false;-->
+        <!--},-->
+
+        <!--_invert: function(e) {-->
+            <!--this.inverted = !this.inverted;-->
+        <!--},-->
+
+        <!--// iOS needs indeterminated + checked at the same time-->
+        <!--_isChecked: function(inverted, indeterminate) {-->
+            <!--return indeterminate || inverted;-->
+        <!--},-->
+
+        <!--_selectItem: function(e) {-->
+            <!--if (e.target.checked === this.inverted) {-->
+                <!--this.$.material.deselectItem(e.model.item);-->
+            <!--} else {-->
+                <!--this.$.material.selectItem(e.model.item);-->
+            <!--}-->
+            <!--this.indeterminate = this.$.material.selectedItems.length > 0;-->
+        <!--},-->
+
+        <!--_isSelected: function(inverted, selected) {-->
+            <!--return inverted != selected;-->
+        <!--},-->
+        <!--processParams: function(jobidFull) {-->
+            <!--return {-->
+                <!--jobid: jobidFull-->
+            <!--};-->
+        <!--},-->
+        <!--_genReq: function (){-->
+          <!--var req = document.getElementById("getData");-->
+          <!--req.generateRequest();-->
+        <!--},-->
+        <!--ready: function() {-->
+            <!--var _self = this;-->
+            <!--loc = window.location.host;-->
+            <!--var ws = new WebSocket("ws://"+loc+"/websocket");-->
+            <!--ws.onmessage = function(e) {-->
+                <!--console.log(e.data);-->
+                <!--req = document.getElementById("getData");-->
+                <!--req.generateRequest();-->
+            <!--};-->
+
+            <!--//loadJSON(function(response) {-->
+            <!--//_self.data = JSON.parse(response);-->
+            <!--//_self.count = _self.data.length;-->
+            <!--//});-->
+        <!--},-->
+        <!--_handleResponse: function(e){-->
+            <!--var _self = this;-->
+            <!--_self.data = e.detail.response;-->
+            <!--_self.count = _self.data.length;-->
+<!--//            document.querySelector('des-results-help').data = _self.data;-->
+<!--//            document.querySelector('des-logs-help').data = _self.data;-->
+        <!--},-->
+<!--//        _afterDelete: function(e){-->
+<!--//            var list = document.getElementById("jobList");-->
+<!--//            for (i = 0; i < this.mytemp.length ; i++) {-->
+<!--//                list.selectIndex(this.mytemp[i]);-->
+<!--//            }-->
+<!--//            req = document.getElementById("getData");-->
+<!--//            req.generateRequest();-->
+<!--//        },-->
+<!--//        selectall: function(){-->
+<!--//            var list = document.getElementById("jobList");-->
+<!--//            var listAll = list.selectedValues;-->
+<!--//            //if (typeof listAll !== 'undefined') {-->
+<!--//            //    var listAll2 = JSON.parse(JSON.stringify(listAll));-->
+<!--//            //  console.log(listAll2.length);-->
+<!--//            // }-->
+<!--//            for (i = 1; i< list.items.length ;i++) {-->
+<!--//                list.selectIndex(i);-->
+<!--//            }-->
+<!--//            //if (typeof listAll !== 'undefined') {-->
+<!--//            //for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }-->
+<!--//            //};-->
+<!--//            app.scrollPageToTop();-->
+<!--//        },-->
+<!--//        unselectall: function(){-->
+<!--//            var list = document.getElementById("jobList");-->
+<!--//            var listAll = list.selectedValues;-->
+<!--//            console.log(listAll);-->
+<!--//            if (typeof listAll !== 'undefined') {-->
+<!--//                var listAll2 = JSON.parse(JSON.stringify(listAll));-->
+<!--//                for (i = 0; i< listAll2.length ;i++) {-->
+<!--//                    list.selectIndex(listAll2[i]);-->
+<!--//                }-->
+<!--//            }-->
+<!--//            app.scrollPageToTop();-->
+<!--//        },-->
+<!--//-->
+<!--//        deleteall: function(){-->
+<!--//            var list = document.getElementById("jobList");-->
+<!--//            var listAll = list.selectedValues;-->
+<!--//            this.mytemp = JSON.parse(JSON.stringify(listAll));-->
+<!--//            var result = confirm("Do you want to delete these "+listAll.length+" jobs? They will be also erased from disk storage");-->
+<!--//            var toDel=[];-->
+<!--//            if (result){-->
+<!--//                for (i = 0; i < this.mytemp.length ; i++) {-->
+<!--//                    toDel.push(this.returnName(this.data[this.mytemp[i]-1].job));-->
+<!--//                }-->
+<!--//                req = document.getElementById("DeleteReq");-->
+<!--//                req.params = toDel;-->
+<!--//                req.generateRequest();-->
+<!--//            }-->
+<!--//        },-->
+
+        <!--returnName: function(job) {-->
+            <!--console.log(job);-->
+            <!--var n1=job.search("__");-->
+            <!--var n2=job.search("{");-->
+            <!--var job0 = job.substring(n1+2,n2-1);-->
+            <!--return job0;-->
+        <!--},-->
+
+        <!--returnDate: function(date) {-->
+            <!--var date0 = date.substring(4,19);-->
+            <!--return date0;-->
+        <!--},-->
+
+
+
+
+        <!--_completed: function(status) {-->
+            <!--if (status === "SUCCESS") {return true;}-->
+        <!--},-->
+        <!--_pending: function(status) {-->
+            <!--if (status === "PENDING") {return true;}-->
+        <!--},-->
+        <!--_stop: function(status) {-->
+            <!--if (status != "PENDING" && status != "SUCCESS" ) {return true;}-->
+        <!--},-->
+        <!--_viewjob: function(status){-->
+            <!--if (status === "SUCCESS") {-->
+                <!--return false;-->
+            <!--}-->
+            <!--else{-->
+                <!--return true;-->
+            <!--}-->
+        <!--},-->
+        <!--_viewlog: function(status){-->
+            <!--if (status === "REVOKED") {-->
+                <!--return true;-->
+            <!--}-->
+            <!--else{-->
+                <!--return false;-->
+            <!--}-->
+        <!--},-->
+        <!--_canceljob: function(status){-->
+            <!--if (status === "PENDING") {-->
+                <!--return false;-->
+            <!--}-->
+            <!--else{-->
+                <!--return true;-->
+            <!--}-->
+        <!--},-->
+
+
+
+        <!--canceljob: function(e){-->
+            <!--console.log(e.model.item.job);-->
+            <!--var cancelJob = document.getElementById("cancelJob");-->
+            <!--cancelJob.params = {jobid: e.model.item.job};-->
+            <!--cancelJob.generateRequest();-->
+        <!--},-->
+
+        <!--_afterCancel: function(){-->
+            <!--document.getElementById("getData").generateRequest();-->
+        <!--},-->
+<!--//-->
+        <!--_logDialogOpen: function(e) {-->
+            <!--e.stopPropagation();-->
+
+            <!--var pages = document.getElementById("mainPages");-->
+            <!--var help = document.getElementById("helpPages");-->
+            <!--var menu = document.querySelector('paper-menu');-->
+            <!--var desResults = document.getElementById("desResults");-->
+            <!--var log = document.getElementById('log');-->
+
+            <!--document.getElementById("smallJobList").selected=e.model.index;-->
+            <!--document.getElementById("smallJobListL").selected=e.model.index;-->
+            <!--this.jobname = this.returnName(e.model.item.job);-->
+            <!--this.jobcomment = e.model.item.jcomment;-->
+
+            <!--desResults.jobid = this.returnName(e.model.item.job);-->
+            <!--desResults.jobidFull = e.model.item.job;-->
+            <!--desResults.username = this.username;-->
+            <!--desResults.jtypes = e.model.item.jtypes;-->
+<!--//            desResults.jpublic = e.model.item.jpublic;-->
+<!--//            desResults.jcomment = e.model.item.jcomment;-->
+
+            <!--log.open();-->
+
+        <!--},-->
+<!--//-->
+
+        <!--viewresults: function(e){-->
+            <!--var log = document.getElementById('log');-->
+            <!--log.close();-->
+<!--//            e.stopPropagation();-->
+            <!--var pages = document.getElementById("mainPages");-->
+            <!--var help = document.getElementById("helpPages");-->
+            <!--var menu = document.querySelector('paper-menu');-->
+            <!--var desResults = document.getElementById("desResults");-->
+<!--//            var desLog = document.getElementById("desLog");-->
+<!--//            document.getElementById("smallJobList").selected=e.model.index;-->
+<!--//            document.getElementById("smallJobListL").selected=e.model.index;-->
+<!--//            desResults.jobid = this.returnName(e.model.item.job);-->
+<!--//            desResults.jobidFull = e.model.item.job;-->
+<!--//            desResults.username = this.username;-->
+<!--//            desResults.jtypes = e.model.item.jtypes;-->
+<!--//            desResults.jpublic = e.model.item.jpublic;-->
+<!--//            desResults.jcomment = e.model.item.jcomment;-->
+<!--//            desResults.jobid = this.returnName(e.model.item.job);-->
+<!--//            desResults.jobidFull = e.model.item.job;-->
+            <!--app.selection="7";-->
+            <!--pages.selected="7";-->
+            <!--menu.selected="7";-->
+            <!--help.selected="7";-->
+
+        <!--},-->
+
+        <!--completeHandler: function(){-->
+            <!--console.log('YESSSSS');-->
+<!--//            document.getElementById('desCoadds').clear();-->
+            <!--var req = document.getElementById("getData");-->
+            <!--req.generateRequest();-->
+            <!--var req2 = document.getElementById("getDataShared");-->
+            <!--req2.generateRequest();-->
+            <!--document.querySelector('#toast-cmt-good').show();-->
+            <!--var edit = document.getElementById('editCommentDialog');-->
+            <!--edit.close();-->
+        <!--},-->
+
+        <!--errorHandler: function(){-->
+            <!--console.log('NOOOO');-->
+<!--//            document.getElementById('desCoadds').clear();-->
+            <!--document.querySelector('#toast-cmt-bad').show();-->
+        <!--},-->
+<!--//-->
+        <!--_editComment: function(e) {-->
+            <!--var formdata = new FormData();-->
+            <!--formdata.append('comment', document.getElementById("commentInput").value);-->
+<!--//            this.jobname = this.returnName(e.model.item.job);-->
+            <!--formdata.append('jobid', this.jobname);-->
+            <!--$.ajax({-->
+                <!--url: '/api/addcomment/',-->
+                <!--type: 'POST',-->
+                <!--//beforeSend: this.beforeSendHandler,-->
+                <!--success: this.completeHandler,-->
+                <!--error: this.errorHandler,-->
+                <!--data: formdata,-->
+                <!--cache: false,-->
+                <!--contentType: false,-->
+                <!--processData: false-->
+            <!--});-->
+        <!--},-->
+        <!--_editCommentOpen: function(e) {-->
+            <!--var comment = document.getElementById('editCommentDialog');-->
+            <!--this.jobname = this.returnName(e.model.item.job);-->
+            <!--this.jobcomment = e.model.item.jcomment;-->
+            <!--comment.positionTarget = e;-->
+            <!--comment.open();-->
+        <!--},-->
+<!--////        viewlog: function(e) {-->
+<!--////            e.stopPropagation();-->
+<!--////            var pages = document.getElementById("mainPages");-->
+<!--////            var help = document.getElementById("helpPages");-->
+<!--////            var menu = document.querySelector('paper-menu');-->
+<!--////            var desLog = document.getElementById("desLog");-->
+<!--////            var desResults = document.getElementById("desResults");-->
+<!--////            document.getElementById("smallJobList").selected=e.model.index;-->
+<!--////            document.getElementById("smallJobListL").selected=e.model.index;-->
+<!--////            desLog.jobidFull = e.model.item.job;-->
+<!--////            desLog.jobid= this.returnName(e.model.item.job);-->
+<!--////            desResults.jobid = this.returnName(e.model.item.job);-->
+<!--////            desResults.jobidFull = e.model.item.job;-->
+<!--////            desResults.username = this.username;-->
+<!--////            desResults.jtypes = e.model.item.jtypes;-->
+<!--////            desResults.jpublic = e.model.item.jpublic;-->
+<!--////-->
+<!--////            app.selection="8";-->
+<!--////            pages.selected="8";-->
+<!--////            menu.selected="8";-->
+<!--////            help.selected="8";-->
+<!--////        },-->
+<!--//-->
+<!--//        shareall: function(e) {-->
+<!--//            var list = document.getElementById("jobList");-->
+<!--//            var listAll = list.selectedValues;-->
+<!--//            this.mytemp = JSON.parse(JSON.stringify(listAll));-->
+<!--//            var result = 0;-->
+<!--//            if (listAll.length > 1) {-->
+<!--//                result = confirm("Do you want to share these " + listAll.length + " jobs? ");-->
+<!--//            }-->
+<!--//            else {-->
+<!--//                result = confirm("Do you want to share this 1 job? ");-->
+<!--//            }-->
+<!--//            var toShare = [];-->
+<!--//            if (result) {-->
+<!--//                for (i = 0; i < this.mytemp.length; i++) {-->
+<!--//                    toShare.push(this.returnName(this.data[this.mytemp[i] - 1].job));-->
+<!--//                }-->
+<!--//                req = document.getElementById("ShareReq");-->
+<!--//                req.params = toShare;-->
+<!--//                req.generateRequest();-->
+<!--//            }-->
+<!--//-->
+<!--//        },-->
+<!--//-->
+<!--//        unshareall: function(e) {-->
+<!--//            var list = document.getElementById("jobList");-->
+<!--//            var listAll = list.selectedValues;-->
+<!--//            this.mytemp = JSON.parse(JSON.stringify(listAll));-->
+<!--//            var result = 0;-->
+<!--//            if (listAll.length > 1) {-->
+<!--//                result = confirm("Do you want to unshare these " + listAll.length + " jobs? ");-->
+<!--//            }-->
+<!--//            else {-->
+<!--//                result = confirm("Do you want to unshare this 1 job? ");-->
+<!--//            }-->
+<!--//            var toUnshare = [];-->
+<!--//            if (result) {-->
+<!--//                for (i = 0; i < this.mytemp.length; i++) {-->
+<!--//                    toUnshare.push(this.returnName(this.data[this.mytemp[i] - 1].job));-->
+<!--//                }-->
+<!--//                req = document.getElementById("UnshareReq");-->
+<!--//                req.params = toUnshare;-->
+<!--//                req.generateRequest();-->
+<!--//            }-->
+<!--//-->
+<!--//        },-->
+<!--//-->
+        <!--_isShared: function(access) {-->
+            <!--if (access === 1) {-->
+                <!--return "visibility";-->
+            <!--}-->
+            <!--else {-->
+                <!--return "visibility-off";-->
+            <!--}-->
+        <!--},-->
+<!--//-->
+<!--//        _afterShare: function(e){-->
+<!--//            var list = document.getElementById("jobList");-->
+<!--//-->
+<!--//            for (i = 0; i < this.mytemp.length ; i++) {-->
+<!--//                list.selectIndex(this.mytemp[i]);-->
+<!--//            }-->
+<!--//            var desResults = document.getElementById("desResults");-->
+<!--//            req = document.getElementById("getData");-->
+<!--//            req2 = document.getElementById("getDataShared");-->
+<!--//-->
+<!--//            req.generateRequest();-->
+<!--//            req2.generateRequest();-->
+<!--//-->
+<!--//-->
+<!--//        },-->
+<!--//-->
+<!--//        _afterUnshare: function(e){-->
+<!--////            change visibility-->
+<!--//            var list = document.getElementById("jobList");-->
+<!--//-->
+<!--//            for (i = 0; i < this.mytemp.length ; i++) {-->
+<!--//                list.selectIndex(this.mytemp[i]);-->
+<!--//            }-->
+<!--//            var desResults = document.getElementById("desResults");-->
+<!--//            req = document.getElementById("getData");-->
+<!--//            req2 = document.getElementById("getDataShared");-->
+<!--//            req.generateRequest();-->
+<!--//            req2.generateRequest();-->
+<!--//-->
+<!--//-->
+<!--//        },-->
+<!--//-->
+<!--//        _isPublic: function(access) {-->
+<!--//            if (access === 1) {-->
+<!--//                return true;-->
+<!--//            }-->
+<!--//        },-->
+<!--//-->
+<!--//        _isPrivate: function(access) {-->
+<!--//            if (access === 0) {-->
+<!--//                return true;-->
+<!--//            }-->
+<!--//        },-->
+<!--////        shareConfirm: function(){-->
+<!--////            var sdialog = document.getElementById("shareDialog");-->
+<!--////                sdialog.open();-->
+<!--////        },-->
+        <!--_viewToggle: function() {-->
+            <!--view = document.getElementById("viewCommentDialog");-->
+            <!--view.toggle();-->
+        <!--},-->
+    <!--});-->
+
+
+<!--</script>-->

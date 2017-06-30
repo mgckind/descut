@@ -32,11 +32,20 @@
             border-style: none none solid none;
             border-color: red;
         }
-
+        @media screen and (max-width: 1300px){
+            .helpB {
+                display: none;
+            }
+            .visual {
+                display: inherit;
+            }
+        }
     </style>
     <template>
 
         <section>
+            <des-api-help class="helpB" style="float: right; width: 18%;"></des-api-help>
+
             <des-card heading="API Help">
                 <paper-tabs id="api-tabs" selected="0" scrollable>
                     <paper-tab id="api_tab_one" class="unselected-tab">Create Authetication Token</paper-tab>
