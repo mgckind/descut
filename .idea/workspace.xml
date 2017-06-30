@@ -7,10 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe8ff00-c69e-4956-8391-0f6ede683082" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/elements/des_elements/temp.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-card-intro.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-card-intro.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html" afterPath="$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,21 +27,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="des-my-jobs-vaadin.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-vaadin.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1060">
-              <caret line="384" column="31" lean-forward="false" selection-start-line="384" selection-start-column="31" selection-end-line="384" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="des-my-jobs.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="318" column="8" lean-forward="false" selection-start-line="318" selection-start-column="8" selection-end-line="321" selection-end-column="10" />
+            <state relative-caret-position="1760">
+              <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -48,25 +40,25 @@
       <file leaf-file-name="des-shared-jobs.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1404">
-              <caret line="210" column="0" lean-forward="true" selection-start-line="210" selection-start-column="0" selection-end-line="220" selection-end-column="41" />
+            <state relative-caret-position="20">
+              <caret line="131" column="94" lean-forward="false" selection-start-line="131" selection-start-column="94" selection-end-line="131" selection-end-column="94" />
               <folding>
-                <marker date="1498832780450" expanded="false" signature="1299:1324" ph="..." />
-                <marker date="1498832780450" expanded="false" signature="1492:1506" ph="..." />
-                <marker date="1498832780450" expanded="false" signature="1569:1655" ph="..." />
-                <marker date="1498832780450" expanded="false" signature="1948:1967" ph="..." />
-                <marker date="1498832780450" expanded="false" signature="4119:4138" ph="..." />
-                <marker date="1498832780450" expanded="false" signature="9899:9911" ph="..." />
+                <marker date="1498836991306" expanded="false" signature="1299:1324" ph="..." />
+                <marker date="1498836991306" expanded="false" signature="1492:1506" ph="..." />
+                <marker date="1498836991306" expanded="false" signature="1569:1655" ph="..." />
+                <marker date="1498836991306" expanded="false" signature="1948:1967" ph="..." />
+                <marker date="1498836991306" expanded="false" signature="4119:4138" ph="..." />
+                <marker date="1498836991306" expanded="false" signature="9899:9911" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="des-mainpages.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html">
+      <file leaf-file-name="des-shared-jobs-help.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs-help.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="9" column="20" lean-forward="true" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+            <state relative-caret-position="1680">
+              <caret line="109" column="56" lean-forward="false" selection-start-line="109" selection-start-column="56" selection-end-line="109" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -75,40 +67,21 @@
       <file leaf-file-name="des-sidebar.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="100" column="34" lean-forward="false" selection-start-line="100" selection-start-column="34" selection-end-line="100" selection-end-column="34" />
+            <state relative-caret-position="265">
+              <caret line="107" column="36" lean-forward="false" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="51" />
               <folding>
                 <element signature="n#style#0;n#des-my-jobs-help#0;n#iron-pages#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#des-shared-jobs-help#0;n#iron-pages#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="des-home.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-home.html">
+      <file leaf-file-name="des-results-help.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-results-help.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="elements.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/elements/elements.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2620">
-              <caret line="131" column="0" lean-forward="false" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vaadin-grid-selection-column.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/bower_components/vaadin-grid/vaadin-grid-selection-column.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3220">
-              <caret line="161" column="29" lean-forward="false" selection-start-line="161" selection-start-column="29" selection-end-line="161" selection-end-column="29" />
+            <state relative-caret-position="-100">
+              <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="12" selection-end-line="26" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -117,18 +90,38 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/scripts/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5240">
-              <caret line="262" column="41" lean-forward="false" selection-start-line="262" selection-start-column="41" selection-end-line="262" selection-end-column="41" />
+            <state relative-caret-position="4453">
+              <caret line="255" column="0" lean-forward="true" selection-start-line="255" selection-start-column="0" selection-end-line="255" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="des-shared-results.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-results.html">
+      <file leaf-file-name="des-shared-results-help.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="18" column="9" lean-forward="false" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+            <state relative-caret-position="298">
+              <caret line="45" column="45" lean-forward="false" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="des-home.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1245">
+              <caret line="166" column="13" lean-forward="false" selection-start-line="166" selection-start-column="13" selection-end-line="166" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="des-card-intro.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-card-intro.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="520">
+              <caret line="26" column="26" lean-forward="false" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -138,19 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>inputValuesDialog</find>
-      <find>inputValuesDialogS</find>
-      <find>welcome</find>
-      <find>d</find>
-      <find>des-singl</find>
-      <find>des-single</find>
-      <find>des-single-</find>
-      <find>des-single-hel</find>
-      <find>des-single-help</find>
-      <find>Log</find>
-      <find>title</find>
-      <find>Api</find>
-      <find>_handleResponse</find>
       <find>MyTablesHandle</find>
       <find>jobidFull = self.get_argument(&quot;jobid&quot;)</find>
       <find>getMyTables</find>
@@ -168,6 +148,19 @@
       <find>_viewToggle</find>
       <find>_genFreshReq</find>
       <find>returnName</find>
+      <find>jobList</find>
+      <find>te</find>
+      <find>itemp</find>
+      <find>idtemp</find>
+      <find>id=temp</find>
+      <find>id='temp'</find>
+      <find>id='temp</find>
+      <find>id='temp&quot;</find>
+      <find>id=temp&quot;</find>
+      <find>id=&quot;temp&quot;</find>
+      <find>temp</find>
+      <find>menu</find>
+      <find>smallJobListShared</find>
     </findStrings>
     <replaceStrings>
       <replace>iron-image</replace>
@@ -182,11 +175,11 @@
       <replace>_genFreshReq</replace>
     </replaceStrings>
     <dirStrings>
-      <dir>$PROJECT_DIR$</dir>
       <dir>$PROJECT_DIR$/static/elements</dir>
       <dir>$PROJECT_DIR$/static/</dir>
       <dir>$PROJECT_DIR$/static</dir>
       <dir>$PROJECT_DIR$/../</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -219,9 +212,7 @@
         <option value="$PROJECT_DIR$/static/elements/des_elements/temp.html" />
         <option value="$PROJECT_DIR$/readfile.py" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-results-help.html" />
-        <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-positions.html" />
-        <option value="$PROJECT_DIR$/static/elements/des_elements/des-card-intro.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-coadds.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-single.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-help.html" />
@@ -237,14 +228,16 @@
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/static/styles/shared-styles.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-vaadin.html" />
-        <option value="$PROJECT_DIR$/static/scripts/app.js" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-home.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-results.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-results.html" />
         <option value="$PROJECT_DIR$/static/elements/elements.html" />
         <option value="$PROJECT_DIR$/static/bower_components/vaadin-grid/vaadin-grid-selection-column.html" />
+        <option value="$PROJECT_DIR$/static/scripts/app.js" />
+        <option value="$PROJECT_DIR$/static/elements/des_elements/des-card-intro.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html" />
+        <option value="$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html" />
         <option value="$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html" />
       </list>
     </option>
@@ -256,10 +249,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="75" />
-    <option name="y" value="34" />
-    <option name="width" value="1853" />
-    <option name="height" value="1048" />
+    <option name="x" value="64" />
+    <option name="y" value="-11" />
+    <option name="width" value="1857" />
+    <option name="height" value="1092" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -276,6 +269,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -348,6 +342,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="descut" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="descut" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="elements" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -376,14 +388,13 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tutorial" />
+    <property name="last_opened_file_path" value="$USER_HOME$/descut" />
     <property name="nodejs_interpreter_path" value="/usr/bin/node" />
     <property name="node.js.path.for.package.jscs" value="project" />
     <property name="node.js.detected.package.jscs" value="true" />
@@ -451,6 +462,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -525,24 +542,26 @@
       <workItem from="1498671332573" duration="21156000" />
       <workItem from="1498747835892" duration="9527000" />
       <workItem from="1498775104565" duration="1445000" />
-      <workItem from="1498830672841" duration="2216000" />
+      <workItem from="1498830672841" duration="5836000" />
+      <workItem from="1498838387058" duration="1764000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="298356000" />
+    <option name="totallyTimeSpent" value="303740000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="75" y="34" width="1853" height="1048" extended-state="0" />
+    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16405828" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1638814" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910052" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26878306" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25891948" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -551,7 +570,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910052" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -562,17 +580,17 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910052" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16459794" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25891948" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1638814" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910052" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -589,20 +607,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/api/des-api-get-job.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-card.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="13" column="65" lean-forward="true" selection-start-line="13" selection-start-column="65" selection-end-line="13" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-logs-help.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1240">
@@ -652,24 +656,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/temp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="232" column="26" lean-forward="true" selection-start-line="230" selection-start-column="32" selection-end-line="232" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/uploads/admin/add_col.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1025">
-          <caret line="109" column="75" lean-forward="true" selection-start-line="109" selection-start-column="75" selection-end-line="109" selection-end-column="75" />
         </state>
       </provider>
     </entry>
@@ -691,13 +681,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
           <caret line="36" column="78" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="36" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-card-intro.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="17" column="64" lean-forward="false" selection-start-line="17" selection-start-column="64" selection-end-line="17" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -726,13 +709,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-results-help.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-660">
-          <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="12" selection-end-line="26" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -775,13 +751,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-120">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs-help.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1109">
-          <caret line="109" column="56" lean-forward="false" selection-start-line="109" selection-start-column="56" selection-end-line="109" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -856,27 +825,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/styles/shared-styles.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2480">
-          <caret line="124" column="8" lean-forward="false" selection-start-line="124" selection-start-column="8" selection-end-line="131" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-results.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="18" column="9" lean-forward="false" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/scripts/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5240">
-          <caret line="262" column="41" lean-forward="false" selection-start-line="262" selection-start-column="41" selection-end-line="262" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -884,6 +836,36 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2620">
           <caret line="131" column="0" lean-forward="false" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/bower_components/vaadin-grid/vaadin-grid-selection-behavior.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-vaadin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7680">
+          <caret line="384" column="31" lean-forward="false" selection-start-line="384" selection-start-column="31" selection-end-line="384" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/temp.html" />
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" column="20" lean-forward="true" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/bower_components/vaadin-grid/vaadin-grid-selection-column.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3220">
+          <caret line="161" column="29" lean-forward="false" selection-start-line="161" selection-start-column="29" selection-end-line="161" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -896,75 +878,108 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/bower_components/vaadin-grid/vaadin-grid-selection-column.html">
+    <entry file="file://$PROJECT_DIR$/static/styles/shared-styles.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3220">
-          <caret line="161" column="29" lean-forward="false" selection-start-line="161" selection-start-column="29" selection-end-line="161" selection-end-column="29" />
+        <state relative-caret-position="2340">
+          <caret line="117" column="14" lean-forward="false" selection-start-line="117" selection-start-column="9" selection-end-line="117" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/bower_components/vaadin-grid/vaadin-grid-selection-behavior.html">
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-card-intro.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-my-jobs-vaadin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1060">
-          <caret line="384" column="31" lean-forward="false" selection-start-line="384" selection-start-column="31" selection-end-line="384" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+        <state relative-caret-position="520">
+          <caret line="26" column="26" lean-forward="false" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-my-jobs.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="318" column="8" lean-forward="false" selection-start-line="318" selection-start-column="8" selection-end-line="321" selection-end-column="10" />
+        <state relative-caret-position="1760">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/bower_components/paper-radio-group/paper-radio-group.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="57" column="3" lean-forward="false" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/scripts/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4453">
+          <caret line="255" column="0" lean-forward="true" selection-start-line="255" selection-start-column="0" selection-end-line="255" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs-help.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1680">
+          <caret line="109" column="56" lean-forward="false" selection-start-line="109" selection-start-column="56" selection-end-line="109" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-results-help.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-100">
+          <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="12" selection-end-line="26" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/bower_components/app-layout/templates/pesto/src/app-icons.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="21" column="7" lean-forward="false" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-results-help.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="45" column="45" lean-forward="false" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-shared-jobs.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1404">
-          <caret line="210" column="0" lean-forward="true" selection-start-line="210" selection-start-column="0" selection-end-line="220" selection-end-column="41" />
+        <state relative-caret-position="20">
+          <caret line="131" column="94" lean-forward="false" selection-start-line="131" selection-start-column="94" selection-end-line="131" selection-end-column="94" />
           <folding>
-            <marker date="1498832780450" expanded="false" signature="1299:1324" ph="..." />
-            <marker date="1498832780450" expanded="false" signature="1492:1506" ph="..." />
-            <marker date="1498832780450" expanded="false" signature="1569:1655" ph="..." />
-            <marker date="1498832780450" expanded="false" signature="1948:1967" ph="..." />
-            <marker date="1498832780450" expanded="false" signature="4119:4138" ph="..." />
-            <marker date="1498832780450" expanded="false" signature="9899:9911" ph="..." />
+            <marker date="1498836991306" expanded="false" signature="1299:1324" ph="..." />
+            <marker date="1498836991306" expanded="false" signature="1492:1506" ph="..." />
+            <marker date="1498836991306" expanded="false" signature="1569:1655" ph="..." />
+            <marker date="1498836991306" expanded="false" signature="1948:1967" ph="..." />
+            <marker date="1498836991306" expanded="false" signature="4119:4138" ph="..." />
+            <marker date="1498836991306" expanded="false" signature="9899:9911" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-mainpages.html">
+    <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="20" lean-forward="true" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+        <state relative-caret-position="1245">
+          <caret line="166" column="13" lean-forward="false" selection-start-line="166" selection-start-column="13" selection-end-line="166" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/elements/des_elements/des-sidebar.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="100" column="34" lean-forward="false" selection-start-line="100" selection-start-column="34" selection-end-line="100" selection-end-column="34" />
+        <state relative-caret-position="265">
+          <caret line="107" column="36" lean-forward="false" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="51" />
           <folding>
             <element signature="n#style#0;n#des-my-jobs-help#0;n#iron-pages#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#des-shared-jobs-help#0;n#iron-pages#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

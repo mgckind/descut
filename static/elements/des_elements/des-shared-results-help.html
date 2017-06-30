@@ -44,7 +44,7 @@
 
         <b> Job list shortcut</b>
         <paper-listbox id="smallJobListShared" >
-                <template is="dom-repeat" id="menu" items="[[data]]">
+                <template is="dom-repeat" id="menuShared" items="[[data]]">
                     <paper-item on-focus="_focus">
 
                         <template is="dom-if" if="{{_completed(item.status)}}">
@@ -115,7 +115,7 @@
 //            // var jobidFull = document.getElementById("desResults").jobidFull;
 //            var pages = document.getElementById("mainPages");
 //            var help = document.getElementById("helpPages");
-//            var menu = document.querySelector('paper-menu');
+//            var menu = document.querySelector('paper-');
 //            // var desLog = document.getElementById("desLog");
 //            //     desLog.jobidFull = jobidFull;
 //            //     desLog.jobid = jobid;
@@ -174,3 +174,4 @@
 
 </script>
 </dom-module>
+menu
