@@ -139,7 +139,7 @@ class FileHandler(BaseHandler):
         else:
             run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', loc_user, loc_passw, folder2, xs,ys,jobid, list_only, tag], task_id=tiid)
         con = lite.connect(Settings.DBFILE)
-        tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd'], 0, comment)
+        tup = tuple([loc_user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd', 0, comment])
         with con:
             cur = con.cursor()
             cur.execute("INSERT INTO Jobs VALUES(?, ?, ?, ?, ?, ?, ?)", tup)
