@@ -48,117 +48,219 @@
 
 
         <section>
-            <des-shared-jobs-help class="helpB" style="float: right; width: 18%;"></des-shared-jobs-help>
+            <!--<des-shared-jobs-help class="helpB" style="float: right; width: 18%;"></des-shared-jobs-help>-->
 
-            <des-card>
-                <div class='card-content'>
-                    <div id="ListHeaderShared" style="display:block;">
-                        <paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible; max-width:1500px;">
-                            <paper-item-body>
-                                <div>status &emsp; &emsp; Job id</div>
-                            </paper-item-body>
+            <!--<des-card>-->
+                <!--<div class='card-content'>-->
+                    <!--<div id="ListHeaderShared" style="display:block;">-->
+                        <!--<paper-item  disabled style="font-weight:bold; background:grey; color:black; visibility: visible; max-width:1500px;">-->
+                            <!--<paper-item-body>-->
+                                <!--<div>status &emsp; &emsp; Job id</div>-->
+                            <!--</paper-item-body>-->
 
-                            <paper-item-body>
-                                <div style="text-align: center;"> &emsp; &emsp; &emsp; &emsp;  Job type</div>
-                            </paper-item-body>
+                            <!--<paper-item-body>-->
+                                <!--<div style="text-align: center;"> &emsp; &emsp; &emsp; &emsp;  Job type</div>-->
+                            <!--</paper-item-body>-->
 
-                            <paper-item-body>
-                                <div>Public / Private</div>
-                            </paper-item-body>
+                            <!--<paper-item-body>-->
+                                <!--<div>Public / Private</div>-->
+                            <!--</paper-item-body>-->
 
-                            <paper-item-body>
-                                <div>Contributor</div>
-                            </paper-item-body>
+                            <!--<paper-item-body>-->
+                                <!--<div>Contributor</div>-->
+                            <!--</paper-item-body>-->
 
-                            <div>View | Comment</div>
-                        </paper-item>
-                    </div>
-
-
-                    <paper-listbox multi id="jobListShared">
-
-                        <hr>
-
-                        <template is="dom-repeat" id="menu" items="{{data}}">
-                            <paper-icon-item>
-
-                                <template is="dom-if" if="{{_completed(item.status)}}">
-                                    <div class="status size green" item-icon></div>
-                                </template>
-
-                                <template is="dom-if" if="{{_pending(item.status)}}">
-                                    <div class="status size" item-icon></div>
-                                </template>
-
-                                <template is="dom-if" if="{{_stop(item.status)}}">
-                                    <div class="status size red" item-icon></div>
-                                </template>
+                            <!--<div>View | Comment</div>-->
+                        <!--</paper-item>-->
+                    <!--</div>-->
 
 
-                                <paper-item-body two-line>
-                                    <div>
-                                        {{returnName(item.job)}}
-                                    </div>
-                                    <div secondary>
-                                        {{item.elapsed}} ({{returnDate(item.time)}})
-                                    </div>
-                                </paper-item-body two-line>
+                    <!--<paper-listbox multi id="jobListShared">-->
 
-                                <paper-item-body>
-                                    <div style="text-align: center;">
-                                        {{item.jtypes}}
-                                    </div>
-                                </paper-item-body>
+                        <!--<hr>-->
 
-                                <paper-item-body>
-                                    <iron-icon id="eyeShared" icon="{{_isShared(item.jpublic)}}"></iron-icon>
-                                </paper-item-body>
+                        <!--<template is="dom-repeat" id="menu" items="{{data}}">-->
+                            <!--<paper-icon-item>-->
 
-                                <paper-item-body>
+                                <!--<template is="dom-if" if="{{_completed(item.status)}}">-->
+                                    <!--<div class="status size green" item-icon></div>-->
+                                <!--</template>-->
 
-                                    <div>{{returnUser(item.job)}}</div>
+                                <!--<template is="dom-if" if="{{_pending(item.status)}}">-->
+                                    <!--<div class="status size" item-icon></div>-->
+                                <!--</template>-->
 
-                                </paper-item-body>
-                                <!--<div>-->
-                                <!--{{item.jpublic}}-->
-                                <!--</div>-->
+                                <!--<template is="dom-if" if="{{_stop(item.status)}}">-->
+                                    <!--<div class="status size red" item-icon></div>-->
+                                <!--</template>-->
 
-                                <paper-icon-button icon="launch" on-tap="_logDialogOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
-                                <!--<paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>-->
-                                <paper-icon-button icon="communication:comment" on-tap="_viewDialogOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
 
-                            </paper-icon-item>
+                                <!--<paper-item-body two-line>-->
+                                    <!--<div>-->
+                                        <!--{{returnName(item.job)}}-->
+                                    <!--</div>-->
+                                    <!--<div secondary>-->
+                                        <!--{{item.elapsed}} ({{returnDate(item.time)}})-->
+                                    <!--</div>-->
+                                <!--</paper-item-body two-line>-->
+
+                                <!--<paper-item-body>-->
+                                    <!--<div style="text-align: center;">-->
+                                        <!--{{item.jtypes}}-->
+                                    <!--</div>-->
+                                <!--</paper-item-body>-->
+
+                                <!--<paper-item-body>-->
+                                    <!--<iron-icon id="eyeShared" icon="{{_isShared(item.jpublic)}}"></iron-icon>-->
+                                <!--</paper-item-body>-->
+
+                                <!--<paper-item-body>-->
+
+                                    <!--<div>{{returnUser(item.job)}}</div>-->
+
+                                <!--</paper-item-body>-->
+                                <!--&lt;!&ndash;<div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;{{item.jpublic}}&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                                <!--<paper-icon-button icon="launch" on-tap="_logDialogOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>-->
+                                <!--&lt;!&ndash;<paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>&ndash;&gt;-->
+                                <!--<paper-icon-button icon="communication:comment" on-tap="_viewDialogOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>-->
+
+                            <!--</paper-icon-item>-->
+                        <!--</template>-->
+            <paper-button on-tap="_genRefreshReq"> refresh <iron-icon icon="icons:refresh"></iron-icon></paper-button>
+
+            <vaadin-grid id="materialShared" items="{{data}}" size="200">
+                <!--<vaadin-grid-column width="40px" flex-grow="0">-->
+                <!--<template class="header">-->
+                <!--<input aria-label="Select All" type="checkbox" on-click="_invert" checked="[[_isChecked(inverted, indeterminate)]]" indeterminate="[[indeterminate]]">-->
+                <!--</template>-->
+                <!--<template>-->
+                <!--<input aria-label="Select Row" type="checkbox" on-change="_selectItem" checked="[[_isSelected(inverted, selected)]]">-->
+                <!--</template>-->
+                <!--</vaadin-grid-column>-->
+                <vaadin-grid-selection-column id="autoShared" auto-select>
+                </vaadin-grid-selection-column>
+
+                <vaadin-grid-column  flex-grow="0">
+                    <template class="header">#</template>
+                    <template>[[index]]</template>
+                </vaadin-grid-column>
+
+
+                <vaadin-grid-column flex-grow="0">
+                    <template class="header">Status</template>
+                    <template>
+                        <template is="dom-if" if="{{_completed(item.status)}}">
+                            <div class="status size green" item-icon></div>
                         </template>
-                        <paper-dialog id="logShared">
-                            <h2>Log</h2>
-                            <paper-dialog-scrollable>
-                                <paper-card>
-                                    <div class="card-content">
-                                        Job : {{jobname}}
-                                        <span>{{logdata}}</span>
-                                        <des-html html={{logdata}}></des-html>
-                                    </div>
-                                </paper-card>
-                            </paper-dialog-scrollable>
-                            <div class="buttons">
-                                <paper-button on-tap="viewresults" autofocus>Continue</paper-button>
-                                <paper-button on-tap="_viewToggle" autofocus>View Comment</paper-button>
-                                <paper-button dialog-dismiss>Cancel</paper-button>
-                            </div>
-                        </paper-dialog>
 
-                        <paper-dialog id="viewCommentDialogShared">
-                            <h2>Comment</h2>
-                            <paper-dialog-scrollable>
-                                <!--Job : {{jobname}}-->
-                                {{jobcomment}}
-                            </paper-dialog-scrollable>
-                            <div class="buttons">
-                                <paper-button dialog-confirm autofocus>OK</paper-button>
-                                <!--<paper-button dialog-confirm autofocus>Edit Comment</paper-button>-->
-                                <!--<paper-button dialog-dismiss>Cancel</paper-button>-->
+                        <template is="dom-if" if="{{_pending(item.status)}}">
+                            <div class="status size" item-icon></div>
+                        </template>
+
+                        <template is="dom-if" if="{{_stop(item.status)}}">
+                            <div class="status size red" item-icon></div>
+                        </template>
+                    </template>
+                </vaadin-grid-column>
+
+
+                <!--<vaadin-grid-column width="calc(25% - 150px)">-->
+                <!--<template class="header">Job ID</template>-->
+                <!--<template>{{returnName(item.job)}}</template>-->
+                <!--</vaadin-grid-column>-->
+
+                <vaadin-grid-column flex-grow="6">
+                    <template class="header">
+                        <vaadin-grid-sorter path="job">
+                            <vaadin-grid-filter aria-label="Job ID" path="job" value="[[_filterJobID]]">
+                                <input placeholder="Job ID" value="{{_filterJobID::input}}" focus-target style="width: 100%;">
+                            </vaadin-grid-filter>
+                        </vaadin-grid-sorter>
+                    </template>
+                    <template>
+
+                        <paper-item-body two-line>
+                            <div>
+                                <!--{{returnName(item.job)}}-->
+                                <!--it can be changed in api.py-->
+                                {{item.job}}
                             </div>
-                        </paper-dialog>
+                            <div secondary>
+                                <!--{{item.elapsed}} ({{returnDate(item.time)}})-->
+                                {{item.elapsed}} ({{item.time}})
+                            </div>
+                        </paper-item-body>
+                    </template>
+                </vaadin-grid-column>
+
+
+                <vaadin-grid-column flex-grow="1">
+                    <template class="header">
+                        <vaadin-grid-sorter path="jtypes">
+                            <vaadin-grid-filter aria-label="Type" path="jtypes" value="[[_filterType]]">
+                                <input placeholder="Type" value="{{_filterType::input}}" focus-target style="width: 100%;">
+                            </vaadin-grid-filter>
+                        </vaadin-grid-sorter>
+                    </template>
+                    <template>{{item.jtypes}}</template>
+                </vaadin-grid-column>
+
+
+                <!--<vaadin-grid-column flex-grow="1">-->
+                <!--<template class="header">-->
+                    <!--<vaadin-grid-sorter path="job">-->
+                        <!--<vaadin-grid-filter aria-label="Contributor" path="job" value="[[_filterContributor]]">-->
+                            <!--<input placeholder="Contributor" value="{{_filterContributor::input}}" focus-target style="width: 100%;">-->
+                        <!--</vaadin-grid-filter>-->
+                    <!--</vaadin-grid-sorter>-->
+                    <!--<template>{{returnName(item.job)}}</template>-->
+                <!--</template>-->
+                <!--</vaadin-grid-column>-->
+
+                <vaadin-grid-column flex-grow="2">
+                    <template class="header">View | Comment</template>
+                    <template>
+                        <div class="horizontal layout">
+                            <paper-icon-button icon="launch" on-tap="_logDialogOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                            <paper-icon-button icon="communication:comment" on-tap="_viewCommentOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                            <!--<paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>-->
+                        </div>
+                    </template>
+                </vaadin-grid-column>
+            </vaadin-grid>
+            <paper-dialog id="logShared">
+                <h2>Log</h2>
+                <paper-dialog-scrollable>
+                    <paper-card>
+                        <div class="card-content">
+                            Job : {{jobname}}
+                            <span>{{logdata}}</span>
+                            <des-html html={{logdata}}></des-html>
+                        </div>
+                    </paper-card>
+                </paper-dialog-scrollable>
+                <div class="buttons">
+                    <paper-button on-tap="viewresults" autofocus>Continue</paper-button>
+                    <paper-button on-tap="_viewToggle" autofocus>View Comment</paper-button>
+                    <paper-button dialog-dismiss>Cancel</paper-button>
+                </div>
+            </paper-dialog>
+
+            <paper-dialog id="viewCommentDialogShared">
+                <h2>Comment</h2>
+                <paper-dialog-scrollable>
+                    <!--Job : {{jobname}}-->
+                    {{jobcomment}}
+                </paper-dialog-scrollable>
+                <div class="buttons">
+                    <paper-button dialog-confirm autofocus>OK</paper-button>
+                    <!--<paper-button dialog-confirm autofocus>Edit Comment</paper-button>-->
+                    <!--<paper-button dialog-dismiss>Cancel</paper-button>-->
+                </div>
+            </paper-dialog>
 
                         <!--<div id="InfoHeader" style="display:none;">-->
                             <!--<paper-icon-item   style="font-weight:bold; background:pink; color:black; visibility: visible; max-width:1500px;">-->
@@ -170,9 +272,9 @@
                             <!--</paper-icon-item>-->
 
                         <!--</div>-->
-                    </paper-listbox>
-                </div>
-            </des-card>
+                    <!--</paper-listbox>-->
+                <!--</div>-->
+            <!--</des-card>-->
         </section>
     </template>
 </dom-module>
@@ -223,6 +325,31 @@
 
 
         },
+
+        ready: function() {
+            var _self = this;
+            loc = window.location.host
+            var ws = new WebSocket("ws://"+loc+"/websocket");
+            ws.onmessage = function(e) {
+                console.log(e.data);
+                req = document.getElementById("getDataShared");
+                req.generateRequest();
+            };
+
+            //loadJSON(function(response) {
+            //_self.data = JSON.parse(response);
+            //_self.count = _self.data.length;
+            //});
+        },
+        _handleResponse: function(e){
+            var _self = this;
+            _self.data = e.detail.response;
+            _self.count = _self.data.length;
+            document.querySelector('des-shared-results-help').data = _self.data;
+            document.querySelector('des-shared-logs-help').data = _self.data;
+        },
+
+
         processParams: function(jobidFull) {
             return {
                 jobid: jobidFull
@@ -254,12 +381,22 @@
             log.open();
 
         },
+        _resetSelection: function() {
+            this.$.materialShared.selectedItems = [];
+            this.updateStyles();
+        },
+
+        _genRefreshReq: function (){
+            var req = document.getElementById("getDataShared");
+            req.generateRequest();
+            this._resetSelection();
+        },
 
         _viewToggle: function() {
             var view = document.getElementById("viewCommentDialogShared");
             view.toggle();
         },
-        _viewDialogOpen: function(e) {
+        _viewCommentOpen: function(e) {
             var comment = document.getElementById('viewCommentDialogShared');
             this.jobname = this.returnName(e.model.item.job);
             this.jobcomment = e.model.item.jcomment;
@@ -267,56 +404,35 @@
             comment.open();
         },
 
-        ready: function() {
-            var _self = this;
-            loc = window.location.host
-            var ws = new WebSocket("ws://"+loc+"/websocket");
-            ws.onmessage = function(e) {
-                console.log(e.data);
-                req = document.getElementById("getDataShared");
-                req.generateRequest();
-            };
 
-            //loadJSON(function(response) {
-            //_self.data = JSON.parse(response);
-            //_self.count = _self.data.length;
-            //});
-        },
-        _handleResponse: function(e){
-            var _self = this;
-            _self.data = e.detail.response;
-            _self.count = _self.data.length;
-            document.querySelector('des-shared-results-help').data = _self.data;
-            document.querySelector('des-shared-logs-help').data = _self.data;
-        },
 
-        selectall: function(){
-            var list = document.getElementById("jobListShared");
-            var listAll = list.selectedValues;
-            //if (typeof listAll !== 'undefined') {
-            //    var listAll2 = JSON.parse(JSON.stringify(listAll));
-            //  console.log(listAll2.length);
-            // }
-            for (i = 1; i< list.items.length ;i++) {
-                list.selectIndex(i);
-            }
-            //if (typeof listAll !== 'undefined') {
-            //for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
-            //};
-            app.scrollPageToTop();
-        },
-        unselectall: function(){
-            var list = document.getElementById("jobListShared");
-            var listAll = list.selectedValues;
-            console.log(listAll);
-            if (typeof listAll !== 'undefined') {
-                var listAll2 = JSON.parse(JSON.stringify(listAll));
-                for (i = 0; i< listAll2.length ;i++) {
-                    list.selectIndex(listAll2[i]);
-                }
-            }
-            app.scrollPageToTop();
-        },
+//        selectall: function(){
+//            var list = document.getElementById("jobListShared");
+//            var listAll = list.selectedValues;
+//            //if (typeof listAll !== 'undefined') {
+//            //    var listAll2 = JSON.parse(JSON.stringify(listAll));
+//            //  console.log(listAll2.length);
+//            // }
+//            for (i = 1; i< list.items.length ;i++) {
+//                list.selectIndex(i);
+//            }
+//            //if (typeof listAll !== 'undefined') {
+//            //for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
+//            //};
+//            app.scrollPageToTop();
+//        },
+//        unselectall: function(){
+//            var list = document.getElementById("jobListShared");
+//            var listAll = list.selectedValues;
+//            console.log(listAll);
+//            if (typeof listAll !== 'undefined') {
+//                var listAll2 = JSON.parse(JSON.stringify(listAll));
+//                for (i = 0; i< listAll2.length ;i++) {
+//                    list.selectIndex(listAll2[i]);
+//                }
+//            }
+//            app.scrollPageToTop();
+//        },
         returnUser: function(job) {
             var n1=job.search("__");
             var n2=job.search("{");
@@ -324,6 +440,7 @@
             return job0;
         },
         returnName: function(job) {
+            console.log(job);
             var n1=job.search("__");
             var n2=job.search("{");
             var job0 = job.substring(n1+2,n2-1);
@@ -369,7 +486,7 @@
         },
 
         viewresults: function(e){
-            var log = document.getElementById('log');
+            var log = document.getElementById('logShared');
             log.close();
             var pages = document.getElementById("mainPages");
             var help = document.getElementById("helpPages");

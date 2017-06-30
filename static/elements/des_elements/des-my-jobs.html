@@ -82,7 +82,7 @@
 
 
             <!--<des-back-button></des-back-button>-->
-            <paper-button on-tap="_genFreshReq"> refresh <iron-icon icon="icons:refresh"></iron-icon></paper-button>
+            <paper-button on-tap="_genRefreshReq"> refresh <iron-icon icon="icons:refresh"></iron-icon></paper-button>
             <paper-button on-tap="_genShareReq"> share <iron-icon icon="social:share"></iron-icon></paper-button>
             <paper-button on-tap="_genUnshareReq"> unshare <iron-icon icon="undo"></iron-icon></paper-button>
             <paper-button on-tap="_genDeleteReq"> delete <iron-icon icon="delete"></iron-icon></paper-button>
@@ -231,7 +231,7 @@
                         <paper-button dialog-dismiss>Cancel</paper-button>
                     </div>
                 </paper-dialog>
-            </paper-icon-item>
+            <!--</paper-icon-item>-->
 
             <paper-toast class="toast-position" id="toast-cmt-good" text="Comment has been changed" duration="5000"> </paper-toast>
             <paper-toast class="toast-position" id="toast-cmt-bad" text="ERROR!. There was an error. Please try again" duration="5000"> </paper-toast>
@@ -322,7 +322,7 @@
         },
 
 
-        _genFreshReq: function (){
+        _genRefreshReq: function (){
             var req = document.getElementById("getData");
             req.generateRequest();
             this._resetSelection();
@@ -392,7 +392,7 @@
                     req.generateRequest();
                     this._resetSelection();
 
-                    
+
                 }
             }
 
