@@ -36,25 +36,28 @@
                 <iron-icon icon="launch"></iron-icon>
                 or
                 <iron-icon icon="assignment"></iron-icon>
-                to see the results or log-file for an individual Job. Use
-                <iron-icon icon="cancel"></iron-icon>
-                to stop a running Job. Select one or more jobs for deletion. Color legend below.
+                to see the results or log-file for an individual Job.
+                Click on
+                <iron-icon icon="communication:comment"></iron-icon>
+                to view the comment for an individual Job.
+
+                Color legend below.
             </p>
 
             <hr class="des-hr">
 
-            <paper-item>
-                <paper-item-body>
-                    (Un)Select All
-                </paper-item-body>
-                <paper-toggle-button  id="checkAllShared" on-change="check"></paper-toggle-button>
-            </paper-item>
+            <!--<paper-item>-->
+                <!--<paper-item-body>-->
+                    <!--(Un)Select All-->
+                <!--</paper-item-body>-->
+                <!--<paper-toggle-button  id="checkAllShared" on-change="check"></paper-toggle-button>-->
+            <!--</paper-item>-->
 
             <paper-item >
                 <paper-item-body>
                     Refresh
                 </paper-item-body>
-                <paper-icon-button icon="refresh" on-tap="refreshJobs"></paper-icon-button>
+                <paper-icon-button icon="refresh" on-tap="_genRefreshReq"></paper-icon-button>
             </paper-item>
 
             <hr class="des-hr">
@@ -94,22 +97,32 @@
     Polymer({
         is: "des-shared-jobs-help",
 
-        check: function(){
-            var checkList = document.getElementById("checkAllShared");
-            var myjobs = document.querySelector('des-shared-jobs');
-
-            if (checkList.checked){
-                myjobs.selectall();
-            }
-            else{
-                myjobs.unselectall();
-            }
-        },
-        refreshJobs: function(){
-            var myjobs = document.querySelector('des-shared-jobs');
-            req = document.getElementById("getDataShared");
+//        check: function(){
+//            var checkList = document.getElementById("checkAllShared");
+//            var myjobs = document.querySelector('des-shared-jobs');
+//
+//            if (checkList.checked){
+//                myjobs.selectall();
+//            }
+//            else{
+//                myjobs.unselectall();
+//            }
+//        },
+//        refreshJobs: function(){
+//            var myjobs = document.querySelector('des-shared-jobs');
+//            req = document.getElementById("getDataShared");
+//            req.generateRequest();
+//            myjobs.unselectall();
+//        },
+        _genRefreshReq: function (){
+            var req = document.getElementById("getDataShared");
             req.generateRequest();
-            myjobs.unselectall();
+            this._resetSelection();
+        },
+        _resetSelection: function() {
+            var list = document.getElementById("materialShared");
+            list.selectedItems = [];
+            this.updateStyles();
         },
     });
 

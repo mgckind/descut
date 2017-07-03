@@ -579,11 +579,16 @@ class ShareHandler(BaseHandler):
         jtype=[]
         jpublic=[]
         jcomment=[]
+        jcon=[]
+        jtitle=[]
+
 
         for i in range(len(cc)):
             dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
             ctime = dd.strftime('%a %b %d %H:%M:%S %Y')
             jjob.append(cc[i][0]+'__'+cc[i][1]+'_{'+ctime+'}')
+            jcon.append(cc[i][0])
+            jtitle.append(cc[i][1])
             jstatus.append(cc[i][2])
             jtime.append(ctime)
             jtype.append(cc[i][4])
@@ -591,7 +596,7 @@ class ShareHandler(BaseHandler):
             jpublic.append(cc[i][5])
             jcomment.append(cc[i][6])
 
-        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i], jpublic=jpublic[i], jcomment=jcomment[i]) for i in range(len(jjob))]
+        out_dict=[dict(job=jjob[i], jcon=jcon[i], jtitle=jtitle[i], status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i], jpublic=jpublic[i], jcomment=jcomment[i]) for i in range(len(jjob))]
         temp = json.dumps(out_dict, indent=4)
             #with open('static/jobs2.json',"w") as outfile:
         self.write(temp)
@@ -640,11 +645,15 @@ class ApiHandler(BaseHandler):
         jtype=[]
         jpublic=[]
         jcomment=[]
+        jcon=[]
+        jtitle=[]
 
         for i in range(len(cc)):
             dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
             ctime = dd.strftime('%a %b %d %H:%M:%S %Y')
             jjob.append(cc[i][0]+'__'+cc[i][1]+'_{'+ctime+'}')
+            jcon.append(cc[i][0])
+            jtitle.append(cc[i][1])
             jstatus.append(cc[i][2])
             jtime.append(ctime)
             jtype.append(cc[i][4])
@@ -652,7 +661,7 @@ class ApiHandler(BaseHandler):
             jpublic.append(cc[i][5])
             jcomment.append(cc[i][6])
 
-        out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i], jpublic=jpublic[i], jcomment=jcomment[i]) for i in range(len(jjob))]
+        out_dict=[dict(job=jjob[i], jcon=jcon[i], jtitle=jtitle[i], status=jstatus[i], time=jtime[i], elapsed=jelapsed[i], jtypes=jtype[i], jpublic=jpublic[i], jcomment=jcomment[i]) for i in range(len(jjob))]
         temp = json.dumps(out_dict, indent=4)
             #with open('static/jobs2.json',"w") as outfile:
         self.write(temp)

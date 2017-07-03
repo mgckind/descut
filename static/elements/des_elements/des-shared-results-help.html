@@ -59,7 +59,7 @@
                         <div class="status size red" item-icon></div>
                         </template>
 
-                        <div style="font-size: 8.5px;">&nbsp; &nbsp;[[returnName(item.job)]]</div>
+                        <div style="font-size: 8.5px;">&nbsp; &nbsp;[[item.jtitle]]</div>
                     </paper-item>
                 </template>
         </paper-listbox>
@@ -84,6 +84,8 @@
             document.getElementById("desResultsShared").jobid=this._returnName(e.model.item.job);
             document.getElementById("desResultsShared").jobidFull=e.model.item.job;
             document.getElementById("desResultsShared").jtypes=e.model.item.jtypes;
+            document.getElementById("desResultsShared").username=e.model.item.jcon;
+            document.getElementById("desResultsShared").jcomment=e.model.item.jcomment;
 //            document.getElementById("desLogShared").jobid=this._returnName(e.model.item.job);
 //            document.getElementById("desLogShared").jobidFull=e.model.item.job;
             document.getElementById("smallJobListLShared").selected=e.model.index;
