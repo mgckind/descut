@@ -1,51 +1,51 @@
-<!--<dom-module id="des-logs">-->
-<!--<template>-->
-    <!--<style>-->
-    <!--</style>-->
+<!--&lt;!&ndash;<dom-module id="des-logs">&ndash;&gt;-->
+<!--&lt;!&ndash;<template>&ndash;&gt;-->
+    <!--&lt;!&ndash;<style>&ndash;&gt;-->
+    <!--&lt;!&ndash;</style>&ndash;&gt;-->
 
-    <iron-ajax id="getLog"
-                auto
-                url="/api/log/"
-                params={{logParams}}
-                handle-as="json"
-                last-response="{{logdata}}"
-                debounce-duration="300">
-    </iron-ajax>
+    <!--<iron-ajax id="getLog"-->
+                <!--auto-->
+                <!--url="/api/log/"-->
+                <!--params={{logParams}}-->
+                <!--handle-as="json"-->
+                <!--last-response="{{logdata}}"-->
+                <!--debounce-duration="300">-->
+    <!--</iron-ajax>-->
 
-    <!--<des-card heading="Job : [[jobid]] ">-->
-    <!--<div class="card-content">-->
-    <!--<des-html html={{logdata}}></des-html>-->
-    <!--</div>-->
-    <!--</des-card>-->
+    <!--&lt;!&ndash;<des-card heading="Job : [[jobid]] ">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="card-content">&ndash;&gt;-->
+    <!--&lt;!&ndash;<des-html html={{logdata}}></des-html>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</des-card>&ndash;&gt;-->
 
 
-<!--</template>-->
+<!--&lt;!&ndash;</template>&ndash;&gt;-->
 
-<!--<script>-->
-      <!--Polymer({-->
-      <!--is: "des-logs",-->
-      <!--properties : {-->
-        <!--jobid: {-->
-            <!--value : '',-->
-            <!--type : String,-->
-            <!--notify: true,-->
-        <!--},-->
-        <!--jobidFull: {-->
-            <!--value : '',-->
-            <!--type : String,-->
-            <!--notify: true,-->
-        <!--},-->
-        <!--logParams:{-->
-            <!--type: String,-->
-            <!--computed: 'processParams(jobidFull)'-->
-        <!--},-->
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+      <!--&lt;!&ndash;Polymer({&ndash;&gt;-->
+      <!--&lt;!&ndash;is: "des-logs",&ndash;&gt;-->
+      <!--&lt;!&ndash;properties : {&ndash;&gt;-->
+        <!--&lt;!&ndash;jobid: {&ndash;&gt;-->
+            <!--&lt;!&ndash;value : '',&ndash;&gt;-->
+            <!--&lt;!&ndash;type : String,&ndash;&gt;-->
+            <!--&lt;!&ndash;notify: true,&ndash;&gt;-->
+        <!--&lt;!&ndash;},&ndash;&gt;-->
+        <!--&lt;!&ndash;jobidFull: {&ndash;&gt;-->
+            <!--&lt;!&ndash;value : '',&ndash;&gt;-->
+            <!--&lt;!&ndash;type : String,&ndash;&gt;-->
+            <!--&lt;!&ndash;notify: true,&ndash;&gt;-->
+        <!--&lt;!&ndash;},&ndash;&gt;-->
+        <!--&lt;!&ndash;logParams:{&ndash;&gt;-->
+            <!--&lt;!&ndash;type: String,&ndash;&gt;-->
+            <!--&lt;!&ndash;computed: 'processParams(jobidFull)'&ndash;&gt;-->
+        <!--&lt;!&ndash;},&ndash;&gt;-->
 
-      <!--},-->
-      <!--processParams: function(jobidFull) {-->
-        <!--return {-->
-            <!--jobid: jobidFull-->
-        <!--};-->
-      <!--},-->
-    <!--});-->
-<!--</script>-->
-<!--</dom-module>-->
+      <!--&lt;!&ndash;},&ndash;&gt;-->
+      <!--&lt;!&ndash;processParams: function(jobidFull) {&ndash;&gt;-->
+        <!--&lt;!&ndash;return {&ndash;&gt;-->
+            <!--&lt;!&ndash;jobid: jobidFull&ndash;&gt;-->
+        <!--&lt;!&ndash;};&ndash;&gt;-->
+      <!--&lt;!&ndash;},&ndash;&gt;-->
+    <!--&lt;!&ndash;});&ndash;&gt;-->
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+<!--&lt;!&ndash;</dom-module>&ndash;&gt;-->
