@@ -364,6 +364,7 @@
             var desResults = document.getElementById("desResultsShared");
             var log = document.getElementById('logShared');
 
+
             document.getElementById("smallJobListShared").selected=e.model.index;
             document.getElementById("smallJobListLShared").selected=e.model.index;
             this.jobname = this.returnName(e.model.item.job);
@@ -490,7 +491,7 @@
             var pages = document.getElementById("mainPages");
             var help = document.getElementById("helpPages");
             var menu = document.querySelector('paper-menu');
-
+            var desResultsHelp = document.querySelector('des-shared-results-help');
             var desResults = document.getElementById("desResultsShared");
 //            var desLog = document.getElementById("desLogShared");
             document.getElementById("smallJobListShared").selected=e.model.index;
@@ -500,7 +501,13 @@
             desResults.username = e.model.item.jcon;
             desResults.jtypes = e.model.item.jtypes;
             desResults.jpublic = e.model.item.jpublic;
-            desResults.jcomment = e.model.item.jcomment;
+            desResults.jobcomment = e.model.item.jcomment;
+
+            desResultsHelp .jobid = e.model.item.jtitle;
+            desResultsHelp .jobidFull = e.model.item.job;
+            desResultsHelp .username = e.model.item.jcon;
+            desResultsHelp .jtypes = e.model.item.jtypes;
+            desResultsHelp .jobcomment = e.model.item.jcomment;
 
 //            desResults.jobid = this.returnName(e.model.item.job);
 //            desResults.jobidFull = e.model.item.job;

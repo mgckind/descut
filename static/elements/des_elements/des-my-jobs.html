@@ -339,17 +339,17 @@
         },
 
 
-//        _afterDelete: function(e){
-//            var list = document.getElementById("material");
-////            this._resetSelection();
-////            for (i = 0; i < this.mytemp.length ; i++) {
-////                list.deselectItem(this.mytemp[i]);
-////            }
-//            req = document.getElementById("getData");
-//            req.generateRequest();
-//            req2 = document.getElementById("getDataShared");
-//            req2.generateRequest();
-//        },
+        _afterDelete: function(e){
+            var list = document.getElementById("material");
+//            this._resetSelection();
+//            for (i = 0; i < this.mytemp.length ; i++) {
+//                list.deselectItem(this.mytemp[i]);
+//            }
+            req = document.getElementById("getData");
+            req.generateRequest();
+            req2 = document.getElementById("getDataShared");
+            req2.generateRequest();
+        },
 //        selectall: function(){
 //            var list = document.getElementById("jobList");
 //            var listAll = list.selectedValues;
@@ -496,6 +496,7 @@
             var help = document.getElementById("helpPages");
             var menu = document.querySelector('paper-menu');
             var desResults = document.getElementById("desResults");
+            var desResultsHelp = document.querySelector('des-results-help');
 
             document.getElementById("smallJobList").selected=e.model.index;
             document.getElementById("smallJobListL").selected=e.model.index;
@@ -503,7 +504,13 @@
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
             desResults.jtypes = e.model.item.jtypes;
-            desResults.jcomment = e.model.item.jcomment;
+            desResults.jobcomment = e.model.item.jcomment;
+
+            desResultsHelp .jobid = e.model.item.jtitle;
+            desResultsHelp .jobidFull = e.model.item.job;
+            desResultsHelp .username = this.username;
+            desResultsHelp .jtypes = e.model.item.jtypes;
+            desResultsHelp .jobcomment = e.model.item.jcomment;
 //            desResults.jobid = this.returnName(e.model.item.job);
 //            desResults.jobidFull = e.model.item.job;
             app.selection="7";
@@ -641,50 +648,50 @@
             }
         },
 
-//        _afterShare: function(e){
-//            var list = document.getElementById("material");
-////            var auto = document.getElementById("auto");
-////            auto.selectAll=false;
-////            auto.indeterminate=false;
-////            this._resetSelection();
-////            console.log("mytemp len: ",this.mytemp.length);
-////            for (i = 0; i < this.mytemp.length ; i++) {
-////                console.log(this.mytemp[i].job);
-////                list.selectItem(this.mytemp[i].item);
-////
-////            }
-////            var desResults = document.getElementById("desResults");
-//            req = document.getElementById("getData");
-//            req2 = document.getElementById("getDataShared");
+        _afterShare: function(e){
+            var list = document.getElementById("material");
+//            var auto = document.getElementById("auto");
+//            auto.selectAll=false;
+//            auto.indeterminate=false;
+//            this._resetSelection();
+//            console.log("mytemp len: ",this.mytemp.length);
+//            for (i = 0; i < this.mytemp.length ; i++) {
+//                console.log(this.mytemp[i].job);
+//                list.selectItem(this.mytemp[i].item);
 //
-//            req.generateRequest();
-//            req2.generateRequest();
+//            }
+//            var desResults = document.getElementById("desResults");
+            req = document.getElementById("getData");
+            req2 = document.getElementById("getDataShared");
+
+            req.generateRequest();
+            req2.generateRequest();
+
+
+        },
+
+        _afterUnshare: function(e){
+//            change visibility
+            var list = document.getElementById("material");
+//            this._resetSelection();
+//            var auto = document.getElementById("auto");
+//            auto.selectAll=false;
+//            auto.indeterminate=false;
+//            console.log("mytemp len: ",this.mytemp.length);
+//            for (i = 0; i < this.mytemp.length ; i++) {
+//                console.log(this.mytemp[i].job);
+////                list.selectItem(this.mytemp[i]);
+//                list.selectItem(this.mytemp[i].item);
 //
-//
-//        },
-//
-//        _afterUnshare: function(e){
-////            change visibility
-//            var list = document.getElementById("material");
-////            this._resetSelection();
-////            var auto = document.getElementById("auto");
-////            auto.selectAll=false;
-////            auto.indeterminate=false;
-////            console.log("mytemp len: ",this.mytemp.length);
-////            for (i = 0; i < this.mytemp.length ; i++) {
-////                console.log(this.mytemp[i].job);
-//////                list.selectItem(this.mytemp[i]);
-////                list.selectItem(this.mytemp[i].item);
-////
-////            }
-////            var desResults = document.getElementById("desResults");
-//            req = document.getElementById("getData");
-//            req2 = document.getElementById("getDataShared");
-//            req.generateRequest();
-//            req2.generateRequest();
-//
-//
-//        },
+//            }
+//            var desResults = document.getElementById("desResults");
+            req = document.getElementById("getData");
+            req2 = document.getElementById("getDataShared");
+            req.generateRequest();
+            req2.generateRequest();
+
+
+        },
 
         _isPublic: function(access) {
             if (access === 1) {

@@ -25,6 +25,19 @@
             <!--</paper-item-body>-->
             <!--<paper-icon-button icon="assignment" on-tap="_seeLog"></paper-icon-button>-->
         <!--</paper-item>-->
+        <paper-item >
+            <paper-item-body>
+                See the logfile
+            </paper-item-body>
+            <paper-icon-button icon="assignment" on-tap="_seeLog"></paper-icon-button>
+        </paper-item>
+
+        <paper-item >
+            <paper-item-body>
+                See comment
+            </paper-item-body>
+            <paper-icon-button icon="communication:comment" on-tap="_seeComment"></paper-icon-button>
+        </paper-item>
 
         <paper-item >
             <paper-item-body>
@@ -66,6 +79,36 @@
 
     </div>
 </des-card-help>
+    <paper-dialog id="commentDialogSharedHelp">
+        <h2>Comment</h2>
+        <paper-dialog-scrollable>
+            <!--Job : {{jobname}}-->
+            {{jobcomment}}
+        </paper-dialog-scrollable>
+        <div class="buttons">
+            <paper-button dialog-confirm autofocus>OK</paper-button>
+            <!--<paper-button dialog-confirm autofocus>Edit Comment</paper-button>-->
+            <!--<paper-button dialog-dismiss>Cancel</paper-button>-->
+        </div>
+    </paper-dialog>
+
+    <paper-dialog id="logDialogSharedHelp">
+        <h2>Log</h2>
+        <paper-dialog-scrollable>
+            <paper-card>
+                <div class="card-content">
+                    Job : {{jobid}}
+                    <span>{{logdata}}</span>
+                    <des-html html={{logdata}}></des-html>
+                </div>
+            </paper-card>
+        </paper-dialog-scrollable>
+        <div class="buttons">
+            <!--<paper-button on-tap="viewresults" autofocus>Continue</paper-button>-->
+            <!--<paper-button on-tap="_viewToggle" autofocus>View Comment</paper-button>-->
+            <paper-button dialog-dismiss>Dismiss</paper-button>
+        </div>
+    </paper-dialog>
 
 </template>
 
@@ -76,12 +119,48 @@
             data: {
                 type: Array,
             },
+            jobid: {
+                value : '',
+                type : String,
+                notify: true,
+            },
+            jobidFull: {
+                value : '',
+                type : String,
+                notify: true,
+            },
+//            jobname: {
+//                type: String,
+//                value: 'NULL',
+//            },
+            jobcomment: {
+                type: String,
+                value: 'NULL',
+            },
+            logParams:{
+                type: String,
+                computed: 'processParams(jobidFull)'
+            },
+
+            username: {
+                type: String,
+                value: '',
+            },
         },
+
+        processParams: function(jobidFull) {
+            return {
+                jobid: jobidFull
+            };
+        },
+
         _print: function() {
             console.log(this.data);
         },
         _focus: function(e){
-            document.getElementById("desResultsShared").jobid=this._returnName(e.model.item.job);
+            var desResultsHelp = document.querySelector('des-shared-results-help');
+
+            document.getElementById("desResultsShared").jobid=e.model.item.jtitle;
             document.getElementById("desResultsShared").jobidFull=e.model.item.job;
             document.getElementById("desResultsShared").jtypes=e.model.item.jtypes;
             document.getElementById("desResultsShared").username=e.model.item.jcon;
@@ -89,6 +168,12 @@
 //            document.getElementById("desLogShared").jobid=this._returnName(e.model.item.job);
 //            document.getElementById("desLogShared").jobidFull=e.model.item.job;
             document.getElementById("smallJobListLShared").selected=e.model.index;
+
+            desResultsHelp .jobid = e.model.item.jtitle;
+            desResultsHelp .jobidFull = e.model.item.job;
+            desResultsHelp .username = e.model.item.jcon;
+            desResultsHelp .jtypes = e.model.item.jtypes;
+            desResultsHelp .jobcomment = e.model.item.jcomment;
         },
         returnName: function(job) {
             var n1=job.search("__");
@@ -127,6 +212,51 @@
 //            help.selected="10";
 //
 //        },
+
+
+        _seeLog: function(e){
+            e.stopPropagation();
+            // var jobid = document.getElementById("desResults").jobid;
+            // var jobidFull = document.getElementById("desResults").jobidFull;
+//            var pages = document.getElementById("mainPages");
+//            var help = document.getElementById("helpPages");
+//            var menu = document.querySelector('paper-menu');
+//            // var desLog = document.getElementById("desLog");
+//            //     desLog.jobidFull = jobidFull;
+//            //     desLog.jobid = jobid;
+//            app.selection="7";
+//            pages.selected="7";
+//            menu.selected="7";
+//            help.selected="7";
+//            e.stopPropagation();
+            var log = document.getElementById('logDialogSharedHelp');
+//            this.jobname = this.returnName(e.model.item.job);
+            log.open();
+
+        },
+
+        _seeComment: function(e){
+            e.stopPropagation();
+            // var jobid = document.getElementById("desResults").jobid;
+            // var jobidFull = document.getElementById("desResults").jobidFull;
+//            var pages = document.getElementById("mainPages");
+//            var help = document.getElementById("helpPages");
+//            var menu = document.querySelector('paper-menu');
+//            // var desLog = document.getElementById("desLog");
+//            //     desLog.jobidFull = jobidFull;
+//            //     desLog.jobid = jobid;
+//            app.selection="7";
+//            pages.selected="7";
+//            menu.selected="7";
+//            help.selected="7";
+            var comment = document.getElementById('commentDialogSharedHelp');
+//            this.jobname = this.returnName(e.model.item.job);
+//            this.jobcomment = e.model.item.jcomment;
+            comment.positionTarget = e;
+            comment.open();
+
+        },
+
         _getall: function(){
             var SE = document.getElementById('mainPages').selected=="7";
             var link = document.createElement('a');

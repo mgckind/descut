@@ -139,17 +139,17 @@
             list.selectedItems = [];
             this.updateStyles();
         },
-        _afterDelete: function(e){
-            var list = document.getElementById("material");
-//            this._resetSelection();
-//            for (i = 0; i < this.mytemp.length ; i++) {
-//                list.deselectItem(this.mytemp[i]);
-//            }
-            req = document.getElementById("getData");
-            req.generateRequest();
-            req2 = document.getElementById("getDataShared");
-            req2.generateRequest();
-        },
+//        _afterDelete: function(e){
+//            var list = document.getElementById("material");
+////            this._resetSelection();
+////            for (i = 0; i < this.mytemp.length ; i++) {
+////                list.deselectItem(this.mytemp[i]);
+////            }
+//            req = document.getElementById("getData");
+//            req.generateRequest();
+//            req2 = document.getElementById("getDataShared");
+//            req2.generateRequest();
+//        },
 
         _genDeleteReq: function(){
             var list = document.getElementById("material");
@@ -247,50 +247,50 @@
             }
         },
 
-        _afterShare: function(e){
-            var list = document.getElementById("material");
-//            var auto = document.getElementById("auto");
-//            auto.selectAll=false;
-//            auto.indeterminate=false;
-//            this._resetSelection();
-//            console.log("mytemp len: ",this.mytemp.length);
-//            for (i = 0; i < this.mytemp.length ; i++) {
-//                console.log(this.mytemp[i].job);
-//                list.selectItem(this.mytemp[i].item);
+//        _afterShare: function(e){
+//            var list = document.getElementById("material");
+////            var auto = document.getElementById("auto");
+////            auto.selectAll=false;
+////            auto.indeterminate=false;
+////            this._resetSelection();
+////            console.log("mytemp len: ",this.mytemp.length);
+////            for (i = 0; i < this.mytemp.length ; i++) {
+////                console.log(this.mytemp[i].job);
+////                list.selectItem(this.mytemp[i].item);
+////
+////            }
+////            var desResults = document.getElementById("desResults");
+//            req = document.getElementById("getData");
+//            req2 = document.getElementById("getDataShared");
 //
-//            }
-//            var desResults = document.getElementById("desResults");
-            req = document.getElementById("getData");
-            req2 = document.getElementById("getDataShared");
-
-            req.generateRequest();
-            req2.generateRequest();
-
-
-        },
-
-        _afterUnshare: function(e){
-//            change visibility
-            var list = document.getElementById("material");
-//            this._resetSelection();
-//            var auto = document.getElementById("auto");
-//            auto.selectAll=false;
-//            auto.indeterminate=false;
-//            console.log("mytemp len: ",this.mytemp.length);
-//            for (i = 0; i < this.mytemp.length ; i++) {
-//                console.log(this.mytemp[i].job);
-////                list.selectItem(this.mytemp[i]);
-//                list.selectItem(this.mytemp[i].item);
+//            req.generateRequest();
+//            req2.generateRequest();
 //
-//            }
-//            var desResults = document.getElementById("desResults");
-            req = document.getElementById("getData");
-            req2 = document.getElementById("getDataShared");
-            req.generateRequest();
-            req2.generateRequest();
-
-
-        },
+//
+//        },
+//
+//        _afterUnshare: function(e){
+////            change visibility
+//            var list = document.getElementById("material");
+////            this._resetSelection();
+////            var auto = document.getElementById("auto");
+////            auto.selectAll=false;
+////            auto.indeterminate=false;
+////            console.log("mytemp len: ",this.mytemp.length);
+////            for (i = 0; i < this.mytemp.length ; i++) {
+////                console.log(this.mytemp[i].job);
+//////                list.selectItem(this.mytemp[i]);
+////                list.selectItem(this.mytemp[i].item);
+////
+////            }
+////            var desResults = document.getElementById("desResults");
+//            req = document.getElementById("getData");
+//            req2 = document.getElementById("getDataShared");
+//            req.generateRequest();
+//            req2.generateRequest();
+//
+//
+//        },
     });
 
 
