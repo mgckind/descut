@@ -48,7 +48,6 @@
 
 
         <section>
-            <!--<des-shared-jobs-help class="helpB" style="float: right; width: 18%;"></des-shared-jobs-help>-->
 
             <!--<des-card>-->
                 <!--<div class='card-content'>-->
@@ -129,7 +128,7 @@
 
                             <!--</paper-icon-item>-->
                         <!--</template>-->
-            <paper-button on-tap="_genRefreshReq"><iron-icon icon="icons:refresh"></iron-icon> refresh </paper-button>
+            <!--<paper-button on-tap="_genRefreshReq"><iron-icon icon="icons:refresh"></iron-icon> refresh </paper-button>-->
 
             <vaadin-grid id="materialShared" items="{{data}}" size="200">
                 <!--<vaadin-grid-column width="40px" flex-grow="0">-->
@@ -174,10 +173,8 @@
 
                 <vaadin-grid-column flex-grow="6">
                     <template class="header">
-                        <vaadin-grid-sorter path="job">
-                            <vaadin-grid-filter aria-label="Job ID" path="job" value="[[_filterJobID]]">
-                                <input placeholder="Job ID" value="{{_filterJobID::input}}" focus-target style="width: 100%;">
-                            </vaadin-grid-filter>
+                        <vaadin-grid-sorter path="jtitle">
+                            Job ID
                         </vaadin-grid-sorter>
                     </template>
                     <template>
@@ -186,7 +183,7 @@
                             <div>
                                 <!--{{returnName(item.job)}}-->
                                 <!--it can be changed in api.py-->
-                                {{item.job}}
+                                {{item.jtitle}}
                             </div>
                             <div secondary>
                                 <!--{{item.elapsed}} ({{returnDate(item.time)}})-->
@@ -209,22 +206,24 @@
                 </vaadin-grid-column>
 
 
-                <!--<vaadin-grid-column flex-grow="1">-->
-                <!--<template class="header">-->
-                    <!--<vaadin-grid-sorter path="job">-->
-                        <!--<vaadin-grid-filter aria-label="Contributor" path="job" value="[[_filterContributor]]">-->
-                            <!--<input placeholder="Contributor" value="{{_filterContributor::input}}" focus-target style="width: 100%;">-->
-                        <!--</vaadin-grid-filter>-->
-                    <!--</vaadin-grid-sorter>-->
-                    <!--<template>{{returnName(item.job)}}</template>-->
-                <!--</template>-->
-                <!--</vaadin-grid-column>-->
+                <vaadin-grid-column flex-grow="1">
+                <template class="header">
+                    <vaadin-grid-sorter path="jcon">
+                        <vaadin-grid-filter aria-label="Contributor" path="jcon" value="[[_filterContributor]]">
+                            <input placeholder="Contributor" value="{{_filterContributor::input}}" focus-target style="width: 100%;">
+                        </vaadin-grid-filter>
+                    </vaadin-grid-sorter>
+                </template>
+                    <template>{{item.jcon}}</template>
+
+                </vaadin-grid-column>
 
                 <vaadin-grid-column flex-grow="2">
-                    <template class="header">View | Comment</template>
+                    <template class="header">Result | Log | Comment</template>
                     <template>
                         <div class="horizontal layout">
-                            <paper-icon-button icon="launch" on-tap="_logDialogOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                            <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                            <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
                             <paper-icon-button icon="communication:comment" on-tap="_viewCommentOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
                             <!--<paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>-->
                         </div>
@@ -243,8 +242,7 @@
                     </paper-card>
                 </paper-dialog-scrollable>
                 <div class="buttons">
-                    <paper-button on-tap="viewresults" autofocus>Continue</paper-button>
-                    <paper-button on-tap="_viewToggle" autofocus>View Comment</paper-button>
+                    <paper-button on-tap="viewresults" autofocus>Dismiss</paper-button>
                     <paper-button dialog-dismiss>Cancel</paper-button>
                 </div>
             </paper-dialog>
@@ -275,6 +273,7 @@
                     <!--</paper-listbox>-->
                 <!--</div>-->
             <!--</des-card>-->
+
         </section>
     </template>
 </dom-module>
@@ -365,6 +364,7 @@
             var desResults = document.getElementById("desResultsShared");
             var log = document.getElementById('logShared');
 
+
             document.getElementById("smallJobListShared").selected=e.model.index;
             document.getElementById("smallJobListLShared").selected=e.model.index;
             this.jobname = this.returnName(e.model.item.job);
@@ -381,16 +381,16 @@
             log.open();
 
         },
-        _resetSelection: function() {
-            this.$.materialShared.selectedItems = [];
-            this.updateStyles();
-        },
+//        _resetSelection: function() {
+//            this.$.materialShared.selectedItems = [];
+//            this.updateStyles();
+//        },
 
-        _genRefreshReq: function (){
-            var req = document.getElementById("getDataShared");
-            req.generateRequest();
-            this._resetSelection();
-        },
+//        _genRefreshReq: function (){
+//            var req = document.getElementById("getDataShared");
+//            req.generateRequest();
+//            this._resetSelection();
+//        },
 
         _viewToggle: function() {
             var view = document.getElementById("viewCommentDialogShared");
@@ -486,21 +486,29 @@
         },
 
         viewresults: function(e){
-            var log = document.getElementById('logShared');
-            log.close();
+//            var log = document.getElementById('logShared');
+//            log.close();
             var pages = document.getElementById("mainPages");
             var help = document.getElementById("helpPages");
             var menu = document.querySelector('paper-menu');
-
-//            var desResults = document.getElementById("desResultsShared");
+            var desResultsHelp = document.querySelector('des-shared-results-help');
+            var desResults = document.getElementById("desResultsShared");
 //            var desLog = document.getElementById("desLogShared");
-//            document.getElementById("smallJobListShared").selected=e.model.index;
-//            document.getElementById("smallJobListLShared").selected=e.model.index;
-//            desResults.jobid = this.returnName(e.model.item.job);
-//            desResults.jobidFull = e.model.item.job;
-//            desResults.username = this.username;
-//            desResults.jtypes = e.model.item.jtypes;
-//            desResults.jpublic = e.model.item.jpublic;
+            document.getElementById("smallJobListShared").selected=e.model.index;
+            document.getElementById("smallJobListLShared").selected=e.model.index;
+            desResults.jobid = this.returnName(e.model.item.job);
+            desResults.jobidFull = e.model.item.job;
+            desResults.username = e.model.item.jcon;
+            desResults.jtypes = e.model.item.jtypes;
+            desResults.jpublic = e.model.item.jpublic;
+            desResults.jobcomment = e.model.item.jcomment;
+
+            desResultsHelp .jobid = e.model.item.jtitle;
+            desResultsHelp .jobidFull = e.model.item.job;
+            desResultsHelp .username = e.model.item.jcon;
+            desResultsHelp .jtypes = e.model.item.jtypes;
+            desResultsHelp .jobcomment = e.model.item.jcomment;
+
 //            desResults.jobid = this.returnName(e.model.item.job);
 //            desResults.jobidFull = e.model.item.job;
             app.selection="9";
@@ -509,27 +517,28 @@
             help.selected="9";
 
         },
-//        viewlog: function(e) {
+        viewlog: function(e) {
+            e.stopPropagation();
+            var log = document.getElementById('logShared');
+            this.jobname = this.returnName(e.model.item.job);
+            log.open();
+
 //            e.stopPropagation();
 //            var pages = document.getElementById("mainPages");
 //            var help = document.getElementById("helpPages");
 //            var menu = document.querySelector('paper-menu');
-//            var desLog = document.getElementById("desLogShared");
 //            var desResults = document.getElementById("desResultsShared");
+//
 //            document.getElementById("smallJobListShared").selected=e.model.index;
 //            document.getElementById("smallJobListLShared").selected=e.model.index;
-//            desLog.jobidFull = e.model.item.job;
-//            desLog.jobid= this.returnName(e.model.item.job);
+//
 //            desResults.jobid = this.returnName(e.model.item.job);
 //            desResults.jobidFull = e.model.item.job;
 //            desResults.username = this.username;
 //            desResults.jtypes = e.model.item.jtypes;
 //            desResults.jpublic = e.model.item.jpublic;
-//            app.selection="10";
-//            pages.selected="10";
-//            menu.selected="10";
-//            help.selected="10";
-//        },
+
+        },
 
         _isShared: function(access) {
             if (access === 1) {
