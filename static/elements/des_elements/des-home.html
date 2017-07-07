@@ -116,7 +116,18 @@
             font-size: 0.5em;
         }
 
-
+        @media screen and (max-width: 1300px){
+            .helpB {
+                display: none;
+            }
+            .visual {
+                display: inherit;
+            }
+            vaadin-grid {
+                height: auto;
+                width: 100%;
+            }
+        }
 
 
     </style>
@@ -124,6 +135,7 @@
     <template>
 
         <section>
+            <div class="horizontal layout">
             <des-card heading="Welcome [[name]]!" class="welcome">
                 <!--<div id="content" onclick="_selectPage">-->
                 <!--<iron-pages id="mainGallery" selected="0">-->
@@ -156,6 +168,9 @@
 
 
             </des-card>
+                <des-home-help class="helpB" style="float: right; width: 18%;"></des-home-help>
+
+            </div>
 
         </section>
 

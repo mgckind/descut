@@ -183,7 +183,7 @@
                 <vaadin-grid-column flex-grow="1">
                     <template class="header">
                         <vaadin-grid-sorter path="jpublic">
-                            <vaadin-grid-filter aria-label="Public" path="jpublic" value="[[_filterPublic]]">
+                            <vaadin-grid-filter aria-label="Public" path="jpublic" value="[[_replaceNum(_filterPublic)]]">
                                 <input placeholder="Public/Private" value="{{_filterPublic::input}}" focus-target style="width: 100%;">
                             </vaadin-grid-filter>
                         </vaadin-grid-sorter>
@@ -434,7 +434,14 @@
             var job0 = job.substring(n1+2,n2-1);
             return job0;
         },
-
+        _replaceNum: function(status) {
+            if (status === "public" || status === "Public") {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        },
         returnDate: function(date) {
             var date0 = date.substring(4,19);
             return date0;
