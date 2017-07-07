@@ -96,7 +96,7 @@
 
                     <hr>
                     <div>
-                        <paper-input  id="jobcommentsingle" name="comment" label="Comment" value="{{job_comment}}" placeholder="Add comment">
+                        <paper-input  id="jobcommentsingle" name="comment" label="Comment" value="[[job_comment]]" placeholder="Add comment">
                         </paper-input>
                     </div>
                     <div class="horizontal layout around-justified" >
@@ -206,6 +206,9 @@
             this.$.desPositionsS.clear();
             this.$.blacklist.checked=false;
             this.file_name = "Upload File";
+            this.job_comment = "";
+            document.getElementById("jobcommentsingle").value="";
+
             this.$.all_toggle.checked = true;
 
             var band_rads = document.querySelectorAll('.myradio');
@@ -229,6 +232,8 @@
             document.getElementById('desSingle').clear();
             document.getElementById("getData").generateRequest();
             document.querySelector('#toast1S').show();
+            req = document.getElementById("getData");
+            req.generateRequest();
         },
         errorHandler: function(){
             console.log('NOOOO');
