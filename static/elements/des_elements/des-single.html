@@ -232,8 +232,9 @@
             document.getElementById('desSingle').clear();
             document.getElementById("getData").generateRequest();
             document.querySelector('#toast1S').show();
-            req = document.getElementById("getData");
-            req.generateRequest();
+//            req = document.getElementById("getData");
+            document.querySelector('des-my-job')._genRefreshReq();
+
         },
         errorHandler: function(){
             console.log('NOOOO');

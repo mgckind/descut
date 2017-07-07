@@ -212,8 +212,12 @@
             document.getElementById('desCoadds').clear();
             document.getElementById("getData").generateRequest();
             document.querySelector('#toast1').show();
-            req = document.getElementById("getData");
-            req.generateRequest();
+            document.querySelector('des-my-jobs').show();
+            document.querySelector('des-my-job')._genRefreshReq();
+
+
+//            req = document.getElementById("getData");
+//            req.generateRequest();
         },
         errorHandler: function(){
             console.log('NOOOO');
