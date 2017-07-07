@@ -21,6 +21,19 @@
             width: 40px;
             height: 40px;
         }
+
+        @media screen and (max-width: 1300px){
+            .helpB {
+                display: none;
+            }
+            .visual {
+                display: inherit;
+            }
+            vaadin-grid {
+                height: auto;
+                width: 100%;
+            }
+        }
     </style>
 
     <template>
@@ -349,6 +362,7 @@
             _self.count = _self.data.length;
             document.querySelector('des-shared-results-help').data = _self.data;
             document.querySelector('des-shared-logs-help').data = _self.data;
+            this._genRefreshReq();
         },
 
 
