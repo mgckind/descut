@@ -89,7 +89,7 @@
 
                     <hr>
                     <div>
-                        <paper-input  id="jobcommentcoadds" name="comment" label="Comment" value="{{job_comment}}" placeholder="Add comment">
+                        <paper-input  id="jobcommentcoadds" name="comment" label="Comment" value="[[job_comment]]" placeholder="Add comment">
                         </paper-input>
                     </div>
                     <div class="horizontal layout around-justified" >
@@ -195,6 +195,7 @@
             document.getElementById("coaddTag").selected="0";
             this.file_name = "Upload File";
             this.job_comment = "";
+            document.getElementById("jobcommentcoadds").value="";
 
             var upIcon = document.getElementById("uploadicon").style.display='inline-block';
             this.enter_values = "Enter Values";
@@ -211,6 +212,8 @@
             document.getElementById('desCoadds').clear();
             document.getElementById("getData").generateRequest();
             document.querySelector('#toast1').show();
+            req = document.getElementById("getData");
+            req.generateRequest();
         },
         errorHandler: function(){
             console.log('NOOOO');

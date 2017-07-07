@@ -48,6 +48,7 @@
 
 
         <section>
+            <div class="horizontal layout">
 
             <!--<des-card>-->
                 <!--<div class='card-content'>-->
@@ -219,9 +220,9 @@
                 </vaadin-grid-column>
 
                 <vaadin-grid-column flex-grow="2">
-                    <template class="header">Result | Log | Comment</template>
+                    <template class="header">Result <br> Log <br> Comment</template>
                     <template>
-                        <div class="horizontal layout">
+                        <div class="vertical layout">
                             <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
                             <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
                             <paper-icon-button icon="communication:comment" on-tap="_viewCommentOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
@@ -271,7 +272,9 @@
 
                         <!--</div>-->
                     <!--</paper-listbox>-->
-                <!--</div>-->
+                <des-shared-jobs-help class="helpB" style="float: right; width: 18%;"></des-shared-jobs-help>
+
+            </div>
             <!--</des-card>-->
 
         </section>
