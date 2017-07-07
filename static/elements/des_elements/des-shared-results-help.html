@@ -10,6 +10,14 @@
 
     </style>
 
+    <iron-ajax id="getLogHelpShared"
+               auto
+               url="/api/log/"
+               params={{logParams}}
+               handle-as="json"
+               last-response="{{logdata}}"
+               debounce-duration="300">
+    </iron-ajax>
 
 
  <des-card-help heading="Help">
