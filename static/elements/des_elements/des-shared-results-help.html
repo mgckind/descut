@@ -106,6 +106,7 @@
             <paper-card>
                 <div class="card-content">
                     Job : {{jobid}}
+                    <br>
                     <span>{{logdata}}</span>
                     <des-html html={{logdata}}></des-html>
                 </div>
@@ -175,7 +176,9 @@
             document.getElementById("desResultsShared").jcomment=e.model.item.jcomment;
 //            document.getElementById("desLogShared").jobid=this._returnName(e.model.item.job);
 //            document.getElementById("desLogShared").jobidFull=e.model.item.job;
-            document.getElementById("smallJobListLShared").selected=e.model.index;
+            document.getElementById("smallJobListShared").selected=e.model.index;
+
+//            document.getElementById("smallJobListLShared").selected=e.model.index;
 
             desResultsHelp .jobid = e.model.item.jtitle;
             desResultsHelp .jobidFull = e.model.item.job;
