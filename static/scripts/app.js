@@ -107,9 +107,9 @@
         var tab_five = document.getElementById("api_tab_five");
         var tab_six = document.getElementById("api_tab_six");
         var tab_seven = document.getElementById("api_tab_seven");
-        var tab_eight = document.getElementById("api_tab_eight");
-        var tab_nine = document.getElementById("api_tab_nine");
-        var tab_ten = document.getElementById("api_tab_ten");
+        // var tab_eight = document.getElementById("api_tab_eight");
+        // var tab_nine = document.getElementById("api_tab_nine");
+        // var tab_ten = document.getElementById("api_tab_ten");
 
         var apis = document.getElementById("apis");
 
@@ -122,9 +122,9 @@
             tab_five.setAttribute('class', 'unselected-tab');
             tab_six.setAttribute('class', 'unselected-tab');
             tab_seven.setAttribute('class', 'unselected-tab');
-            tab_eight.setAttribute('class', 'unselected-tab');
-            tab_nine.setAttribute('class', 'unselected-tab');
-            tab_ten.setAttribute('class', 'unselected-tab');
+            // tab_eight.setAttribute('class', 'unselected-tab');
+            // tab_nine.setAttribute('class', 'unselected-tab');
+            // tab_ten.setAttribute('class', 'unselected-tab');
 
         });
 
@@ -137,9 +137,9 @@
             tab_five.setAttribute('class', 'unselected-tab');
             tab_six.setAttribute('class', 'unselected-tab');
             tab_seven.setAttribute('class', 'unselected-tab');
-            tab_eight.setAttribute('class', 'unselected-tab');
-            tab_nine.setAttribute('class', 'unselected-tab');
-            tab_ten.setAttribute('class', 'unselected-tab');
+            // tab_eight.setAttribute('class', 'unselected-tab');
+            // tab_nine.setAttribute('class', 'unselected-tab');
+            // tab_ten.setAttribute('class', 'unselected-tab');
         });
 
         tab_three.addEventListener('click', function() {
@@ -151,9 +151,9 @@
             tab_five.setAttribute('class', 'unselected-tab');
             tab_six.setAttribute('class', 'unselected-tab');
             tab_seven.setAttribute('class', 'unselected-tab');
-            tab_eight.setAttribute('class', 'unselected-tab');
-            tab_nine.setAttribute('class', 'unselected-tab');
-            tab_ten.setAttribute('class', 'unselected-tab');
+            // tab_eight.setAttribute('class', 'unselected-tab');
+            // tab_nine.setAttribute('class', 'unselected-tab');
+            // tab_ten.setAttribute('class', 'unselected-tab');
         });
 
         tab_four.addEventListener('click', function() {
@@ -165,9 +165,9 @@
             tab_five.setAttribute('class', 'unselected-tab');
             tab_six.setAttribute('class', 'unselected-tab');
             tab_seven.setAttribute('class', 'unselected-tab');
-            tab_eight.setAttribute('class', 'unselected-tab');
-            tab_nine.setAttribute('class', 'unselected-tab');
-            tab_ten.setAttribute('class', 'unselected-tab');
+            // tab_eight.setAttribute('class', 'unselected-tab');
+            // tab_nine.setAttribute('class', 'unselected-tab');
+            // tab_ten.setAttribute('class', 'unselected-tab');
 
         });
 
@@ -180,9 +180,9 @@
             tab_five.setAttribute('class', 'selected-tab');
             tab_six.setAttribute('class', 'unselected-tab');
             tab_seven.setAttribute('class', 'unselected-tab');
-            tab_eight.setAttribute('class', 'unselected-tab');
-            tab_nine.setAttribute('class', 'unselected-tab');
-            tab_ten.setAttribute('class', 'unselected-tab');
+            // tab_eight.setAttribute('class', 'unselected-tab');
+            // tab_nine.setAttribute('class', 'unselected-tab');
+            // tab_ten.setAttribute('class', 'unselected-tab');
 
         });
 
@@ -195,9 +195,9 @@
             tab_five.setAttribute('class', 'unselected-tab');
             tab_six.setAttribute('class', 'selected-tab');
             tab_seven.setAttribute('class', 'unselected-tab');
-            tab_eight.setAttribute('class', 'unselected-tab');
-            tab_nine.setAttribute('class', 'unselected-tab');
-            tab_ten.setAttribute('class', 'unselected-tab');
+            // tab_eight.setAttribute('class', 'unselected-tab');
+            // tab_nine.setAttribute('class', 'unselected-tab');
+            // tab_ten.setAttribute('class', 'unselected-tab');
         });
 
         tab_seven.addEventListener('click', function() {
@@ -209,122 +209,122 @@
             tab_five.setAttribute('class', 'unselected-tab');
             tab_six.setAttribute('class', 'unselected-tab');
             tab_seven.setAttribute('class', 'selected-tab');
-            tab_eight.setAttribute('class', 'unselected-tab');
-            tab_nine.setAttribute('class', 'unselected-tab');
-            tab_ten.setAttribute('class', 'unselected-tab');
+            // tab_eight.setAttribute('class', 'unselected-tab');
+            // tab_nine.setAttribute('class', 'unselected-tab');
+            // tab_ten.setAttribute('class', 'unselected-tab');
         });
 
-        tab_eight.addEventListener('click', function() {
-            apis.selected = "7";
-            tab_one.setAttribute('class', 'unselected-tab');
-            tab_two.setAttribute('class', 'unselected-tab');
-            tab_three.setAttribute('class', 'unselected-tab');
-            tab_four.setAttribute('class', 'unselected-tab');
-            tab_five.setAttribute('class', 'unselected-tab');
-            tab_six.setAttribute('class', 'unselected-tab');
-            tab_seven.setAttribute('class', 'unselected-tab');
-            tab_eight.setAttribute('class', 'selected-tab');
-            tab_nine.setAttribute('class', 'unselected-tab');
-            tab_ten.setAttribute('class', 'unselected-tab');
-        });
-        tab_nine.addEventListener('click', function() {
-            apis.selected = "8";
-            tab_one.setAttribute('class', 'unselected-tab');
-            tab_two.setAttribute('class', 'unselected-tab');
-            tab_three.setAttribute('class', 'unselected-tab');
-            tab_four.setAttribute('class', 'unselected-tab');
-            tab_five.setAttribute('class', 'unselected-tab');
-            tab_six.setAttribute('class', 'unselected-tab');
-            tab_seven.setAttribute('class', 'unselected-tab');
-            tab_eight.setAttribute('class', 'unselected-tab');
-            tab_nine.setAttribute('class', 'selected-tab');
-            tab_ten.setAttribute('class', 'unselected-tab');
-        });
-        tab_ten.addEventListener('click', function() {
-            apis.selected = "9";
-            tab_one.setAttribute('class', 'unselected-tab');
-            tab_two.setAttribute('class', 'unselected-tab');
-            tab_three.setAttribute('class', 'unselected-tab');
-            tab_four.setAttribute('class', 'unselected-tab');
-            tab_five.setAttribute('class', 'unselected-tab');
-            tab_six.setAttribute('class', 'unselected-tab');
-            tab_seven.setAttribute('class', 'unselected-tab');
-            tab_eight.setAttribute('class', 'unselected-tab');
-            tab_nine.setAttribute('class', 'unselected-tab');
-            tab_ten.setAttribute('class', 'selected-tab');
-        });
+        // tab_eight.addEventListener('click', function() {
+        //     apis.selected = "7";
+        //     tab_one.setAttribute('class', 'unselected-tab');
+        //     tab_two.setAttribute('class', 'unselected-tab');
+        //     tab_three.setAttribute('class', 'unselected-tab');
+        //     tab_four.setAttribute('class', 'unselected-tab');
+        //     tab_five.setAttribute('class', 'unselected-tab');
+        //     tab_six.setAttribute('class', 'unselected-tab');
+        //     tab_seven.setAttribute('class', 'unselected-tab');
+        //     tab_eight.setAttribute('class', 'selected-tab');
+        //     tab_nine.setAttribute('class', 'unselected-tab');
+        //     tab_ten.setAttribute('class', 'unselected-tab');
+        // });
+        // tab_nine.addEventListener('click', function() {
+        //     apis.selected = "8";
+        //     tab_one.setAttribute('class', 'unselected-tab');
+        //     tab_two.setAttribute('class', 'unselected-tab');
+        //     tab_three.setAttribute('class', 'unselected-tab');
+        //     tab_four.setAttribute('class', 'unselected-tab');
+        //     tab_five.setAttribute('class', 'unselected-tab');
+        //     tab_six.setAttribute('class', 'unselected-tab');
+        //     tab_seven.setAttribute('class', 'unselected-tab');
+        //     tab_eight.setAttribute('class', 'unselected-tab');
+        //     tab_nine.setAttribute('class', 'selected-tab');
+        //     tab_ten.setAttribute('class', 'unselected-tab');
+        // });
+        // tab_ten.addEventListener('click', function() {
+        //     apis.selected = "9";
+        //     tab_one.setAttribute('class', 'unselected-tab');
+        //     tab_two.setAttribute('class', 'unselected-tab');
+        //     tab_three.setAttribute('class', 'unselected-tab');
+        //     tab_four.setAttribute('class', 'unselected-tab');
+        //     tab_five.setAttribute('class', 'unselected-tab');
+        //     tab_six.setAttribute('class', 'unselected-tab');
+        //     tab_seven.setAttribute('class', 'unselected-tab');
+        //     tab_eight.setAttribute('class', 'unselected-tab');
+        //     tab_nine.setAttribute('class', 'unselected-tab');
+        //     tab_ten.setAttribute('class', 'selected-tab');
+        // });
 
 
-        var list = document.getElementById("jobList");
-        var list2 = document.getElementById("jobListShared");
-        var smallList = document.getElementById("smallJobList");
-        var smallListL = document.getElementById("smallJobListL");
-        var smallList2 = document.getElementById("smallJobListShared");
-        var smallListL2 = document.getElementById("smallJobListLShared");
-        var checkList = document.getElementById("checkAll");
-        var checkList2 = document.getElementById("checkAllShared");
-
-        list.addEventListener('iron-select', function(){
-            var listAll = [];
-            listAll = list.selectedValues;
-            if (listAll.length > 0){
-                document.getElementById("DeleteHeader").style.display = "block";
-                document.getElementById("ListHeader").style.display = "none";
-                checkList.checked = true;
-            };
-        });
-
-        //smallList.addEventListener('iron-select', function(){
-          //  console.log(smallList.selectedItem.item);
-           // document.getElementById("desResults").jobid=smallList.selectedItem.innerText.trim();
-           // desResults.username = document.getElementById("desJobs").username;
-           // document.getElementById("getTiles").generateRequest();
-            //});
-        //smallListL.addEventListener('iron-select', function(){
-          //  document.getElementById("desLog").jobid=smallList.selectedItem.innerText.trim();
-           // document.getElementById("getLog").generateRequest();
-            //});
-
-        list.addEventListener('iron-deselect', function(){
-            var listAll = [];
-            listAll = list.selectedValues;
-            if (listAll.length == 0){
-                document.getElementById("DeleteHeader").style.display = "none";
-                document.getElementById("ListHeader").style.display = "block";
-                checkList.checked = false;
-                };
-        });
-
-
-        list.addEventListener('iron-items-changed', function(){
-            document.getElementById("DeleteHeader").style.display = "none";
-            document.getElementById("ListHeader").style.display = "block";
-            checkList.checked = false;
-        });
-
-        list2.addEventListener('iron-select', function(){
-            var listAll = [];
-            listAll = list2.selectedValues;
-            if (listAll.length > 0){
-                checkList2.checked = true;
-            };
-        });
-
-        list2.addEventListener('iron-deselect', function(){
-            var listAll = [];
-            listAll = list2.selectedValues;
-            if (listAll.length == 0){
-                // document.getElementById("InfoHeader").style.display = "none";
-                document.getElementById("ListHeaderShared").style.display = "block";
-                checkList2.checked = false;
-            };
-        });
-
-        list2.addEventListener('iron-items-changed', function(){
-            // document.getElementById("InfoHeader").style.display = "none";
-            document.getElementById("ListHeaderShared").style.display = "block";
-            checkList2.checked = false;
-        });
+        // // var list = document.getElementById("jobList");
+        // // var list2 = document.getElementById("jobListShared");
+        // var smallList = document.getElementById("smallJobList");
+        // var smallListL = document.getElementById("smallJobListL");
+        // var smallList2 = document.getElementById("smallJobListShared");
+        // var smallListL2 = document.getElementById("smallJobListLShared");
+        // var checkList = document.getElementById("checkAll");
+        // var checkList2 = document.getElementById("checkAllShared");
+        //
+        // list.addEventListener('iron-select', function(){
+        //     var listAll = [];
+        //     listAll = list.selectedValues;
+        //     if (listAll.length > 0){
+        //         document.getElementById("DeleteHeader").style.display = "block";
+        //         document.getElementById("ListHeader").style.display = "none";
+        //         checkList.checked = true;
+        //     };
+        // });
+        //
+        // //smallList.addEventListener('iron-select', function(){
+        //   //  console.log(smallList.selectedItem.item);
+        //    // document.getElementById("desResults").jobid=smallList.selectedItem.innerText.trim();
+        //    // desResults.username = document.getElementById("desJobs").username;
+        //    // document.getElementById("getTiles").generateRequest();
+        //     //});
+        // //smallListL.addEventListener('iron-select', function(){
+        //   //  document.getElementById("desLog").jobid=smallList.selectedItem.innerText.trim();
+        //    // document.getElementById("getLog").generateRequest();
+        //     //});
+        //
+        // list.addEventListener('iron-deselect', function(){
+        //     var listAll = [];
+        //     listAll = list.selectedValues;
+        //     if (listAll.length == 0){
+        //         document.getElementById("DeleteHeader").style.display = "none";
+        //         document.getElementById("ListHeader").style.display = "block";
+        //         checkList.checked = false;
+        //         };
+        // });
+        //
+        //
+        // list.addEventListener('iron-items-changed', function(){
+        //     document.getElementById("DeleteHeader").style.display = "none";
+        //     document.getElementById("ListHeader").style.display = "block";
+        //     checkList.checked = false;
+        // });
+        //
+        // list2.addEventListener('iron-select', function(){
+        //     var listAll = [];
+        //     listAll = list2.selectedValues;
+        //     if (listAll.length > 0){
+        //         checkList2.checked = true;
+        //     };
+        // });
+        //
+        // list2.addEventListener('iron-deselect', function(){
+        //     var listAll = [];
+        //     listAll = list2.selectedValues;
+        //     if (listAll.length == 0){
+        //         // document.getElementById("InfoHeader").style.display = "none";
+        //         document.getElementById("ListHeaderShared").style.display = "block";
+        //         checkList2.checked = false;
+        //     };
+        // });
+        //
+        // list2.addEventListener('iron-items-changed', function(){
+        //     // document.getElementById("InfoHeader").style.display = "none";
+        //     document.getElementById("ListHeaderShared").style.display = "block";
+        //     checkList2.checked = false;
+        // });
 
         var xsize = document.getElementById("xsizeSlider");
             xsize.addEventListener('value-change', function() {

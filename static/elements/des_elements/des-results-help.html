@@ -20,6 +20,7 @@
 
      <des-card-help heading="Help">
         <div class="card-content">
+
             <p> Download all tiles or a text file with the list of files only. In the latter case use:
                 <pre>wget -i list.txt</pre> Selectable list below to change between jobs
             </p>
@@ -56,7 +57,7 @@
             <hr class="des-hr">
 
             <b> Job list shortcut</b>
-            <paper-listbox id="smallJobList" >
+            <paper-listbox id="smallJobList">
                     <template is="dom-repeat" id="menu" items="[[data]]">
                         <paper-item on-focus="_focus">
 
@@ -76,6 +77,8 @@
                         </paper-item>
                     </template>
             </paper-listbox>
+
+
 
         </div>
     </des-card-help>
@@ -158,20 +161,43 @@
             console.log(this.data);
         },
         _focus: function(e){
-            var desResultsHelp = document.querySelector('des-results-help');
-            document.getElementById("desResults").jobid=this._returnName(e.model.item.job);
+            var desResultsHelp = document.querySelectorAll('des-results-help');
+//            var desResultsHelpRight = document.querySelector('#resultsRight');
+            document.getElementById("desResults").jobid= e.model.item.jtitle;
             document.getElementById("desResults").jobidFull=e.model.item.job;
             document.getElementById("desResults").jtypes=e.model.item.jtypes;
 //            document.getElementById("desLog").jobid=this._returnName(e.model.item.job);
 //            document.getElementById("desLog").jobidFull=e.model.item.job;
 //            document.getElementById("smallJobListL").selected=e.model.index;
-            document.getElementById("smallJobList").selected=e.model.index;
+//            document.getElementById("smallJobList").selected=e.model.index;
 
-            desResultsHelp .jobid = e.model.item.jtitle;
-            desResultsHelp .jobidFull = e.model.item.job;
-//            desResultsHelp .username = this.username;
-            desResultsHelp .jtypes = e.model.item.jtypes;
-            desResultsHelp .jobcomment = e.model.item.jcomment;
+            desResultsHelp[0] .jobid = e.model.item.jtitle;
+            desResultsHelp[0] .jobidFull = e.model.item.job;
+//            desResultsHelp[0] .username = this.username;
+            desResultsHelp[0] .jtypes = e.model.item.jtypes;
+            desResultsHelp[0] .jobcomment = e.model.item.jcomment;
+            desResultsHelp[0].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
+
+
+            desResultsHelp[1] .jobid = e.model.item.jtitle;
+            desResultsHelp[1] .jobidFull = e.model.item.job;
+//            desResultsHelp[1] .username = this.username;
+            desResultsHelp[1] .jtypes = e.model.item.jtypes;
+            desResultsHelp[1] .jobcomment = e.model.item.jcomment;
+            desResultsHelp[1].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
+
+//            desResultsHelp.jobid = e.model.item.jtitle;
+//            desResultsHelp.jobidFull = e.model.item.job;
+////            desResultsHelp .username = this.username;
+//            desResultsHelp.jtypes = e.model.item.jtypes;
+//            desResultsHelp.jobcomment = e.model.item.jcomment;
+//
+//            desResultsHelpRight.jobid = e.model.item.jtitle;
+//            desResultsHelpRight.jobidFull = e.model.item.job;
+////            desResultsHelp .username = this.username;
+//            desResultsHelpRight.jtypes = e.model.item.jtypes;
+//            desResultsHelpRight.jobcomment = e.model.item.jcomment;
+
         },
         returnName: function(job) {
             var n1=job.search("__");

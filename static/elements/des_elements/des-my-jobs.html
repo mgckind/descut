@@ -81,14 +81,14 @@
                    debounce-duration="300">
         </iron-ajax>
 
-        <iron-ajax id="getLog"
-                   auto
-                   url="/api/log/"
-                   params={{logParams}}
-                   handle-as="json"
-                   last-response="{{logdata}}"
-                   debounce-duration="300">
-        </iron-ajax>
+        <!--<iron-ajax id="getLog"-->
+                   <!--auto-->
+                   <!--url="/api/log/"-->
+                   <!--params={{logParams}}-->
+                   <!--handle-as="json"-->
+                   <!--last-response="{{logdata}}"-->
+                   <!--debounce-duration="300">-->
+        <!--</iron-ajax>-->
 
 
         <section>
@@ -113,10 +113,10 @@
                 <vaadin-grid-selection-column id="auto" auto-select>
                 </vaadin-grid-selection-column>
 
-                <vaadin-grid-column  flex-grow="0">
-                    <template class="header">#</template>
-                    <template>[[index]]</template>
-                </vaadin-grid-column>
+                <!--<vaadin-grid-column  flex-grow="0">-->
+                    <!--<template class="header">#</template>-->
+                    <!--<template>[[index]]</template>-->
+                <!--</vaadin-grid-column>-->
 
 
                 <vaadin-grid-column flex-grow="0">
@@ -144,12 +144,12 @@
 
                 <vaadin-grid-column flex-grow="6">
                     <template class="header">
-                        <vaadin-grid-sorter path="job">
+                        <!--<vaadin-grid-sorter path="job">-->
                             <!--<vaadin-grid-filter aria-label="Job ID" path="job" value="[[_filterJobID]]">-->
                                 <!--<input placeholder="Job ID" value="{{_filterJobID::input}}" focus-target style="width: 100%;">-->
                             <!--</vaadin-grid-filter>-->
                             Job ID
-                        </vaadin-grid-sorter>
+                        <!--</vaadin-grid-sorter>-->
 
                     </template>
                     <template>
@@ -183,7 +183,7 @@
                 <vaadin-grid-column flex-grow="1">
                     <template class="header">
                         <vaadin-grid-sorter path="jpublic">
-                            <vaadin-grid-filter aria-label="Public" path="jpublic" value="[[_replaceNum(_filterPublic)]]">
+                            <vaadin-grid-filter aria-label="Public" path="jpublic" value="[[_filterPublic]]">
                                 <input placeholder="Public/Private" value="{{_filterPublic::input}}" focus-target style="width: 100%;">
                             </vaadin-grid-filter>
                         </vaadin-grid-sorter>
@@ -195,44 +195,42 @@
 
                 <vaadin-grid-column flex-grow="2">
                     <template class="header">
-                        Result | Log
-                        <br></br>
-                        Comment | Cancel
+                        Result | Comment | Cancel
                     </template>
                     <template>
 
                         <div class="horizontal layout">
 
-                        <div class="vertical layout">
+                        <!--<div class="vertical layout">-->
                             <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
-                            <paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>
-                        </div>
-                        <div class="vertical layout">
+                            <!--<paper-icon-button icon="assignment" on-tap="viewlog" disabled$="{{_viewlog(item.status)}}"></paper-icon-button>-->
+                        <!--</div>-->
+                        <!--<div class="vertical layout">-->
                             <paper-icon-button icon="communication:comment" on-tap="_editCommentOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
                             <paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
-                        </div>
+                        <!--</div>-->
                         </div>
                     </template>
                 </vaadin-grid-column>
             </vaadin-grid>
-            <paper-dialog id="log">
-                <h2>Log</h2>
-                <paper-dialog-scrollable>
-                    <paper-card>
-                        <div class="card-content">
-                            Job : {{jobname}}
-                            <br>
-                            <span>{{logdata}}</span>
-                            <des-html html={{logdata}}></des-html>
-                        </div>
-                    </paper-card>
-                </paper-dialog-scrollable>
-                <div class="buttons">
-                    <!--<paper-button on-tap="viewresults" autofocus>Continue</paper-button>-->
-                    <!--<paper-button on-tap="_viewToggle" autofocus>View Comment</paper-button>-->
-                    <paper-button dialog-dismiss>Dismiss</paper-button>
-                </div>
-            </paper-dialog>
+            <!--<paper-dialog id="log">-->
+                <!--<h2>Log</h2>-->
+                <!--<paper-dialog-scrollable>-->
+                    <!--<paper-card>-->
+                        <!--<div class="card-content">-->
+                            <!--Job : {{jobname}}-->
+                            <!--<br>-->
+                            <!--<span>{{logdata}}</span>-->
+                            <!--<des-html html={{logdata}}></des-html>-->
+                        <!--</div>-->
+                    <!--</paper-card>-->
+                <!--</paper-dialog-scrollable>-->
+                <!--<div class="buttons">-->
+                    <!--&lt;!&ndash;<paper-button on-tap="viewresults" autofocus>Continue</paper-button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<paper-button on-tap="_viewToggle" autofocus>View Comment</paper-button>&ndash;&gt;-->
+                    <!--<paper-button dialog-dismiss>Dismiss</paper-button>-->
+                <!--</div>-->
+            <!--</paper-dialog>-->
 
             <paper-dialog id="viewCommentDialog">
                 <h2>Comment</h2>
@@ -259,7 +257,7 @@
                     <paper-button dialog-dismiss>Cancel</paper-button>
                 </div>
             </paper-dialog>
-            <des-my-jobs-help class="helpB" style="float: right; width: 18%;"></des-my-jobs-help>
+                <des-my-jobs-help class="helpB" style="float: right; width: 18%;"></des-my-jobs-help>
 
                 <!--</paper-icon-item>-->
 
@@ -343,8 +341,10 @@
             var _self = this;
             _self.data = e.detail.response;
             _self.count = _self.data.length;
-            document.querySelector('des-results-help').data = _self.data;
-            document.querySelector('des-logs-help').data = _self.data;
+            document.querySelectorAll('des-results-help')[0].data = _self.data
+            document.querySelectorAll('des-results-help')[1].data = _self.data;
+            ;
+//            document.querySelector('des-logs-help').data = _self.data;
 //            this._genRefreshReq();
         },
 //        _resetSelection: function() {
@@ -356,6 +356,9 @@
         _genRefreshReq: function (){
             var req = document.getElementById("getData");
             req.generateRequest();
+//            console.log(document.getElementsByTagName('input').value);
+//            document.getElementsByTagName('input').value='';
+
 //            this._resetSelection();
         },
         processParams: function(jobidFull) {
@@ -436,8 +439,11 @@
             return job0;
         },
         _replaceNum: function(status) {
-            if (status === "public" || status === "Public") {
+            if (status === "public" || status === "Public" || status === "Pub" || status === "pub") {
                 return 1;
+            }
+            else if(status === "") {
+                return;
             }
             else {
                 return 0;
@@ -529,21 +535,39 @@
             var help = document.getElementById("helpPages");
             var menu = document.querySelector('paper-menu');
             var desResults = document.getElementById("desResults");
-            var desResultsHelp = document.querySelector('des-results-help');
+            var desResultsHelp = document.querySelectorAll('des-results-help');
+//            var desResultsHelpRight = document.getElementById("resultsRight");
 
-            document.getElementById("smallJobList").selected=e.model.index;
-            document.getElementById("smallJobListL").selected=e.model.index;
+//            var list = document.getElementsByTagName("smallJobList")
+//            list[0].selected=e.model.index;
+//            document.getElementById("smallJobListL").selected=e.model.index;
             desResults.jobid = this.returnName(e.model.item.job);
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
             desResults.jtypes = e.model.item.jtypes;
             desResults.jobcomment = e.model.item.jcomment;
 
-            desResultsHelp .jobid = e.model.item.jtitle;
-            desResultsHelp .jobidFull = e.model.item.job;
-            desResultsHelp .username = this.username;
-            desResultsHelp .jtypes = e.model.item.jtypes;
-            desResultsHelp .jobcomment = e.model.item.jcomment;
+            desResultsHelp[0] .jobid = e.model.item.jtitle;
+            desResultsHelp[0] .jobidFull = e.model.item.job;
+            desResultsHelp[0] .username = this.username;
+            desResultsHelp[0] .jtypes = e.model.item.jtypes;
+            desResultsHelp[0] .jobcomment = e.model.item.jcomment;
+            desResultsHelp[0].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
+
+
+            desResultsHelp[1] .jobid = e.model.item.jtitle;
+            desResultsHelp[1] .jobidFull = e.model.item.job;
+            desResultsHelp[1] .username = this.username;
+            desResultsHelp[1] .jtypes = e.model.item.jtypes;
+            desResultsHelp[1] .jobcomment = e.model.item.jcomment;
+            desResultsHelp[1].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
+
+
+//            desResultsHelpRight .jobid = e.model.item.jtitle;
+//            desResultsHelpRight .jobidFull = e.model.item.job;
+//            desResultsHelpRight .username = this.username;
+//            desResultsHelpRight .jtypes = e.model.item.jtypes;
+//            desResultsHelpRight .jobcomment = e.model.item.jcomment;
 //            desResults.jobid = this.returnName(e.model.item.job);
 //            desResults.jobidFull = e.model.item.job;
             app.selection="7";
