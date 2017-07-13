@@ -22,7 +22,9 @@
 
  <des-card-help heading="Help">
     <div class="card-content">
-        Contributed by {{username}}
+        Contributor: {{username}}
+        <br>
+        Job Type: {{jobtypes}}
         <hr class="des-hr">
         <p> Download all tiles or a text file with the list of files only. In the latter case use:
             <pre>wget -i list.txt</pre> Selectable list below to change between jobs
@@ -140,10 +142,10 @@
                 type : String,
                 notify: true,
             },
-//            jobname: {
-//                type: String,
-//                value: 'NULL',
-//            },
+            jobtypes: {
+                type: String,
+                value: 'NULL',
+            },
             jobcomment: {
                 type: String,
                 value: 'NULL',
@@ -185,7 +187,7 @@
             desResultsHelp[0].jobid = e.model.item.jtitle;
             desResultsHelp[0].jobidFull = e.model.item.job;
             desResultsHelp[0].username = e.model.item.jcon;
-            desResultsHelp[0].jtypes = e.model.item.jtypes;
+            desResultsHelp[0].jobtypes = e.model.item.jtypes;
             desResultsHelp[0].jobcomment = e.model.item.jcomment;
             desResultsHelp[0].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
 
@@ -193,7 +195,7 @@
             desResultsHelp[1].jobid = e.model.item.jtitle;
             desResultsHelp[1].jobidFull = e.model.item.job;
             desResultsHelp[1].username = e.model.item.jcon;
-            desResultsHelp[1].jtypes = e.model.item.jtypes;
+            desResultsHelp[1].jobtypes = e.model.item.jtypes;
             desResultsHelp[1].jobcomment = e.model.item.jcomment;
             desResultsHelp[1].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
         },
