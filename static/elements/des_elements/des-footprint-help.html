@@ -176,6 +176,8 @@
         _clear: function() {
             var title =document.getElementById("tiletitleHelp");
             title.innerHTML = '';
+            globe.refresh();
+
         },
         _toCoadds: function () {
             var title =document.getElementById("tiletitleHelp");
@@ -196,6 +198,7 @@
                 document.getElementById("uploadFile").disabled=true;
                 document.getElementById("keyboardicon").style.display='none';
                 document.getElementById("desCoadds").enter_values = "Values Entered";
+                document.querySelector('#desCoadds').submit_type='manual';
             }
 
         },
@@ -217,6 +220,8 @@
                 document.getElementById("uploadFileS").disabled=true;
                 document.getElementById("keyboardiconS").style.display='none';
                 document.getElementById("desSingle").enter_values = "Values Entered";
+                document.querySelector('#desSingle').submit_type='manual';
+
             }
         },
 
