@@ -6,30 +6,47 @@
             color : red;
             text-align: center;
             }
-  .temp {
-    border: 1px solid grey;
-  }
+        .temp {
+            border-width:5px 2px;
+            border-style: double;
+            border-color: black red;
+            vertical-align: middle;
+            border-left-height: 50%;
+            /*padding: 50px;*/
+            float: right;
+            margin: 100px;
+            /*outline-top: 1px solid #ccc;*/
+
+        }
+
     </style>
 
-    <div class="horizontal layout">
-    <des-card heading="The content of these pages are restricted."  class="temp">
-      <div class="card-content">
-      <span>Use your DESDM DB credentials</span>
+    <div class="horizontal layout around justified">
+        <!--<iron-image style="width:200px; height:200px; margin: auto;"sizing="cover" src="/static/images/DESDM_logo.png"></iron-image>-->
+        <des-card heading="The content of these pages are restricted."  class="temp">
 
-        <form  id="userpass" method="post">
-          <paper-input name="username" label="Username"  required></paper-input><br>
-          <paper-input name="password" type="password" label="Password"  required></paper-input><br>
-          <div class="horizontal layout center-justified">
-          <paper-button raised class="desbutton" id="LoginButton" on-tap="_clickSubmit"> 
-          <i class="fa fa-sign-in"></i> &nbsp;  &nbsp; Login</paper-button></div>
-           <div class="horizontal layout center-justified">
-        <paper-spinner id="LoginSpinner" class="big"></paper-spinner> </div>
-          
-        </form>
-        <div id="divError" class="errormessage"><b>{{error}}</b></div>
-        </div>
+            <div class="card-content">
+                <span>Use your DESDM DB credentials</span>
+
+                <form  id="userpass" method="post">
+
+                <paper-input name="username" label="Username"  required></paper-input><br>
+
+                <paper-input name="password" type="password" label="Password"  required></paper-input><br>
+                <div class="horizontal layout center-justified">
+                    <paper-button raised class="desbutton" id="LoginButton" on-tap="_clickSubmit">
+                    <i class="fa fa-sign-in"></i> &nbsp;  &nbsp; Login</paper-button>
+                </div>
+                <div class="horizontal layout center-justified">
+                    <paper-spinner id="LoginSpinner" class="big"></paper-spinner>
+                </div>
+
+                </form>
+                <div id="divError" class="errormessage"><b>{{error}}</b>
+                </div>
+            </div>
         </des-card>
-        </div>
+    </div>
 
 
 </template>
