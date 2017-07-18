@@ -31,7 +31,7 @@
         <b>Comment:</b> {{jobcomment}}
         <hr class="des-hr">
 
-    <template is="dom-if" if="{{_actionIsCoadd(jtypes)}}">
+    <template is="dom-if" if="{{_actionIsCoadd(jobtypes)}}">
     <template is="dom-if" if="{{jsondata}}">
         <template is="dom-repeat" items="{{jsondata}}">
             <des-thumb imtitle={{item.title}} imdisplay={{item.name}}>
@@ -40,7 +40,7 @@
     </template>
     </template>
 
-    <template is="dom-if" if="{{_actionIsSE(jtypes)}}">
+    <template is="dom-if" if="{{_actionIsSE(jobtypes)}}">
     <template id="inside" is="dom-if" if="{{jsondata}}">
         <template id="seRepeat" is="dom-repeat" items="{{jsondata}}">
             <des-thumb-single imdisplay="[[item.demo_png]]" imtitle="[[item.image_title]]" username="{{username}}" ra="[[item.RA]]" dec="[[item.DEC]]" jobid="[[jobid2]]"></des-thumb-single>
@@ -106,7 +106,7 @@
           },
           _afterChange: function(e){
             this.async(function(){
-              if (e.target.id == "inside" && this.jtypes == "SE"){
+              if (e.target.id == "inside" && this.jobtypes == "SE"){
                 this.jobid2 = this.jobid;
               }
             });
