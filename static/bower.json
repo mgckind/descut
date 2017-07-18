@@ -25,7 +25,8 @@
     "paper-item": "PolymerElements/paper-item#^1.2.1",
     "neon-animation": "PolymerElements/neon-animation#^1.2.4",
     "juicy-html": "^1.1.0",
-    "vaadin-grid": "vaadin/vaadin-grid#^2.0.3"
+    "vaadin-grid": "vaadin/vaadin-grid#^2.0.3",
+    "paper-fab-speed-dial": "^2.1.3"
   },
   "resolutions": {
     "polymer": "~1.2.0",

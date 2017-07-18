@@ -20,10 +20,7 @@
 
      <des-card-help heading="Help">
         <div class="card-content">
-            <b>Job Types:</b> {{jobtypes}}
-            <br>
-            <b>Comment:</b> {{jobcomment}}
-            <hr class="des-hr">
+
 
             <p> Download all tiles or a text file with the list of files only. In the latter case use:
                 <pre>wget -i list.txt</pre> Selectable list below to change between jobs
@@ -169,7 +166,8 @@
 //            var desResultsHelpRight = document.querySelector('#resultsRight');
             document.getElementById("desResults").jobid= e.model.item.jtitle;
             document.getElementById("desResults").jobidFull=e.model.item.job;
-            document.getElementById("desResults").jtypes=e.model.item.jtypes;
+            document.getElementById("desResults").jobtypes=e.model.item.jtypes;
+            document.getElementById("desResults").jobcomment=e.model.item.jcomment;
 //            document.getElementById("desLog").jobid=this._returnName(e.model.item.job);
 //            document.getElementById("desLog").jobidFull=e.model.item.job;
 //            document.getElementById("smallJobListL").selected=e.model.index;
@@ -178,7 +176,7 @@
             desResultsHelp[0] .jobid = e.model.item.jtitle;
             desResultsHelp[0] .jobidFull = e.model.item.job;
 //            desResultsHelp[0] .username = this.username;
-            desResultsHelp[0] .jtypes = e.model.item.jtypes;
+            desResultsHelp[0] .jobtypes = e.model.item.jtypes;
             desResultsHelp[0] .jobcomment = e.model.item.jcomment;
             desResultsHelp[0].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
 
@@ -186,7 +184,7 @@
             desResultsHelp[1] .jobid = e.model.item.jtitle;
             desResultsHelp[1] .jobidFull = e.model.item.job;
 //            desResultsHelp[1] .username = this.username;
-            desResultsHelp[1] .jtypes = e.model.item.jtypes;
+            desResultsHelp[1] .jobtypes = e.model.item.jtypes;
             desResultsHelp[1] .jobcomment = e.model.item.jcomment;
             desResultsHelp[1].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
 

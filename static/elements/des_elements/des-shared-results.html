@@ -24,7 +24,12 @@
     <des-shared-results-help class="helpB" style="float: right; width: 18%;"></des-shared-results-help>
 
     <des-card heading="Job : [[jobid]] ( [[jsondata.length]] objects)">
-
+        <b>Contributor:</b> {{username}}
+        <br>
+        <b>Job Type:</b> {{jobtypes}}
+        <br>
+        <b>Comment:</b> {{jobcomment}}
+        <hr class="des-hr">
 
     <template is="dom-if" if="{{_actionIsCoadd(jtypes)}}">
     <template is="dom-if" if="{{jsondata}}">
@@ -77,13 +82,13 @@
                 type : String,
                 notify: true,
             },
-            jtypes: {
+            jobtypes: {
                 value : '',
                 type : String,
                 notify: true,
             },
 
-            jcomment: {
+            jobcomment: {
                 value : '',
                 type : String,
                 notify: true,
