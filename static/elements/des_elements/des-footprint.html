@@ -386,9 +386,11 @@
                                 this.xvalue = restoreRA(ra_t);
                                 this.yvalue = dec_t;
                                 this.data = restoreRA(ra_t)+", "+dec_t;
+                                var x_part = this.xvalue.toFixed(4);
+                                var y_part = this.yvalue.toFixed(4);
 //                            console.log(this.data);
 //                            title.innerHTML = tilename + "( " +restoreRA(ra_t)+", "+dec_t+" )";
-                                titleHelp.innerHTML = tilename + "( "  +restoreRA(ra_t)+", "+dec_t+" )";
+                                titleHelp.innerHTML = tilename + "<br>" + "( "  +x_part+", "+y_part+" )";
 //                            title.style.visibility = 'visible';
                                 if (window.tempLayer === undefined){
                                     var ju = 0;
