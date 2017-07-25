@@ -83,8 +83,25 @@
         <paper-menu id="bigmenu"  selected="[[selection]]" >
             <!-- Order is important, it needs to match des-mainpages -->
             <paper-item>Home              </paper-item>
-            <paper-item> My Jobs              </paper-item>
-            <paper-item> Shared Jobs              </paper-item>
+            <!--<paper-item> My Jobs              </paper-item>-->
+            <paper-submenu>
+                <paper-item class="menu-trigger">My Jobs</paper-item>
+                <paper-menu class="menu-content" selected="0">
+                    <paper-item> • descut jobs </paper-item>
+                    <paper-item> • easyweb jobs </paper-item>
+                    <!--<paper-item>Topic 3</paper-item>-->
+                </paper-menu>
+            </paper-submenu>
+
+            <!--<paper-item> Shared Jobs              </paper-item>-->
+            <paper-submenu>
+                <paper-item class="menu-trigger">Shared Jobs</paper-item>
+                <paper-menu class="menu-content" selected="0">
+                    <paper-item> • descut jobs </paper-item>
+                    <paper-item> • easyweb jobs </paper-item>
+                    <!--<paper-item>Topic 3</paper-item>-->
+                </paper-menu>
+            </paper-submenu>
             <paper-item> Coadds Images              </paper-item>
             <paper-item> Single Epoch              </paper-item>
             <paper-item> API Help</paper-item>
