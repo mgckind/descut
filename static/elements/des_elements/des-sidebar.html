@@ -68,48 +68,99 @@
                 display: none
             }
         }
+
+        a {
+            text-decoration: none;
+            color: black;
+
+        }
+
+        app-drawer-layout:not([narrow]) [drawer-toggle] {
+            display: none;
+        }
+
+        paper-item {
+            height: 54px;
+        }
+
+        paper-item > a {
+            width: 100%;
+            height: 100%;
+            line-height: 54px;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+        }
     </style>
     <template>
+        <app-drawer id="drawer" swipe-open slot="drawer">
+            <app-header-layout has-scrolling-region>
+                <app-header fixed slot="header">
+                    <div class="info-container">
+                        <div class="image"></div>
+                    </div>
+                    <div class="self-info">
+                        <div class="name">{{name}}</div>
+                        <div class="email">{{email}}</div>
+                    </div>
+                </app-header>
+        <!--<paper-menu id="bigmenu"  selected="[[selection]]" >-->
+            <!--&lt;!&ndash; Order is important, it needs to match des-mainpages &ndash;&gt;-->
+            <!--<paper-item>Home              </paper-item>-->
+            <!--&lt;!&ndash;<paper-item> My Jobs              </paper-item>&ndash;&gt;-->
+            <!--<paper-submenu>-->
+                <!--<paper-item class="menu-trigger">My Jobs</paper-item>-->
+                <!--<paper-menu class="menu-content" selected="0">-->
+                    <!--<paper-item> • descut jobs </paper-item>-->
+                    <!--<paper-item> • easyweb jobs </paper-item>-->
+                    <!--&lt;!&ndash;<paper-item>Topic 3</paper-item>&ndash;&gt;-->
+                <!--</paper-menu>-->
+            <!--</paper-submenu>-->
 
-        <app-header fixed slot="header">
-            <div class="info-container">
-                <div class="image"></div>
-            </div>
-            <div class="self-info">
-                <div class="name">{{name}}</div>
-                <div class="email">{{email}}</div>
-            </div>
-        </app-header>
-        <paper-menu id="bigmenu"  selected="[[selection]]" >
-            <!-- Order is important, it needs to match des-mainpages -->
-            <paper-item>Home              </paper-item>
-            <!--<paper-item> My Jobs              </paper-item>-->
-            <paper-submenu>
-                <paper-item class="menu-trigger">My Jobs</paper-item>
-                <paper-menu class="menu-content" selected="0">
-                    <paper-item> • descut jobs </paper-item>
-                    <paper-item> • easyweb jobs </paper-item>
-                    <!--<paper-item>Topic 3</paper-item>-->
-                </paper-menu>
-            </paper-submenu>
+            <!--&lt;!&ndash;<paper-item> Shared Jobs              </paper-item>&ndash;&gt;-->
+            <!--<paper-submenu>-->
+                <!--<paper-item class="menu-trigger">Shared Jobs</paper-item>-->
+                <!--<paper-menu class="menu-content" selected="0">-->
+                    <!--<paper-item> • descut jobs </paper-item>-->
+                    <!--<paper-item> • easyweb jobs </paper-item>-->
+                    <!--&lt;!&ndash;<paper-item>Topic 3</paper-item>&ndash;&gt;-->
+                <!--</paper-menu>-->
+            <!--</paper-submenu>-->
+            <!--<paper-item> Coadds Images              </paper-item>-->
+            <!--<paper-item> Single Epoch              </paper-item>-->
+            <!--<paper-item> API Help</paper-item>-->
+            <!--<paper-item> Footprint         </paper-item>-->
+            <!--&lt;!&ndash;<paper-item> Demo         </paper-item>&ndash;&gt;-->
 
-            <!--<paper-item> Shared Jobs              </paper-item>-->
-            <paper-submenu>
-                <paper-item class="menu-trigger">Shared Jobs</paper-item>
-                <paper-menu class="menu-content" selected="0">
-                    <paper-item> • descut jobs </paper-item>
-                    <paper-item> • easyweb jobs </paper-item>
-                    <!--<paper-item>Topic 3</paper-item>-->
-                </paper-menu>
-            </paper-submenu>
-            <paper-item> Coadds Images              </paper-item>
-            <paper-item> Single Epoch              </paper-item>
-            <paper-item> API Help</paper-item>
-            <paper-item> Footprint         </paper-item>
-            <!--<paper-item> Demo         </paper-item>-->
-
-        </paper-menu>
-
+        <!--</paper-menu>-->
+                <paper-listbox id="bigmenu"
+                        selected="[[selection]]">
+                        <!--attr-for-selected="name"-->
+                        <!--on-iron-activate="_drawerSelected">-->
+                    <paper-item>
+                        <a href="#/home">Home</a>
+                    </paper-item>
+                    <paper-item>
+                        <a href="#/myJobs">My Jobs</a>
+                    </paper-item>
+                    <paper-item>
+                        <a href="#/sharedJobs">Shared Jobs</a>
+                    </paper-item>
+                    <paper-item>
+                        <a href="#/coaddsImages">Coadds Images</a>
+                    </paper-item>
+                    <paper-item>
+                        <a href="#/singleEpoch">Single Epoch</a>
+                    </paper-item>
+                    <paper-item>
+                        <a href="#/apiHelp">API Help</a>
+                    </paper-item>
+                    <paper-item>
+                        <a href="#/footprint">Footprint</a>
+                    </paper-item>
+                </paper-listbox>
+            </app-header-layout>
+        </app-drawer>
 
 
         <iron-pages id="helpPages" selected="[[helpselection]]">

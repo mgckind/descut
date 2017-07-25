@@ -94,7 +94,18 @@
             box-sizing: border-box;
             font-size: 1.5em;
         }
+        paper-item {
+            height: 54px;
+        }
 
+        paper-item > a {
+            width: 100%;
+            height: 100%;
+            line-height: 54px;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+        }
         /*iron-pages div:nth-child(1) {*/
         /*background-color: var(--google-blue-500);*/
         /*}*/
@@ -140,27 +151,27 @@
                 <!--<div class="card-content" style="wi">-->
                 <!--<iron-pages id="mainGallery" selected="0">-->
                 <div class="gallery" id="jobs">
-                    <des-card-intro member="My Jobs"></des-card-intro>
+                    <des-card-intro member="My Jobs" route="myJobs"></des-card-intro>
                 </div>
 
                 <div class="gallery" id="shared">
-                    <des-card-intro member="Shared Jobs"></des-card-intro>
+                    <des-card-intro member="Shared Jobs" route="sharedJobs"></des-card-intro>
                 </div>
 
                 <div class="gallery" id="coadd">
-                    <des-card-intro member="Coadds Images" ></des-card-intro>
+                    <des-card-intro member="Coadds Images" route="coaddsImages"></des-card-intro>
                 </div>
 
                 <div class="gallery" id="epoch">
-                    <des-card-intro member="Single Epoch" ></des-card-intro>
+                    <des-card-intro member="Single Epoch" route="singleEpoch"></des-card-intro>
                 </div>
 
                 <div class="gallery" id="api">
-                    <des-card-intro member="API Help"></des-card-intro>
+                    <des-card-intro member="API Help" route="apiHelp"></des-card-intro>
                 </div>
 
                 <div class="gallery" id="footprint">
-                    <des-card-intro member="Footprint"></des-card-intro>
+                    <des-card-intro member="Footprint" route="footprint"></des-card-intro>
                 </div>
                 <!--</div>-->
 

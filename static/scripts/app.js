@@ -11,7 +11,7 @@
     window.addEventListener('WebComponentsReady', function() {
 
         var pages = document.getElementById("mainPages");
-        var menu = document.querySelector('paper-menu');
+        var menu = document.getElementById("bigmenu");
         var help = document.getElementById("helpPages");
         app.selection="0";
         pages.selected="0";
