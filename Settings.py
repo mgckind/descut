@@ -21,5 +21,5 @@ logging.basicConfig(level=logging.DEBUG,
 # console = logging.StreamHandler(sys.stderr)
 class dbConfig(object):
     def __init__(self):
-        self.host = 'leovip148.ncsa.uiuc.edu'
+        self.host = 'desdb.ncsa.illinois.edu'
         self.port = '1521'
