@@ -1,0 +1,40 @@
+<link rel="import" href="../styles/shared-styles.html">
+<dom-module id="easy-mainpages">
+<template>
+   <style include="shared-styles"></style>
+
+    <iron-pages  id="mainPages" selected=[[selection]]>
+        <easy-query name={{name}} db={{db}}></easy-query>
+        <easy-my-jobs></easy-my-jobs>
+        <easy-my-tables></easy-my-tables>
+        <easy-all-tables></easy-all-tables>
+        <easy-example-query></easy-example-query>
+
+    </iron-pages>
+
+</template>
+
+<script>
+      Polymer({
+      is: "easy-mainpages",
+      properties: {
+        name : {
+            type: String,
+            value:''
+        },
+        db : {
+            type: String,
+            value:''
+        },
+        email: {
+            type: String,
+            value:''
+        },
+        username:{
+            type:String,
+            value:''
+        }
+      },
+    });
+</script>
+</dom-module>

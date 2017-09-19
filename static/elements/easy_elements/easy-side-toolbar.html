@@ -1,0 +1,30 @@
+<link rel="import" href="../styles/shared-styles.html">
+<dom-module id="easy-side-toolbar">
+<template>
+   <style include="shared-styles"></style>
+  <app-header fixed>
+    <app-toolbar id="drawerToolbar" class="black">
+        <iron-image
+        style="width:60px; height:60px;"
+        sizing="cover"
+        src="/easyweb/static/images/DESDM_logo.png"></iron-image>
+    </app-toolbar>
+    <paper-menu id="bigmenu"  selected="[[selection]]">
+        <!-- Order is important, it needs to match easy-mainpages -->
+        <paper-item> Home              </paper-item>
+        <paper-item> My Jobs           </paper-item>
+        <paper-item> My Tables         </paper-item>
+        <paper-item> All Tables        </paper-item>
+        <paper-item> Example Query     </paper-item>
+    </paper-menu>
+</app-header>
+</template>
+
+<script>
+      Polymer({
+      is: "easy-side-toolbar",
+    });
+
+
+</script>
+</dom-module>

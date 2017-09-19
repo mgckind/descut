@@ -7,6 +7,9 @@
 
         <!-- Order is important, need to match des-sidebar -->
         <des-home name=[[name]]></des-home> <!-- 0 -->
+
+
+
         <des-my-jobs username=[[username]] id="desJobs"></des-my-jobs> <!-- 1 -->
         <!--<des-shared-jobs username=[[username]] id="desShared"></des-shared-jobs> &lt;!&ndash; 2 &ndash;&gt;-->
         <des-coadds id="desCoadds" email=[[email]]></des-coadds> <!-- 3 -->
@@ -17,7 +20,10 @@
         <des-logs jobid="000" id="desLog"></des-logs> <!-- 8 -->
 
 
-
+        <easy-query name={{name}} db={{db}}></easy-query> <!--11-->
+        <easy-my-tables></easy-my-tables> <!--12-->
+        <easy-all-tables></easy-all-tables> <!--13-->
+        <easy-example-query></easy-example-query> <!--14-->
         <!--<des-shared-results jobid="000" id="desResultsShared"></des-shared-results> &lt;!&ndash; 9 &ndash;&gt;-->
         <!--<des-shared-logs jobid="000" id="desLogShared"></des-shared-logs> &lt;!&ndash; 10 &ndash;&gt;-->
         <!--<des-my-jobs-vaadin username=[[username]] id="desJobs"></des-my-jobs-vaadin> &lt;!&ndash; 11 &ndash;&gt;-->

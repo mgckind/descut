@@ -1,0 +1,81 @@
+<link rel="import" href="../styles/shared-styles.html">
+<dom-module id="easy-toolbar">
+<template>
+   <style include="shared-styles">
+
+    paper-dialog.new {
+      width: 80%;
+      height: 80%;
+    }
+    .errormessage{
+      display: block;
+      color : red;
+      text-align: center;
+    }
+   paper-listbox {
+    color: black;
+    width: 300px;
+    font-size: 10px;
+  }
+
+  paper-item {
+    width: 120px;
+    font-size: 15px;
+  }
+    .profile{
+            margin-left: -23px;
+            width: 15px;
+    }
+
+   </style>
+   <app-toolbar sticky id="mainToolbar" class="black">
+        <paper-icon-button icon="menu" onclick="drawer.toggle()" drawer-toggle ></paper-icon-button>
+        <div main-title class="wideScreen">DARK ENERGY SURVEY easyaccess web  &nbsp;&nbsp;&nbsp; @ {{db}}</div>
+        <div main-title drawer-toggle>DES easyweb</div>
+
+            <paper-menu-button id="profileMenu" no-overlap horizontal-offset="-100" no-animations close-on-activate>
+              <paper-icon-button icon="social:person" slot="dropdown-trigger" alt="menu"></paper-icon-button>
+              <paper-listbox slot="dropdown-content">
+                <paper-item on-tap="reset">Reset Password</paper-item>
+                <paper-item on-tap="logout">Log out</paper-item>
+              </paper-listbox>
+            </paper-menu-button>
+              <iron-icon icon="arrow-drop-down" class="profile" ></iron-icon>
+    </app-toolbar>
+
+
+  <paper-dialog class="dialog-position" id="updatePassDialog"  with-backdrop on-iron-overlay-opened="patchOverlay">
+    <easy-login-update error="{{error}}" db="{{db}}"></easy-login-update>
+  </paper-dialog>
+
+</template>
+
+<script>
+      Polymer({
+      is: "easy-toolbar",
+      properties:{
+          db:{
+              type: String,
+              value: '',
+          },
+      },
+      logout: function(event){
+        window.open('/easyweb/logout/','_self',false);
+      },
+      home: function(event){
+        window.open('/easyweb/','_self',false);
+      },
+      reset: function(event){
+          document.getElementById("profileMenu").close();
+          document.getElementById('updatePassDialog').open();
+      },
+     patchOverlay: function (e) {
+         if (e.target.withBackdrop) {
+            e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
+         }
+     },
+    });
+
+
+</script>
+</dom-module>
