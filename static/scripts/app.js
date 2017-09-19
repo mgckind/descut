@@ -28,10 +28,10 @@
         });
 
         var jobsEntry = document.getElementById("jobs");
-        var sharedEntry = document.getElementById("shared");
+        // var sharedEntry = document.getElementById("shared");
         var coaddEntry = document.getElementById("coadd");
-        var epochEntry = document.getElementById("epoch");
-        var apiEntry = document.getElementById("api");
+        // var epochEntry = document.getElementById("epoch");
+        // var apiEntry = document.getElementById("api");
         var footprintEntry = document.getElementById("footprint");
         // var demoEntry = document.getElementById("demo");
 
@@ -46,7 +46,7 @@
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        sharedEntry.addEventListener('click', function() {
+        coaddEntry.addEventListener('click', function() {
             // gal.selected = "2";
             menu.selected="2";
             app.selection="2";
@@ -55,7 +55,7 @@
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        coaddEntry.addEventListener('click', function() {
+        footprintEntry.addEventListener('click', function() {
             // gal.selected = "3";
             menu.selected="3";
             app.selection="3";
@@ -64,32 +64,32 @@
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        epochEntry.addEventListener('click', function() {
-            // gal.selected = "4";
-            menu.selected="4";
-            app.selection="4";
-            pages.selected="4";
-            // help.selected="4";
-            app.$.paperDrawerPanel.closeDrawer();
-        });
-
-        apiEntry.addEventListener('click', function() {
-            // gal.selected = "5";
-            menu.selected="5";
-            app.selection="5";
-            pages.selected="5";
-            // help.selected="5";
-            app.$.paperDrawerPanel.closeDrawer();
-        });
-
-        footprintEntry.addEventListener('click', function() {
-            // gal.selected = "6";
-            menu.selected="6";
-            app.selection="6";
-            pages.selected="6";
-            // help.selected="6";
-            app.$.paperDrawerPanel.closeDrawer();
-        });
+        // epochEntry.addEventListener('click', function() {
+        //     // gal.selected = "4";
+        //     menu.selected="4";
+        //     app.selection="4";
+        //     pages.selected="4";
+        //     // help.selected="4";
+        //     app.$.paperDrawerPanel.closeDrawer();
+        // });
+        //
+        // apiEntry.addEventListener('click', function() {
+        //     // gal.selected = "5";
+        //     menu.selected="5";
+        //     app.selection="5";
+        //     pages.selected="5";
+        //     // help.selected="5";
+        //     app.$.paperDrawerPanel.closeDrawer();
+        // });
+        //
+        // footprintEntry.addEventListener('click', function() {
+        //     // gal.selected = "6";
+        //     menu.selected="6";
+        //     app.selection="6";
+        //     pages.selected="6";
+        //     // help.selected="6";
+        //     app.$.paperDrawerPanel.closeDrawer();
+        // });
 
 
 

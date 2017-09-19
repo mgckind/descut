@@ -180,18 +180,18 @@
                     <template>{{item.jtypes}}</template>
                 </vaadin-grid-column>
 
-                <vaadin-grid-column flex-grow="1">
-                    <template class="header">
-                        <vaadin-grid-sorter path="jpublic">
-                            <vaadin-grid-filter aria-label="Public" path="jpublic" value="[[_filterPublic]]">
-                                <input placeholder="Public/Private" value="{{_filterPublic::input}}" focus-target style="width: 100%;">
-                            </vaadin-grid-filter>
-                        </vaadin-grid-sorter>
-                    </template>
-                    <template>
-                        <iron-icon id="eye" icon="{{_isShared(item.jpublic)}}"></iron-icon>
-                    </template>
-                </vaadin-grid-column>
+                <!--<vaadin-grid-column flex-grow="1">-->
+                    <!--<template class="header">-->
+                        <!--<vaadin-grid-sorter path="jpublic">-->
+                            <!--<vaadin-grid-filter aria-label="Public" path="jpublic" value="[[_filterPublic]]">-->
+                                <!--<input placeholder="Public/Private" value="{{_filterPublic::input}}" focus-target style="width: 100%;">-->
+                            <!--</vaadin-grid-filter>-->
+                        <!--</vaadin-grid-sorter>-->
+                    <!--</template>-->
+                    <!--<template>-->
+                        <!--<iron-icon id="eye" icon="{{_isShared(item.jpublic)}}"></iron-icon>-->
+                    <!--</template>-->
+                <!--</vaadin-grid-column>-->
 
                 <vaadin-grid-column flex-grow="2">
                     <template class="header">
