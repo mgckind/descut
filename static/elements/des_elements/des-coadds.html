@@ -177,11 +177,11 @@
             document.getElementById("uploadicon").style.display='none';
             this.submit_type = 'csvfile';
         },
-        _test2: function(){
-            console.log('sssssssssssssssssss');
-            var temo = document.getElementById("coaddTag");
-            console.log(temo.selected);
-        },
+//        _test2: function(){
+//            console.log('sssssssssssssssssss');
+//            var temo = document.getElementById("coaddTag");
+//            console.log(temo.selected);
+//        },
         clear: function(){
             document.getElementById("submitJobButton").disabled=true;
             document.getElementById("enterValues").disabled=false;
@@ -192,7 +192,7 @@
             document.getElementById("sendemail").checked=false;
             document.getElementById("onlyreturnlist").checked=false;
             document.getElementById("desPositions").clear();
-            document.getElementById("coaddTag").selected="0";
+//            document.getElementById("coaddTag").selected="0";
             this.file_name = "Upload File";
             this.job_comment = "";
             document.getElementById("jobcommentcoadds").value="";
@@ -234,7 +234,7 @@
             formdata.append('email', document.getElementById("validemail").value);
             formdata.append('submit_type', this.submit_type);
             formdata.append('values',document.getElementById("enteredPositions").value);
-            formdata.append('tag',document.getElementById("coaddTag").selectedItem.getAttribute("value"));
+            formdata.append('tag',"Y3A1_COADD");
             formdata.append('comment', document.getElementById("jobcommentcoadds").value);
 
             $.ajax({
