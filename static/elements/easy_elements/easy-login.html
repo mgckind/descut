@@ -1,0 +1,221 @@
+<dom-module id="easy-login">
+<template>
+  <style include="shared-styles">
+    paper-dialog.new {
+      width: 80%;
+      height: 80%;
+    }
+    .errormessage{
+      display: block;
+      color : red;
+      text-align: center;
+    }
+    .temp {
+      border: 1px solid grey;
+      }
+    .container {
+      position: relative;
+      top: 25%;
+      transform: translateY(+25%);
+      @apply(--layout-horizontal);
+      @apply(--layout-center-justified);
+    }
+    .dbname {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-justified);
+    }
+    paper-button.indigo {
+      background-color: var(--paper-indigo-500);
+      color: white;
+      text-transform: none;
+      --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-indigo-a250) !important;
+        color: white !important;
+      };
+    }
+    paper-button.nocapitals {
+      text-transform: none;
+    }
+    .box-upper-image {
+      position: absolute;
+      top: -100;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 98px;
+      background: url('./images/cut3.png');
+      background-size: cover;
+    }
+    .box-lower-image {
+      position: absolute;
+      top: 101%;
+      right: 0;
+      bottom: -100;
+      width: 100%;
+      height: 98px;
+      background: url('./images/cut3.png');
+      background-size: cover;
+    }
+    .box-mini-logo {
+      position: absolute;
+      top: 22%;
+      right: 50%;
+      bottom: 0;
+      width: 20px;
+      height: 19px;
+      background: url('./images/DESDM_logo.png');
+      background-size: 101%;
+    }
+    .box-watermark-logo {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.05;
+      background: url('./images/DESDM_logo.png');
+      background-size: cover;
+    }
+  </style>
+
+  <paper-dialog class="new" id="updateDialog" modal>
+    <easy-login-update error="{{error}}" db="{{db}}"></easy-login-update>
+  </paper-dialog>
+
+  <div style="cursor:default;" class="container">
+    <!-- https://elements.polymer-project.org/guides/flex-layout -->
+    <paper-card style="cursor:default;" heading="The content of these pages are restricted."
+    class="temp">
+
+      <!-- Option 1, watermark logo. Note it need to be first
+      to avoid blocking the form -->
+      <div style="cursor:default;" class="box-watermark-logo"></div>
+
+      <div class="card-content">
+
+        <span>Use your DESDM DB credentials</span>
+
+        <form id="userpass" action="/easyweb/login/" method="post">
+          <input type="hidden" id="hiddenDB" name="database" value="test">
+          <paper-input name="username" label="Username"
+          required></paper-input><br>
+          <paper-password-input name="password" label="Password"
+            value="{{password}}" required></paper-password-input>
+          <br>
+          <div class="container">
+            <paper-button class="custom indigo" id="LoginButton1"
+            on-tap="_clickSubmit1" raised>
+              dessci
+            </paper-button>
+            <paper-button  class="custom indigo" id="LoginButton2"
+            on-tap="_clickSubmit2" >
+              desoper
+            </paper-button>
+            <paper-button class="nocapitals" id="LoginButton3"
+            on-tap="_clickSubmit" disabled>
+              destest
+            </paper-button>
+          </div>
+
+          <div class="horizontal layout center-justified">
+            <paper-spinner id="LoginSpinner" class="big"></paper-spinner>
+          </div>
+        </form>
+
+        <div id="divError" class="errormessage">
+          <b>{{error}}</b>
+          <br>
+          <span> <a href="https://deslogin.wufoo.com/forms/help-me-with-my-desdm-account/">Need help?</a></span>
+        </div>
+      </div>
+
+      <div  style="cursor:pointer;" on-tap="home" class="box-upper-image"></div> <!-- TODO: ADD link to home page to the box -->
+      <!-- Option 2, clean bkg with small icon
+      <div class="box-upper-image"></div>
+      <div class="box-mini-image"></div>
+      -->
+
+    </paper-card>
+  </div>
+<paper-toast class="toast-position" id="toastPass" text="Password for {{db}} changed sucessfully!" duration="5000"> </paper-toast>
+</template>
+
+<script>
+  Polymer({
+    is: "easy-login",
+
+    behaviors: [
+      Polymer.IronA11yKeysBehavior
+    ],
+
+    properties : {
+      error :{
+        type: String,
+        value: '',
+      },
+      update: {
+        type: String,
+        value: false,
+        observer: "_updatePass"
+    },
+      toastpass: {
+        type: String,
+        value: false,
+        observer: "_updateToast"
+    },
+      db: {
+        type: String,
+        value: '',
+      }
+    },
+
+    keyBindings:{
+      'enter:keydown':'_clickSubmit',
+    },
+
+    _clickSubmit1: function(e) {
+      document.getElementById('hiddenDB').value = 'dessci';
+      var button1 = document.getElementById('LoginButton1');
+      var button2 = document.getElementById('LoginButton2');
+      console.log("Submitted!");
+      document.getElementById('LoginSpinner').active = true;
+      document.getElementById('userpass').submit();
+      button1.disabled = true;
+      button2.disabled = true;
+      var errm = document.getElementById('divError');
+      errm.style.display = "none";
+    },
+    _clickSubmit2: function(e) {
+      document.getElementById('hiddenDB').value = 'desoper';
+      var button1 = document.getElementById('LoginButton1');
+      var button2 = document.getElementById('LoginButton2');
+      console.log("Submitted!");
+      document.getElementById('LoginSpinner').active = true;
+      document.getElementById('userpass').submit();
+      button1.disabled = true;
+      button2.disabled = true;
+      var errm = document.getElementById('divError');
+      errm.style.display = "none";
+    },
+
+    _updatePass: function(e) {
+      if (this.update=='yes') {
+        document.getElementById("updateDialog").open();
+      }
+    },
+    _updateToast: function(e) {
+      if (this.toastpass=='yes'){
+        console.log('password changed');
+        document.getElementById("toastPass").show();
+      }
+  },
+      home: function(event){
+        window.open('/easyweb/','_self',false);
+      },
+
+  });
+
+
+</script>
+</dom-module>

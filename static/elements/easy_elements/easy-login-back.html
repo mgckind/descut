@@ -1,0 +1,68 @@
+<dom-module id="easy-login">
+<template>
+    <style include="shared-styles">
+        .errormessage{
+            display: block;
+            color : red;
+            text-align: center;
+            }
+  .temp {
+    border: 1px solid grey;
+  }
+    </style>
+
+    <div class="horizontal layout">
+    <paper-card heading="The content of these pages are restricted."  class="temp">
+      <div class="card-content">
+      <span>Use your DESDM DB credentials</span>
+
+        <form  id="userpass" method="post">
+          <paper-input name="username" label="Username"  required></paper-input><br>
+          <paper-input name="password" type="password" label="Password"  required></paper-input><br>
+          <div class="horizontal layout center-justified">
+          <paper-button raised class="desbutton" id="LoginButton" on-tap="_clickSubmit">
+          <i class="fa fa-sign-in"></i> &nbsp;  &nbsp; Login</paper-button></div>
+           <div class="horizontal layout center-justified">
+        <paper-spinner id="LoginSpinner" class="big"></paper-spinner> </div>
+
+        </form>
+        <div id="divError" class="errormessage"><b>{{error}}</b></div>
+        </div>
+    </paper-card>
+        </div>
+
+</template>
+
+<script>
+      Polymer({
+      is: "easy-login",
+
+      behaviors: [
+        Polymer.IronA11yKeysBehavior
+      ],
+
+      properties : {
+        error :{
+        type: String,
+          value: '',
+        }
+      },
+
+      keyBindings:{
+        'enter:keydown':'_clickSubmit',
+      },
+
+      _clickSubmit: function(e){
+      var button = document.getElementById('LoginButton');
+      console.log("Submitted!");
+      document.getElementById('LoginSpinner').active = true;
+      document.getElementById('userpass').submit();
+      button.disabled = true;
+      var errm = document.getElementById('divError');
+      errm.style.display = "none";
+      },
+    });
+
+
+</script>
+</dom-module>

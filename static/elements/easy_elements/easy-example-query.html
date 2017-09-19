@@ -1,0 +1,174 @@
+<link rel="import" href="../styles/shared-styles.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+<dom-module id="easy-example-query">
+
+    <style include="shared-styles">
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+    </style>
+
+    <template>
+        <des-card heading="Example Query">
+            <div class="content">
+                <!--<vaadin-grid id="sample">-->
+                    <!--<vaadin-grid-column flex-grow="4">-->
+                        <!--<template class="header">Example</template>-->
+                        <!--<div class="content">-->
+                            <!--select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)-->
+                        <!--</div>-->
+                    <!--</vaadin-grid-column>-->
+
+                    <!--<vaadin-grid-column flex-grow="1">-->
+                        <!--<template class="header">Result</template>-->
+                        <!--<div class="content">-->
+                            <!--TODO-->
+                        <!--</div>-->
+                    <!--</vaadin-grid-column>-->
+
+                    <!--<vaadin-grid-column flex-grow="1">-->
+                        <!--<template class="header">Description</template>-->
+                        <!--<div class="content">-->
+                            <!--description-->
+                        <!--</div>-->
+                    <!--</vaadin-grid-column>-->
+
+
+
+                <!--</vaadin-grid>-->
+                <table id="example">
+                    <tr>
+                        <th>Example</th>
+                        <th>Result</th>
+                        <th>Description</th>
+                        <th>Options</th>
+                    </tr>
+                    <tr>
+                        <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
+                        <td>RESULT TAB NEED HERE</td>
+                        <td>SHORT DESCRIPTION</td>
+                        <td>
+                            <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
+                        <td>RESULT TAB NEED HERE</td>
+                        <td>SHORT DESCRIPTION</td>
+                        <td>
+                            <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
+                        <td>RESULT TAB NEED HERE</td>
+                        <td>SHORT DESCRIPTION</td>
+                        <td>
+                            <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
+                        <td>RESULT TAB NEED HERE</td>
+                        <td>SHORT DESCRIPTION</td>
+                        <td>
+                            <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
+                        <td>RESULT TAB NEED HERE</td>
+                        <td>SHORT DESCRIPTION</td>
+                        <td>
+                            <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
+                        <td>RESULT TAB NEED HERE</td>
+                        <td>SHORT DESCRIPTION</td>
+                        <td>
+                            <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
+                        <td>RESULT TAB NEED HERE</td>
+                        <td>SHORT DESCRIPTION</td>
+                        <td>
+                            <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+        </des-card>
+        <paper-toast class="toast-position" id="toastCopyExample" text="Query copied to main editor" duration="3000"> </paper-toast>
+
+    </template>
+    <script>
+
+
+        Polymer({
+            is: "easy-example-query",
+            properties: {
+                querystr :{
+                    type: String,
+                    observer: '_queryChanged',
+                },
+
+            },
+            _copyQuery: function(){
+                document.querySelector('#toastCopyExample').show();
+
+                var table = document.getElementById("example"),rIndex,cIndex, value;
+                // table rows
+                for(var i = 1; i < table.rows.length; i++)
+                {
+                    // row cells
+                    for(var j = 0; j < table.rows[i].cells.length; j++)
+                    {
+                        table.rows[i].cells[j].onclick = function()
+                        {
+                            rIndex = this.parentElement.rowIndex;
+                            cIndex = 0;
+                            this.querystr = document.getElementById('example').rows[rIndex].cells[cIndex].innerHTML;
+                            console.log("Row : "+rIndex+" , Cell : "+cIndex);
+                            console.log("read query 1: ", this.querystr);
+//                            this.querystr = value;
+                            app.editor.setValue(this.querystr);
+                            console.log("-> line number: ", app.editor.lineCount());
+                            setTimeout(function() {
+                                app.editor.refresh();
+                                app.editor.focus();
+                            },20);
+
+                        };
+                    }
+                }
+                console.log("read query 2: ", this.querystr);
+
+
+
+            },
+
+        });
+
+
+    </script>
+</dom-module>

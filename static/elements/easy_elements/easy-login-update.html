@@ -1,0 +1,137 @@
+<dom-module id="easy-login-update">
+<template>
+    <style include="shared-styles">
+
+        .errormessage{
+            display: block;
+            color : red;
+            text-align: center;
+            }
+        .temp {
+            border: 1px solid grey;
+            }
+        .temp2 {
+            border: 1px solid grey;
+            @apply(--layout-horizontal);
+            @apply(--layout-center-justified);
+            }
+        .container {
+            @apply(--layout-horizontal);
+            @apply(--layout-center-justified);
+        }
+        .dbname {
+            @apply(--layout-horizontal);
+            @apply(--layout-center-justified);
+        }
+        paper-button.indigo {
+            background-color: var(--paper-indigo-500);
+            color: white;
+            text-transform: none;
+            --paper-button-raised-keyboard-focus: {
+                background-color: var(--paper-indigo-a200) !important;
+                color: white !important;
+            };
+        }
+    </style>
+
+    <div class="container">
+    <!-- https://elements.polymer-project.org/guides/flex-layout -->
+    <paper-card heading="Change {{db}} password."  class="temp">
+      <div class="card-content">
+      <span>Please enter your old and new passwords for <span style="color:red;">{{db}}</span></span>
+
+        <form id="newuserpass" action="/easyweb/changepass/" method="post">
+          <input type="hidden" id="hiddenDBChange" name="database" value="{{db}}">
+          <paper-input name="username" label="Username"
+            required></paper-input>
+          <br>
+          <paper-password-input name="oldpassword" label="OLD Password"
+            value="{{oldpassword}}"
+             required
+             auto-validate error-message="needs some text"
+             >
+          </paper-password-input>
+          <br>
+          <match-passwords-validator id="match-passwords-validator"
+            password="[[password]]">
+          </match-passwords-validator>
+          <paper-password-input label="NEW Password"
+            value="{{password}}"
+             required>
+          </paper-password-input>
+          <paper-password-input on-invalid-changed="_enable" id="NewPass" name="password" label="Confirm NEW Password"
+            auto-validate
+            validator="match-passwords-validator"
+            error-message="Passwords need to match"
+            required>
+          </paper-password-input>
+          <br>
+          <div class="container">
+          <paper-button raised disabled  class="custom "
+            id="SendNewPassword"
+            on-tap="_clickSubmit">Accept</paper-button>
+          <paper-button raised class="custom indigo"
+         dialog-dismiss>Cancel</paper-button>
+          </div>
+
+          <div class="horizontal layout center-justified">
+          <paper-spinner id="LoginSpinner" class="big"></paper-spinner>
+          </div>
+
+        </form>
+        <div id="divError" class="errormessage"><b>{{error}}</b></div>
+
+        </div>
+
+    </paper-card>
+    </div>
+
+</template>
+
+<script>
+      Polymer({
+      is: "easy-login-update",
+
+      behaviors: [
+        Polymer.IronA11yKeysBehavior
+      ],
+
+      properties : {
+        error :{
+        type: String,
+          value: '',
+        },
+        db :{
+        type: String,
+          value: '',
+        }
+      },
+      keyBindings:{
+        'enter:keydown':'_clickSubmit',
+      },
+
+      _enable: function(e){
+          var invalid = true;
+          try {invalid = document.getElementById('NewPass').invalid;
+          var button = document.getElementById('SendNewPassword');
+          if (!invalid)  button.disabled = false;
+            else button.disabled = true;
+          }
+          catch(err) {}
+           },
+
+      _clickSubmit: function(e){
+      var button = document.getElementById('SendNewPassword');
+      console.log("Submitted!");
+      document.getElementById('LoginSpinner').active = true;
+      document.getElementById('newuserpass').submit();
+      button.disabled = true;
+      var errm = document.getElementById('divError');
+      errm.style.display = "none";
+      },
+
+    });
+
+
+</script>
+</dom-module>
