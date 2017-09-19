@@ -11,53 +11,70 @@
     window.addEventListener('WebComponentsReady', function() {
 
         var pages = document.getElementById("mainPages");
-        var menu = document.querySelector('paper-menu');
+        var menuD= document.querySelector('#descut-menu');
+        var menuE= document.querySelector('easyweb-menu');
         var help = document.getElementById("helpPages");
         app.selection="0";
         pages.selected="0";
-        menu.selected="0";
+        menuD.selected="0";
+        menuE.selected="0";
         help.selected="0";
-        menu.addEventListener('iron-select', function() {
-            app.selection=menu.selected;
-            pages.selected=menu.selected;
-            help.selected=menu.selected;
-           app.$.paperDrawerPanel.closeDrawer();
-        });
-        menu.addEventListener('iron-activate', function() {
+        menuD.addEventListener('iron-select', function() {
+            app.selection=menuD.selected;
+            pages.selected=menuD.selected;
+            help.selected=menuD.selected;
            app.$.paperDrawerPanel.closeDrawer();
         });
 
-        var jobsEntry = document.getElementById("jobs");
+        menuE.addEventListener('iron-select', function() {
+            app.selection=menuE.selected;
+            pages.selected=menuE.selected;
+            help.selected=menuE.selected;
+            app.$.paperDrawerPanel.closeDrawer();
+        });
+        menuE.addEventListener('iron-activate', function() {
+           app.$.paperDrawerPanel.closeDrawer();
+        });
+        
+        menuD.addEventListener('iron-activate', function() {
+            app.$.paperDrawerPanel.closeDrawer();
+        });
+        // des menu
+
+        var desJobsEntry = document.getElementById("jobs");
         // var sharedEntry = document.getElementById("shared");
-        var coaddEntry = document.getElementById("coadd");
+        var desCoaddsEntry = document.getElementById("coadd");
         // var epochEntry = document.getElementById("epoch");
         // var apiEntry = document.getElementById("api");
-        var footprintEntry = document.getElementById("footprint");
+        var desFootprintEntry = document.getElementById("footprint");
+
+        //easy menu
+        
         // var demoEntry = document.getElementById("demo");
 
-        var gal = document.getElementById("mainGallery");
+        // var gal = document.getElementById("mainGallery");
 
-        jobsEntry.addEventListener('click', function() {
+        desJobsEntry.addEventListener('click', function() {
             // gal.selected = "1";
-            menu.selected="1";
+            menuD.selected="1";
             app.selection="1";
             pages.selected="1";
             // help.selected="1";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        coaddEntry.addEventListener('click', function() {
+        desCoaddsEntry.addEventListener('click', function() {
             // gal.selected = "2";
-            menu.selected="2";
+            menuD.selected="2";
             app.selection="2";
             pages.selected="2";
             // help.selected="2";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        footprintEntry.addEventListener('click', function() {
+        desFootprintEntry.addEventListener('click', function() {
             // gal.selected = "3";
-            menu.selected="3";
+            menuD.selected="3";
             app.selection="3";
             pages.selected="3";
             // help.selected="3";
@@ -82,7 +99,7 @@
         //     app.$.paperDrawerPanel.closeDrawer();
         // });
         //
-        // footprintEntry.addEventListener('click', function() {
+        // desFootprintEntry.addEventListener('click', function() {
         //     // gal.selected = "6";
         //     menu.selected="6";
         //     app.selection="6";
