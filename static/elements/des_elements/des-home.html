@@ -12,37 +12,37 @@
         div.gallery {
             display: inline-block;
             margin: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid slategrey;
             /*float: left;*/
             width: 100%;
             max-height: 95%;
-
         }
 
-        div#easyweb {
-            background: url("../../images/home-epoch.jpg");
-            width: 500px;
-            height: inherit;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        div#descut {
-            background: url("../../images/home-coadd.jpg");
-            width: 500px;
-            height: inherit;
-            background-position: center;
-            background-repeat: no-repeat;
-
-
-        }
         /*div#jobs {*/
-            /*background: url("../../images/home-jobs.jpg");*/
+            /*background: url("../../images/home-epoch.jpg");*/
             /*width: 185px;*/
             /*height: inherit;*/
             /*background-position: center;*/
             /*background-repeat: no-repeat;*/
         /*}*/
+
+        /*div# {*/
+            /*background: url("../../images/home-coadd.jpg");*/
+            /*width: 185px;*/
+            /*height: inherit;*/
+            /*background-position: center;*/
+            /*background-repeat: no-repeat;*/
+
+
+        /*}*/
+        div#jobs {
+            background: url("../../images/home-jobs.jpg");
+            width: 600px;
+            height: 450px;
+            /*height: inherit;*/
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
         /*div#shared {*/
             /*background: url("../../images/home-shared.png");*/
@@ -53,58 +53,68 @@
 
 
         /*}*/
-        /*div#coadd {*/
-            /*background: url("../../images/home-coadd.jpg");*/
-            /*width: 185px;*/
+        div#coadd {
+            background: url("../../images/home-coadd-new.jpg");
+            width: 600px;
+            height: 450px;
             /*height: inherit;*/
-            /*background-position: center;*/
-            /*background-repeat: no-repeat;*/
+            background-position: center;
+            background-repeat: no-repeat;
 
 
-        /*}*/
+        }
 
 
-        /*div#epoch {*/
-            /*background: url("../../images/home-epoch.jpg");*/
-            /*width: 185px;*/
+
+
+
+
+
+        div#footprint {
+            background-image: url("../../images/home-footprint-new.jpg");
+            width: 600px;
             /*height:  inherit;*/
-            /*background-position: center;*/
-            /*background-repeat: no-repeat;*/
+            height: 450px;
+            background-position: center;
+            background-repeat: no-repeat;
 
+        }
 
-        /*}*/
-
-
-        /*div#api {*/
-            /*background: url("../../images/home-api.jpg");*/
-            /*width: 185px;*/
+        div#query {
+            background: url("../../images/home-query.png");
+            width: 600px;
+            height: 450px;
             /*height:  inherit;*/
-            /*background-position: center;*/
-            /*background-repeat: no-repeat;*/
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
-
-        /*}*/
-        /*div#footprint {*/
-            /*background-image: url("../../images/home-footprint.jpg");*/
-            /*width: 185px;*/
+        div#allTables {
+            background-image: url("../../images/home-tables.png");
+            width: 600px;
+            height: 450px;
             /*height:  inherit;*/
-            /*background-position: center;*/
-            /*background-repeat: no-repeat;*/
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
-        /*}*/
-
-        /*div#footprint {*/
-            /*!*background-image: url("../../images/home-footprint.jpg");*!*/
-            /*width: 185px;*/
+        div#example {
+            background: url("../../images/home-example.jpg");
+            width: 600px;
+            height: 450px;
             /*height:  inherit;*/
-            /*background-position: center;*/
-            /*background-repeat: no-repeat;*/
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
-        /*}*/
+
 
         div.gallery:hover {
-            border: 1px solid #777;
+            border: 2px solid black;
+
         }
+
+
 
         input {
             width: 100%;
@@ -156,23 +166,48 @@
             <des-card heading="Welcome [[name]]!" class="welcome">
                 <!--<div class="card-content" style="wi">-->
                 <!--<iron-pages id="mainGallery" selected="0">-->
-                <!--<div class="gallery" id="jobs">-->
-                    <!--<des-card-intro member="My Jobs"></des-card-intro>-->
-                <!--</div>-->
-                <div class="gallery" id="descut">
-                <des-card-intro member="DESCUT"></des-card-intro>
-                </div>
+                    <!--<paper-card image="../../images/home-jobs.jpg">-->
+                        <!--<div class="card-content">-->
+                            <!--<div>My Jobs-->
+                                <!--&lt;!&ndash;<div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<iron-icon icon="communication:location-on"></iron-icon>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<span>250ft</span>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--</div>-->
 
-                <div class="gallery" id="easyweb">
-                    <des-card-intro member="EASYWEB"></des-card-intro>
+                            <!--<p>$・DESCUT</p>-->
+                            <!--<p>See all your jobs</p>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="card-actions">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="horizontal justified">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<paper-icon-button icon="icons:event"></paper-icon-button>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<paper-button>5:30PM</paper-button>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<paper-button>7:30PM</paper-button>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<paper-button>9:00PM</paper-button>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<paper-button class="cafe-reserve">Reserve</paper-button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--</paper-card>-->
+
+
+
+                <div class="gallery" id="jobs">
+                    <des-card-intro member="My Jobs"></des-card-intro>
                 </div>
+                <!--<div class="gallery" id="descut">-->
+                <!--<des-card-intro member="DESCUT"></des-card-intro>-->
+                <!--</div>-->
+
+                <!--<div class="gallery" id="easyweb">-->
+                    <!--<des-card-intro member="EASYWEB"></des-card-intro>-->
+                <!--</div>-->
                 <!--<div class="gallery" id="shared">-->
                     <!--<des-card-intro member="Shared Jobs"></des-card-intro>-->
                 <!--</div>-->
 
-                <!--<div class="gallery" id="coadd">-->
-                    <!--<des-card-intro member="Coadds Images" ></des-card-intro>-->
-                <!--</div>-->
+                <div class="gallery" id="coadd">
+                    <des-card-intro member="Coadds Images" ></des-card-intro>
+                </div>
 
                 <!--<div class="gallery" id="epoch">-->
                     <!--<des-card-intro member="Single Epoch" ></des-card-intro>-->
@@ -182,8 +217,22 @@
                     <!--<des-card-intro member="API Help"></des-card-intro>-->
                 <!--</div>-->
 
-                <!--<div class="gallery" id="footprint">-->
-                    <!--<des-card-intro member="Footprint"></des-card-intro>-->
+                <div class="gallery" id="footprint">
+                    <des-card-intro member="Footprint"></des-card-intro>
+                </div>
+
+
+                <div class="gallery" id="query">
+                    <des-card-intro member="Query"></des-card-intro>
+                </div>
+                <div class="gallery" id="allTables">
+                    <des-card-intro member="All Tables"></des-card-intro>
+                </div>
+                <div class="gallery" id="example">
+                    <des-card-intro member="Example Query"></des-card-intro>
+                </div>
+                <!--<div class="gallery" id="help">-->
+                    <!--<des-card-intro member="Help"></des-card-intro>-->
                 <!--</div>-->
                 <!--</div>-->
 

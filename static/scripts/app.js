@@ -11,76 +11,103 @@
     window.addEventListener('WebComponentsReady', function() {
 
         var pages = document.getElementById("mainPages");
-        var menuD= document.querySelector('#descut-menu');
-        var menuE= document.querySelector('easyweb-menu');
+        var menu = document.querySelector('paper-menu');
         var help = document.getElementById("helpPages");
         app.selection="0";
         pages.selected="0";
-        menuD.selected="0";
-        menuE.selected="0";
+        menu.selected="0";
         help.selected="0";
-        menuD.addEventListener('iron-select', function() {
-            app.selection=menuD.selected;
-            pages.selected=menuD.selected;
-            help.selected=menuD.selected;
-           app.$.paperDrawerPanel.closeDrawer();
-        });
-
-        menuE.addEventListener('iron-select', function() {
-            app.selection=menuE.selected;
-            pages.selected=menuE.selected;
-            help.selected=menuE.selected;
+        menu.addEventListener('iron-select', function() {
+            app.selection=menu.selected;
+            pages.selected=menu.selected;
+            help.selected=menu.selected;
             app.$.paperDrawerPanel.closeDrawer();
         });
-        menuE.addEventListener('iron-activate', function() {
-           app.$.paperDrawerPanel.closeDrawer();
-        });
-        
-        menuD.addEventListener('iron-activate', function() {
+        menu.addEventListener('iron-activate', function() {
             app.$.paperDrawerPanel.closeDrawer();
         });
-        // des menu
 
-        var desJobsEntry = document.getElementById("jobs");
+        var jobsEntry = document.getElementById("jobs");
         // var sharedEntry = document.getElementById("shared");
-        var desCoaddsEntry = document.getElementById("coadd");
+        var coaddEntry = document.getElementById("coadd");
         // var epochEntry = document.getElementById("epoch");
         // var apiEntry = document.getElementById("api");
-        var desFootprintEntry = document.getElementById("footprint");
+        var footprintEntry = document.getElementById("footprint");
 
-        //easy menu
-        
+
+        var queryEntry = document.getElementById("query");
+        var allTablesEntry = document.getElementById("allTables");
+        var exampleEntry = document.getElementById("example");
+        // var helpEntry = document.getElementById("help");
+
         // var demoEntry = document.getElementById("demo");
 
         // var gal = document.getElementById("mainGallery");
 
-        desJobsEntry.addEventListener('click', function() {
+        jobsEntry.addEventListener('click', function() {
             // gal.selected = "1";
-            menuD.selected="1";
+            menu.selected="1";
             app.selection="1";
             pages.selected="1";
             // help.selected="1";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        desCoaddsEntry.addEventListener('click', function() {
+        coaddEntry.addEventListener('click', function() {
             // gal.selected = "2";
-            menuD.selected="2";
+            menu.selected="2";
             app.selection="2";
             pages.selected="2";
             // help.selected="2";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        desFootprintEntry.addEventListener('click', function() {
+        footprintEntry.addEventListener('click', function() {
             // gal.selected = "3";
-            menuD.selected="3";
+            menu.selected="3";
             app.selection="3";
             pages.selected="3";
             // help.selected="3";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
+
+
+        queryEntry.addEventListener('click', function() {
+            // gal.selected = "4";
+            menu.selected="11";
+            app.selection="11";
+            pages.selected="11";
+            // help.selected="11";
+            app.$.paperDrawerPanel.closeDrawer();
+        });
+
+        allTablesEntry.addEventListener('click', function() {
+            // gal.selected = "5";
+            menu.selected="12";
+            app.selection="12";
+            pages.selected="12";
+            // help.selected="5";
+            app.$.paperDrawerPanel.closeDrawer();
+        });
+
+        exampleEntry.addEventListener('click', function() {
+            // gal.selected = "6";
+            menu.selected="13";
+            app.selection="13";
+            pages.selected="13";
+            // help.selected="6";
+            app.$.paperDrawerPanel.closeDrawer();
+        });
+
+        // helpEntry.addEventListener('click', function() {
+        //     // gal.selected = "6";
+        //     menu.selected="14";
+        //     app.selection="14";
+        //     pages.selected="14";
+        //     // help.selected="6";
+        //     app.$.paperDrawerPanel.closeDrawer();
+        // });
         // epochEntry.addEventListener('click', function() {
         //     // gal.selected = "4";
         //     menu.selected="4";
@@ -99,7 +126,7 @@
         //     app.$.paperDrawerPanel.closeDrawer();
         // });
         //
-        // desFootprintEntry.addEventListener('click', function() {
+        // footprintEntry.addEventListener('click', function() {
         //     // gal.selected = "6";
         //     menu.selected="6";
         //     app.selection="6";
@@ -344,20 +371,20 @@
         // });
 
         var xsize = document.getElementById("xsizeSlider");
-            xsize.addEventListener('value-change', function() {
+        xsize.addEventListener('value-change', function() {
             document.getElementById("xsizeLabel").textContent = xsize.value;
         });
         var ysize = document.getElementById("ysizeSlider");
-            ysize.addEventListener('value-change', function() {
+        ysize.addEventListener('value-change', function() {
             document.getElementById("ysizeLabel").textContent = ysize.value;
         });
 
         var xsizeS = document.getElementById("xsizeSliderS");
-            xsizeS.addEventListener('value-change', function() {
+        xsizeS.addEventListener('value-change', function() {
             document.getElementById("xsizeLabelS").textContent = xsizeS.value;
         });
         var ysizeS = document.getElementById("ysizeSliderS");
-            ysizeS.addEventListener('value-change', function() {
+        ysizeS.addEventListener('value-change', function() {
             document.getElementById("ysizeLabelS").textContent = ysizeS.value;
         });
 

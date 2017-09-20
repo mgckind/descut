@@ -80,34 +80,44 @@
                 <div class="email">{{email}}</div>
             </div>
         </app-header>
-        <paper-menu id="bigmenu"  >
-            <paper-submenu opened>
-                <paper-item id="descut-menu" class="menu-trigger" style="background-color: lightgoldenrodyellow;" >DESCUT</paper-item>
-                <paper-menu class="menu-content" selected="[[selection]]">
-                    <paper-item>My Jobs</paper-item>
-                    <paper-item>Coadds Images</paper-item>
-                    <paper-item>Footprint</paper-item>
-                </paper-menu>
-            </paper-submenu>
+        <paper-menu id="bigmenu" selected="[[selection]]" >
+            <!--<paper-submenu opened>-->
+                <!--<paper-item id="descut-menu" class="menu-trigger" style="background-color: lightgoldenrodyellow;" >DESCUT</paper-item>-->
+                <!--<paper-menu class="menu-content" selected="[[selection]]">-->
+                    <!--<paper-item>My Jobs</paper-item>-->
+                    <!--<paper-item>Coadds Images</paper-item>-->
+                    <!--<paper-item>Footprint</paper-item>-->
+                <!--</paper-menu>-->
+            <!--</paper-submenu>-->
 
-            <paper-submenu opened>
-                <paper-item id="easyweb-menu" class="menu-trigger" style="background-color: lightgoldenrodyellow" " >EASYWEB</paper-item>
-                <paper-menu class="menu-content" selected="[[selection]]">
-                    <paper-item>Query Database</paper-item>
-                    <paper-item>My Jobs</paper-item>
-                    <paper-item>My Tables</paper-item>
-                    <paper-item>All Tables</paper-item>
-                    <paper-item>Sample Query</paper-item>
-                </paper-menu>
-            </paper-submenu>
-            <!-- Order is important, it needs to match des-mainpages -->
-            <!--<paper-item>Home              </paper-item>-->
-            <!--<paper-item> My Jobs              </paper-item>-->
-            <!--&lt;!&ndash;<paper-item> Shared Jobs              </paper-item>&ndash;&gt;-->
-            <!--<paper-item> Coadds Images              </paper-item>-->
-            <!--&lt;!&ndash;<paper-item> Single Epoch              </paper-item>&ndash;&gt;-->
-            <!--&lt;!&ndash;<paper-item> API Help</paper-item>&ndash;&gt;-->
-            <!--<paper-item> Footprint         </paper-item>-->
+            <!--<paper-submenu opened>-->
+                <!--<paper-item id="easyweb-menu" class="menu-trigger" style="background-color: lightgoldenrodyellow" " >EASYWEB</paper-item>-->
+                <!--<paper-menu class="menu-content" selected="[[selection]]">-->
+                    <!--<paper-item>Query Database</paper-item>-->
+                    <!--<paper-item>My Jobs</paper-item>-->
+                    <!--<paper-item>My Tables</paper-item>-->
+                    <!--<paper-item>All Tables</paper-item>-->
+                    <!--<paper-item>Sample Query</paper-item>-->
+                <!--</paper-menu>-->
+            <!--</paper-submenu>-->
+
+             <!--Order is important, it needs to match des-mainpages -->
+            <paper-item> Home              </paper-item>
+            <paper-item> My Jobs              </paper-item>
+            <!--<paper-item> Shared Jobs              </paper-item>-->
+            <paper-item> Coadds Images              </paper-item>
+            <!--<paper-item> Single Epoch              </paper-item>-->
+            <!--<paper-item> API Help</paper-item>-->
+            <paper-item> Footprint         </paper-item>
+
+            <paper-item> Query Database              </paper-item>
+            <!--<paper-item> Shared Jobs              </paper-item>-->
+            <paper-item> All Tables              </paper-item>
+            <!--<paper-item> Single Epoch              </paper-item>-->
+            <!--<paper-item> API Help</paper-item>-->
+            <paper-item> Example Query         </paper-item>
+            <paper-item> Help        </paper-item>
+
             <!--<paper-item> Demo         </paper-item>-->
 
         </paper-menu>
@@ -125,6 +135,12 @@
             <des-footprint-help class="visual"></des-footprint-help>
             <des-results-help id="desResultsHelp" class="visual" ></des-results-help>
             <des-logs-help class="visual" id="desResultsSharedHelp"></des-logs-help>
+
+
+            <easy-query-help class="visual"></easy-query-help>
+            <easy-all-tables-help class="visual"></easy-all-tables-help>
+            <easy-example-query-help class="visual"></easy-example-query-help>
+            <!--<easy-help class="visual"></easy-help>-->
             <!--<des-shared-results-help class="visual"></des-shared-results-help>-->
             <!--<des-shared-logs-help class="visual"></des-shared-logs-help>-->
 
