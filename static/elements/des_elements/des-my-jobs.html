@@ -325,10 +325,12 @@
         ready: function() {
             var _self = this;
             loc = window.location.host;
-            var ws = new WebSocket("ws://"+loc+"/websocket");
+            var ws = new WebSocket("wss://"+loc+"/websocket");
             ws.onmessage = function(e) {
                 console.log(e.data);
                 req = document.getElementById("getData");
+                req.generateRequest();
+                req = document.getElementById("getDataShared");
                 req.generateRequest();
             };
 

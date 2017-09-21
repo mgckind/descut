@@ -17,7 +17,7 @@ import sqlite3 as lite
 import dtasks
 import download
 
-define("port", default=8999, help="run on the given port", type=int)
+define("port", default=443, help="run on the given port", type=int)
 
 
 
@@ -31,6 +31,16 @@ def create_db(delete=False):
         if delete:
             cur.execute("DROP TABLE IF EXISTS Jobs")
         cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, type text, public integer, comment text)")
+
+
+class RedirectHandler(tornado.web.RequestHandler):
+
+    def prepare(self):
+        if self.request.protocol == 'http':
+            self.redirect('https://' + self.request.host, permanent=False)
+
+    def get(self):
+        self.write("Hello, world")
 
 
 
@@ -74,6 +84,8 @@ def main():
     """
     The main function
     """
+    application = tornado.web.Application([(r'/.*', RedirectHandler)])
+    application.listen(8999)
     if not os.path.exists(Settings.UPLOADS):
         os.mkdir(Settings.UPLOADS)
     if not os.path.exists(Settings.WORKERS):
@@ -81,7 +93,7 @@ def main():
     create_db()
     tornado.options.parse_command_line()
     if options.port == 443:
-        http_server = tornado.httpserver.HTTPServer(Application(), ssl_options={"certfile": "/des/etc/cks/descut_cert.cer", "keyfile": "/des/etc/cks/descut.key",})
+        http_server = tornado.httpserver.HTTPServer(Application(), ssl_options={"certfile": "/des/etc/cks/descut.crt", "keyfile": "/des/etc/cks/descut.key",})
     else:
         http_server = tornado.httpserver.HTTPServer(Application())
     http_server.listen(options.port)

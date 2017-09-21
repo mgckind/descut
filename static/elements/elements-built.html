@@ -31471,10 +31471,12 @@ Configuration:
         ready: function() {
             var _self = this;
             loc = window.location.host;
-            var ws = new WebSocket("ws://"+loc+"/websocket");
+            var ws = new WebSocket("wss://"+loc+"/websocket");
             ws.onmessage = function(e) {
                 console.log(e.data);
                 req = document.getElementById("getData");
+                req.generateRequest();
+                req = document.getElementById("getDataShared");
                 req.generateRequest();
             };
 
@@ -35725,9 +35727,12 @@ req <span style="color: #333333">=</span> requests<span style="color: #333333">.
         ready: function() {
             var _self = this;
             loc = window.location.host
-            var ws = new WebSocket("ws://"+loc+"/websocket");
+            var ws = new WebSocket("wss://"+loc+"/websocket");
+            console.log("wss://"+loc+"/websocket");
             ws.onmessage = function(e) {
                 console.log(e.data);
+                req = document.getElementById("getData");
+                req.generateRequest();
                 req = document.getElementById("getDataShared");
                 req.generateRequest();
             };

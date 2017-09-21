@@ -12,7 +12,7 @@ FF.close()
 MAX_OBJECTS = 100 #TO BE CHANGED
 TOKEN_TTL = 3600
 DBFILE = os.path.join(STATIC_PATH,"uploads/admin/users.db")
-ROOT_URL = 'http://descut.cosmology.illinois.edu'
+ROOT_URL = 'https://descut.cosmology.illinois.edu'
 import logging
 # log linked to the standard error stream
 logging.basicConfig(level=logging.DEBUG,

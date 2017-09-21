@@ -76,7 +76,7 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
         cur = con.cursor()
         cur.execute(q)
     try:
-        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (uu,siid))
+        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (uu,siid), verify=False)
         #readfile.notify(infoP._uu,siid)
     except:
         pass
@@ -141,7 +141,7 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
         pass
 
     try:
-        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (loc_user,jobid))
+        a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (loc_user,jobid), verify=False)
     except:
         pass
     return oo
