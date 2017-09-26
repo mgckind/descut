@@ -29,7 +29,7 @@
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        var jobsEntry = document.getElementById("jobs");
+        var desjobsEntry = document.getElementById("desjobs");
         // var sharedEntry = document.getElementById("shared");
         var coaddEntry = document.getElementById("coadd");
         // var epochEntry = document.getElementById("epoch");
@@ -38,6 +38,8 @@
 
 
         var queryEntry = document.getElementById("query");
+        var easyjobsEntry = document.getElementById("easyjobs");
+
         var allTablesEntry = document.getElementById("allTables");
         var exampleEntry = document.getElementById("example");
         // var helpEntry = document.getElementById("help");
@@ -46,7 +48,7 @@
 
         // var gal = document.getElementById("mainGallery");
 
-        jobsEntry.addEventListener('click', function() {
+        desjobsEntry.addEventListener('click', function() {
             // gal.selected = "1";
             menu.selected="1";
             app.selection="1";
@@ -84,95 +86,35 @@
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        allTablesEntry.addEventListener('click', function() {
-            // gal.selected = "5";
+        easyjobsEntry.addEventListener('click', function() {
+            // gal.selected = "4";
             menu.selected="5";
             app.selection="5";
             pages.selected="5";
+            // help.selected="11";
+            app.$.paperDrawerPanel.closeDrawer();
+        });
+
+        allTablesEntry.addEventListener('click', function() {
+            // gal.selected = "5";
+            menu.selected="6";
+            app.selection="6";
+            pages.selected="6";
             // help.selected="5";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
         exampleEntry.addEventListener('click', function() {
             // gal.selected = "6";
-            menu.selected="6";
-            app.selection="6";
-            pages.selected="6";
+            menu.selected="7";
+            app.selection="7";
+            pages.selected="7";
             // help.selected="6";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
 
-        // // var list = document.getElementById("jobList");
-        // // var list2 = document.getElementById("jobListShared");
-        // var smallList = document.getElementById("smallJobList");
-        // var smallListL = document.getElementById("smallJobListL");
-        // var smallList2 = document.getElementById("smallJobListShared");
-        // var smallListL2 = document.getElementById("smallJobListLShared");
-        // var checkList = document.getElementById("checkAll");
-        // var checkList2 = document.getElementById("checkAllShared");
-        //
-        // list.addEventListener('iron-select', function(){
-        //     var listAll = [];
-        //     listAll = list.selectedValues;
-        //     if (listAll.length > 0){
-        //         document.getElementById("DeleteHeader").style.display = "block";
-        //         document.getElementById("ListHeader").style.display = "none";
-        //         checkList.checked = true;
-        //     };
-        // });
-        //
-        // //smallList.addEventListener('iron-select', function(){
-        //   //  console.log(smallList.selectedItem.item);
-        //    // document.getElementById("desResults").jobid=smallList.selectedItem.innerText.trim();
-        //    // desResults.username = document.getElementById("desJobs").username;
-        //    // document.getElementById("getTiles").generateRequest();
-        //     //});
-        // //smallListL.addEventListener('iron-select', function(){
-        //   //  document.getElementById("desLog").jobid=smallList.selectedItem.innerText.trim();
-        //    // document.getElementById("getLog").generateRequest();
-        //     //});
-        //
-        // list.addEventListener('iron-deselect', function(){
-        //     var listAll = [];
-        //     listAll = list.selectedValues;
-        //     if (listAll.length == 0){
-        //         document.getElementById("DeleteHeader").style.display = "none";
-        //         document.getElementById("ListHeader").style.display = "block";
-        //         checkList.checked = false;
-        //         };
-        // });
-        //
-        //
-        // list.addEventListener('iron-items-changed', function(){
-        //     document.getElementById("DeleteHeader").style.display = "none";
-        //     document.getElementById("ListHeader").style.display = "block";
-        //     checkList.checked = false;
-        // });
-        //
-        // list2.addEventListener('iron-select', function(){
-        //     var listAll = [];
-        //     listAll = list2.selectedValues;
-        //     if (listAll.length > 0){
-        //         checkList2.checked = true;
-        //     };
-        // });
-        //
-        // list2.addEventListener('iron-deselect', function(){
-        //     var listAll = [];
-        //     listAll = list2.selectedValues;
-        //     if (listAll.length == 0){
-        //         // document.getElementById("InfoHeader").style.display = "none";
-        //         document.getElementById("ListHeaderShared").style.display = "block";
-        //         checkList2.checked = false;
-        //     };
-        // });
-        //
-        // list2.addEventListener('iron-items-changed', function(){
-        //     // document.getElementById("InfoHeader").style.display = "none";
-        //     document.getElementById("ListHeaderShared").style.display = "block";
-        //     checkList2.checked = false;
-        // });
+
 
         var xsize = document.getElementById("xsizeSlider");
         xsize.addEventListener('value-change', function() {

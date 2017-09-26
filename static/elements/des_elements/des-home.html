@@ -3,9 +3,6 @@
         :hover {
             cursor: pointer;
         }
-        /*div.card-content {*/
-        /*max-width: 100%;*/
-        /*}*/
 
 
 
@@ -18,24 +15,7 @@
             max-height: 95%;
         }
 
-        /*div#jobs {*/
-            /*background: url("../../images/home-epoch.jpg");*/
-            /*width: 185px;*/
-            /*height: inherit;*/
-            /*background-position: center;*/
-            /*background-repeat: no-repeat;*/
-        /*}*/
-
-        /*div# {*/
-            /*background: url("../../images/home-coadd.jpg");*/
-            /*width: 185px;*/
-            /*height: inherit;*/
-            /*background-position: center;*/
-            /*background-repeat: no-repeat;*/
-
-
-        /*}*/
-        div#jobs {
+        div#desjobs {
             background: url("../../images/home-jobs.jpg");
             width: 450px;
             height: 350px;
@@ -44,15 +24,6 @@
             background-repeat: no-repeat;
         }
 
-        /*div#shared {*/
-            /*background: url("../../images/home-shared.png");*/
-            /*width: 185px;*/
-            /*height: inherit;*/
-            /*background-position: center;*/
-            /*background-repeat: no-repeat;*/
-
-
-        /*}*/
         div#coadd {
             background: url("../../images/home-coadd-new.jpg");
             width: 450px;
@@ -85,6 +56,15 @@
             width: 450px;
             height: 350px;
             /*height:  inherit;*/
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div#easyjobs {
+            background: url("../../images/home-easyjobs.png");
+            width: 450px;
+            height: 350px;
+            /*height: inherit;*/
             background-position: center;
             background-repeat: no-repeat;
         }
@@ -122,22 +102,6 @@
             font-size: 1.5em;
         }
 
-        /*iron-pages div:nth-child(1) {*/
-        /*background-color: var(--google-blue-500);*/
-        /*}*/
-        /*iron-pages div:nth-child(2) {*/
-        /*background-color: var(--google-red-500);*/
-        /*}*/
-        /*iron-pages div:nth-child(3) {*/
-        /*background-color: var(--google-green-500);*/
-        /*}*/
-        /*iron-pages div:nth-child(4) {*/
-        /*background-color: var(--google-grey-500);*/
-        /*}*/
-        /*iron-pages div:nth-child(5) {*/
-        /*background-color: var(--google-yellow-500);*/
-        /*}*/
-
         [page-name=fallback] {
             background-color: white;
             font-size: 0.5em;
@@ -164,35 +128,10 @@
         <section>
             <div class="horizontal layout around justified">
             <des-card heading="Welcome [[name]]!" class="welcome">
-                <!--<div class="card-content" style="wi">-->
-                <!--<iron-pages id="mainGallery" selected="0">-->
-                    <!--<paper-card image="../../images/home-jobs.jpg">-->
-                        <!--<div class="card-content">-->
-                            <!--<div>My Jobs-->
-                                <!--&lt;!&ndash;<div>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<iron-icon icon="communication:location-on"></iron-icon>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<span>250ft</span>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-
-                            <!--<p>$・DESCUT</p>-->
-                            <!--<p>See all your jobs</p>-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash;<div class="card-actions">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<div class="horizontal justified">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<paper-icon-button icon="icons:event"></paper-icon-button>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<paper-button>5:30PM</paper-button>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<paper-button>7:30PM</paper-button>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<paper-button>9:00PM</paper-button>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<paper-button class="cafe-reserve">Reserve</paper-button>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--</paper-card>-->
 
 
-
-                <div class="gallery" id="jobs">
-                    <des-card-intro member="My Jobs"></des-card-intro>
+                <div class="gallery" id="desjobs">
+                    <des-card-intro member="Descut Jobs"></des-card-intro>
                 </div>
 
                 <div class="gallery" id="coadd">
@@ -208,6 +147,10 @@
                     <des-card-intro member="Query"></des-card-intro>
                 </div>
 
+                <div class="gallery" id="easyjobs">
+                    <des-card-intro member="Easyweb Jobs"></des-card-intro>
+                </div>
+
                 <div class="gallery" id="allTables">
                     <des-card-intro member="All Tables"></des-card-intro>
                 </div>
@@ -215,10 +158,7 @@
                 <div class="gallery" id="example">
                     <des-card-intro member="Example Query"></des-card-intro>
                 </div>
-                <!--<div class="gallery" id="help">-->
-                    <!--<des-card-intro member="Help"></des-card-intro>-->
-                <!--</div>-->
-                <!--</div>-->
+
 
 
 

@@ -1,19 +1,103 @@
-<link rel="import" href="../styles/shared-styles.html">
-<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../../styles/shared-styles.html">
+<link rel="import" href="../../bower_components/vaadin-grid/vaadin-grid.html">
 <dom-module id="easy-my-jobs">
 <template>
 <style include="shared-styles">
 
+    vaadin-grid#material {
 
+        height: 80%;
+        font-family: Roboto, sans-serif;
+        --divider-color: rgba(0, 0, 0, var(--dark-divider-opacity));
+
+        --vaadin-grid-cell: {
+            padding: 0;
+        };
+
+
+
+        --vaadin-grid-header-cell: {
+            height: 64px;
+            color: rgba(0, 0, 0, var(--dark-secondary-opacity));
+            font-size: 12px;
+        };
+
+        --vaadin-grid-body-cell: {
+            height: 48px;
+            color: rgba(0, 0, 0, var(--dark-primary-opacity));
+            font-size: 13px;
+        };
+
+        --vaadin-grid-body-row-hover-cell: {
+            background-color: var(--paper-grey-200);
+        };
+
+        --vaadin-grid-body-row-selected-cell: {
+            background-color: var(--paper-grey-100);
+        };
+
+        --vaadin-grid-focused-cell: {
+            box-shadow: none;
+            font-weight: bold;
+        };
+    }
+
+    vaadin-grid#material .cell {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 56px;
+    }
+
+    vaadin-grid#material .cell.last {
+        padding-right: 24px;
+    }
+
+    vaadin-grid#material .cell.numeric {
+        text-align: right;
+    }
+
+    vaadin-grid#material paper-checkbox {
+        --primary-color: var(--paper-indigo-500);
+        margin: 0 24px;
+    }
+
+    vaadin-grid#material vaadin-grid-sorter {
+        --vaadin-grid-sorter-arrow: {
+            display: none !important;
+        };
+    }
+
+    vaadin-grid#material vaadin-grid-sorter .cell {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    vaadin-grid#material vaadin-grid-sorter iron-icon {
+        transform: scale(0.8);
+    }
+
+    vaadin-grid#material vaadin-grid-sorter:not([direction]) iron-icon {
+        color: rgba(0, 0, 0, var(--dark-disabled-opacity));
+    }
+
+    vaadin-grid#material vaadin-grid-sorter[direction] {
+        color: rgba(0, 0, 0, var(--dark-primary-opacity));
+    }
+
+    vaadin-grid#material vaadin-grid-sorter[direction=desc] iron-icon {
+        transform: scale(0.8) rotate(180deg);
+    }
 
 </style>
     <iron-ajax id="getMyJobs"
-    auto
-    url="/api/myjobs/"
-    params='{"part":"fff"}'
-    handle-as="json"
-    on-response="_handleResponse"
-    debounce-duration="300">
+        auto
+        url="/api/myjobs/"
+        params='{"part":"fff"}'
+        handle-as="json"
+        on-response="_handleResponse"
+        debounce-duration="300">
     </iron-ajax>
 
     <paper-dialog class="dialog-position" id="JobQuery" with-backdrop on-iron-overlay-opened="patchOverlay">
@@ -28,29 +112,6 @@
     <paper-dialog class="dialog-position" id="JobFiles" with-backdrop on-iron-overlay-opened="patchOverlay">
               <h2>Job id: {{jobid}}</h2>
               <div style="padding-bottom: 15px;">
-
-        <!--<vaadin-grid items="{{myfiles}}" id="material">-->
-
-
-              <!--<vaadin-grid-column flex-grow="1">-->
-                <!--<template class="header">Filename</template>-->
-                <!--<template>{{item.file}}</template>-->
-              <!--</vaadin-grid-column>-->
-
-              <!--<vaadin-grid-column flex-grow="1">-->
-                <!--<template class="header">Size</template>-->
-                <!--<template>{{item.size}}</template>-->
-              <!--</vaadin-grid-column>-->
-
-              <!--<vaadin-grid-column flex-grow="1">-->
-              <!--<template class="header">Download Files</template>-->
-              <!--<template>-->
-                <!--<paper-button class="SeeFilesButton" raised on-click="_downloadFile">Download</paper-button>-->
-              <!--</template>-->
-            <!--</vaadin-grid-column>-->
-
-            <!--</vaadin-grid>-->
-
                   <paper-button raised dialog-confirm>ok</paper-button><br />
               </div>
     </paper-dialog>
