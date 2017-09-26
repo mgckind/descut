@@ -35,7 +35,7 @@ class CustomTask(Task):
     abstract = None
 
     def after_return(self, status, retval, task_id, args, kwargs, einfo):
-        url = 'http://localhost:8080/easyweb/pusher/'
+        url = 'http://localhost:8080/pusher/pusher/'
         # data = {'username': retval['user'], 'result': retval['data'], 'status': retval['status'],
         #         'kind': retval['kind']}
         #con = lite.connect(Settings.DBFILE)

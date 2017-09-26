@@ -1,0 +1,1 @@
+{"status": "error", "kind": "query", "elapsed": 0.005143880844116211, "files": null, "data": "ORA-00903: invalid table name", "user": "demo_user", "sizes": null, "jobid": "8d05ba7e-67bf-4814-b225-3d57854fa8ac"}

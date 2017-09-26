@@ -1,0 +1,1 @@
+{"user": "demo_user", "elapsed": 0.018899917602539062, "jobid": "200adb65-dd3b-4ed5-878b-f2d40bd8ff10", "files": ["dd.csv"], "sizes": ["0.44 KB"], "kind": "query", "status": "ok", "data": "File /home/ruiqili2/zoe/easyweb/easyweb/static/workdir/demo_user/200adb65-dd3b-4ed5-878b-f2d40bd8ff10/dd.csv written"}

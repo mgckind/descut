@@ -212,14 +212,6 @@
                 type: String,
                 value: 'NULL',
             },
-//            inverted: {
-//                type: Boolean,
-//                value: false
-//            },
-//            indeterminate: {
-//                type: Boolean,
-//                value: false
-//            }
 
         },
 //        observers: ['_resetSelection(inverted)'],
@@ -280,58 +272,7 @@
             req2 = document.getElementById("getDataShared");
             req2.generateRequest();
         },
-//        selectall: function(){
-//            var list = document.getElementById("jobList");
-//            var listAll = list.selectedValues;
-//            //if (typeof listAll !== 'undefined') {
-//            //    var listAll2 = JSON.parse(JSON.stringify(listAll));
-//            //  console.log(listAll2.length);
-//            // }
-//            for (i = 1; i< list.items.length ;i++) {
-//                list.selectIndex(i);
-//            }
-//            //if (typeof listAll !== 'undefined') {
-//            //for (i = 0; i< listAll2.length ;i++) { list.selectIndex(listAll2[i]); }
-//            //};
-//            app.scrollPageToTop();
-//        },
-//        unselectall: function(){
-//            var list = document.getElementById("jobList");
-//            var listAll = list.selectedValues;
-//            console.log(listAll);
-//            if (typeof listAll !== 'undefined') {
-//                var listAll2 = JSON.parse(JSON.stringify(listAll));
-//                for (i = 0; i< listAll2.length ;i++) {
-//                    list.selectIndex(listAll2[i]);
-//                }
-//            }
-//            app.scrollPageToTop();
-//        },
 
-//        _genDeleteReq: function(){
-//            var list = document.getElementById("material");
-//            var listAll = this.$.material.selectedItems;
-//            this.mytemp = JSON.parse(JSON.stringify(listAll));
-//            if(this.$.material.selectedItems.length === 0) {
-//                alert("Invalid number of jobs.");
-//            }
-//            else {
-//                var result = confirm("Do you want to delete these "+this.$.material.selectedItems.length+" jobs? They will be also erased from disk storage");
-//                var toDel=[];
-//                if (result){
-//                    for (i = 0; i < this.mytemp.length ; i++) {
-//                        toDel.push(this.returnName(listAll[i].job));
-//                    }
-//                    req = document.getElementById("DeleteReq");
-//                    req.params = toDel;
-//                    req.generateRequest();
-//                    this._resetSelection();
-//
-//
-//                }
-//            }
-//
-//        },
 
         returnName: function(job) {
             var n1=job.search("__");
@@ -405,27 +346,7 @@
             document.getElementById("getData").generateRequest();
         },
 
-//        _logDialogOpen: function(e) {
-//            e.stopPropagation();
-//
-//            var pages = document.getElementById("mainPages");
-//            var help = document.getElementById("helpPages");
-//            var menu = document.querySelector('paper-menu');
-//            var desResults = document.getElementById("desResults");
-//
-//            document.getElementById("smallJobList").selected=e.model.index;
-//            document.getElementById("smallJobListL").selected=e.model.index;
-//
-//
-//            desResults.jobid = this.returnName(e.model.item.job);
-//            desResults.jobidFull = e.model.item.job;
-//            desResults.username = this.username;
-//            desResults.jtypes = e.model.item.jtypes;
-////            desResults.jpublic = e.model.item.jpublic;
-////            desResults.jcomment = e.model.item.jcomment;
-//
-//
-//        },
+
 
 
         viewresults: function(e){
@@ -471,10 +392,10 @@
 //            desResultsHelpRight .jobcomment = e.model.item.jcomment;
 //            desResults.jobid = this.returnName(e.model.item.job);
 //            desResults.jobidFull = e.model.item.job;
-            app.selection="7";
-            pages.selected="7";
-            menu.selected="7";
-            help.selected="7";
+            app.selection="8";
+            pages.selected="8";
+            menu.selected="8";
+            help.selected="8";
 
         },
 
@@ -526,76 +447,7 @@
             this.jobname = this.returnName(e.model.item.job);
             log.open();
 
-
-//            app.selection="8";
-//            pages.selected="8";
-//            menu.selected="8";
-//            help.selected="8";
         },
-
-//        _genShareReq: function(e) {
-//            var list = document.getElementById("material");
-//            var listAll = this.$.material.selectedItems;
-//            this.mytemp = JSON.parse(JSON.stringify(listAll));
-//            var result = 0;
-//
-//            if(this.$.material.selectedItems.length === 0) {
-//                alert("Invalid number of jobs.");
-//            }
-//            else {
-//                if (listAll.length > 1) {
-//                    result = confirm("Do you want to share these " + this.$.material.selectedItems.length + " jobs? ");
-//                }
-//                else {
-//                    result = confirm("Do you want to share this 1 job? ");
-//                }
-//                var toShare = [];
-//                if (result) {
-//                    for (i = 0; i < this.mytemp.length; i++) {
-//                        console.log("push job: ", this.returnName(listAll[i].job));
-//                        toShare.push(this.returnName(listAll[i].job));
-//                    }
-//                    req = document.getElementById("ShareReq");
-//                    req.params = toShare;
-//                    req.generateRequest();
-//                    this._resetSelection();
-//                }
-//            }
-//
-//        },
-//
-//        _genUnshareReq: function(e) {
-//            var list = document.getElementById("material");
-//            var listAll = this.$.material.selectedItems;
-//
-//            this.mytemp = JSON.parse(JSON.stringify(listAll));
-//            var result = 0;
-//            if(this.$.material.selectedItems.length === 0) {
-//                alert("Invalid number of jobs.");
-//            }
-//            else {
-//                if (listAll.length > 1) {
-//                    result = confirm("Do you want to unshare these " + this.$.material.selectedItems.length + " jobs? ");
-//                }
-//                else {
-//                    result = confirm("Do you want to unshare this 1 job? ");
-//                }
-//
-//                var toUnshare = [];
-//                if (result) {
-//                    for (i = 0; i < this.mytemp.length; i++) {
-////                    console.log(this.returnName(this.data[this.mytemp[i]].job));
-//                        console.log(listAll[i].job, ", public: ", listAll[i].jpublic);
-//                        toUnshare.push(this.returnName(listAll[i].job));
-//                    }
-//                    req = document.getElementById("UnshareReq");
-//                    req.params = toUnshare;
-//                    req.generateRequest();
-//                    this._resetSelection();
-//
-//                }
-//            }
-//        },
 
         _isShared: function(access) {
             if (access === 1) {
@@ -608,17 +460,7 @@
 
         _afterShare: function(e){
             var list = document.getElementById("material");
-//            var auto = document.getElementById("auto");
-//            auto.selectAll=false;
-//            auto.indeterminate=false;
-//            this._resetSelection();
-//            console.log("mytemp len: ",this.mytemp.length);
-//            for (i = 0; i < this.mytemp.length ; i++) {
-//                console.log(this.mytemp[i].job);
-//                list.selectItem(this.mytemp[i].item);
-//
-//            }
-//            var desResults = document.getElementById("desResults");
+
             req = document.getElementById("getData");
             req2 = document.getElementById("getDataShared");
 

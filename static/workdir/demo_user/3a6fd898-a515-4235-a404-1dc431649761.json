@@ -1,0 +1,1 @@
+{"status": "ok", "kind": "query", "elapsed": 0.05076146125793457, "files": ["myfile.csv"], "data": "File /home/ruiqili2/zoe/easyweb/easyweb/static/workdir/demo_user/3a6fd898-a515-4235-a404-1dc431649761/myfile.csv written", "user": "demo_user", "sizes": ["0.44 KB"], "jobid": "3a6fd898-a515-4235-a404-1dc431649761"}

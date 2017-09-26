@@ -24,6 +24,8 @@
     on-response="_handleDescription"
     debounce-duration="300">
     </iron-ajax>
+    <div class="horizontal layout">
+
 
     <paper-dialog class="dialog-position" id="scrollingAll" with-backdrop on-iron-overlay-opened="patchOverlay">
               <h2>{{tablename}}</h2>
@@ -57,7 +59,6 @@
       </div>
     </paper-dialog>
 
-    <paper-button onclick="getAllTables.generateRequest()"> refresh <iron-icon icon="icons:refresh"></iron-icon></paper-button>
 
 
 <vaadin-grid id="material" items="{{data}}">
@@ -94,7 +95,8 @@
             </vaadin-grid-column>
 
     </vaadin-grid>
-
+    <easy-all-tables-help></easy-all-tables-help>
+    </div>
 
 </template>
 

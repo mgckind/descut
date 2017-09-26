@@ -118,7 +118,7 @@
 
 
 <paper-toast class="toast-position" id="toastCopy" text="Query copied to main editor" duration="3000"> </paper-toast>
-
+    <div class="horizontal layout">
 
 <vaadin-grid items="{{data}}" id ="material">
 
@@ -175,8 +175,8 @@
             </vaadin-grid-column>
 
     </vaadin-grid>
-    <paper-button onclick="getMyJobs.generateRequest()"> refresh <iron-icon icon="icons:refresh"></iron-icon>
-</paper-button>
+
+    </div>
 </template>
 
 <script>
