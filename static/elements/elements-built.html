@@ -32733,8 +32733,8 @@ Configuration:
 
                     <paper-dropdown-menu label="Release TAG">
                         <paper-listbox id="coaddTag" selected="0" class="dropdown-content">
-                            <paper-item value="Y3A1_COADD">Y3A1_COADD</paper-item>
-                            <paper-item value="Y3A1_COADD_DEEP">Y3A1_COADD_DEEP</paper-item>
+                            <paper-item value="Y3A2_COADD">Y3A2_COADD</paper-item>
+                            <paper-item value="Y3A1_COADD_DEEP">Y3A2_COADD_DEEP</paper-item>
                             <paper-item value="Y1A1_COADD">Y1A1_COADD</paper-item>
                             <paper-item value="Y1A1_COADD_D04">Y1A1_COADD_D04</paper-item>
                             <paper-item value="Y1A1_COADD_D10">Y1A1_COADD_D10</paper-item>
@@ -32934,7 +32934,8 @@ Configuration:
 
 
 
-</script><dom-module id="des-coadds-help" assetpath="des_elements/">
+</script>
+<dom-module id="des-coadds-help" assetpath="des_elements/">
     <style include="shared-styles">
     </style>
     <template>
@@ -34387,7 +34388,7 @@ Configuration:
                         window.sv_tiles = vectorLayer;
                     });
 
-                    loadTiles('/static/tiles/y3a1_d_tiles.json',[1.0,0.0,1.0,1.0],function(mycolor,response){
+                    loadTiles('/static/tiles/y3a2_d_tiles.json',[1.0,0.0,1.0,1.0],function(mycolor,response){
                         var vectorLayer = new GlobWeb.VectorLayer({
                             style : new GlobWeb.FeatureStyle({
                                 strokeColor : [0.556863,0.141176,0.666666,1.],
@@ -34404,7 +34405,7 @@ Configuration:
                     });
 
 
-                    loadTiles('/static/tiles/y3a1_tiles.json',[0.0,1.0,1.0,1.0],function(mycolor,response){
+                    loadTiles('/static/tiles/y3a2_tiles.json',[0.0,1.0,1.0,1.0],function(mycolor,response){
                         var vectorLayer = new GlobWeb.VectorLayer({
                             style : new GlobWeb.FeatureStyle({
                                 strokeColor : [0.2980392156862745, 0.4470588235294118, 0.6901960784313725,1.0],
@@ -34610,14 +34611,14 @@ Configuration:
                 <hr class="des-hr">
                 <paper-item>
                     <paper-item-body>
-                        <span style="color:  #4C72B0;">Y3A1 Coadd</span>
+                        <span style="color:  #4C72B0;">Y3A2 Coadd</span>
                     </paper-item-body>
                     <paper-checkbox class="y3a1" id="check_y3" checked="" on-change="display_y3"></paper-checkbox>
                 </paper-item>
 
                 <paper-item>
                     <paper-item-body>
-                    <span style="color:  #BA68C8">Y3A1_D Coadd</span>
+                    <span style="color:  #BA68C8">Y3A2_DEEP </span>
                     </paper-item-body>
                     <paper-checkbox class="y3a1d" id="check_y3d" on-change="display_y3d"></paper-checkbox>
                 </paper-item>
@@ -34631,7 +34632,7 @@ Configuration:
 
                 <paper-item>
                     <paper-item-body>
-                    <span style="color: #ff8800;">Y1A1_D Coadd</span>
+                    <span style="color: #ff8800;">Y1A1_DEEP</span>
                     </paper-item-body>
                     <paper-checkbox class="y1a1d" id="check_y1d" on-change="display_y1d"></paper-checkbox>
                 </paper-item>
@@ -34661,19 +34662,7 @@ Configuration:
                 </paper-item>
                 <paper-item>
                     <paper-item-body>
-                        Export to Coadds Images
-                    </paper-item-body>
-                    <paper-icon-button icon="maps:near-me" on-tap="_toCoadds"></paper-icon-button>
-                </paper-item>
-                <paper-item>
-                    <paper-item-body>
-                        Export to Single Epoch
-                    </paper-item-body>
-                    <paper-icon-button icon="maps:near-me" on-tap="_toSingle"></paper-icon-button>
-                </paper-item>
-                <paper-item>
-                    <paper-item-body>
-                        clear
+                        Clear
                     </paper-item-body>
                     <paper-icon-button icon="clear" on-tap="_clear"></paper-icon-button>
                 </paper-item>
@@ -34810,7 +34799,8 @@ Configuration:
     });
 
 
-</script><dom-module id="des-api-create-token" assetpath="des_elements/api/">
+</script>
+<dom-module id="des-api-create-token" assetpath="des_elements/api/">
 <template>
     <style include="shared-styles">
     </style>
@@ -35728,12 +35718,11 @@ req <span style="color: #333333">=</span> requests<span style="color: #333333">.
             var _self = this;
             loc = window.location.host
             var ws = new WebSocket("wss://"+loc+"/websocket");
-            console.log("wss://"+loc+"/websocket");
             ws.onmessage = function(e) {
                 console.log(e.data);
-                req = document.getElementById("getData");
-                req.generateRequest();
                 req = document.getElementById("getDataShared");
+                req.generateRequest();
+                req = document.getElementById("getData");
                 req.generateRequest();
             };
 
