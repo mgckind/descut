@@ -11,7 +11,7 @@
     window.addEventListener('WebComponentsReady', function() {
 
         var pages = document.getElementById("mainPages");
-        var menu = document.querySelector('paper-menu');
+        var menu = document.getElementById('bigmenu');
         var help = document.getElementById("helpPages");
         app.selection="0";
         pages.selected="0";
@@ -22,6 +22,8 @@
             pages.selected=menu.selected;
             help.selected=menu.selected;
             app.$.paperDrawerPanel.closeDrawer();
+            app.editor.refresh();
+
         });
         menu.addEventListener('iron-activate', function() {
             app.$.paperDrawerPanel.closeDrawer();
@@ -75,228 +77,30 @@
 
         queryEntry.addEventListener('click', function() {
             // gal.selected = "4";
-            menu.selected="11";
-            app.selection="11";
-            pages.selected="11";
+            menu.selected="4";
+            app.selection="4";
+            pages.selected="4";
             // help.selected="11";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
         allTablesEntry.addEventListener('click', function() {
             // gal.selected = "5";
-            menu.selected="12";
-            app.selection="12";
-            pages.selected="12";
+            menu.selected="5";
+            app.selection="5";
+            pages.selected="5";
             // help.selected="5";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
         exampleEntry.addEventListener('click', function() {
             // gal.selected = "6";
-            menu.selected="13";
-            app.selection="13";
-            pages.selected="13";
+            menu.selected="6";
+            app.selection="6";
+            pages.selected="6";
             // help.selected="6";
             app.$.paperDrawerPanel.closeDrawer();
         });
-
-        // helpEntry.addEventListener('click', function() {
-        //     // gal.selected = "6";
-        //     menu.selected="14";
-        //     app.selection="14";
-        //     pages.selected="14";
-        //     // help.selected="6";
-        //     app.$.paperDrawerPanel.closeDrawer();
-        // });
-        // epochEntry.addEventListener('click', function() {
-        //     // gal.selected = "4";
-        //     menu.selected="4";
-        //     app.selection="4";
-        //     pages.selected="4";
-        //     // help.selected="4";
-        //     app.$.paperDrawerPanel.closeDrawer();
-        // });
-        //
-        // apiEntry.addEventListener('click', function() {
-        //     // gal.selected = "5";
-        //     menu.selected="5";
-        //     app.selection="5";
-        //     pages.selected="5";
-        //     // help.selected="5";
-        //     app.$.paperDrawerPanel.closeDrawer();
-        // });
-        //
-        // footprintEntry.addEventListener('click', function() {
-        //     // gal.selected = "6";
-        //     menu.selected="6";
-        //     app.selection="6";
-        //     pages.selected="6";
-        //     // help.selected="6";
-        //     app.$.paperDrawerPanel.closeDrawer();
-        // });
-
-
-
-
-        // var tabs = document.getElementById("api-tabs");
-        // tabs.addEventListener('iron-active', function () {
-        //     tabs.style.backgroundColor = "red";
-        // });
-
-
-        var tab_one = document.getElementById("api_tab_one");
-        var tab_two = document.getElementById("api_tab_two");
-        var tab_three = document.getElementById("api_tab_three");
-        var tab_four = document.getElementById("api_tab_four");
-        var tab_five = document.getElementById("api_tab_five");
-        var tab_six = document.getElementById("api_tab_six");
-        var tab_seven = document.getElementById("api_tab_seven");
-        // var tab_eight = document.getElementById("api_tab_eight");
-        // var tab_nine = document.getElementById("api_tab_nine");
-        // var tab_ten = document.getElementById("api_tab_ten");
-
-        var apis = document.getElementById("apis");
-
-        tab_one.addEventListener('click', function() {
-            apis.selected = "0";
-            tab_one.setAttribute('class', 'selected-tab');
-            tab_two.setAttribute('class', 'unselected-tab');
-            tab_three.setAttribute('class', 'unselected-tab');
-            tab_four.setAttribute('class', 'unselected-tab');
-            tab_five.setAttribute('class', 'unselected-tab');
-            tab_six.setAttribute('class', 'unselected-tab');
-            tab_seven.setAttribute('class', 'unselected-tab');
-            // tab_eight.setAttribute('class', 'unselected-tab');
-            // tab_nine.setAttribute('class', 'unselected-tab');
-            // tab_ten.setAttribute('class', 'unselected-tab');
-
-        });
-
-        tab_two.addEventListener('click', function() {
-            apis.selected = "1";
-            tab_one.setAttribute('class', 'unselected-tab');
-            tab_two.setAttribute('class', 'selected-tab');
-            tab_three.setAttribute('class', 'unselected-tab');
-            tab_four.setAttribute('class', 'unselected-tab');
-            tab_five.setAttribute('class', 'unselected-tab');
-            tab_six.setAttribute('class', 'unselected-tab');
-            tab_seven.setAttribute('class', 'unselected-tab');
-            // tab_eight.setAttribute('class', 'unselected-tab');
-            // tab_nine.setAttribute('class', 'unselected-tab');
-            // tab_ten.setAttribute('class', 'unselected-tab');
-        });
-
-        tab_three.addEventListener('click', function() {
-            apis.selected = "2";
-            tab_one.setAttribute('class', 'unselected-tab');
-            tab_two.setAttribute('class', 'unselected-tab');
-            tab_three.setAttribute('class', 'selected-tab');
-            tab_four.setAttribute('class', 'unselected-tab');
-            tab_five.setAttribute('class', 'unselected-tab');
-            tab_six.setAttribute('class', 'unselected-tab');
-            tab_seven.setAttribute('class', 'unselected-tab');
-            // tab_eight.setAttribute('class', 'unselected-tab');
-            // tab_nine.setAttribute('class', 'unselected-tab');
-            // tab_ten.setAttribute('class', 'unselected-tab');
-        });
-
-        tab_four.addEventListener('click', function() {
-            apis.selected = "3";
-            tab_one.setAttribute('class', 'unselected-tab');
-            tab_two.setAttribute('class', 'unselected-tab');
-            tab_three.setAttribute('class', 'unselected-tab');
-            tab_four.setAttribute('class', 'selected-tab');
-            tab_five.setAttribute('class', 'unselected-tab');
-            tab_six.setAttribute('class', 'unselected-tab');
-            tab_seven.setAttribute('class', 'unselected-tab');
-            // tab_eight.setAttribute('class', 'unselected-tab');
-            // tab_nine.setAttribute('class', 'unselected-tab');
-            // tab_ten.setAttribute('class', 'unselected-tab');
-
-        });
-
-        tab_five.addEventListener('click', function() {
-            apis.selected = "4";
-            tab_one.setAttribute('class', 'unselected-tab');
-            tab_two.setAttribute('class', 'unselected-tab');
-            tab_three.setAttribute('class', 'unselected-tab');
-            tab_four.setAttribute('class', 'unselected-tab');
-            tab_five.setAttribute('class', 'selected-tab');
-            tab_six.setAttribute('class', 'unselected-tab');
-            tab_seven.setAttribute('class', 'unselected-tab');
-            // tab_eight.setAttribute('class', 'unselected-tab');
-            // tab_nine.setAttribute('class', 'unselected-tab');
-            // tab_ten.setAttribute('class', 'unselected-tab');
-
-        });
-
-        tab_six.addEventListener('click', function() {
-            apis.selected = "5";
-            tab_one.setAttribute('class', 'unselected-tab');
-            tab_two.setAttribute('class', 'unselected-tab');
-            tab_three.setAttribute('class', 'unselected-tab');
-            tab_four.setAttribute('class', 'unselected-tab');
-            tab_five.setAttribute('class', 'unselected-tab');
-            tab_six.setAttribute('class', 'selected-tab');
-            tab_seven.setAttribute('class', 'unselected-tab');
-            // tab_eight.setAttribute('class', 'unselected-tab');
-            // tab_nine.setAttribute('class', 'unselected-tab');
-            // tab_ten.setAttribute('class', 'unselected-tab');
-        });
-
-        tab_seven.addEventListener('click', function() {
-            apis.selected = "6";
-            tab_one.setAttribute('class', 'unselected-tab');
-            tab_two.setAttribute('class', 'unselected-tab');
-            tab_three.setAttribute('class', 'unselected-tab');
-            tab_four.setAttribute('class', 'unselected-tab');
-            tab_five.setAttribute('class', 'unselected-tab');
-            tab_six.setAttribute('class', 'unselected-tab');
-            tab_seven.setAttribute('class', 'selected-tab');
-            // tab_eight.setAttribute('class', 'unselected-tab');
-            // tab_nine.setAttribute('class', 'unselected-tab');
-            // tab_ten.setAttribute('class', 'unselected-tab');
-        });
-
-        // tab_eight.addEventListener('click', function() {
-        //     apis.selected = "7";
-        //     tab_one.setAttribute('class', 'unselected-tab');
-        //     tab_two.setAttribute('class', 'unselected-tab');
-        //     tab_three.setAttribute('class', 'unselected-tab');
-        //     tab_four.setAttribute('class', 'unselected-tab');
-        //     tab_five.setAttribute('class', 'unselected-tab');
-        //     tab_six.setAttribute('class', 'unselected-tab');
-        //     tab_seven.setAttribute('class', 'unselected-tab');
-        //     tab_eight.setAttribute('class', 'selected-tab');
-        //     tab_nine.setAttribute('class', 'unselected-tab');
-        //     tab_ten.setAttribute('class', 'unselected-tab');
-        // });
-        // tab_nine.addEventListener('click', function() {
-        //     apis.selected = "8";
-        //     tab_one.setAttribute('class', 'unselected-tab');
-        //     tab_two.setAttribute('class', 'unselected-tab');
-        //     tab_three.setAttribute('class', 'unselected-tab');
-        //     tab_four.setAttribute('class', 'unselected-tab');
-        //     tab_five.setAttribute('class', 'unselected-tab');
-        //     tab_six.setAttribute('class', 'unselected-tab');
-        //     tab_seven.setAttribute('class', 'unselected-tab');
-        //     tab_eight.setAttribute('class', 'unselected-tab');
-        //     tab_nine.setAttribute('class', 'selected-tab');
-        //     tab_ten.setAttribute('class', 'unselected-tab');
-        // });
-        // tab_ten.addEventListener('click', function() {
-        //     apis.selected = "9";
-        //     tab_one.setAttribute('class', 'unselected-tab');
-        //     tab_two.setAttribute('class', 'unselected-tab');
-        //     tab_three.setAttribute('class', 'unselected-tab');
-        //     tab_four.setAttribute('class', 'unselected-tab');
-        //     tab_five.setAttribute('class', 'unselected-tab');
-        //     tab_six.setAttribute('class', 'unselected-tab');
-        //     tab_seven.setAttribute('class', 'unselected-tab');
-        //     tab_eight.setAttribute('class', 'unselected-tab');
-        //     tab_nine.setAttribute('class', 'unselected-tab');
-        //     tab_ten.setAttribute('class', 'selected-tab');
-        // });
 
 
         // // var list = document.getElementById("jobList");
@@ -397,5 +201,23 @@
     app.closeDrawer = function() {
         app.$.paperDrawerPanel.closeDrawer();
     };
+    var myQuery = document.getElementById("queryBox");
+    app.editor = CodeMirror.fromTextArea(myQuery, {
+        lineNumbers: true,
+        mode: 'text/x-plsql',
+        autofocus: true,
+    });
+    app.editor.setValue('-- Insert Query --\n');
+    app.editor.focus();
+    app.editor.execCommand('goLineDown');
+    var myJobQuery = document.getElementById("jobQueryBox");
+    app.jobquerybox = CodeMirror.fromTextArea(myJobQuery, {
+        lineNumbers: false,
+        mode: 'text/x-plsql',
+        readOnly: true,
+        autofocus: true,
+    });
+    app.jobquerybox.setValue('\n\n\n\n\n\n\n\n\n\n');
+    app.jobquerybox.focus();
 
 })(document);

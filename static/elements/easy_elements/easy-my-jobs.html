@@ -9,7 +9,7 @@
 </style>
     <iron-ajax id="getMyJobs"
     auto
-    url="/easyweb/myjobs/"
+    url="/api/myjobs/"
     params='{"part":"fff"}'
     handle-as="json"
     on-response="_handleResponse"
@@ -29,27 +29,27 @@
               <h2>Job id: {{jobid}}</h2>
               <div style="padding-bottom: 15px;">
 
-        <vaadin-grid items="{{myfiles}}" id="material">
+        <!--<vaadin-grid items="{{myfiles}}" id="material">-->
 
 
-              <vaadin-grid-column flex-grow="1">
-                <template class="header">Filename</template>
-                <template>{{item.file}}</template>
-              </vaadin-grid-column>
+              <!--<vaadin-grid-column flex-grow="1">-->
+                <!--<template class="header">Filename</template>-->
+                <!--<template>{{item.file}}</template>-->
+              <!--</vaadin-grid-column>-->
 
-              <vaadin-grid-column flex-grow="1">
-                <template class="header">Size</template>
-                <template>{{item.size}}</template>
-              </vaadin-grid-column>
+              <!--<vaadin-grid-column flex-grow="1">-->
+                <!--<template class="header">Size</template>-->
+                <!--<template>{{item.size}}</template>-->
+              <!--</vaadin-grid-column>-->
 
-              <vaadin-grid-column flex-grow="1">
-              <template class="header">Download Files</template>
-              <template>
-                <paper-button class="SeeFilesButton" raised on-click="_downloadFile">Download</paper-button>
-              </template>
-            </vaadin-grid-column>
+              <!--<vaadin-grid-column flex-grow="1">-->
+              <!--<template class="header">Download Files</template>-->
+              <!--<template>-->
+                <!--<paper-button class="SeeFilesButton" raised on-click="_downloadFile">Download</paper-button>-->
+              <!--</template>-->
+            <!--</vaadin-grid-column>-->
 
-            </vaadin-grid>
+            <!--</vaadin-grid>-->
 
                   <paper-button raised dialog-confirm>ok</paper-button><br />
               </div>

@@ -4,7 +4,7 @@
 <style include="shared-styles"></style>
 
 <iron-ajax id="getQuery"
-   url="/easyweb/query/"
+   url="/queries/query/"
    method="POST"
    contentType="application/json"
    params='{{_getQuery(querystr,querykind,outputfile)}}'
@@ -16,7 +16,7 @@
 </iron-ajax>
 
 <iron-ajax id="getMyResponse"
-   url="/easyweb/myresponse/"
+   url="/api/myresponse/"
    method="POST"
    contentType="application/json"
    params='{{_getJobid(jobid)}}'

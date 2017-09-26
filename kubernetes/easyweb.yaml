@@ -1,0 +1,98 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: easyweb
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: easyweb
+    spec:
+      containers:
+      - name: easyweb
+        image: mgckind/easyweb:2.0.9
+        command: ["/bin/bash", "/home/jovyan/work/start_worker.sh" ]
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: user-data
+          mountPath: "/home/jovyan/work/easyweb/static/workdir"
+          subPath: workdir
+          readOnly: false
+        - name: user-data
+          mountPath: "/home/jovyan/work/logs"
+          subPath: config
+          readOnly: false
+        - name: easyw-config
+          mountPath: "/home/jovyan/work/config"
+        ports:
+        - containerPort: 8080
+      volumes:
+      - name: user-data
+        persistentVolumeClaim:
+            claimName: easyweb-claim
+      - name: easyw-config
+        secret:
+            secretName: easyw-conf
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: easyweb-monitor
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: easyweb-monitor
+    spec:
+      containers:
+      - name: easyweb-monitor
+        image: mgckind/easyweb:2.0.9
+        command: [ "/bin/bash", "/home/jovyan/work/start_monitor.sh" ]
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: easyw-config
+          mountPath: "/home/jovyan/work/config"
+        - name: user-data
+          mountPath: "/home/jovyan/work/easyweb/static/workdir"
+          subPath: workdir
+          readOnly: false
+        ports:
+        - containerPort: 5555
+      volumes:
+      - name: easyw-config
+        secret:
+            secretName: easyw-conf
+      - name: user-data
+        persistentVolumeClaim:
+            claimName: easyweb-claim
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: easyweb
+  name: easyweb
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: easyweb
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: easyweb-monitor
+  name: easyweb-monitor
+spec:
+  type: NodePort
+  ports:
+  - port: 5555
+    targetPort: 5555
+  selector:
+    app: easyweb-monitor

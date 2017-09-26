@@ -14,9 +14,12 @@
 <script src="/static/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
-<script src="/static/scripts/require.js"></script>
+<!--<script src="/static/scripts/require.js"></script>-->
 <link rel="import" href="/static/elements/elements.html">
 <style is="custom-style" include="shared-styles"></style>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<link rel="stylesheet" href="../static/scripts/codemirror/lib/codemirror.css">
+
 </head>
 <body unresolved>
 <template is="dom-bind" id="app">
@@ -41,6 +44,10 @@
 </paper-drawer-panel>
 
 </template>
-  <script src="/static/scripts/app.min.js"></script>
+    <script src="../static/scripts/codemirror/lib/codemirror.js"></script>
+    <script src="../static/scripts/codemirror/mode/sql/sql.js"></script>
+    <script src="../static/scripts/app.js"></script>
+
+    <script src="../static/scripts/require.js"></script>
 </body>
 </html>

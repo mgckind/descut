@@ -8,7 +8,7 @@
     <iron-ajax id="getAllTables"
     auto
     method="POST"
-    url="/easyweb/alltables/"
+    url="/api/alltables/"
     params='{"part":"fff"}'
     handle-as="json"
     on-response="_handleResponse"
@@ -17,7 +17,7 @@
 
     <iron-ajax id="getDescAllTable"
     method="POST"
-    url="/easyweb/desctables/"
+    url="/api/desctables/"
     params='{{_getPar(owner,tablename)}}'
     handle-as="json"
     on-request="_requestDescription"

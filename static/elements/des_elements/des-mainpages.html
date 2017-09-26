@@ -7,37 +7,17 @@
 
         <!-- Order is important, need to match des-sidebar -->
         <des-home name=[[name]]></des-home> <!-- 0 -->
-
-
-
         <des-my-jobs username=[[username]] id="desJobs"></des-my-jobs> <!-- 1 -->
-        <!--<des-shared-jobs username=[[username]] id="desShared"></des-shared-jobs> &lt;!&ndash; 2 &ndash;&gt;-->
-        <des-coadds id="desCoadds" email=[[email]]></des-coadds> <!-- 3 -->
-        <!--<des-single id="desSingle" email=[[email]]></des-single> &lt;!&ndash;4 &ndash;&gt;-->
-        <!--<des-api></des-api> &lt;!&ndash; 5 &ndash;&gt;-->
-        <des-footprint id="desFoot"></des-footprint> <!-- 6 -->
+        <des-coadds id="desCoadds" email=[[email]]></des-coadds> <!-- 2 -->
+        <des-footprint id="desFoot"></des-footprint> <!-- 3 -->
+
+
+        <easy-query name={{name}} db={{db}} id="easyQuery"></easy-query> <!--4-->
+        <easy-all-tables id="easyAllTables"></easy-all-tables> <!--5-->
+        <easy-example-query id="easyExample"></easy-example-query> <!--6-->
+
+
         <des-results jobid="000" id="desResults"></des-results> <!-- 7 -->
-        <des-logs jobid="000" id="desLog"></des-logs> <!-- 8 -->
-
-
-        <easy-query name={{name}} db={{db}} id="easyQuery"></easy-query> <!--11-->
-        <!--<easy-my-tables></easy-my-tables> &lt;!&ndash;12&ndash;&gt;-->
-        <easy-all-tables id="easyAllTables"></easy-all-tables> <!--13-->
-        <easy-example-query id="easyExample"></easy-example-query> <!--14-->
-        <!--<easy-help id="easyHelp"></easy-help> &lt;!&ndash;14&ndash;&gt;-->
-
-        <!--<des-help></des-help>-->
-        <!--<des-shared-results jobid="000" id="desResultsShared"></des-shared-results> &lt;!&ndash; 9 &ndash;&gt;-->
-        <!--<des-shared-logs jobid="000" id="desLogShared"></des-shared-logs> &lt;!&ndash; 10 &ndash;&gt;-->
-        <!--<des-my-jobs-vaadin username=[[username]] id="desJobs"></des-my-jobs-vaadin> &lt;!&ndash; 11 &ndash;&gt;-->
-
-
-
-        <!--<des-my-jobs-intro id="desJobsIntro"></des-my-jobs-intro> &lt;!&ndash; 8 &ndash;&gt;-->
-        <!--<des-coadds-intro id="desCoaddsIntro"></des-coadds-intro> &lt;!&ndash; 9 &ndash;&gt;-->
-        <!--<des-single-intro id="desSingleIntro"></des-single-intro> &lt;!&ndash; 10 &ndash;&gt;-->
-        <!--<des-api-intro id="desApiIntro"></des-api-intro> &lt;!&ndash; 11 &ndash;&gt;-->
-        <!--<des-footprint-intro id="desFootIntro"></des-footprint-intro> &lt;!&ndash; 12 &ndash;&gt;-->
 
     </iron-pages>
 

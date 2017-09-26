@@ -10,6 +10,8 @@ import tornado.log
 import Settings
 from tornado.options import define, options
 import api
+import pusher
+import queries
 import os
 import login
 import readfile
@@ -59,6 +61,14 @@ class Application(tornado.web.Application):
             (r"/readfile/single/", readfile.FileHandlerS),
             (r"/download/object/", download.DownloadObjectHandler),
             (r"/download/single/", download.DownloadHandler),
+            (r"/api/myjobs/", api.MyJobsHandler),
+            (r"/api/myresponse/", api.MyResponseHandler),
+            (r"/api/mytables/", api.MyTablesHandler),
+            (r"/api/desctables/", api.DescTablesHandler),
+            (r"/api/alltables/", api.AllTablesHandler),
+            (r'/pusher/websocket/', pusher.WebSocketHandler),
+            (r'/pusher/pusher/', pusher.PusherHandler),
+            (r"/queries/query/", queries.QueryHandler),
 
             ]
         settings = {

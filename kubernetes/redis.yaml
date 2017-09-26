@@ -1,0 +1,47 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: easyredis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: easyredis
+    spec:
+      containers:
+      - name: easyredis
+        image: mgckind/easy_redis:1.0.0
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: redis-data
+          mountPath: "/des/easyweb/redis"
+          subPath: config
+          readOnly: false
+        - name: redis-config
+          mountPath: "/etc/redis"
+          readOnly: true
+        ports:
+        - containerPort: 6379
+      volumes:
+      - name: redis-data
+        persistentVolumeClaim:
+            claimName: easyweb-claim
+      - name: redis-config
+        secret:
+            secretName: redis-conf
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: easyredis
+  name: easyredis
+spec:
+  type: NodePort
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    app: easyredis

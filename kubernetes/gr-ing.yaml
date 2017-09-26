@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: des-labs-easyweb
+ annotations:
+   ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+     paths:
+     - path: /easyweb
+       backend:
+         serviceName: easyweb
+         servicePort: 8080

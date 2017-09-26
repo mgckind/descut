@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: easyweb
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 200Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.97.222.113
+    path: "/exports/easyweb"

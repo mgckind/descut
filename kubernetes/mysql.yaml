@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dessql
+spec:
+  type: NodePort
+  ports:
+    - port: 3306
+  selector:
+    app: dessql
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: dessql
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: dessql
+    spec:
+      #securityContext:
+        #runAsUser: 65534
+      containers:
+      - image: mysql:latest
+        imagePullPolicy: IfNotPresent
+        name: dessql
+        #command: ["echo 'create database databasename' | mysql -p$(MYSQL_ROOT_PASSWORD)"]
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dessql-config
+              key: passwd
+        ports:
+        - containerPort: 3306
+          name: dessql
+        volumeMounts:
+        - name: mysql-backup
+          mountPath: /des
+          subPath: workdir 
+      volumes:
+      - name: mysql-backup
+        persistentVolumeClaim:
+          claimName: easyweb-claim
