@@ -1,0 +1,32 @@
+
+> WARNING: /des/etc/default.stiff not found, using internal defaults
+
+[1M> 
+[1A----- STIFF 2.7.0 started on 2017-09-26 at 05:33:28 with 12 threads
+
+> BigTIFF support is: ON (libTIFF V4.0)
+
+[1M> Examining input data...
+[1A[1M> 
+[1A----- Inputs:
+[1M> Examining File DESJ035621.6-524840.0_i.fits
+[1A[1M> Examining File DESJ035621.6-524840.0_r.fits
+[1A[1M> Examining File DESJ035621.6-524840.0_g.fits
+[1A[1M> DESJ035621.6-524840.0_i.fits: Computing Image stats: 49%
+[1ADESJ035621.6-524840.0_i.fits: "no ident" [SCI] 228x228   32 bits (floats)
+Background level: -0.00811249  Min level: -3.12464    Max level: 3113.41   
+[1M> DESJ035621.6-524840.0_r.fits: Computing Image stats: 49%
+[1ADESJ035621.6-524840.0_r.fits: "no ident" [SCI] 228x228   32 bits (floats)
+Background level: 0.0769606   Min level: -4.7593     Max level: 4831.5    
+[1M> DESJ035621.6-524840.0_g.fits: Computing Image stats: 49%
+[1ADESJ035621.6-524840.0_g.fits: "no ident" [SCI] 228x228   32 bits (floats)
+Background level: 0.115952    Min level: -3.22492    Max level: 3337.64   
+
+----- Output:
+DESJ035621.6-524840.0.tif:     228x228         3x8  bits (integers) gamma: x1.00  compression: JPEG 
+
+[1M> Converting line:      1 / 228    
+[1A[1M> Converting line:    100 / 228    
+[1A[1M> Converting line:    200 / 228    
+[1A[1M> 
+[1A> All done (in 0.0 s: 11667.2 lines/s , 2.7 Mpixels/s)

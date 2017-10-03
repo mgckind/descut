@@ -10,6 +10,27 @@
 
     window.addEventListener('WebComponentsReady', function() {
 
+
+        var myQuery = document.getElementById("queryBox");
+        app.editor = CodeMirror.fromTextArea(myQuery, {
+            lineNumbers: true,
+            mode: 'text/x-plsql',
+            autofocus: true,
+        });
+        app.editor.setValue('-- Insert Query --\n');
+        app.editor.focus();
+        app.editor.execCommand('goLineDown');
+        var myJobQuery = document.getElementById("jobQueryBox");
+        app.jobquerybox = CodeMirror.fromTextArea(myJobQuery, {
+            lineNumbers: false,
+            mode: 'text/x-plsql',
+            readOnly: true,
+            autofocus: true,
+        });
+        app.jobquerybox.setValue('\n\n\n\n\n\n\n\n\n\n');
+        app.jobquerybox.focus();
+
+
         var pages = document.getElementById("mainPages");
         var menu = document.getElementById('bigmenu');
         var help = document.getElementById("helpPages");
@@ -134,6 +155,8 @@
             document.getElementById("ysizeLabelS").textContent = ysizeS.value;
         });
 
+
+
     });
 
     app.scrollPageToTop = function() {
@@ -143,23 +166,6 @@
     app.closeDrawer = function() {
         app.$.paperDrawerPanel.closeDrawer();
     };
-    var myQuery = document.getElementById("queryBox");
-    app.editor = CodeMirror.fromTextArea(myQuery, {
-        lineNumbers: true,
-        mode: 'text/x-plsql',
-        autofocus: true,
-    });
-    app.editor.setValue('-- Insert Query --\n');
-    app.editor.focus();
-    app.editor.execCommand('goLineDown');
-    var myJobQuery = document.getElementById("jobQueryBox");
-    app.jobquerybox = CodeMirror.fromTextArea(myJobQuery, {
-        lineNumbers: false,
-        mode: 'text/x-plsql',
-        readOnly: true,
-        autofocus: true,
-    });
-    app.jobquerybox.setValue('\n\n\n\n\n\n\n\n\n\n');
-    app.jobquerybox.focus();
+
 
 })(document);

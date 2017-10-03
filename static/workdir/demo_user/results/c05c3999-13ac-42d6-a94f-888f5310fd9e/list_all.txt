@@ -1,0 +1,11 @@
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/matched_c05c3999-13ac-42d6-a94f-888f5310fd9e.csv
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/DESJ035621.6-524840.0_r.fits
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/DESJ035621.6-524840.0_z.fits
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/log.log
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/DESJ035621.6-524840.0.stifflog
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/DESJ035621.6-524840.0_g.fits
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/DESJ035621.6-524840.0.tif
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/DESJ035621.6-524840.0_i.fits
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/DESJ035621.6-524840.0_Y.fits
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/DESJ035621.6-524840.0_det.fits
+https://descut.cosmology.illinois.edu/static/uploads/mcarras2/results/c05c3999-13ac-42d6-a94f-888f5310fd9e/DESJ035621.6-524840.0.tif.png
