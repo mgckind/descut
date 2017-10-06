@@ -30,7 +30,7 @@ class DownloadHandler(BaseHandler):
         app_dir = os.path.dirname(__file__)
         tarName = pngName.replace('.png', '.tar.gz')
         filegz = path.replace('.png', '.tar.gz')
-        tarPath =  os.path.join(app_dir, 'static/uploads', username, 'results', jobid, tarName)
+        tarPath =  os.path.join(app_dir, 'static/workdir', username, 'results', jobid, tarName)
     
         if os.path.exists(tarPath):
             self.set_status(200)
@@ -53,7 +53,7 @@ class DownloadObjectHandler(BaseHandler):
         jobid_short = siid[:6]
         username = self.current_user.replace('\"', '')
         app_dir = os.path.dirname(__file__)
-        archiveFolder =  os.path.join(app_dir, 'static/uploads', username, 'results', siid)
+        archiveFolder =  os.path.join(app_dir, 'static/workdir', username, 'results', siid)
         tarName = jobid_short+'_'+os.path.split(path)[1]+'.tar.gz'
         tarPath = os.path.join(archiveFolder,tarName)
         if os.path.exists(tarPath):

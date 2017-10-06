@@ -112,7 +112,7 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
         print ('not making the tars')
 
     #create all file list
-    prefix = Settings.ROOT_URL+'/static/uploads/'+loc_user+'/results/'+jobid+'/'
+    prefix = Settings.ROOT_URL+'/static/workdir/'+loc_user+'/results/'+jobid+'/'
     os.chdir(outdir)
     all_files = glob.glob('thumbs*/DESJ*')
 

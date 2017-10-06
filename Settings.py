@@ -8,14 +8,16 @@ DEBUG = True
 DIRNAME = os.path.dirname(__file__)
 STATIC_PATH = os.path.join(DIRNAME, 'static')
 TEMPLATE_PATH = os.path.join(DIRNAME, 'templates')
-UPLOADS = os.path.join(STATIC_PATH,"uploads/")
-WORKERS = os.path.join(DIRNAME, 'workers')
-FF=open('ranC.tck','r')
-COOKIE_SECRET = FF.readlines()[0]
-FF.close()
+UPLOADS = os.path.join(STATIC_PATH,"workdir/")
+
+# TODO: DO WE NEED TO CHANGE WORKER IN THIS CASE?
+WORKERS = os.path.join(DIRNAME, 'workdir/')
+# FF=open('ranC.tck','r')
+# COOKIE_SECRET = SKEY = FF.readlines()[0]
+# FF.close()
 MAX_OBJECTS = 100 #TO BE CHANGED
 TOKEN_TTL = 3600
-DBFILE = os.path.join(STATIC_PATH,"uploads/admin/users.db")
+# DBFILE = os.path.join(STATIC_PATH,"uploads/admin/users.db")
 ROOT_URL = 'http://descut.cosmology.illinois.edu'
 import logging
 # log linked to the standard error stream

@@ -87,7 +87,7 @@ class QueryHandler(BaseHandler):
             con = mydb.connect(**conf)
             #con = mydb.connect(host=ms.host, port=ms.port, user=ms.user, passwd=ms.passwd, db=ms.db)
             #con = lite.connect(Settings.DBFILE)
-            tup = tuple([loc_user, jobid, 'PENDING', now.strftime('%Y-%m-%d %H:%M:%S'),
+            tup = tuple([loc_user, jobid, 'PENDING', now.strftime('%Y-%m-%d %H:%M:%S'), 'EASY',
                          original_query, '', ''])
             cur = con.cursor()
             try:

@@ -35,7 +35,7 @@ class CustomTask(Task):
     abstract = None
 
     def after_return(self, status, retval, task_id, args, kwargs, einfo):
-        url = 'http://localhost:8080/pusher/pusher/'
+        url = 'http://localhost:8999/pusher/pusher/'
         # data = {'username': retval['user'], 'result': retval['data'], 'status': retval['status'],
         #         'kind': retval['kind']}
         #con = lite.connect(Settings.DBFILE)
@@ -154,6 +154,7 @@ def run_query(query, filename, db, username, lp, jid, timeout=None):
     else:
         response['kind'] = 'query'
         try:
+            # TODO: HOW TO INSERT TYPE HERE?
             df = cursor.execute(query)
             connection.con.commit()
             if timeout is not None:

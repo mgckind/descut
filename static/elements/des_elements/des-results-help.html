@@ -34,12 +34,12 @@
                 <paper-icon-button icon="assignment" on-tap="_seeLog"></paper-icon-button>
             </paper-item>
 
-            <paper-item >
-                <paper-item-body>
-                    See comment
-                </paper-item-body>
-                <paper-icon-button icon="communication:comment" on-tap="_seeComment"></paper-icon-button>
-            </paper-item>
+            <!--<paper-item >-->
+                <!--<paper-item-body>-->
+                    <!--See comment-->
+                <!--</paper-item-body>-->
+                <!--<paper-icon-button icon="communication:comment" on-tap="_seeComment"></paper-icon-button>-->
+            <!--</paper-item>-->
 
             <paper-item >
                 <paper-item-body>
@@ -83,18 +83,18 @@
 
         </div>
     </des-card-help>
-    <paper-dialog id="commentDialogHelp">
-        <h2>Comment</h2>
-        <paper-dialog-scrollable>
-            <!--Job : {{jobname}}-->
-            {{jobcomment}}
-        </paper-dialog-scrollable>
-        <div class="buttons">
-            <paper-button dialog-confirm autofocus>OK</paper-button>
-            <!--<paper-button dialog-confirm autofocus>Edit Comment</paper-button>-->
-            <!--<paper-button dialog-dismiss>Cancel</paper-button>-->
-        </div>
-    </paper-dialog>
+    <!--<paper-dialog id="commentDialogHelp">-->
+        <!--<h2>Comment</h2>-->
+        <!--<paper-dialog-scrollable>-->
+            <!--&lt;!&ndash;Job : {{jobname}}&ndash;&gt;-->
+            <!--{{jobcomment}}-->
+        <!--</paper-dialog-scrollable>-->
+        <!--<div class="buttons">-->
+            <!--<paper-button dialog-confirm autofocus>OK</paper-button>-->
+            <!--&lt;!&ndash;<paper-button dialog-confirm autofocus>Edit Comment</paper-button>&ndash;&gt;-->
+            <!--&lt;!&ndash;<paper-button dialog-dismiss>Cancel</paper-button>&ndash;&gt;-->
+        <!--</div>-->
+    <!--</paper-dialog>-->
 
     <paper-dialog id="logDialogHelp">
         <h2>Log</h2>
@@ -138,10 +138,10 @@
                 type: String,
                 value: 'NULL',
             },
-            jobcomment: {
-                type: String,
-                value: 'NULL',
-            },
+//            jobcomment: {
+//                type: String,
+//                value: 'NULL',
+//            },
             logParams:{
                 type: String,
                 computed: 'processParams(jobidFull)'
@@ -167,7 +167,7 @@
             document.getElementById("desResults").jobid= e.model.item.jtitle;
             document.getElementById("desResults").jobidFull=e.model.item.job;
             document.getElementById("desResults").jobtypes=e.model.item.jtypes;
-            document.getElementById("desResults").jobcomment=e.model.item.jcomment;
+//            document.getElementById("desResults").jobcomment=e.model.item.jcomment;
 //            document.getElementById("desLog").jobid=this._returnName(e.model.item.job);
 //            document.getElementById("desLog").jobidFull=e.model.item.job;
 //            document.getElementById("smallJobListL").selected=e.model.index;
@@ -177,7 +177,7 @@
             desResultsHelp[0] .jobidFull = e.model.item.job;
 //            desResultsHelp[0] .username = this.username;
             desResultsHelp[0] .jobtypes = e.model.item.jtypes;
-            desResultsHelp[0] .jobcomment = e.model.item.jcomment;
+//            desResultsHelp[0] .jobcomment = e.model.item.jcomment;
             desResultsHelp[0].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
 
 
@@ -185,7 +185,7 @@
             desResultsHelp[1] .jobidFull = e.model.item.job;
 //            desResultsHelp[1] .username = this.username;
             desResultsHelp[1] .jobtypes = e.model.item.jtypes;
-            desResultsHelp[1] .jobcomment = e.model.item.jcomment;
+//            desResultsHelp[1] .jobcomment = e.model.item.jcomment;
             desResultsHelp[1].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
 
 //            desResultsHelp.jobid = e.model.item.jtitle;
@@ -272,7 +272,7 @@
             var siid = document.getElementById("desResults").jobid;
             var user = document.getElementById("desResults").username;
 
-            link.href = "/static/uploads/"+user+"/results/"+siid+"/"+siid+".tar.gz";
+            link.href = "/static/workdir/"+user+"/results/"+siid+"/"+siid+".tar.gz";
 
             if (link.download !== undefined){
                 //Set HTML5 download attribute. This will prevent file from opening if supported.
@@ -293,7 +293,7 @@
             var link = document.createElement('a');
             var siid = document.getElementById("desResults").jobid;
             var user = document.getElementById("desResults").username;
-            link.href = "/static/uploads/"+user+"/results/"+siid+"/list_all.txt";
+            link.href = "/static/workdir/"+user+"/results/"+siid+"/list_all.txt";
             if (link.download !== undefined){
                 var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
                 link.download = fileName;

@@ -18,21 +18,46 @@ import readfile
 import sqlite3 as lite
 import dtasks
 import download
+import yaml
+import MySQLdb as mydb
+import backup
 
 define("port", default=8999, help="run on the given port", type=int)
-
-
 
 def create_db(delete=False):
     dirname = os.path.dirname(Settings.DBFILE)
     if not os.path.exists(dirname):
         os.mkdir(dirname)
-    con = lite.connect(Settings.DBFILE)
-    with con:
-        cur = con.cursor()
-        if delete:
-            cur.execute("DROP TABLE IF EXISTS Jobs")
-        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, type text, public integer, comment text)")
+
+    with open('config/mysqlconfig.yaml', 'r') as cfile:
+        conf = yaml.load(cfile)['mysql']
+    conf.pop('db', None)
+    con = mydb.connect(**conf)
+    try:
+        con.select_db('des')
+    except:
+        backup.restore()
+        con.commit()
+        con.select_db('des')
+    cur = con.cursor()
+    if delete:
+        cur.execute("DROP TABLE IF EXISTS Jobs")
+    cur.execute("CREATE TABLE IF NOT EXISTS  \
+        Jobs(user text, job text, status text, time datetime, type text, query mediumtext, files text, sizes text)")
+    con.commit()
+    con.close()
+#
+# def create_db(delete=False):
+#     dirname = os.path.dirname(Settings.DBFILE)
+#     if not os.path.exists(dirname):
+#         os.mkdir(dirname)
+#     con = lite.connect(Settings.DBFILE)
+#     with con:
+#         cur = con.cursor()
+#         if delete:
+#             cur.execute("DROP TABLE IF EXISTS Jobs")
+#         cur.execute("CREATE TABLE IF NOT EXISTS  \
+#         Jobs(user text, job text, status text, time datetime, type text, query mediumtext, files text, sizes text)")
 
 
 
@@ -52,16 +77,16 @@ class Application(tornado.web.Application):
             (r"/api/token/?", api.TokenHandler),            
             (r"/api/jobs/?", api.JobHandler),
             (r"/api/mongo/?", api.MongoHandler),
-            (r"/api/shared/?", api.ShareHandler),
-            (r"/api/sharejob/?", api.ShareJobHandler),
-            (r"/api/addcomment/?", api.AddCommentHandler),
+            # (r"/api/shared/?", api.ShareHandler),
+            # (r"/api/sharejob/?", api.ShareJobHandler),
+            # (r"/api/addcomment/?", api.AddCommentHandler),
             (r"/api/refresh/?", readfile.RefreshHandler),
             (r'/websocket', readfile.WebSocketHandler),
             (r"/readfile/coadd/", readfile.FileHandler),
             (r"/readfile/single/", readfile.FileHandlerS),
             (r"/download/object/", download.DownloadObjectHandler),
             (r"/download/single/", download.DownloadHandler),
-            (r"/api/myjobs/", api.MyJobsHandler),
+            # (r"/api/myjobs/", api.MyJobsHandler),
             (r"/api/myresponse/", api.MyResponseHandler),
             (r"/api/mytables/", api.MyTablesHandler),
             (r"/api/desctables/", api.DescTablesHandler),
@@ -76,7 +101,8 @@ class Application(tornado.web.Application):
             "static_path":Settings.STATIC_PATH,
             "debug":Settings.DEBUG,
             "cookie_secret": Settings.COOKIE_SECRET,
-            "login_url": "/login/",            
+            "login_url": "/login/",
+            "static_url_prefix": "/static/",
         }
         tornado.web.Application.__init__(self, handlers, **settings)
 
@@ -86,6 +112,8 @@ def main():
     """
     if not os.path.exists(Settings.UPLOADS):
         os.mkdir(Settings.UPLOADS)
+    if not os.path.exists(Settings.WORKDIR):
+        os.mkdir(Settings.WORKDIR)
     if not os.path.exists(Settings.WORKERS):
         os.mkdir(Settings.WORKERS)
     create_db()

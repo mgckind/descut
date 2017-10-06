@@ -3,6 +3,9 @@ import json
 import sys
 import datetime as dt
 import Settings
+import MySQLdb as mydb
+#import config.mysqlconfig as ms
+import yaml
 
 def humantime(s):
         if s < 60:
@@ -44,12 +47,14 @@ bigJ=tuple(bigJ)
 
 # write
 def create_db(delete=False):
-    con = lite.connect('users.db')
+    with open('config/mysqlconfig.yaml', 'r') as cfile:
+        conf = yaml.load(cfile)['mysql']
+    con = mydb.connect(**conf)
     with con:
         cur = con.cursor()
         if delete:
             cur.execute("DROP TABLE IF EXISTS Jobs")
-        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, public integer, comment text)")
+        cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, type text, query mediumtext, files text, sizes text)")
 
 #cur.executemany("INSERT INTO Jobs VALUES(?,?,?,?)", bigJ)
 
@@ -64,8 +69,12 @@ def create_db(delete=False):
     jstatus=[]
     jtime=[]
     jelapsed=[]
-    jpublic=[]
-    jcomment=[]
+    # jpublic=[]
+    # jcomment=[]
+    jtype = []
+    jquery = []
+    jfiles = []
+    jsizes = []
 
     for i in range(len(cc)):
         dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
@@ -74,10 +83,15 @@ def create_db(delete=False):
         jstatus.append(cc[i][2])
         jtime.append(ctime)
         jelapsed.append((dt.datetime.now()-dd).total_seconds())
-        jpublic.append(cc[i][4])
-        jcomment.append(cc[i][5])
+        # jpublic.append(cc[i][4])
+        # jcomment.append(cc[i][5])
+        jtype.append(cc[i][4])
+        jquery.append(cc[i][5])
+        jfiles.append(cc[i][6])
+        jsizes.append(cc[i][7])
 
-    out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=humantime(jelapsed[i]), public=jpublic[i], comment=jcomment[i]) for i in range(len(jjob))]
+
+    out_dict=[dict(job=jjob[i],status=jstatus[i], time=jtime[i], elapsed=humantime(jelapsed[i]), type=jtype[i], query = jquery[i], files = jfiles[i], sizes = jsizes[i]) for i in range(len(jjob))]
     with open('static/jobs2.json',"w") as outfile:
         json.dump(out_dict, outfile, indent=4)
 

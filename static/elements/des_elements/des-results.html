@@ -14,7 +14,7 @@
 
     <iron-ajax id="getTiles"
         auto
-        url=/static/uploads/{{username}}/results/{{jobid}}/list.json
+        url=/static/workdir/{{username}}/results/{{jobid}}/list.json
         handle-as="json"
         last-response="{{jsondata}}"
         on-response="_getTilesResponse">
@@ -26,8 +26,8 @@
 
     <des-card heading="Job : [[jobid]] ( [[jsondata.length]] objects)">
         <b>Job Types:</b> {{jobtypes}}
-        <br>
-        <b>Comment:</b> {{jobcomment}}
+        <!--<br>-->
+        <!--<b>Comment:</b> {{jobcomment}}-->
         <hr class="des-hr">
 
     <template is="dom-if" if="{{_actionIsCoadd(jobtypes)}}">
@@ -93,11 +93,11 @@
 //                notify: true,
 //            },
 //
-              jobcomment: {
-                  value : '',
-                  type : String,
-                  notify: true,
-              },
+//              jobcomment: {
+//                  value : '',
+//                  type : String,
+//                  notify: true,
+//              },
             username:{
                 type: String,
                 value: '',

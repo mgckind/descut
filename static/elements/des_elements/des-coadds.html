@@ -88,10 +88,10 @@
                     </div>
 
                     <hr>
-                    <div>
-                        <paper-input  id="jobcommentcoadds" name="comment" label="Comment" value="[[job_comment]]" placeholder="Add comment">
-                        </paper-input>
-                    </div>
+                    <!--<div>-->
+                        <!--<paper-input  id="jobcommentcoadds" name="comment" label="Comment" value="[[job_comment]]" placeholder="Add comment">-->
+                        <!--</paper-input>-->
+                    <!--</div>-->
                     <div class="horizontal layout around-justified" >
 
                         <paper-button raised class="desbutton"  id="clearFormButton" on-tap="_clearForm">
@@ -195,7 +195,7 @@
 //            document.getElementById("coaddTag").selected="0";
             this.file_name = "Upload File";
             this.job_comment = "";
-            document.getElementById("jobcommentcoadds").value="";
+//            document.getElementById("jobcommentcoadds").value="";
 
             var upIcon = document.getElementById("uploadicon").style.display='inline-block';
             this.enter_values = "Enter Values";
@@ -235,7 +235,7 @@
             formdata.append('submit_type', this.submit_type);
             formdata.append('values',document.getElementById("enteredPositions").value);
             formdata.append('tag',"Y3A1_COADD");
-            formdata.append('comment', document.getElementById("jobcommentcoadds").value);
+//            formdata.append('comment', document.getElementById("jobcommentcoadds").value);
 
             $.ajax({
                 url: '/readfile/coadd/',

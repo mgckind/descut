@@ -50,7 +50,7 @@
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        var desjobsEntry = document.getElementById("desjobs");
+        var myJobsEntry = document.getElementById("desjobs");
         // var sharedEntry = document.getElementById("shared");
         var coaddEntry = document.getElementById("coadd");
         // var epochEntry = document.getElementById("epoch");
@@ -59,7 +59,7 @@
 
 
         var queryEntry = document.getElementById("query");
-        var easyjobsEntry = document.getElementById("easyjobs");
+        // var easyjobsEntry = document.getElementById("easyjobs");
 
         var allTablesEntry = document.getElementById("allTables");
         var exampleEntry = document.getElementById("example");
@@ -69,7 +69,7 @@
 
         // var gal = document.getElementById("mainGallery");
 
-        desjobsEntry.addEventListener('click', function() {
+        myJobsEntry.addEventListener('click', function() {
             // gal.selected = "1";
             menu.selected="1";
             app.selection="1";
@@ -107,29 +107,29 @@
             app.$.paperDrawerPanel.closeDrawer();
         });
 
-        easyjobsEntry.addEventListener('click', function() {
-            // gal.selected = "4";
-            menu.selected="5";
-            app.selection="5";
-            pages.selected="5";
-            // help.selected="11";
-            app.$.paperDrawerPanel.closeDrawer();
-        });
+        // easyjobsEntry.addEventListener('click', function() {
+        //     // gal.selected = "4";
+        //     menu.selected="5";
+        //     app.selection="5";
+        //     pages.selected="5";
+        //     // help.selected="11";
+        //     app.$.paperDrawerPanel.closeDrawer();
+        // });
 
         allTablesEntry.addEventListener('click', function() {
             // gal.selected = "5";
-            menu.selected="6";
-            app.selection="6";
-            pages.selected="6";
+            menu.selected="5";
+            app.selection="5";
+            pages.selected="5";
             // help.selected="5";
             app.$.paperDrawerPanel.closeDrawer();
         });
 
         exampleEntry.addEventListener('click', function() {
             // gal.selected = "6";
-            menu.selected="7";
-            app.selection="7";
-            pages.selected="7";
+            menu.selected="6";
+            app.selection="6";
+            pages.selected="6";
             // help.selected="6";
             app.$.paperDrawerPanel.closeDrawer();
         });

@@ -120,15 +120,31 @@
                     <template>{{item.jtypes}}</template>
                 </vaadin-grid-column>
 
+                <vaadin-grid-column flex-grow="1">
+                    <template class="header">Queries</template>
+                    <template>
+                        <paper-button class="SeeFilesButton" raised on-click="_seeQuery">See query</paper-button>
+                    </template>
+                </vaadin-grid-column>
+
+                <vaadin-grid-column flex-grow="1">
+                    <template class="header">Files</template>
+                    <template>
+
+                        <paper-button class="SeeFilesButton" disabled$="{{!item.jbool}}" raised on-click="_seeFiles">See Files</paper-button>
+                    </template>
+                </vaadin-grid-column>
+
+
                 <vaadin-grid-column flex-grow="2">
                     <template class="header">
-                        Result | Comment | Cancel
+                        Result | Cancel
                     </template>
                     <template>
 
                         <div class="horizontal layout">
                             <paper-icon-button icon="launch" on-tap="viewresults" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
-                            <paper-icon-button icon="communication:comment" on-tap="_editCommentOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>
+                            <!--<paper-icon-button icon="communication:comment" on-tap="_editCommentOpen" disabled$="{{_viewjob(item.status)}}" ></paper-icon-button>-->
                             <paper-icon-button icon="cancel" on-tap="canceljob" disabled$="{{_canceljob(item.status)}}"></paper-icon-button>
 
                         </div>
@@ -136,28 +152,7 @@
                 </vaadin-grid-column>
             </vaadin-grid>
 
-            <paper-dialog id="viewCommentDialog">
-                <h2>Comment</h2>
-                <paper-dialog-scrollable>
-                    {{jobcomment}}
-                </paper-dialog-scrollable>
-                <div class="buttons">
-                    <paper-button dialog-confirm autofocus>OK</paper-button>
-                </div>
-            </paper-dialog>
 
-            <paper-dialog id="editCommentDialog">
-                <h2>Comment</h2>
-                <paper-dialog-scrollable>
-                    <!--Job : {{jobname}}-->
-                    <paper-input  id="commentInput" name="comment" label="Edit comment" value="[[jobcomment]]">
-                    </paper-input>
-                </paper-dialog-scrollable>
-                <div class="buttons">
-                    <paper-button on-tap="_editComment" autofocus>Confirm</paper-button>
-                    <paper-button dialog-dismiss>Cancel</paper-button>
-                </div>
-            </paper-dialog>
                 <des-my-jobs-help class="helpB" style="float: right; width: 18%;"></des-my-jobs-help>
 
                 <!--</paper-icon-item>-->
@@ -167,6 +162,25 @@
             </div>
         </section>
 
+        <paper-dialog class="dialog-position" id="JobQuery" with-backdrop on-iron-overlay-opened="patchOverlay">
+            <h2>Job id: {{jobid}}</h2>
+            <div style=" border: 1px solid black; padding: 0px; padding-bottom: 15px;">
+                <textarea id="jobQueryBox" autofocus></textarea>
+                <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
+                <paper-button raised dialog-confirm>ok</paper-button><br />
+            </div>
+        </paper-dialog>
+
+        <paper-dialog class="dialog-position" id="JobFiles" with-backdrop on-iron-overlay-opened="patchOverlay">
+            <h2>Job id: {{jobid}}</h2>
+            <div style="padding-bottom: 15px;">
+                <paper-button raised dialog-confirm>ok</paper-button><br />
+            </div>
+        </paper-dialog>
+
+
+        <paper-toast class="toast-position" id="toastCopy" text="Query copied to main editor" duration="3000"> </paper-toast>
+        <div class="horizontal layout">
     </template>
 </dom-module>
 <script>
@@ -208,9 +222,13 @@
                 type: String,
                 value: 'NULL',
             },
-            jobcomment: {
+//            jobcomment: {
+//                type: String,
+//                value: 'NULL',
+//            },
+            jobquery: {
                 type: String,
-                value: 'NULL',
+                value: '',
             },
 
         },
@@ -230,6 +248,10 @@
             //_self.count = _self.data.length;
             //});
         },
+        attached: function() {
+            myJobQuery = document.getElementById("jobQueryBox");
+        },
+
         _handleResponse: function(e){
             var _self = this;
             _self.data = e.detail.response;
@@ -367,13 +389,16 @@
             desResults.jobidFull = e.model.item.job;
             desResults.username = this.username;
             desResults.jobtypes = e.model.item.jtypes;
-            desResults.jobcomment = e.model.item.jcomment;
+//            desResults.jobcomment = e.model.item.jcomment;
+//            desResults.job = e.model.item.jcomment;
+//            desResults.jobcomment = e.model.item.jcomment;
+
 
             desResultsHelp[0] .jobid = e.model.item.jtitle;
             desResultsHelp[0] .jobidFull = e.model.item.job;
             desResultsHelp[0] .username = this.username;
             desResultsHelp[0] .jobtypes = e.model.item.jtypes;
-            desResultsHelp[0] .jobcomment = e.model.item.jcomment;
+//            desResultsHelp[0] .jobcomment = e.model.item.jcomment;
             desResultsHelp[0].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
 
 
@@ -381,7 +406,7 @@
             desResultsHelp[1] .jobidFull = e.model.item.job;
             desResultsHelp[1] .username = this.username;
             desResultsHelp[1] .jobtypes = e.model.item.jtypes;
-            desResultsHelp[1] .jobcomment = e.model.item.jcomment;
+//            desResultsHelp[1] .jobcomment = e.model.item.jcomment;
             desResultsHelp[1].getElementsByTagName("paper-listbox")[0].selected=e.model.index;
 
 
@@ -417,30 +442,7 @@
             document.querySelector('#toast-cmt-bad').show();
         },
 
-        _editComment: function(e) {
-            var formdata = new FormData();
-            formdata.append('comment', document.getElementById("commentInput").value);
-//            this.jobname = this.returnName(e.model.item.job);
-            formdata.append('jobid', this.jobname);
-            $.ajax({
-                url: '/api/addcomment/',
-                type: 'POST',
-                //beforeSend: this.beforeSendHandler,
-                success: this.completeHandler,
-                error: this.errorHandler,
-                data: formdata,
-                cache: false,
-                contentType: false,
-                processData: false
-            });
-        },
-        _editCommentOpen: function(e) {
-            var comment = document.getElementById('editCommentDialog');
-            this.jobname = this.returnName(e.model.item.job);
-            this.jobcomment = e.model.item.jcomment;
-            comment.positionTarget = e;
-            comment.open();
-        },
+//
         viewlog: function(e) {
             e.stopPropagation();
             var log = document.getElementById('log');
@@ -449,49 +451,7 @@
 
         },
 
-        _isShared: function(access) {
-            if (access === 1) {
-                return "visibility";
-            }
-            else {
-                return "visibility-off";
-            }
-        },
 
-        _afterShare: function(e){
-            var list = document.getElementById("material");
-
-            req = document.getElementById("getData");
-            req2 = document.getElementById("getDataShared");
-
-            req.generateRequest();
-            req2.generateRequest();
-
-
-        },
-
-        _afterUnshare: function(e){
-//            change visibility
-            var list = document.getElementById("material");
-//            this._resetSelection();
-//            var auto = document.getElementById("auto");
-//            auto.selectAll=false;
-//            auto.indeterminate=false;
-//            console.log("mytemp len: ",this.mytemp.length);
-//            for (i = 0; i < this.mytemp.length ; i++) {
-//                console.log(this.mytemp[i].job);
-////                list.selectItem(this.mytemp[i]);
-//                list.selectItem(this.mytemp[i].item);
-//
-//            }
-//            var desResults = document.getElementById("desResults");
-            req = document.getElementById("getData");
-            req2 = document.getElementById("getDataShared");
-            req.generateRequest();
-            req2.generateRequest();
-
-
-        },
 
         _isPublic: function(access) {
             if (access === 1) {
@@ -511,6 +471,72 @@
         _viewToggle: function() {
             view = document.getElementById("viewCommentDialog");
             view.toggle();
+        },
+
+        _copyQuery: function(){
+            document.querySelector('#toastCopy').show();
+            app.editor.setValue(app.jobquerybox.getValue());
+            console.log("-> line number: ", app.editor.lineCount());
+            setTimeout(function() {
+                app.editor.refresh();
+                app.editor.focus();
+            },20);
+
+        },
+        _checkFiles: function(jfiles){
+            if (jfiles != '') {return true;}
+            else {return false;}
+        },
+        _downloadFile: function(e){
+            e.preventDefault();
+            var filename =  e.model.item.file;
+            var jobid = this.jobid;
+            var user = this.username;
+            var link = document.createElement('a');
+            link.href = "/static/workdir/"+user+"/"+jobid+"/"+filename;
+            if (link.download !== undefined){
+                //Set HTML5 download attribute. This will prevent file from opening if supported.
+                var fileName = link.href.substring(link.href.lastIndexOf('/') + 1, link.href.length);
+                link.download = fileName;
+            }
+            if (document.createEvent) {
+                var e = document.createEvent('MouseEvents');
+                e.initEvent('click' ,true ,true);
+                link.dispatchEvent(e);
+                return true;
+            }
+            var query = '?download';
+            window.open(link.href + query);
+
+        },
+        _seeQuery: function(e){
+            e.preventDefault();
+            this.jobid = e.model.item.job;
+            this.jobquery = e.model.item.jquery;
+            document.getElementById('JobQuery').open();
+            app.jobquerybox.setValue(this.jobquery);
+            setTimeout(function() {
+                app.jobquerybox.refresh();
+//            app.jobquerybox.focus();
+            },10);
+        },
+        _seeFiles: function(e){
+            e.preventDefault();
+            this.jobid = e.model.item.job;
+            this.username = e.model.item.user;
+            this.jobfiles = JSON.parse(e.model.item.jfiles);
+            this.jobsizes = JSON.parse(e.model.item.jsizes);
+            this.jobs = []//{file:this.jobfiles[0], size:this.jobsizes[0]}] ;
+            for (i=0; i< this.jobfiles.length; i++){
+                this.jobs.push({file:this.jobfiles[i], size:this.jobsizes[i]});
+            }
+            this.myfiles=this.jobs.sort(keysrt('file'));
+            document.getElementById('JobFiles').open();
+        },
+        patchOverlay: function (e) {
+            if (e.target.withBackdrop) {
+                e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
+            }
         },
     });
 
