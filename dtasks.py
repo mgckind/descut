@@ -124,7 +124,7 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
     if xs != "": cmd += ' --xsize %s ' % xs
     if ys != "": cmd += ' --ysize %s ' % ys
 
-    oo = subprocess.check_call(cmd, shell=True)
+    oo = subprocess.check_output([cmd], shell=True)
     #generate archives for each job
     job_tar = jobid+'.tar.gz'
     os.chdir(user_folder+'results/')
@@ -167,7 +167,7 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
         a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (loc_user,jobid), verify=False)
     except:
         pass
-    return oo
+    return oo.decode('ascii')
 
 @celery.task
 def send_note(user, jobid, toemail):
