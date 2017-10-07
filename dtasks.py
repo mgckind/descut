@@ -29,6 +29,8 @@ celery.config_from_object('celeryconfig')
 
 class CustomTask(Task):
 
+    abstract = None
+
     def on_failure(self, exc, task_id, args, kwargs, einfo):
         con = lite.connect(Settings.DBFILE)
         q0 = "UPDATE Jobs SET status='{0}' where job = '{1}'".format('REVOKE', task_id)
