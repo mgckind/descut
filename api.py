@@ -708,7 +708,7 @@ class CancelJobHandler(BaseHandler):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
         jobid = self.get_argument("jobid")
         jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
-        app = Celery()
+        app = Celery('dtasks')
         app.config_from_object('celeryconfig')
         app.control.revoke(jobid, terminate=True)
         app.close() 
