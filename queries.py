@@ -62,7 +62,7 @@ class QueryHandler(BaseHandler):
         query = newquery
         print(query)
         print('*******')
-        print(query_kind)
+        print("query kind: ", query_kind)
         file_error = False
         if filename == "nofile":
             filename = None
@@ -70,7 +70,7 @@ class QueryHandler(BaseHandler):
             file_error = True
         elif not filename.endswith('.csv') and not filename.endswith('.fits'):
             file_error = True
-        print(filename)
+        print("filename: ", filename)
         if file_error:
             response['data'] = 'ERROR: File format allowed : .csv and .fits'
             response['kind'] = 'query'
@@ -89,6 +89,8 @@ class QueryHandler(BaseHandler):
             #con = lite.connect(Settings.DBFILE)
             tup = tuple([loc_user, jobid, 'PENDING', now.strftime('%Y-%m-%d %H:%M:%S'), 'EASY',
                          original_query, '', ''])
+
+            print("==> tup: ", tup)
             cur = con.cursor()
             try:
                 cur.execute("SELECT * from Jobs where user = '%s' order "
@@ -108,8 +110,12 @@ class QueryHandler(BaseHandler):
                 self.finish()
                 return
 
-            #cur.execute("INSERT INTO Jobs VALUES(?, ?, ? , ?, ?, ?, ?)", tup)
-            cur.execute("INSERT INTO Jobs VALUES {0}".format(tup))
+            # cur.execute("INSERT INTO Jobs VALUES(?, ?, ?, ?, ?, ?, ?, ?)", tup)
+            # cur.execute("INSERT INTO Jobs VALUES{0}".format(tup))
+
+            cur.execute("SELECT * from Jobs where user = '{0}'".format(loc_user))
+            cc = cur.fetchall()
+            print("==> ", list(cc))
             con.commit()
             try:
                 run = ea_tasks.run_query.apply_async(args=[query, filename, db,

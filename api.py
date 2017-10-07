@@ -618,8 +618,14 @@ class ApiHandler(BaseHandler):
             conf = yaml.load(cfile)['mysql']
         con = mydb.connect(**conf)
         cur = con.cursor()
-        cc = cur.execute("SELECT * from Jobs where user = '%s' order by datetime(time) DESC " % loc_user).fetchall()
+        cmd = "SELECT * from Jobs where user = '{user}' order datetime(time) DESC".format(user=loc_user)
+        # cmd = "SELECT * from Jobs where user = '{user}' order by datetime(time) DESC ".format(user=loc_user)
+        # cmd = "SELECT * from Jobs where user = '%s' order by datetime(time) DESC  " % loc_user
+        cur.execute(cmd)
+        cc = cur.fetchall()
         cc = list(cc)
+        print("\n\n\n==>  retrived data: ", cc, "\n\n\n\n")
+
         jjob=[]
         jstatus=[]
         jtime=[]

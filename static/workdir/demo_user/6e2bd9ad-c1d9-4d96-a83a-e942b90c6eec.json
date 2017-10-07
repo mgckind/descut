@@ -1,0 +1,1 @@
+{"data": "ORA-00942: table or view does not exist", "user": "demo_user", "sizes": null, "kind": "query", "files": null, "elapsed": 0.014771461486816406, "status": "error", "jobid": "6e2bd9ad-c1d9-4d96-a83a-e942b90c6eec"}

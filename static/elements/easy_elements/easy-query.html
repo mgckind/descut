@@ -24,6 +24,15 @@
    on-response="_complete"
    debounce-duration="300">
 </iron-ajax>
+
+<iron-ajax id="getMyJobs"
+           auto
+           url="/api/myjobs/"
+           params='{"part":"fff"}'
+           handle-as="json"
+           on-response="_handleResponse"
+           debounce-duration="300">
+</iron-ajax>
     <des-card heading="{{name}}, you are connected to {{db}} "></des-card>
 
 <!--<div > {{name}}, you are connected to {{db}}  </div>-->
