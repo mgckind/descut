@@ -56,7 +56,7 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
     if ys != "": com += ' --ysize %s ' % ys
     com += " --logfile %s" % (outputs + 'log.log')
     com += " --tag %s" % tag
-    oo = subprocess.check_call([com],shell=True)
+    oo = subprocess.check_output([com],shell=True)
     
     mypath = Settings.UPLOADS+uu+'/results/'+siid+'/'
     user_folder = Settings.UPLOADS+uu+"/"
@@ -103,8 +103,7 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
         #readfile.notify(infoP._uu,siid)
     except:
         pass
-    #return oo.decode('ascii')
-    return oo
+    return oo.decode('ascii')
 
 @celery.task(base=CustomTask)
 def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, listOnly):
