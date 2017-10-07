@@ -30,15 +30,15 @@ celery.config_from_object('celeryconfig')
 class CustomTask(Task):
 
     def on_failure(self, exc, task_id, args, kwargs, einfo):
-        uu = args[1] 
         con = lite.connect(Settings.DBFILE)
         q0 = "UPDATE Jobs SET status='{0}' where job = '{1}'".format('REVOKE', task_id)
         with con:
             cur = con.cursor()
             cur.execute(q0)
             con.commit()
-        con.close()
         try:
+            print(args)
+            uu = args[1] 
             a = requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (uu,siid), verify=False)
         except:
             pass
