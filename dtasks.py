@@ -79,7 +79,7 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
         for ij in range(Ntiles):
             pngfiles[ij] = pngfiles[ij][pngfiles[ij].find('/static'):]
         os.chdir(user_folder)
-        subprocess.check_output(["tar -zcf results/"+siid+"/"+siid+".tar.gz results/"+siid+"/"], shell=True)
+        subprocess.check_output("tar -zcf results/{0}/{0}.tar.gz results/{0}/".format(siid), shell=True)
         os.chdir(os.path.dirname(__file__))
         if os.path.exists(mypath+"list.json"): os.remove(mypath+"list.json")
         with open(mypath+"list.json","w") as outfile:
