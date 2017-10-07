@@ -103,7 +103,8 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
         #readfile.notify(infoP._uu,siid)
     except:
         pass
-    return oo.decode('ascii')
+    #return oo.decode('ascii')
+    return oo
 
 @celery.task(base=CustomTask)
 def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, listOnly):
