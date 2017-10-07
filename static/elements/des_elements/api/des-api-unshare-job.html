@@ -13,11 +13,11 @@
      <tr><th>URL Params:</th><td>token=mytoken&jobid=abc...</td></tr>
      <tr><th>Success:</th><td> 200: content: {"message": "Job abc... was unshared", "status": "ok"}</td></tr>
      <tr><th>Errors:</th><td> 400: no token, 403: Token does not exists or it expired</td></tr>
-     <tr><th>Example:</th><td> curl -X DELETE -G http://descut.cosmology.illinois.edu/api/jobs/ -d "token=c17...&jobid=9839...."</td></tr>
+     <tr><th>Example:</th><td> curl -X DELETE -G https://descut.cosmology.illinois.edu/api/jobs/ -d "token=c17...&jobid=9839...."</td></tr>
      </table>
      <b>Python example:</b>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
-req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>delete(<span style="background-color: #fff0f0">&#39;http://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;jobid=abc...&#39;</span>)
+req <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>delete(<span style="background-color: #fff0f0">&#39;https://descut.cosmology.illinois.edu/api/jobs/?token=1222...&amp;jobid=abc...&#39;</span>)
 <span style="color: #008800; font-weight: bold">print</span>(req<span style="color: #333333">.</span>text)
 {<span style="background-color: #fff0f0">&quot;message&quot;</span>: <span style="background-color: #fff0f0">&quot;Job abc... was unshared&quot;</span>, <span style="background-color: #fff0f0">&quot;status&quot;</span>: <span style="background-color: #fff0f0">&quot;ok&quot;</span>}
 </pre></div>

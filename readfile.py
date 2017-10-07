@@ -51,6 +51,7 @@ def notify(user,jobid):
     with con:
         cur = con.cursor()
         cur.execute(q)
+        con.commit()
     clients[user].write_message(u"Job done!:" + jobid)
     print('Done!')
 
@@ -143,6 +144,7 @@ class FileHandler(BaseHandler):
         with con:
             cur = con.cursor()
             cur.execute("INSERT INTO Jobs VALUES(?, ?, ?, ?, ?, ?, ?)", tup)
+            con.commit()
         self.set_status(200)
         self.flush()
         self.finish()
@@ -211,6 +213,7 @@ class FileHandlerS(BaseHandler):
         with con:
             cur = con.cursor()
             cur.execute("INSERT INTO Jobs VALUES(?, ?, ? ,?, ?, ?, ?)", tup)
+            con.commit()
         self.set_status(200)
         self.flush()
         self.finish()

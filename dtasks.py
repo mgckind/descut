@@ -27,8 +27,26 @@ celery = Celery('dtasks')
 celery.config_from_object('celeryconfig')
 
 
+class CustomTask(Task):
 
-@celery.task
+    def on_failure(self, exc, task_id, args, kwargs, einfo):
+        uu = args[1] 
+        con = lite.connect(Settings.DBFILE)
+        q0 = "UPDATE Jobs SET status='{0}' where job = '{1}'".format('REVOKE', task_id)
+        with con:
+            cur = con.cursor()
+            cur.execute(q0)
+            con.commit()
+        con.close()
+        try:
+            a = requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (uu,siid), verify=False)
+        except:
+            pass
+
+
+
+
+@celery.task(base=CustomTask)
 def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
     com =  "makeDESthumbs  %s --user %s --password %s --MP --outdir=%s" % (inputs, uu, pp, outputs)
     if xs != "": com += ' --xsize %s ' % xs
@@ -75,6 +93,7 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
     with con:
         cur = con.cursor()
         cur.execute(q)
+        con.commit()
     try:
         a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (uu,siid), verify=False)
         #readfile.notify(infoP._uu,siid)
@@ -82,7 +101,7 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
         pass
     return oo.decode('ascii')
 
-@celery.task
+@celery.task(base=CustomTask)
 def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, listOnly):
     #different dir path
     loc_user = uu
@@ -128,6 +147,7 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
     with conS:
         curS = conS.cursor()
         curS.execute(qS)
+        conS.commit()
     # a=requests.get('http://descut.cosmology.illinois.edu:8888/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
     # a=requests.get('http://localhost:8888/api/refresh?user=%s&jid=%s' % (infoP._uu,jobid))
 

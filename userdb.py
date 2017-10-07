@@ -50,6 +50,7 @@ def create_db(delete=False):
         if delete:
             cur.execute("DROP TABLE IF EXISTS Jobs")
         cur.execute("CREATE TABLE IF NOT EXISTS  Jobs(user text, job text, status text, time datetime, public integer, comment text)")
+        con.commit()
 
 #cur.executemany("INSERT INTO Jobs VALUES(?,?,?,?)", bigJ)
 

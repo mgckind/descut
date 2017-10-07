@@ -23,6 +23,7 @@ import datetime
 import requests
 import readfile
 import ast
+from celery import Celery
 
 
 dbConfig0 = Settings.dbConfig()
@@ -286,6 +287,7 @@ class JobHandler(tornado.web.RequestHandler):
             with con:
                 cur = con.cursor()
                 cur.execute("INSERT INTO Jobs VALUES(?, ?, ?, ?, ?, ?, ?)", tup)
+                con.commit()
             response['message'] = 'Job %s submitted.' % (jobid)
             response['job'] = jobid
             try:
@@ -407,6 +409,7 @@ class JobHandler(tornado.web.RequestHandler):
                 with con:
                     cur = con.cursor()
                     cc = cur.execute("DELETE from Jobs where user = '%s' and job = '%s'" % (user, jobid))
+                    con.commit()
                 response['message'] = 'Job %s was deleted' % (jobid)
                 folder = os.path.join(user_folder,'results/' + jobid)
                 os.system('rm -rf ' + folder)
@@ -619,6 +622,7 @@ class ApiHandler(BaseHandler):
                 jid=response[str(j)]
                 q = "DELETE from Jobs where job = '%s' and user = '%s'" % (jid, loc_user)
                 cc = cur.execute(q)
+                con.commit()
                 folder = os.path.join(user_folder,'results/' + jid)
                 try:
                     os.system('rm -rf ' + folder)
@@ -678,17 +682,15 @@ class LogHandler(BaseHandler):
         jobidFull = self.get_argument("jobid")
         jobid = jobidFull[jobidFull.find('__')+2:jobidFull.find('{')-1]
         log_path=os.path.join(Settings.UPLOADS,loc_user, 'results', jobid, 'log.log')
-        res = AsyncResult(jobidFull)
-
         log = ''
 
-        if res.ready():
+        try:
             with open(log_path, 'r') as logFile:
                 for line in logFile:
                     log+=line+'<br>'
             temp = json.dumps(log)
-        else:
-            temp = json.dumps('Running')
+        except:
+            temp = json.dumps(log)
         # if res is not None:
         #     try:
         #         temp = json.dumps(res.result.replace('\n','</br>'))
@@ -706,12 +708,17 @@ class CancelJobHandler(BaseHandler):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
         jobid = self.get_argument("jobid")
         jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
-        revoke(jobid, terminate=True)
+        app = Celery()
+        app.config_from_object('celeryconfig')
+        app.control.revoke(jobid, terminate=True)
+        app.close() 
+        #revoke(jobid, terminate=True)
         con = lite.connect(Settings.DBFILE)
         with con:
             cur = con.cursor()
             q = "UPDATE Jobs SET status='REVOKED' where job = '%s'" % jobid2
             cc = cur.execute(q)
+            con.commit()
         self.set_status(200)
         self.flush()
         self.finish()
@@ -730,6 +737,7 @@ class ShareJobHandler(BaseHandler):
                 jid = response[str(j)]
                 q = "UPDATE Jobs SET public=%d where job = '%s'" % (1, jid)
                 cc = cur.execute(q)
+                con.commit()
                 folder = os.path.join(user_folder, 'results/' + jid)
 
         self.set_status(200)
@@ -749,6 +757,7 @@ class ShareJobHandler(BaseHandler):
                 jid=response[str(j)]
                 q = "UPDATE Jobs SET public=%d where job = '%s'" % (0, jid)
                 cc = cur.execute(q)
+                con.commit()
                 folder = os.path.join(user_folder,'results/' + jid)
 
         self.set_status(200)
@@ -779,6 +788,7 @@ class AddCommentHandler(BaseHandler):
             check = "select * from Jobs where job = '%s'" % jobid
             cc = cur.execute(q)
             cc = cur.execute(check).fetchall()
+            con.commit()
             print(cc)
             folder = os.path.join(user_folder, 'results/' + jobid)
 
