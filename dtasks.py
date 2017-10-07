@@ -72,14 +72,14 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
         Ntiles = len(tiffiles)
         for f in tiffiles:
             title=f.split('/')[-1][:-4]
-            os.system("convert %s %s.png" % (f,f))
+            subprocess.check_output(["convert %s %s.png" % (f,f)], shell=True)
             titles.append(title)
             pngfiles.append(mypath+title+'.tif.png')
 
         for ij in range(Ntiles):
             pngfiles[ij] = pngfiles[ij][pngfiles[ij].find('/static'):]
         os.chdir(user_folder)
-        os.system("tar -zcf results/"+siid+"/"+siid+".tar.gz results/"+siid+"/")
+        subprocess.check_output(["tar -zcf results/"+siid+"/"+siid+".tar.gz results/"+siid+"/"], shell=True)
         os.chdir(os.path.dirname(__file__))
         if os.path.exists(mypath+"list.json"): os.remove(mypath+"list.json")
         with open(mypath+"list.json","w") as outfile:
