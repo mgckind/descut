@@ -33,7 +33,8 @@ class CustomTask(Task):
 
     def on_failure(self, exc, task_id, args, kwargs, einfo):
         con = lite.connect(Settings.DBFILE)
-        q0 = "UPDATE Jobs SET status='{0}' where job = '{1}'".format('REVOKE', task_id)
+        jobid = args[6]
+        q0 = "UPDATE Jobs SET status='{0}' where job = '{1}'".format('REVOKE', jobid)
         with con:
             cur = con.cursor()
             cur.execute(q0)
@@ -41,7 +42,7 @@ class CustomTask(Task):
         try:
             print(args)
             uu = args[1] 
-            a = requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (uu,siid), verify=False)
+            a = requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (uu,jobid), verify=False)
         except:
             pass
 
@@ -56,6 +57,7 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
     com += " --logfile %s" % (outputs + 'log.log')
     com += " --tag %s" % tag
     oo = subprocess.check_output([com],shell=True)
+    
     mypath = Settings.UPLOADS+uu+'/results/'+siid+'/'
     user_folder = Settings.UPLOADS+uu+"/"
 
@@ -123,7 +125,6 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
     if ys != "": cmd += ' --ysize %s ' % ys
 
     oo = subprocess.check_call(cmd, shell=True)
-
     #generate archives for each job
     job_tar = jobid+'.tar.gz'
     os.chdir(user_folder+'results/')
