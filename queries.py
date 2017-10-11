@@ -111,11 +111,11 @@ class QueryHandler(BaseHandler):
                 return
 
             # cur.execute("INSERT INTO Jobs VALUES(?, ?, ?, ?, ?, ?, ?, ?)", tup)
-            # cur.execute("INSERT INTO Jobs VALUES{0}".format(tup))
+            cur.execute("INSERT INTO Jobs VALUES{0}".format(tup))
 
             cur.execute("SELECT * from Jobs where user = '{0}'".format(loc_user))
             cc = cur.fetchall()
-            print("==> ", list(cc))
+            # print("==> ", list(cc))
             con.commit()
             try:
                 run = ea_tasks.run_query.apply_async(args=[query, filename, db,

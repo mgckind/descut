@@ -19,6 +19,13 @@
             margin-top: 2px;
 
         }
+        paper-button.describeButton {
+            width: 100px;
+            text-transform: none;
+            --paper-button: {
+                width: 70px;
+            }
+        }
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
@@ -62,6 +69,7 @@
             --paper-button-flat-focus-color: var(--paper-blue-50);
         }
         paper-button.desbutton:hover {
+
             background: var(--paper-blue-50);
         }
 
@@ -84,21 +92,21 @@
             overflow: auto;
         }
 
-        .status {
+        div.status {
             display: inline-block;
             box-sizing: border-box;
             border-radius: 50%;
             background: var(--paper-yellow-500);
         }
-        .green {
+        div.green {
             background: var(--paper-green-500);
         }
-        .red {
+        div.red {
             background: var(--paper-red-500);
         }
 
 
-        .des-hr {
+        hr.des-hr {
 
             color:black;
             border-color:black;
@@ -146,7 +154,13 @@
             height: 95%;
             width: 82%;
         }
-        .describeButton {
+
+        .paper-header {
+            position: absolute;
+            width: 100%;
+            color: white;
+        }
+        paper-button.describeButton {
             width: 100px;
             text-transform: none;
             --paper-button: {
@@ -155,7 +169,7 @@
         }
 
 
-        .SeeFilesButton {
+        paper-button.SeeFilesButton {
             width: 100px;
             text-transform: none;
             --paper-button: {
@@ -163,7 +177,7 @@
             }
         }
 
-        .queryMsg {
+        span.queryMsg {
             font-size: 20px;
             font-weight: bold;
         }
@@ -173,7 +187,7 @@
             overflow: scroll;
         }
 
-        .query-box {
+        div.query-box {
             margin: 10px;
             width: auto;
             height: auto;
@@ -206,10 +220,10 @@
 
         }
 
-        .toast-position {
+        paper-dialog#toast-position {
             margin-left: 268px;
         }
-        .dialog-position {
+        paper-dialog#dialog-position {
             width: 100%;
             height: 80%;
             margin-left: 40px;

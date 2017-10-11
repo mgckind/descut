@@ -9,7 +9,6 @@ import pandas as pd
 import numpy as np
 import os, uuid, io
 import json
-import sqlite3 as lite
 import sys
 import datetime as dt
 from celery.result import AsyncResult
@@ -28,6 +27,8 @@ import easyaccess as ea
 import MySQLdb as mydb
 #import config.mysqlconfig as ms
 import yaml
+from celery import Celery
+
 
 
 dbConfig0 = Settings.dbConfig()
@@ -177,8 +178,8 @@ class JobHandler(tornado.web.RequestHandler):
 
         if response['status'] == 'ok':
             try:
-                jtype = arguments['job_type'].lower()
-                if jtype not in ('coadd','single'): raise
+                jtypes = arguments['job_type'].lower()
+                if jtypes not in ('coadd','single'): raise
             except:
                 self.set_status(400)
                 response['status']='error'
@@ -272,7 +273,7 @@ class JobHandler(tornado.web.RequestHandler):
             tiid = user+'__'+jobid+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
             comment = arguments['comment']
             #SUBMIT JOB, ADD TO SQLITE
-            if jtype == 'coadd':
+            if jtypes == 'coadd':
                 tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'DES',"","",""])
                 if send_email:
                     run=dtasks.desthumb.apply_async(args=[user_folder + jobid + '.csv', user, passwd, folder2, xs,ys,jobid, list_only, rtag.upper()], task_id=tiid, link=dtasks.send_note.si(user, jobid, email))
@@ -294,9 +295,10 @@ class JobHandler(tornado.web.RequestHandler):
             cur.execute("INSERT INTO Jobs VALUES(?, ?, ?, ?, ?, ?, ?, ?)", tup)
             # cur.execute("SELECT * from Jobs where user = '{0}' order by time DESC".format(loc_user))
             cc = cur.fetchall()
+            con.commit()
             con.close()
-            
-            
+
+
             # con = lite.connect(Settings.DBFILE)
             # with con:
             #     cur = con.cursor()
@@ -338,7 +340,7 @@ class JobHandler(tornado.web.RequestHandler):
                     conf = yaml.load(cfile)['mysql']
                 con = mydb.connect(**conf)
                 cur = con.cursor()
-                cc = cur.execute("SELECT job, datetime(time), status, type  from Jobs where user = '%s' order by datetime(time) DESC  " % user).fetchall()
+                cc = cur.execute("SELECT job, time, status, type  from Jobs where user = '%s' order by time DESC  " % user).fetchall()
 
                 response['message'] = 'List of jobs returned'
                 response['list_jobs'] = [j[0] for j in cc]
@@ -618,48 +620,55 @@ class ApiHandler(BaseHandler):
             conf = yaml.load(cfile)['mysql']
         con = mydb.connect(**conf)
         cur = con.cursor()
-        cmd = "SELECT * from Jobs where user = '{user}' order datetime(time) DESC".format(user=loc_user)
+        cmd = "SELECT * from Jobs where user = '{user}' order by time DESC".format(user=loc_user)
         # cmd = "SELECT * from Jobs where user = '{user}' order by datetime(time) DESC ".format(user=loc_user)
         # cmd = "SELECT * from Jobs where user = '%s' order by datetime(time) DESC  " % loc_user
+        # print("\n\n\n==>  cmd data: ", cmd, "\n\n\n\n")
+
         cur.execute(cmd)
         cc = cur.fetchall()
         cc = list(cc)
-        print("\n\n\n==>  retrived data: ", cc, "\n\n\n\n")
+        # print("\n\n\n==>  retrived data: ", cc, "\n\n\n\n")
 
         jjob=[]
         jstatus=[]
         jtime=[]
         jelapsed=[]
-        jtype=[]
+        jtypes=[]
         # jpublic=[]
         # jcomment=[]
-        # jtype=[]
+        # jtypes=[]
         jquery=[]
         jfiles=[]#.append(cc[i][6])
         jsizes=[]#.append(cc[i][7])
-        jcon=[]
+        # jcon=[]
         jtitle=[]
         jfiles_bool = []
 
         for i in range(len(cc)):
-            dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
+            #dd = dt.datetime.strptime(cc[i][3],'%Y-%m-%d %H:%M:%S')
+            dd = cc[i][3]
+
             ctime = dd.strftime('%a %b %d %H:%M:%S %Y')
             jjob.append(cc[i][0]+'__'+cc[i][1]+'_{'+ctime+'}')
-            jcon.append(cc[i][0])
+            # jcon.append(cc[i][0])
             jtitle.append(cc[i][1])
             jstatus.append(cc[i][2])
             jtime.append(ctime)
-            jtype.append(cc[i][4])
+            jtypes.append(cc[i][4])
             jelapsed.append(humantime((dt.datetime.now()-dd).total_seconds())+" ago")
-            jpubljquery.append(cc[i][5])
+            jquery.append(cc[i][5])
             jfiles.append(cc[i][6])
             jsizes.append(cc[i][7])
-            jfiles_bool.append(cc[i][8])
+            if cc[i][6] == '':
+                jfiles_bool.append(False)
+            else:
+                jfiles_bool.append(True)
 
 
 
-        out_dict= [dict(job=jjob[i], status=jstatus[i], time=jtime[i], elapsed=jelapsed[i],
-                    jtype = jtype[i], jquery=jquery[i], jfiles=jfiles[i], jbool=jfiles_bool[i], user=loc_user,
+        out_dict= [dict(job=jjob[i], jtitle = jtitle[i],status=jstatus[i], time=jtime[i], elapsed=jelapsed[i],
+                    jtypes = jtypes[i], jquery=jquery[i], jfiles=jfiles[i], jbool=jfiles_bool[i], user=loc_user,
                     jsizes=jsizes[i]) for i in range(len(jjob))]
         temp = json.dumps(out_dict, indent=4)
             #with open('static/jobs2.json',"w") as outfile:
@@ -704,7 +713,10 @@ class CancelJobHandler(BaseHandler):
     def delete(self):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
         jobid = self.get_argument("jobid")
+        # jobtitle = self.get_argument("jobtitle")
+        # print("jobtitle: ", jobtitle)
         jobid2=jobid[jobid.find('__')+2:jobid.find('{')-1]
+        print("jobid2: ", jobid2)
         revoke(jobid, terminate=True)
         with open('config/mysqlconfig.yaml', 'r') as cfile:
             conf = yaml.load(cfile)['mysql']
@@ -712,86 +724,36 @@ class CancelJobHandler(BaseHandler):
         cur = con.cursor()
         q = "UPDATE Jobs SET status='REVOKED' where job = '%s'" % jobid2
         cc = cur.execute(q)
-        self.set_status(200)
-        self.flush()
-        self.finish()
-
-class ShareJobHandler(BaseHandler):
-    @tornado.web.authenticated
-    def get(self):
-        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"', '')
-        user_folder = os.path.join(Settings.UPLOADS, loc_user)
-        response = {k: self.get_argument(k) for k in self.request.arguments}
-        Nd = len(response)
-        with open('config/mysqlconfig.yaml', 'r') as cfile:
-            conf = yaml.load(cfile)['mysql']
-        con = mydb.connect(**conf)
-        cur = con.cursor()
-        # cur = con.cursor()
-        for j in range(Nd):
-            jid = response[str(j)]
-            q = "UPDATE Jobs SET public=%d where job = '%s'" % (1, jid)
-            cc = cur.execute(q)
-            folder = os.path.join(user_folder, 'results/' + jid)
-
-        self.set_status(200)
-        self.flush()
-        self.finish()
-
-    @tornado.web.authenticated
-    def delete(self):
-        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"','')
-        user_folder = os.path.join(Settings.UPLOADS,loc_user)
-        response = { k: self.get_argument(k) for k in self.request.arguments }
-        Nd=len(response)
-        with open('config/mysqlconfig.yaml', 'r') as cfile:
-            conf = yaml.load(cfile)['mysql']
-        con = mydb.connect(**conf)
-        cur = con.cursor()
-        for j in range(Nd):
-            jid=response[str(j)]
-            q = "UPDATE Jobs SET public=%d where job = '%s'" % (0, jid)
-            cc = cur.execute(q)
-            folder = os.path.join(user_folder,'results/' + jid)
-
-        self.set_status(200)
-        self.flush()
-        self.finish()
-
-class AddCommentHandler(BaseHandler):
-    @tornado.web.authenticated
-    @tornado.web.asynchronous
-    def post(self):
-        loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"', '')
-        user_folder = os.path.join(Settings.UPLOADS, loc_user)
-        comment = self.get_argument("comment")
-        print("*******")
-        print(comment)
-        jobid = self.get_argument("jobid")
-        print(jobid)
-        print("*******")
-
-        # response = {k: self.get_argument(k) for k in  self.request.arguments}
-        # Nd = len(response)
-        with open('config/mysqlconfig.yaml', 'r') as cfile:
-            conf = yaml.load(cfile)['mysql']
-        con = mydb.connect(**conf)
-        cur = con.cursor()
-            # for j in range(Nd):
-                # jid = response[str(j)]
-        q = "UPDATE Jobs SET comment='%s' where job = '%s'" % (comment, jobid)
-        check = "select * from Jobs where job = '%s'" % jobid
-        cc = cur.execute(q)
-        cc = cur.execute(check).fetchall()
-        print(cc)
-        folder = os.path.join(user_folder, 'results/' + jobid)
-
+        con.commit()
+        # cc.commit()
+        # q = "select status from Jobs where job = '%s'" % jobid2
+        # cc = cur.execute(q)
+        # print(cur.fetchall())
+        con.close()
         self.set_status(200)
         self.flush()
         self.finish()
 
 
 class MyJobsHandler(BaseHandler):
+    @tornado.web.authenticated
+    def delete(self):
+        user = self.get_argument('username')
+        jobid = self.get_argument('jobid')
+        app = Celery()
+        app.config_from_object('config.celeryconfig')
+        app.control.revoke(jobid, terminate=True)
+        app.close()
+
+        with open('config/mysqlconfig.yaml', 'r') as cfile:
+            conf = yaml.load(cfile)['mysql']
+        con = mydb.connect(**conf)
+        cur = con.cursor()
+        q0 = "UPDATE Jobs SET status='{0}' where job = '{1}'".format('REVOKE', jobid)
+        cur.execute(q0)
+        con.commit()
+        con.close()
+        self.finish()
     @tornado.web.authenticated
     def get(self):
         loc_user = self.get_secure_cookie("usera").decode('ascii').replace('\"', '')
@@ -811,10 +773,11 @@ class MyJobsHandler(BaseHandler):
         con.close()
         cc = list(cc)
         jjob = []
+        jtitle =[]
         jstatus = []
         jtime = []
         jelapsed = []
-        jtype = []
+        jtypes = []
         jquery = []
         jfiles = []
         jsizes = []
@@ -824,10 +787,13 @@ class MyJobsHandler(BaseHandler):
             #dd = datetime.datetime.strptime(cc[i][3], '%Y-%m-%d %H:%M:%S')
             dd = cc[i][3]
             ctime = dd.strftime('%a %b %d %H:%M:%S %Y')
-            jjob.append(cc[i][1])
+            ctime = dd.strftime('%a %b %d %H:%M:%S %Y')
+            jjob.append(cc[i][0] + '__' + cc[i][1] + '_{' + ctime + '}')
+            jtitle.append(cc[i][1])
             jstatus.append(cc[i][2])
             jtime.append(ctime)
-            jtype.append(cc[i][4])
+            jelapsed.append(humantime((dt.datetime.now()-dd).total_seconds())+" ago")
+            jtypes.append(cc[i][4])
             jquery.append(cc[i][5])
             jfiles.append(cc[i][6])
             jsizes.append(cc[i][7])
@@ -836,11 +802,12 @@ class MyJobsHandler(BaseHandler):
             else:
                 jfiles_bool.append(True)
             jelapsed.append(humantime((datetime.datetime.now()-dd).total_seconds())+" ago")
-        out_dict = [dict(job=jjob[i], status=jstatus[i], time=jtime[i], elapsed=jelapsed[i],
-                    jtype = jtype[i], jquery=jquery[i], jfiles=jfiles[i], jbool=jfiles_bool[i], user=loc_user,
+        out_dict = [dict(job=jjob[i], jtitle = jtitle[i], status=jstatus[i], time=jtime[i], elapsed=jelapsed[i],
+                    jtypes = jtypes[i], jquery=jquery[i], jfiles=jfiles[i], jbool=jfiles_bool[i], user=loc_user,
                     jsizes=jsizes[i]) for i in range(len(jjob))]
         temp = json.dumps(out_dict, indent=4)
         self.write(temp)
+
 
 
 class MyTablesHandler(BaseHandler):
@@ -868,7 +835,10 @@ class MyResponseHandler(BaseHandler):
         loc_passw = self.get_secure_cookie("userb").decode('ascii').replace('\"', '')
         jobid = self.get_argument('jobid')
         user_folder = os.path.join(Settings.WORKDIR, loc_user)+'/'
+        print("user_folder: ", user_folder)
         jsonfile = os.path.join(user_folder, jobid+'.json')
+        print("jsonfile: ", jsonfile)
+
         with open(jsonfile, 'r') as data_file:
             tmp = json.load(data_file)
         self.flush()

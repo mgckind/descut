@@ -14,7 +14,6 @@ from email.mime.multipart import MIMEMultipart
 from email.header import Header
 from email.utils import formataddr
 import Settings
-import sqlite3 as lite
 #
 #import easyaccess as ea
 import requests
@@ -22,11 +21,31 @@ import pandas as pd
 import readfile
 import api
 from cutout_cmd import mongo_util as mu
+import yaml
+import MySQLdb as mydb
+import backup
 
 celery = Celery('dtasks')
 celery.config_from_object('celeryconfig')
 
+class CustomTask(Task):
+    abstruct = None
 
+    def on_failure(self, exc, task_id, args, kwargs, einfo):
+        with open('config/mysqlconfig.yaml', 'r') as cfile:
+            conf = yaml.load(cfile)['mysql']
+        con = mydb.connect(**conf)
+        q0 = "UPDATE Jobs SET status='{0}' where job = '{1}'".format('REVOKE', task_id)
+        with con:
+            cur = con.cursor()
+            cur.execute(q0)
+            con.commit()
+        try:
+            print(args)
+            uu = args[1]
+            a = requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (uu,siid), verify=False)
+        except:
+            pass
 
 @celery.task
 def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
@@ -50,14 +69,14 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
         Ntiles = len(tiffiles)
         for f in tiffiles:
             title=f.split('/')[-1][:-4]
-            os.system("convert %s %s.png" % (f,f))
+            subprocess.check_output(["convert %s %s.png" % (f, f)], shell=True)
             titles.append(title)
             pngfiles.append(mypath+title+'.tif.png')
 
         for ij in range(Ntiles):
             pngfiles[ij] = pngfiles[ij][pngfiles[ij].find('/static'):]
         os.chdir(user_folder)
-        os.system("tar -zcf results/"+siid+"/"+siid+".tar.gz results/"+siid+"/")
+        os.system("tar -zcf results/{0}/{0}.tar.gz results/{0}/".format(siid))
         os.chdir(os.path.dirname(__file__))
         if os.path.exists(mypath+"list.json"): os.remove(mypath+"list.json")
         with open(mypath+"list.json","w") as outfile:
@@ -70,11 +89,14 @@ def desthumb(inputs, uu,pp, outputs,xs,ys, siid, listonly, tag):
     for ff in allfiles:
         if (ff.find(siid+'.tar.gz')==-1 & ff.find('list.json')==-1): Fall.write(prefix+ff.split('static')[-1]+'\n')
     Fall.close()
-    con = lite.connect(Settings.DBFILE)
+    with open('config/mysqlconfig.yaml', 'r') as cfile:
+        conf = yaml.load(cfile)['mysql']
+    con = mydb.connect(**conf)
     q="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % siid
     with con:
         cur = con.cursor()
         cur.execute(q)
+        con.commit()
     try:
         a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (uu,siid))
         #readfile.notify(infoP._uu,siid)
@@ -101,7 +123,7 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
     if xs != "": cmd += ' --xsize %s ' % xs
     if ys != "": cmd += ' --ysize %s ' % ys
 
-    oo = subprocess.check_call(cmd, shell=True)
+    oo = subprocess.check_output(cmd, shell=True)
 
     #generate archives for each job
     job_tar = jobid+'.tar.gz'
@@ -122,12 +144,15 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
 
     os.chdir(script_dir)
 
-    # update job status in sqlite
-    conS = lite.connect(Settings.DBFILE)
+    # conS = lite.connect(Settings.DBFILE)
+    with open('config/mysqlconfig.yaml', 'r') as cfile:
+        conf = yaml.load(cfile)['mysql']
+    conS = mydb.connect(**conf)
     qS="UPDATE Jobs SET status='SUCCESS' where job = '%s'" % jobid
     with conS:
         curS = conS.cursor()
         curS.execute(qS)
+        conS.commit()
     # a=requests.get('http://descut.cosmology.illinois.edu:8888/api/refresh/?user=%s&jid=%s' % (infoP._uu,siid))
     # a=requests.get('http://localhost:8888/api/refresh?user=%s&jid=%s' % (infoP._uu,jobid))
 
@@ -144,7 +169,7 @@ def mkcut(filename, uu,pp, outdir, xs, ys, bands, jobid, noBlacklist, tiid, list
         a=requests.get(Settings.ROOT_URL+'/api/refresh/?user=%s&jid=%s' % (loc_user,jobid))
     except:
         pass
-    return oo
+    return oo.decode('ascii')
 
 @celery.task
 def send_note(user, jobid, toemail):

@@ -1,0 +1,1 @@
+{"elapsed": 0.08031296730041504, "status": "error", "jobid": "f2bda829-4e1a-42ec-a4e8-5d4505b7d771", "sizes": null, "kind": "query", "data": "ORA-00904: \"HAHA\": invalid identifier", "user": "demo_user", "files": null}

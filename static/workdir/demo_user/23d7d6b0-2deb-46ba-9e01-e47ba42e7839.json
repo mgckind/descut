@@ -1,0 +1,1 @@
+{"kind": "query", "files": ["test.csv"], "jobid": "23d7d6b0-2deb-46ba-9e01-e47ba42e7839", "status": "ok", "user": "demo_user", "elapsed": 0.6038913726806641, "data": "File /home/ruiqili2/zoe/descut/static/workdir/demo_user/23d7d6b0-2deb-46ba-9e01-e47ba42e7839/test.csv written", "sizes": ["353.23 KB"]}

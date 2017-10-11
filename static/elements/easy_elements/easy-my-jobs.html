@@ -4,6 +4,7 @@
 <template>
 <style include="shared-styles">
 
+
     vaadin-grid#material {
 
         height: 80%;
@@ -100,6 +101,8 @@
         debounce-duration="300">
     </iron-ajax>
 
+
+
     <paper-dialog class="dialog-position" id="JobQuery" with-backdrop on-iron-overlay-opened="patchOverlay">
               <h2>Job id: {{jobid}}</h2>
               <div style=" border: 1px solid black; padding: 0px; padding-bottom: 15px;">
@@ -128,7 +131,7 @@
         <!-- If necessary, the footer could be set using <template class="footer"> -->
       </vaadin-grid-column>
 
-      <vaadin-grid-column width="100px" flex-grow="0">
+      <vaadin-grid-column width="80px" flex-grow="0">
         <template class="header">Status</template>
 
           <template>
@@ -145,6 +148,8 @@
               </template>
           </template>
       </vaadin-grid-column>
+
+
     <!--<vaadin-grid-column flex-grow="2">-->
         <!--<template class="header">Check</template>-->
         <!--<template>{{item.status}}<br />-->
@@ -158,6 +163,8 @@
             <span style="font-size: 0.7em;">{{item.elapsed}}</span>
         </template>
       </vaadin-grid-column>
+
+
 
         <vaadin-grid-column flex-grow="1">
               <template class="header">Queries</template>
@@ -208,6 +215,21 @@ function keysrt(key,desc) {
       attached: function() {
         myJobQuery = document.getElementById("jobQueryBox");
         },
+
+      _getJobId: function(username, jobid){
+          return {
+              username:username,
+              jobid:jobid};
+      },
+      _handleTermination: function(e){
+          document.getElementById("getMyJobs").generateRequest();
+      },
+      _killQuery: function(e){
+              e.preventDefault();
+              this.jobid = e.model.item.job;
+              this.username = e.model.item.user;
+              document.getElementById("killJob").generateRequest();
+       },
       _handleResponse: function(e){
         var _self = this;
         _self.data = e.detail.response;

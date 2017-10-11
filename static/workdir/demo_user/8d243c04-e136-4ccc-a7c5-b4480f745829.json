@@ -1,0 +1,1 @@
+{"jobid": "8d243c04-e136-4ccc-a7c5-b4480f745829", "data": "ORA-00904: \"CY\": invalid identifier", "elapsed": 0.011907339096069336, "files": null, "status": "error", "kind": "query", "sizes": null, "user": "demo_user"}

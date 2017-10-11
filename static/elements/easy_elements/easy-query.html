@@ -147,6 +147,7 @@ Polymer({
             console.log(_self.jobid)
             document.getElementById("getMyResponse").generateRequest();
                 _self.msg = tmp.result;
+                console.log("msg: ", _self.msg)
             }
     },
     _returnVal: function(item,key) {return item[key];},
@@ -191,6 +192,8 @@ Polymer({
             if (_self.isOk){
             document.querySelector('#toast1').show();}
         }
+        var req = document.getElementById("getData");
+        req.generateRequest();
         //document.querySelector('#toast1').show();
     },
     _request: function(e){

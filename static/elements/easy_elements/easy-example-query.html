@@ -50,16 +50,16 @@
 
 
                 <!--</vaadin-grid>-->
-                <table id="example">
+                <table id="exampleT">
                     <tr>
                         <th>Example</th>
-                        <th>Result</th>
+                        <!--<th>Result</th>-->
                         <th>Description</th>
                         <th>Options</th>
                     </tr>
                     <tr>
                         <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
-                        <td>RESULT TAB NEED HERE</td>
+                        <!-- <td>RESULT TAB NEED HERE</td> -->
                         <td>SHORT DESCRIPTION</td>
                         <td>
                             <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
@@ -67,7 +67,7 @@
                     </tr>
                     <tr>
                         <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
-                        <td>RESULT TAB NEED HERE</td>
+                        <!-- <td>RESULT TAB NEED HERE</td> -->
                         <td>SHORT DESCRIPTION</td>
                         <td>
                             <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
@@ -75,7 +75,7 @@
                     </tr>
                     <tr>
                         <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
-                        <td>RESULT TAB NEED HERE</td>
+                        <!-- <td>RESULT TAB NEED HERE</td> -->
                         <td>SHORT DESCRIPTION</td>
                         <td>
                             <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
@@ -83,7 +83,7 @@
                     </tr>
                     <tr>
                         <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
-                        <td>RESULT TAB NEED HERE</td>
+                        <!-- <td>RESULT TAB NEED HERE</td> -->
                         <td>SHORT DESCRIPTION</td>
                         <td>
                             <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
@@ -91,7 +91,7 @@
                     </tr>
                     <tr>
                         <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
-                        <td>RESULT TAB NEED HERE</td>
+                        <!-- <td>RESULT TAB NEED HERE</td> -->
                         <td>SHORT DESCRIPTION</td>
                         <td>
                             <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
@@ -99,7 +99,7 @@
                     </tr>
                     <tr>
                         <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
-                        <td>RESULT TAB NEED HERE</td>
+                        <!-- <td>RESULT TAB NEED HERE</td> -->
                         <td>SHORT DESCRIPTION</td>
                         <td>
                             <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
@@ -107,7 +107,7 @@
                     </tr>
                     <tr>
                         <td>select COADD_OBJECT_ID, RA,DEC MAG_AUTO_G from DR1_MAIN sample(0.0001)</td>
-                        <td>RESULT TAB NEED HERE</td>
+                        <!-- <td>RESULT TAB NEED HERE</td> -->
                         <td>SHORT DESCRIPTION</td>
                         <td>
                             <paper-button raised dialog-confirm on-tap="_copyQuery">copy query</paper-button>
@@ -136,7 +136,8 @@
             _copyQuery: function(){
                 document.querySelector('#toastCopyExample').show();
 
-                var table = document.getElementById("example"),rIndex,cIndex, value;
+                var table = document.getElementById("exampleT"), rIndex, cIndex, value;
+                console.log(table.rows)
                 // table rows
                 for(var i = 1; i < table.rows.length; i++)
                 {
@@ -147,7 +148,7 @@
                         {
                             rIndex = this.parentElement.rowIndex;
                             cIndex = 0;
-                            this.querystr = document.getElementById('example').rows[rIndex].cells[cIndex].innerHTML;
+                            this.querystr = document.getElementById('exampleT').rows[rIndex].cells[cIndex].innerHTML;
                             console.log("Row : "+rIndex+" , Cell : "+cIndex);
                             console.log("read query 1: ", this.querystr);
 //                            this.querystr = value;

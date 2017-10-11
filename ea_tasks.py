@@ -3,7 +3,6 @@ import easyaccess as ea
 import requests
 from Crypto.Cipher import AES
 import base64
-import sqlite3 as lite
 import Settings
 import os
 import threading
@@ -33,6 +32,19 @@ def get_filesize(filename):
 class CustomTask(Task):
 
     abstract = None
+
+    def on_failure(self, exc, task_id, args, kwargs, einfo):
+        url = 'http://localhost:8999/pusher/pusher/'
+
+        with open('config/mysqlconfig.yaml', 'r') as cfile:
+                conf = yaml.load(cfile)['mysql']
+        con = mydb.connect(**conf)
+        q0 = "UPDATE Jobs SET status='{0}' where job = '{1}'".format('REVOKE', task_id)
+        cur = con.cursor()
+        cur.execute(q0)
+        con.commit()
+        con.close()
+        requests.post(url, data={}, verify=False)
 
     def after_return(self, status, retval, task_id, args, kwargs, einfo):
         url = 'http://localhost:8999/pusher/pusher/'
@@ -132,9 +144,12 @@ def run_query(query, filename, db, username, lp, jid, timeout=None):
                 t2 = time.time()
                 job_folder = os.path.join(user_folder, jid)+'/'
                 files = glob.glob(job_folder+'*')
+                print("==> ea files: ", files)
                 response['files'] = [os.path.basename(i) for i in files]
+                print("==> resp files: ", files)
                 response['sizes'] = [get_filesize(i) for i in files]
                 data = 'File {0} written'.format(outfile)
+                print("==> ea data: ", data)
                 response['kind'] = 'query'
             else:
                 df = connection.query_to_pandas(query)
@@ -154,8 +169,8 @@ def run_query(query, filename, db, username, lp, jid, timeout=None):
     else:
         response['kind'] = 'query'
         try:
-            # TODO: HOW TO INSERT TYPE HERE?
             df = cursor.execute(query)
+            print("\n\n\n--> query: ", query, "\n\n\n")
             connection.con.commit()
             if timeout is not None:
                 tt.cancel()
