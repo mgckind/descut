@@ -281,7 +281,7 @@ class JobHandler(tornado.web.RequestHandler):
                 tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE', 0, comment])
                 if send_email:
                     run=dtasks.mkcut.apply_async(args=[filename, user, passwd, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
-                        task_id=tiid, link=dtasks.send_note.si(user, tiid, toemail))
+                        task_id=tiid, link=dtasks.send_note.si(user, tiid, email))
                 else:
                     run=dtasks.mkcut.apply_async(args=[filename,user, passwd, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                         task_id=tiid)
