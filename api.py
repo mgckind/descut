@@ -266,7 +266,10 @@ class JobHandler(tornado.web.RequestHandler):
             infP = infoP(user,passwd)
             now = datetime.datetime.now()
             tiid = user+'__'+jobid+'_{'+now.strftime('%a %b %d %H:%M:%S %Y')+'}'
-            comment = arguments['comment']
+            try:
+                comment = arguments['comment']
+            except:
+                comment = ''
             #SUBMIT JOB, ADD TO SQLITE
             if jtype == 'coadd':
                 tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'Coadd', 0, comment])
@@ -278,7 +281,7 @@ class JobHandler(tornado.web.RequestHandler):
                 tup = tuple([user,jobid,'PENDING',now.strftime('%Y-%m-%d %H:%M:%S'),'SE', 0, comment])
                 if send_email:
                     run=dtasks.mkcut.apply_async(args=[filename, user, passwd, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
-                        task_id=tiid, link=dtasks.send_note.si(loc_user, tiid, toemail))
+                        task_id=tiid, link=dtasks.send_note.si(user, tiid, toemail))
                 else:
                     run=dtasks.mkcut.apply_async(args=[filename,user, passwd, folder2, xs, ys, bands, jobid, noBlacklist, tiid, list_only], \
                         task_id=tiid)
